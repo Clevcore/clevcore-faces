@@ -1,0 +1,480 @@
+/* commandButton */
+.input {
+	padding-top: 23px;
+}
+
+.default {
+	background-color: #474949;
+	border-color: #474949;
+	color: #fff;
+}
+
+.default:hover {
+	background-color: #3a3c3c;
+	border-color: #3a3c3c;
+}
+
+.default:disabled,.default[data-disabled='true'],.default[data-disabled='true']:hover {
+	background-color: #929696;
+	border-color: #929696;
+	color: #eee;
+}
+
+.default2 {
+	background-color: #fff;
+	border-color: #e7e7e7;
+	color: #777;
+}
+
+.default2:hover {
+	background-color: #f2f2f2;
+	border-color: #ddd;
+}
+
+.default2:disabled,.default2[data-disabled='true'],.default2[data-disabled='true']:hover {
+	background-color: #fff;
+	border-color: #e7e7e7;
+	color: #777;
+}
+
+.primary  {
+	background-color: #428bca;
+	border-color: #428bca;
+	color: #fff;
+}
+
+.primary:hover {
+	background-color: #357ebd;
+	border-color: #357ebd;
+}
+
+.primary:disabled,.primary[data-disabled='true'],.primary[data-disabled='true']:hover {
+	background-color: #7fa7c9;
+	border-color: #7fa7c9;
+	color: #eee;
+}
+
+.secondary {
+	background-color: #ca4242;
+	border-color: #ca4242;
+	color: #fff;
+}
+
+.secondary:hover {
+	background-color: #bd3535;
+	border-color: #bd3535;
+}
+
+.secondary:disabled,.secondary[data-disabled='true'],.secondary[data-disabled='true']:hover {
+	background-color: #c97f7f;
+	border-color: #c97f7f;
+	color: #eee;
+}
+
+.tertiary {
+	background-color: #60c451;
+	border-color: #60c451;
+	color: #fff;
+}
+
+.tertiary:hover {
+	background-color: #4bbd35;
+	border-color: #4bbd35;
+}
+
+.tertiary:disabled,.tertiary[data-disabled='true'],.tertiary[data-disabled='true']:hover {
+	background-color: #89c97f;
+	border-color: #89c97f;
+	color: #eee;
+}
+
+.quaternary {
+	background-color: #f2f2f2;
+	border-color: #ddd;
+	color: #666;
+}
+
+.quaternary:hover {
+	background-color: #eaeaea;
+	border-color: #ddd;
+}
+
+.quaternary:disabled,.quaternary[data-disabled='true'],.quaternary[data-disabled='true']:hover {
+	background-color: #eee;
+	border-color: #ddd;
+	color: #aaa;
+}
+
+input[type='button'].transparent,input[type='submit'].transparent,button.transparent {
+	background-color: transparent;
+	border-color: transparent;
+	color: #555;
+	font-family: notosans;
+	font-size: 18px;
+	height: 100%;
+	line-height: 20px;
+	min-width: 0;
+	padding: 0;
+	width: auto;
+}
+
+input[type='button'].transparent:hover,input[type='submit'].transparent:hover,button.transparent:hover {
+	background-color: transparent;
+	border-color: transparent;
+	color: #111;
+}
+
+input[type='button'].transparent:disabled,input[type='submit'].transparent:disabled,button.transparent:disabled {
+	background-color: transparent;
+	border-color: transparent;
+	color: #eee;
+}
+
+input[type='button'].transparent:active,input[type='button'].transparent:focus,input[type='submit'].transparent:active,input[type='submit'].transparent:focus,button.transparent:active,button.transparent:focus {
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	        box-shadow: none;
+}
+
+
+/* date */
+datetimepicker {
+	text-align: center;
+}
+
+
+/* menu */
+div.arrow {
+	border-color: transparent;
+	border-bottom-color: #e7e7e7;
+	border-style: solid;
+	border-width: 0 8px 8px;
+	height: 0;
+	left: 10px;
+	position: absolute;
+	top: -8px;
+	width: 0;
+	z-index: 2;
+}
+
+div.arrow:before {
+	border-color: transparent;
+	border-bottom-color: #fff;
+	border-style: solid;
+	border-width: 0 8px 8px;
+	content: '';
+	height: 0;
+	left: -8px;
+	position: absolute;
+	top: 1px;
+	width: 0;
+}
+
+
+/* message */
+.message span {
+	vertical-align: middle;
+}
+
+.message div {
+	background-image: url('../img/message.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 18px;
+	margin-right: 4px;
+	vertical-align: middle;
+	width: 18px;
+}
+
+.message span.error {
+	color: #dd4b39;
+}
+
+.message div.error {
+	background-position: 0 0;
+}
+
+.message span.fatal {
+	color: #dd4b39;
+}
+
+.message div.fatal {
+	background-position: 0 0;
+}
+
+.message span.info {
+	color: #53a93f;
+}
+
+.message div.info {
+	background-position: -18px 0;
+}
+
+.message span.warn {
+	color: #f4b400;
+}
+
+.message div.warn {
+	background-position: -36px 0;
+}
+
+*[data-message$='error'] {
+	border-color: #dd4b39;
+}
+
+*[data-message$='fatal'] {
+	border-color: #dd4b39;
+}
+
+*[data-message$='info'] {
+	border-color: #53a93f;
+}
+
+*[data-message$='warn'] {
+	border-color: #f4b400;
+}
+
+
+/* messages */
+.messages {
+	height: 0;
+	right: 0;
+	position: fixed;
+	top: 0;
+	z-index: 3000;
+}
+
+.messages > ul {
+	margin: 0;
+	position: relative;
+	top: 52px;
+	right: -300px;
+	width: 300px;
+
+    -webkit-transition: all .5s;
+       -moz-transition: all .5s;
+            transition: all .5s;
+}
+
+.messages > ul > li {
+	color: #fff;
+	margin-top: 10px;
+	min-height: 72px;
+	padding: 10px 10px 10px 72px;
+	text-align: justify;
+
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.4);
+	        box-shadow: 0 1px 2px rgba(0,0,0,.4);
+}
+
+.messages > ul > li::before {
+	display: block;
+	font-family: FontAwesome;
+	font-size: 60px;
+	left: 10px;
+	line-height: 0;
+	position: absolute;
+	top: 36px;
+}
+
+.messages > ul > li.error {
+	background-color: rgba(221, 75, 57, .8);
+}
+
+.messages > ul > li.error::before {
+	content: "\f057";
+}
+
+.messages > ul > li.fatal {
+	background-color: rgba(255, 0, 0, .8);
+}
+
+.messages > ul > li.fatal::before {
+	content: "\f05a";
+}
+
+.messages > ul > li.info {
+	background-color: rgba(83, 169, 63, .8);
+}
+
+.messages > ul > li.info::before {
+	content: "\f058";
+}
+
+.messages > ul > li.warn {
+	background-color: rgba(244, 180, 0, .8);
+}
+
+.messages > ul > li.warn::before {
+	content: "\f06a";
+}
+
+
+/* panel */
+div.panel {
+	background-color: #f8f8f8;
+	border: 1px solid #e7e7e7;
+	margin: auto;
+	pointer-events: visible;
+	width: 100%;
+    border-radius: 0;
+
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.1);
+	   -moz-box-shadow: 0 2px 4px rgba(0,0,0,.1);
+	        box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+div.panel div.head {
+	background: #f2f2f2;
+	border-bottom: 1px solid #e7e7e7;
+	color: #444;
+	font-size: 22px;
+	width: 100%;
+}
+
+div.panel div.body {
+
+}
+
+div.panel div.foot {
+	background: #f2f2f2;
+	border-top: 1px solid #e7e7e7;
+}
+
+
+/* popup*/
+div.popup {
+	bottom: 0;
+	left: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	pointer-events: none;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 2001;
+}
+
+div.popup div.panel {
+	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+	   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+	        box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+
+div.popupModal {
+	background: #000 url("../img/modal.svg") center no-repeat;
+	height: 100%;
+	left: 0;
+	opacity: .6;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 2000;
+}
+
+
+/* section */
+section.section {
+	border: 1px solid #e7e7e7;
+	text-align: justify;
+	width: 100%;
+}
+
+section.section div.title {
+	border-bottom: 1px solid #e7e7e7;
+	color: #444;
+	font-size: 18px;
+	width: 100%;
+}
+
+
+/* selectOneMenu */
+select {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+}
+
+span.select {
+	display: inline-block;
+	margin-right: 20px;
+	position: relative;
+	width: 100%;
+}
+
+span.select:after,span.select:before {
+	content: "";
+	display: block;
+	pointer-events: none;
+	position: absolute;
+}
+
+span.select:after {
+	border: 4px solid transparent;
+	border-top-color: #666;
+	height: 0;
+	margin-top: -1px;
+	right: 9px;
+	top: 50%;
+	width: 0;
+}
+
+span.select:before {
+	background: #f2f2f2;
+	border-left: 1px solid #ddd;
+	bottom: 1px;
+	right: 1px;
+	top: 1px;
+	width: 30px;
+}
+
+span.select:hover:before {
+	background: #eaeaea;
+	border-color: #ccc;
+}
+
+span.select[data-disabled='true']:before,span.select[data-disabled='true']:hover:before {
+	background: #eee;
+	border-color: #ddd;
+}
+
+
+/* menu */
+div.separator {
+	border-top: 1px solid #e7e7e7;
+	margin: 5px 0;
+}
+
+
+/* wait */
+.wait {
+	cursor: wait;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 3001;
+}
+
+.waitImg {
+	background: #000 url("../img/wait.gif") no-repeat 50% 50%;
+	display: block;
+	height: 50px;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	opacity: .4;
+	position: absolute;
+	top: 50%;
+	width: 50px;
+
+	-webkit-border-radius: 25px;
+	   -moz-border-radius: 25px;
+	        border-radius: 25px;
+
+	-webkit-box-shadow: 0 0 10px #000;
+	   -moz-box-shadow: 0 0 10px #000;
+	        box-shadow: 0 0 10px #000;
+}

@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface>
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="value" />
+		<composite:attribute name="src" />
+		<composite:attribute name="onclick" />
+	</composite:interface>
+
+	<composite:implementation>
+		<c:if test="#{cc.attrs.value != null}">
+			<c:if test="#{cc.attrs.src == null}">
+				<h:outputLabel
+					styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+					value="#{cc.attrs.value}" onclick="#{cc.attrs.onclick} hideMenu();" />
+			</c:if>
+
+			<c:if test="#{cc.attrs.src != null}">
+				<h:outputLink
+					styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+					value="#{cc.attrs.src}" onclick="#{cc.attrs.onclick} hideMenu();">
+					<composite:insertChildren />
+					<h:outputText value="#{cc.attrs.value}" />
+				</h:outputLink>
+			</c:if>
+		</c:if>
+
+		<c:if test="#{cc.attrs.value == null}">
+			<h:panelGroup layout="block"
+				styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+				onclick="#{cc.attrs.onclick} hideMenu();">
+				<composite:insertChildren />
+			</h:panelGroup>
+		</c:if>
+	</composite:implementation>
+</ui:composition>

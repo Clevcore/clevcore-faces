@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface>
+		<composite:attribute name="id" targets="id" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="value" />
+		<composite:attribute name="title" />
+		<composite:attribute name="disabled" default="false" />
+		<composite:attribute name="rendered" />
+		<composite:attribute name="onclick" />
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGroup id="id"
+			styleClass="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
+			rendered="#{cc.attrs.rendered}" onclick="#{cc.attrs.onclick}">
+			<c:if test="#{cc.attrs.title ne null}">
+				<f:passThroughAttribute name="title" value="#{cc.attrs.title}" />
+			</c:if>
+
+			<f:passThroughAttribute name="data-disabled"
+				value="#{cc.attrs.disabled}" />
+		</h:panelGroup>
+	</composite:implementation>
+</ui:composition>

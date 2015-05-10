@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="selectOneMenu">
+		<composite:attribute name="styleClass" type="java.lang.String" />
+		<composite:attribute name="value" required="true"
+			type="java.lang.String" />
+		<composite:attribute name="disabled" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="immediate" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="required" default="false" required="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="requiredMessage"
+			required="#{cc.attrs.required}" type="java.lang.String" />
+		<composite:attribute name="onclick" />
+		<composite:attribute name="event" default="change" />
+		<composite:attribute name="render" />
+		<composite:attribute name="execute" default="#{cc.attrs.render}" />
+		<composite:attribute name="listener"
+			method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
+		<composite:attribute name="autofocus" required="false" type="java.lang.Boolean" />
+	</composite:interface>
+
+	<composite:implementation>
+		<span id="#{cc.clientId}"> <h:panelGroup styleClass="select">
+				<f:passThroughAttribute name="data-disabled"
+					value="#{cc.attrs.disabled}" />
+				<h:selectOneMenu id="selectOneMenu"
+					styleClass="#{cc.attrs.styleClass}" value="#{cc.attrs.value}"
+					disabled="#{cc.attrs.disabled}" immediate="#{cc.attrs.immediate}"
+					required="#{cc.attrs.required}"
+					requiredMessage="#{cc.attrs.requiredMessage}"
+					onclick="#{cc.attrs.onClick}">
+					<c:if test="#{cc.attrs.autofocus != null}">
+							<f:passThroughAttribute name="autofocus" value="autofocus" />
+					</c:if>
+					<c:if test="#{cc.attrs.render ne null}">
+						<f:ajax event="#{cc.attrs.event}" execute="#{cc.attrs.render}"
+							render="#{cc.attrs.render}" listener="#{cc.listener}" />
+					</c:if>
+					<composite:insertChildren />
+				</h:selectOneMenu>
+			</h:panelGroup>
+		</span>
+	</composite:implementation>
+</ui:composition>

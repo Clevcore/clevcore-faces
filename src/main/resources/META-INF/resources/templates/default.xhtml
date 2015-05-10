@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<f:view contracts="default" locale="#{bbClevcore.locale}">
+		<h:head>
+			<title>#{msg.project_name} | <ui:insert name="headTitle" /></title>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+			<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+
+			<link rel="shortcut icon" href="#{bbClevcore.path}/resources/img/favicon.png" />
+			
+			<h:outputStylesheet name="vendor/css/bootstrap.min.css" />
+			<h:outputStylesheet name="common/css/reset.css" />
+
+			<h:outputStylesheet name="vendor/css/bootstrap-datetimepicker.min.css" />
+			<h:outputStylesheet name="vendor/css/font.min.css" />
+			<h:outputStylesheet name="vendor/css/font-awesome.min.css" />
+			
+			<h:outputStylesheet name="common/css/main.css" />
+			<h:outputStylesheet name="common/css/faces.css" />
+			<h:outputStylesheet name="common/css/animate.css" />
+			<h:outputStylesheet name="components/css/components.css" />
+			<h:outputStylesheet name="common/css/common.css" />
+			
+			<script>var path = "#{bbClevcore.path}";</script>
+
+			<h:outputScript name="vendor/js/jquery.min.js" />
+			<h:outputScript name="vendor/js/bootstrap.min.js" />
+			<h:outputScript name="vendor/js/moment.min.js" />
+			<h:outputScript name="vendor/js/bootstrap-datetimepicker.min.js" />
+			<h:outputScript name="vendor/js/bootstrap-datetimepicker.es.min.js" />
+			<h:outputScript name="vendor/js/jquery.lazyload.min.js" />
+			<h:outputScript name="vendor/js/jquery-dateFormat.min.js" />
+			<h:outputScript name="common/js/reset.js" />
+			<h:outputScript name="common/js/common.js" />
+			<h:outputScript name="common/js/faces.js" />
+			<h:outputScript name="common/js/main.js" />
+			<h:outputScript name="components/js/components.js" />
+
+			<!--[if lt IE 9]>
+			<h:outputScript name="vendor/js/jquery.html5shiv.min.js" />
+			<h:outputScript name="vendor/js/jquery.respond.min.js" />
+			<![endif]-->
+		</h:head>
+		<h:body id="body">
+			#{userSession.verifyPage()}
+			<ui:insert name="full">
+				<ui:insert name="background">
+					<h:panelGroup layout="block" styleClass="background" />
+				</ui:insert>
+					
+				<header>
+					<ui:insert name="header">
+						<ui:include src="/templates/header.xhtml" />
+					</ui:insert>
+				</header>
+
+				<section>
+					<h:panelGroup id="title" layout="block"
+						styleClass="fontRobotothin fs56 lsSmall tCenter animate animate-fadeInLeftLarge">
+						<ui:insert name="title" />
+						<h:panelGroup layout="block"
+								styleClass="fInherit lsInherit noPrint">
+								<ui:insert name="titleNoPrint" />
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:panelGroup id="subtitle" layout="block"
+						styleClass="fontRobotothin fs20 tCenter animate animate-fadeInRightLarge">
+						<ui:insert name="subtitle" />
+						<h:panelGroup layout="block"
+								styleClass="fInherit lsInherit noPrint">
+								<ui:insert name="subtitleNoPrint" />
+						</h:panelGroup>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="mCenter mwLarge w100">
+						<h:panelGroup id="section" layout="block" styleClass="animate animate-fadeIn">
+							<ui:insert name="section" />
+						</h:panelGroup>
+					</h:panelGroup>
+				</section>
+
+				<footer>
+					<ui:insert name="footer">
+						<h:panelGroup id="footer" layout="block" styleClass="dInline animate animate-fadeIn">
+							<ui:include src="/templates/footer.xhtml" />
+						</h:panelGroup>
+					</ui:insert>
+				</footer>
+			</ui:insert>
+
+			<cc:messages id="#{bbClevcore.idMessages}" />
+
+      		<cc:wait />
+      		
+			<h:panelGroup id="#{bbClevcore.idScript}">
+				<script>#{bbClevcore.script}</script>
+			</h:panelGroup>
+		</h:body>
+	</f:view>
+</html>

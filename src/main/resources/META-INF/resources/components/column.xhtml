@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface>
+		<composite:attribute name="header" />
+		<composite:attribute name="orderBy" />
+	</composite:interface>
+
+	<composite:implementation>
+		<h:outputLink value="#">
+			<h:panelGroup rendered="#{cc.parent.orderBy == cc.attrs.orderBy}">
+				<cc:icon styleClass="cPointer pRightSmall"
+					value="#{cc.parent.ascendingOrder ? 'sort-alpha-asc' : 'sort-alpha-desc'}" />
+			</h:panelGroup>
+			<h:outputText value="#{cc.attrs.header}" />
+			<f:ajax event="click"
+				listener="#{cc.parent.onOrder(cc.attrs.orderBy)}"
+				render=":#{cc.parent.clientId}:dataTable" />
+		</h:outputLink>
+	</composite:implementation>
+</ui:composition>

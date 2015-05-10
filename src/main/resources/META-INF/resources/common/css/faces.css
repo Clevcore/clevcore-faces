@@ -1,0 +1,103 @@
+div.background {
+	height: 100%;
+	position: fixed;
+	width: 100%;
+	z-index: -1;
+}
+
+div.background img {
+	height: 100%;
+	min-height: 660px;
+	min-width: 1040px;
+	width: 100%;
+}
+
+/* header */
+.nav-padding {
+	padding-bottom: 70px
+}
+
+/* body */
+div.separator {
+	border-top: 1px solid #e7e7e7;
+	padding: 5px;
+	margin: 10px -10px 0 -10px;
+}
+
+div.separator2 {
+	border-top: 1px dashed #e7e7e7;
+	padding: 5px;
+	margin: 10px -10px 0 -10px;
+}
+
+input.transparent {
+	background: transparent;
+	border: none;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+input.transparent:disabled {
+	background: transparent !important;
+}
+
+input.transparent:focus {
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	        box-shadow: none;
+}
+
+table.table  {
+	background: #fff;
+	border: 1px solid #e7e7e7;
+}
+
+/* footer*/
+.footer, .footer * {
+	font-family: robotolight;
+	font-size: 10px;
+	text-align: center;
+}
+
+/* loader */
+.loader {
+	background-image: url('../img/loader.gif');
+	background-position: 50%;
+	background-repeat: no-repeat;
+	min-height: 32px;
+	min-width: 32px;
+}
+
+/* tooltip */
+*[data-tooltip]:before {
+	content: attr(data-tooltip);
+	background: rgba(0, 0, 0, .8);
+	color: #fff;
+	font-family: notosans;
+	font-size: 12px;
+	margin-top: 20px;
+	padding: 6px;
+	opacity: 0;
+	position: absolute;
+	z-index: -1;
+	word-break: normal;
+	-webkit-transition: opacity .25s;
+	-moz-transition: opacity .25s;
+	transition: opacity .25s;
+}
+
+*[data-tooltip]:hover:before {
+	opacity: 1;
+	z-index: 1;
+}
+
+/* only */
+input[data-only='number'] {
+	text-align: right;
+}
+
+/* otros */
+.fa {
+	line-height: 0;
+}
