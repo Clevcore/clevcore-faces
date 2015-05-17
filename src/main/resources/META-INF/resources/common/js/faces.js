@@ -1,9 +1,9 @@
 /* init */
-window.onload = function() {
+$(document).ready(function() {
 	jsf.ajax.addOnEvent(HandleAjax.listener);
 	reset();
 	init();
-};
+});
 
 function init() {
 	if (window.addEventListener) {

@@ -334,6 +334,18 @@ function animateScroll(id, time) {
 	}, time | 1500);
 }
 
+function animateScrollTop(time) {
+	$("html, body").stop().animate({
+		scrollTop : 0
+	}, time | 1500);
+}
+
+function animateScrollBottom(time) {
+	$("html, body").stop().animate({
+		scrollTop : getHeightWindowFull()
+	}, time | 1500);
+}
+
 function getUrl() {
 	var url = getUrlFull();
 	return url.split("pages").length > 0 ? url.split("pages")[0] : url;
