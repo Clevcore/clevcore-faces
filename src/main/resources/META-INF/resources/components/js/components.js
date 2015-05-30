@@ -307,6 +307,87 @@ function popupAutoCenter() {
 	}
 }
 
+/* shortcut */
+var idShortcut = null;
+
+function shortcut(id) {
+	idShortcut = id;
+
+	var position = getAttributeElement(getElement(idShortcut), "data-position");
+	var animateIn = getAttributeElement(getElement(idShortcut), "data-animatein");
+	var animateOut = getAttributeElement(getElement(idShortcut), "data-animateout");
+
+	var modal;
+	if (eval(getAttributeElement(getElement(idShortcut), "data-modal"))) {
+		modal = getElement(idShortcut).previousSibling;
+	} else {
+		modal = null;
+	}
+
+	var panel;
+	var trigger;
+
+	if (position == "topLeft") {
+		panel = getElement(idShortcut).childNodes[1];
+		trigger = getElement(idShortcut).childNodes[0].childNodes[0].childNodes[0];
+	} else if (position == "topRight") {
+		panel = getElement(idShortcut).childNodes[1];
+		trigger = getElement(idShortcut).childNodes[0].childNodes[1].childNodes[0];
+	} else if (position == "bottomLeft") {
+		panel = getElement(idShortcut).childNodes[0];
+		trigger = getElement(idShortcut).childNodes[1].childNodes[0].childNodes[0];
+	} else {
+		panel = getElement(idShortcut).childNodes[0];
+		trigger = getElement(idShortcut).childNodes[1].childNodes[1].childNodes[0];
+	}
+
+	if (getClassElement(panel).indexOf("dNone") != -1) {
+		if (modal != null) {
+			replaceClassElement(modal, "dNone", "dBlock");
+		}
+
+		replaceClassElement(panel, "dNone", "dBlock");
+		addClassElement(trigger, "trz225");
+
+		if (window.addEventListener) {
+			window.addEventListener("keydown", shortcutHandler, false);
+		} else {
+			window.attachEvent("onkeydown", shortcutHandler);
+		}
+	} else {
+		if (modal != null) {
+			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
+		}
+
+		replaceClassElement(panel, "animate-" + animateIn, "animate-" + animateOut);
+		removeClassElement(trigger, "trz225");
+
+		setTimeout(function() {
+			if (modal != null) {
+				replaceClassElement(modal, "dBlock", "dNone");
+				replaceClassElement(modal, "animate-fadeOut", "animate-fadeIn");
+			}
+
+			replaceClassElement(panel, "dBlock", "dNone");
+			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
+		}, 500);
+
+		if (window.removeEventListener) {
+			window.removeEventListener("keydown", shortcutHandler, false);
+		} else {
+			window.detachEvent("onkeydown", shortcutHandler);
+		}
+
+		idShortcut = null;
+	}
+}
+
+function shortcutHandler(e) {
+	if (((e.which) ? e.which : event.keyCode) == 27) {
+		shortcut(idShortcut);
+	}
+}
+
 /* wait */
 function wait(status) {
 	if (isWaitEnable) {

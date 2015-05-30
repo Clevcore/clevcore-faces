@@ -43,7 +43,7 @@
 
 			<c:if test="#{cc.attrs.modal}">
 				<h:panelGroup layout="block"
-					styleClass="popupModal #{cc.attrs.closeable ? 'cZoomOut' : ''}">
+					styleClass="modal #{cc.attrs.closeable ? 'cZoomOut' : ''}">
 					<c:if test="#{cc.attrs.closeable}">
 						<f:passThroughAttribute name="onclick" value="hidePopup();" />
 					</c:if>

@@ -1,11 +1,12 @@
 .animate {
-  -webkit-animation-duration: .5s;
-	        animation-duration: .5s;
-  -webkit-animation-fill-mode: both;
-	        animation-fill-mode: both;
+	-webkit-animation-duration: .5s;
+		    animation-duration: .5s;
+	-webkit-animation-fill-mode: both;
+		    animation-fill-mode: both;
 	-webkit-animation-timing-function: ease;
-	        animation-timing-function: ease;
+		    animation-timing-function: ease;
 }
+
 
 /* bounce */
 @-webkit-keyframes bounce {
