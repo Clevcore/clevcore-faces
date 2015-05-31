@@ -198,7 +198,14 @@ public final class FacesUtils {
 
     // SESSION
     public static Map<String, Object> getSession() {
-        return FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        FacesContext currentInstance = FacesContext.getCurrentInstance();
+        if (currentInstance != null) {
+            ExternalContext externalContext = currentInstance.getExternalContext();
+            if (externalContext != null) {
+                return externalContext.getSessionMap();
+            }
+        }
+        return null;
     }
 
     public static Object getSessionValue(String key) {
@@ -210,7 +217,11 @@ public final class FacesUtils {
     }
 
     public static Object removeSessionValue(String key) {
-        return getSession().remove(key);
+        Map<String, Object> session = getSession();
+        if (session == null) {
+            return null;
+        }
+        return session.remove(key);
     }
 
     public static void clearSessionValues() {
