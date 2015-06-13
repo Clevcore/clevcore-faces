@@ -265,22 +265,30 @@ function getHeightWindowFull() {
 			document.documentElement["scrollHeight"]);
 }
 
-function width(id) {
-	return widthElement(getElement(id));
+function getHeightCurrentScroll() {
+	return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
 }
 
-function widthElement(element) {
+function getWidth(id) {
+	return getWidthElement(getElement(id));
+}
+
+function getWidthElement(element) {
 	return Math.max(element.clientWidth, element.offsetWidth);
 }
 
-function widthWindow() {
+function getWidthWindow() {
 	return document.documentElement["clientWidth"];
 }
 
-function widthWindowFull() {
+function getWidthWindowFull() {
 	return Math.max(document.documentElement["clientWidth"], document.body["offsetWidth"],
 			document.documentElement["offsetWidth"], document.body["scrollWidth"],
 			document.documentElement["scrollWidth"]);
+}
+
+function getWidthCurrentScroll() {
+	return (window.pageXOffset || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
 }
 
 function keyRestriction(keys) {

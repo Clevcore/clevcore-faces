@@ -196,11 +196,8 @@ function showPopup(id) {
 	idPopup = id;
 
 	remplaceClass(idPopup, "dNone", "dBlock");
-	addClass("body", "oHidden");
 
-	if (eval(getAttribute(idPopup, "data-autocenter"))) {
-		popupAutoCenter();
-	}
+	popupAutoCenter();
 
 	if (window.addEventListener) {
 		if (eval(getAttribute(idPopup, "data-autocenter"))) {
@@ -230,7 +227,6 @@ function hidePopup(id) {
 
 	setTimeout(function() {
 		remplaceClass(idPopup, "dBlock", "dNone");
-		removeClass("body", "oHidden");
 		remplaceClass(idPopup, "animate-fadeOut", "animate-fadeIn");
 		replaceClassElement(getElement(idPopup).firstChild.firstChild.firstChild, "animate-"
 				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
@@ -298,7 +294,8 @@ function movePopup(window, panelMove) {
 function popupAutoCenter() {
 	if (idPopup != null) {
 		getElement(idPopup).firstChild.firstChild.style.left = "";
-		var top = (getHeightWindow() - 20 - getHeightElement(getElement(idPopup).firstChild.firstChild.firstChild)) / 2;
+		var top = ((getHeightWindow() - 20 - getHeightElement(getElement(idPopup).firstChild.firstChild.firstChild)) / 2)
+				+ getHeightCurrentScroll();
 		if (top > 0) {
 			getElement(idPopup).firstChild.firstChild.style.top = top + "px";
 		} else {
