@@ -36,9 +36,11 @@
 		<h:outputScript name="vendor/js/jquery.html5shiv.min.js" />
 		<h:outputScript name="vendor/js/jquery.respond.min.js" />
 		<![endif]-->
+		
+		<ui:insert name="head" />
 	</h:head>
 	<h:body>
-		<ui:insert name="clevcore" />
+		<ui:insert name="body" />
 
 		<cc:messages id="#{bbClevcore.idMessages}" />
 
