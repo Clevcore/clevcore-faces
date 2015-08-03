@@ -146,10 +146,6 @@ public class DataTable extends UIComponentBase implements NamingContainer {
     public void onPaginatorManager(int page) {
         setPage(page);
         paginatorRefresh();
-
-        if ((Boolean) getAttributes().get("selectUniqueElement") && ((List<Object>) data.getValue()).size() == 1) {
-            FacesUtils.render(getClientId() + ":selectUniqueElement");
-        }
     }
 
     // HELPER

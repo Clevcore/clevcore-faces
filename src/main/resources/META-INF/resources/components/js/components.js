@@ -110,12 +110,6 @@ function searchDataTable(id, value) {
 	getElement(id + ":searchCommandButton:id").click();
 }
 
-function selectUniqueElementDataTable(id) {
-	if (getAttribute(id + ":dataTable", "data-size") == 1) {
-		getElement(id + ":dataTable:tr:0").click();
-	}
-}
-
 /* graphicImage */
 function lazyload() {
 	$("img.lazy").lazyload();

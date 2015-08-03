@@ -21,8 +21,6 @@
 			type="java.lang.Boolean" />
 		<composite:attribute name="onRender" />
 		<composite:attribute name="onRow" />
-		<composite:attribute name="selectUniqueElement" default="false"
-			type="java.lang.Boolean" />
 		<composite:attribute name="rowlistener"
 			method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
 		<composite:attribute name="rowRender" />
@@ -85,15 +83,6 @@
 				</h:column>
 				<composite:insertChildren />
 			</h:dataTable>
-
-			<h:panelGroup layout="block" id="selectUniqueElement"
-				styleClass="dNone">
-				<h:panelGroup rendered="#{cc.attrs.selectUniqueElement}">
-					<script>
-						selectUniqueElementDataTable("#{cc.clientId}");
-					</script>
-				</h:panelGroup>
-			</h:panelGroup>
 
 			<h:panelGroup layout="block" id="paginator">
 				<h:panelGroup rendered="#{cc.attrs.showInfo}" layout="block"
