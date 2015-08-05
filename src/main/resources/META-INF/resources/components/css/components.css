@@ -406,7 +406,6 @@ select {
 
 span.select {
 	display: inline-block;
-	margin-right: 20px;
 	position: relative;
 	width: 100%;
 }

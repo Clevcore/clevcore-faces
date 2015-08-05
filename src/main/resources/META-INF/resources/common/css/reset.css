@@ -74,6 +74,10 @@ input,select,textarea,button,.input {
 	        transition: background .1s, border .1s, color .1s;
 }
 
+select {
+	height: 44px !important;
+}
+
 input:disabled,select:disabled,textarea:disabled,*[data-disabled='true'],*[data-disabled='true']:hover {
 	background: #eee;
 	border-color: #ddd;

@@ -135,6 +135,16 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         }
     }
 
+    public void rowslistener(AjaxBehaviorEvent event) {
+        initPages();
+
+        if (getOrderBy() != null) {
+            order();
+        }
+
+        onPaginatorManager(1);
+    }
+
     public void onPaginatorPrevious() {
         onPaginatorManager(getPage() - 1);
     }

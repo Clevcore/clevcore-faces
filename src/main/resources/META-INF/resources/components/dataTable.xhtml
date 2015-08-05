@@ -28,13 +28,14 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block">
-			<h:panelGroup layout="block" styleClass="pBottomNormal">
+			<h:panelGroup layout="block" styleClass="lhNone pBottomNormal">
 				<h:panelGroup layout="block"
 					styleClass="dInlineBlock pRightNormal w50">
 					<h:panelGrid columns="2" styleClass="w100" columnClasses="w100,"
 						rendered="#{cc.attrs.showSearch}">
-						<h:inputText id="searchInputText" styleClass="bwRightNone zNormal"
-							value="#{cc.search}" maxlength="20">
+						<h:inputText id="searchInputText"
+							styleClass="bwRightNone lh1 vMiddle" value="#{cc.search}"
+							maxlength="20">
 							<f:validateLength maximum="20" />
 							<f:passThroughAttribute name="placeholder"
 								value="#{clevcoreMsg.enter_search}" />
@@ -85,20 +86,24 @@
 			</h:dataTable>
 
 			<h:panelGroup layout="block" id="paginator">
-				<h:panelGroup rendered="#{cc.attrs.showInfo}" layout="block"
-					styleClass="dInlineBlock pRightNormal vTop w40">
-					<h:outputFormat styleClass="fs10"
-						value="#{clevcoreMsg.showing_records}">
-						<f:param value="#{cc.data.first + 1}" />
-						<f:param
-							value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
-						<f:param value="#{cc.data.value.size()}" />
-					</h:outputFormat>
-				</h:panelGroup>
+				<h:panelGroup rendered="#{cc.attrs.showpaginator and cc.pages > 1}"
+					layout="block" styleClass="mBottomNormal">
+					<h:panelGroup layout="block" styleClass="dInlineBlock w10">
+						<h:panelGroup layout="block" styleClass="dInlineBlock">
+							<cc:selectOneMenu id="rows" style="width: 75px;"
+								value="#{cc.data.rows}">
+								<f:ajax event="change" listener="#{cc.rowslistener}"
+									execute="@this"
+									render=":#{cc.clientId}:dataTable :#{cc.clientId}:paginator :#{cc.clientId}:render" />
+								<f:selectItem itemLabel="5" itemValue="5" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="25" itemValue="25" />
+								<f:selectItem itemLabel="50" itemValue="50" />
+							</cc:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGroup>
 
-				<h:panelGroup rendered="#{cc.attrs.showpaginator}" layout="block"
-					styleClass="dInlineBlock lh1 tRight w60">
-					<h:panelGroup rendered="#{cc.pages > 1}">
+					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90">
 						<cc:commandButton styleClass="primary bwRightNone wAuto"
 							icon="chevron-left" title="#{clevcoreMsg.previous_page}"
 							disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
@@ -118,6 +123,16 @@
 							disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
 							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator #{cc.clientId}:render" />
 					</h:panelGroup>
+				</h:panelGroup>
+
+				<h:panelGroup rendered="#{cc.attrs.showInfo}">
+					<h:outputFormat styleClass="fs10"
+						value="#{clevcoreMsg.showing_records}">
+						<f:param value="#{cc.data.first + 1}" />
+						<f:param
+							value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
+						<f:param value="#{cc.data.value.size()}" />
+					</h:outputFormat>
 				</h:panelGroup>
 			</h:panelGroup>
 
