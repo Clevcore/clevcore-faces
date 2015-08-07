@@ -12,7 +12,7 @@ function reset() {
 		}
 	});
 
-	$("textarea[date-height]").bind("keyup keydown", function(e) {
+	$("textarea[date-height]").on("keyup keydown", function(e) {
 		var height = parseInt(getAttributeElement(this, "date-height"));
 		if (this.scrollHeight > height) {
 			this.style.height = 0;
@@ -20,7 +20,7 @@ function reset() {
 		}
 	});
 
-	$("[data-only=number]").bind(
+	$("[data-only=number]").on(
 			"keyup keypress",
 			function(e) {
 				var key = e.keyCode || e.which;
@@ -42,40 +42,21 @@ function reset() {
 		}
 	});
 
-	$("button, input, select, textarea").bind(
-			"keyup",
-			function(e) {
-				var key = e.keyCode || e.which;
-				if (key == 13) {
-					elementArray = $("button, input, select, textarea");
-					index = elementArray.index(this);
+	$("button, input, select, textarea").off("keyup");
+	$("button, input, select, textarea").on("keyup", function(e) {
+		var key = e.keyCode || e.which;
+		if (key == 13) {
+			var elementArray = $("button, input, select, textarea");
+			var index = elementArray.index(this);
 
-					do {
-						index++;
-						nextElement = elementArray[index];
-					} while (nextElement.classList.contains("dNone") || $(nextElement).is("[disabled='disabled']")
-							|| $(nextElement).is("input[type='hidden']"));
+			handleNextElement(index, elementArray, e);
 
-					if (nextElement != null) {
-						if ($(nextElement).is("[type='submit']")) {
-							nextElement.click();
-						} else if ($(this).is("textarea")) {
-							if (!e.shiftKey) {
-								nextElement.focus();
-							}
-						} else {
-							nextElement.focus();
-						}
-					} else {
-						elementArray[0].focus();
-					}
+			e.preventDefault();
+			return false;
+		}
+	});
 
-					e.preventDefault();
-					return false;
-				}
-			});
-
-	$("form").bind("keyup keypress", function(e) {
+	$("form").on("keyup keypress", function(e) {
 		var key = e.keyCode || e.which;
 		if (key == 13) {
 			if (!$(e.target).is("textarea") || !e.shiftKey) {
@@ -85,4 +66,39 @@ function reset() {
 		}
 	});
 
+}
+
+function handleNextElement(index, elementArray, event) {
+	var currentIndex = index;
+
+	do {
+		index++;
+	} while (elementArray[index].classList.contains("dNone") || $(elementArray[index]).is("[disabled='disabled']")
+			|| $(elementArray[index]).is("input[type='hidden']"));
+
+	if ($(elementArray[currentIndex]).is("textarea")) {
+		if (!event.shiftKey) {
+			helperNextElement(index, elementArray, event);
+		}
+	} else {
+		helperNextElement(index, elementArray, event);
+	}
+}
+
+function helperNextElement(index, elementArray, event) {
+	if (elementArray[index] != null) {
+		if ($(elementArray[index]).is("[type='submit']")) {
+			elementArray[index].click();
+		} else if ($(elementArray[index]).is("[type='button']")) {
+			if ($(elementArray[index]).attr("onclick") != null && $(elementArray[index]).attr("onclick") != "") {
+				elementArray[index].click();
+			} else {
+				handleNextElement(index, elementArray, event);
+			}
+		} else {
+			elementArray[index].focus();
+		}
+	} else {
+		elementArray[0].focus();
+	}
 }
