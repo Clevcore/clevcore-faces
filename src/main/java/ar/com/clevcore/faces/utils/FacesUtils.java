@@ -15,7 +15,11 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.faces.context.PartialViewContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import ar.com.clevcore.exceptions.ClevcoreException;
 
@@ -35,61 +39,99 @@ public final class FacesUtils {
     }
 
     public static ExternalContext getExternalContext() {
-        return getFacesContext().getExternalContext();
+        FacesContext facesContext = getFacesContext();
+        return facesContext != null ? facesContext.getExternalContext() : null;
     }
 
     public static Application getApplication() {
-        return getFacesContext().getApplication();
+        FacesContext facesContext = getFacesContext();
+        return facesContext != null ? facesContext.getApplication() : null;
     }
 
     public static UIViewRoot getViewRoot() {
-        return getFacesContext().getViewRoot();
+        FacesContext facesContext = getFacesContext();
+        return facesContext != null ? facesContext.getViewRoot() : null;
+    }
+
+    public static PartialViewContext getPartialViewContext() {
+        FacesContext facesContext = getFacesContext();
+        return facesContext != null ? facesContext.getPartialViewContext() : null;
     }
 
     public static ELContext getELContext() {
-        return getFacesContext().getELContext();
-    }
-
-    public static ExpressionFactory getExpressionFactory() {
-        return getApplication().getExpressionFactory();
-    }
-
-    public static String getMessageBundle() {
-        return getApplication().getMessageBundle();
-    }
-
-    public static ELResolver getELResolver() {
-        return getELContext().getELResolver();
-    }
-
-    public static Locale getLocale() {
-        return getViewRoot().getLocale();
-    }
-
-    public static void setLocale(String locale) {
-        getViewRoot().setLocale(new Locale(locale));
-    }
-
-    public static Object resolveExpression(String expression) {
-        ValueExpression valueExpression = getExpressionFactory().createValueExpression(getELContext(), expression,
-                Object.class);
-        return valueExpression.getValue(getELContext());
-    }
-
-    public static String getRealPath() {
-        return getExternalContext().getRealPath("/");
-    }
-
-    public static String getRequestPath() {
-        return getExternalContext().getRequestContextPath();
+        FacesContext facesContext = getFacesContext();
+        return facesContext != null ? facesContext.getELContext() : null;
     }
 
     public static void responseComplete() {
-        getFacesContext().responseComplete();
+        FacesContext facesContext = getFacesContext();
+        if (facesContext != null) {
+            facesContext.responseComplete();
+        }
+    }
+
+    public static ExpressionFactory getExpressionFactory() {
+        Application application = getApplication();
+        return application != null ? application.getExpressionFactory() : null;
+    }
+
+    public static String getMessageBundle() {
+        Application application = getApplication();
+        return application != null ? application.getMessageBundle() : null;
+    }
+
+    public static ELResolver getELResolver() {
+        ELContext elContext = getELContext();
+        return elContext != null ? elContext.getELResolver() : null;
+    }
+
+    public static Object resolveExpression(String expression, Class<?> clazz) {
+        ELContext elContext = getELContext();
+        ExpressionFactory expressionFactory = getExpressionFactory();
+        if (elContext != null && expressionFactory != null) {
+            ValueExpression valueExpression = expressionFactory.createValueExpression(elContext, expression, clazz);
+            if (valueExpression != null) {
+                return valueExpression.getValue(elContext);
+            }
+        }
+        return null;
+    }
+
+    public static String getRealPath() {
+        ExternalContext externalContext = getExternalContext();
+        return externalContext != null ? externalContext.getRealPath("/") : null;
+    }
+
+    public static String getRequestPath() {
+        ExternalContext externalContext = getExternalContext();
+        return externalContext != null ? externalContext.getRequestContextPath() : null;
+    }
+
+    public static Flash getFlash() {
+        ExternalContext externalContext = getExternalContext();
+        if (externalContext != null) {
+            return externalContext.getFlash();
+        }
+        return null;
+    }
+
+    public static Locale getLocale() {
+        UIViewRoot uiViewRoot = getViewRoot();
+        return uiViewRoot != null ? uiViewRoot.getLocale() : null;
+    }
+
+    public static void setLocale(String locale) {
+        UIViewRoot uiViewRoot = getViewRoot();
+        if (uiViewRoot != null) {
+            uiViewRoot.setLocale(new Locale(locale));
+        }
     }
 
     public static void render(String idRender) {
-        getFacesContext().getPartialViewContext().getRenderIds().add(idRender);
+        PartialViewContext partialViewContext = getPartialViewContext();
+        if (partialViewContext != null) {
+            partialViewContext.getRenderIds().add(idRender);
+        }
     }
 
     // MESSAGE
@@ -125,23 +167,35 @@ public final class FacesUtils {
             severity = FacesMessage.SEVERITY_WARN;
         }
 
-        getFacesContext().addMessage(null, getFacesMessage(severity, clevcoreException.getMessage()));
-        render(ID_MESSAGES + ":new");
+        FacesContext facesContext = getFacesContext();
+        if (facesContext != null) {
+            facesContext.addMessage(null, getFacesMessage(severity, clevcoreException.getMessage()));
+            render(ID_MESSAGES + ":new");
+        }
     }
 
     public static void addMessage(FacesMessage facesMessage) {
-        getFacesContext().addMessage(null, facesMessage);
-        render(ID_MESSAGES + ":new");
+        FacesContext facesContext = getFacesContext();
+        if (facesContext != null) {
+            getFacesContext().addMessage(null, facesMessage);
+            render(ID_MESSAGES + ":new");
+        }
     }
 
     public static void addMessage(String id, FacesMessage facesMessage) {
-        getFacesContext().addMessage(id, facesMessage);
-        render(ID_MESSAGES + ":new");
+        FacesContext facesContext = getFacesContext();
+        if (facesContext != null) {
+            getFacesContext().addMessage(id, facesMessage);
+            render(ID_MESSAGES + ":new");
+        }
     }
 
     public static void addMessage(String id, Severity severity, String summary, String message) {
-        getFacesContext().addMessage(id, getFacesMessage(severity, summary, message));
-        render(ID_MESSAGES + ":new");
+        FacesContext facesContext = getFacesContext();
+        if (facesContext != null) {
+            getFacesContext().addMessage(id, getFacesMessage(severity, summary, message));
+            render(ID_MESSAGES + ":new");
+        }
     }
 
     public static void addMessage(Severity severity, String message) {
@@ -156,33 +210,69 @@ public final class FacesUtils {
         addMessage(id, severity, null, message);
     }
 
-    public static void keepMessages(boolean keep) {
-        getFacesContext().getExternalContext().getFlash().setKeepMessages(keep);
+    public static void keepMessages() {
+        Flash flash = getFlash();
+        if (flash != null) {
+            flash.setKeepMessages(true);
+        }
     }
 
     // REQUEST
     public static Map<String, Object> getRequest() {
-        return getExternalContext().getRequestMap();
+        ExternalContext externalContext = getExternalContext();
+        return externalContext != null ? externalContext.getRequestMap() : null;
     }
 
     public static Object getRequestValue(String key) {
-        return getRequest().get(key);
+        Map<String, Object> request = getRequest();
+        return request != null ? request.get(key) : null;
     }
 
-    public static void setRequestValue(String key, Object valor) {
-        getRequest().put(key, valor);
+    public static void setRequestValue(String key, Object value) {
+        Map<String, Object> request = getRequest();
+        if (request != null) {
+            request.put(key, value);
+        }
     }
 
-    public static Object removeRequestValue(String value) {
-        return getRequest().remove(value);
+    public static Object removeRequestValue(String key) {
+        Map<String, Object> request = getRequest();
+        return request != null ? request.remove(key) : null;
     }
 
     public static void clearRequestValues() {
-        getRequest().clear();
+        Map<String, Object> request = getRequest();
+        if (request != null) {
+            request.clear();
+        }
     }
 
+    // REQUEST PARAMETER
     public static Map<String, String> getRequestParameter() {
-        return getExternalContext().getRequestParameterMap();
+        ExternalContext externalContext = getExternalContext();
+        return externalContext != null ? externalContext.getRequestParameterMap() : null;
+    }
+
+    public static String getRequestParameterValue(String key) {
+        Map<String, String> requestParameter = getRequestParameter();
+        return requestParameter != null ? requestParameter.get(key) : null;
+    }
+
+    public String setRequestParameterValue(String key, String value) {
+        Map<String, String> requestParameter = getRequestParameter();
+        return requestParameter != null ? requestParameter.put(key, value) : null;
+    }
+
+    public static String removeRequestParameterValue(String key) {
+        Map<String, String> requestParameter = getRequestParameter();
+        return requestParameter != null ? requestParameter.remove(key) : null;
+    }
+
+    public static void clearRequestParameterValues() {
+        Map<String, String> requestParameter = getRequestParameter();
+        if (requestParameter != null) {
+            requestParameter.clear();
+        }
     }
 
     // SCRIPT
@@ -201,40 +291,37 @@ public final class FacesUtils {
         FacesContext currentInstance = FacesContext.getCurrentInstance();
         if (currentInstance != null) {
             ExternalContext externalContext = currentInstance.getExternalContext();
-            if (externalContext != null) {
-                return externalContext.getSessionMap();
-            }
+            return externalContext != null ? externalContext.getSessionMap() : null;
         }
         return null;
     }
 
     public static Object getSessionValue(String key) {
-        return getSession().get(key);
+        Map<String, Object> session = getSession();
+        return session != null ? session.get(key) : null;
     }
 
-    public static void setSessionValue(String key, Object valor) {
-        getSession().put(key, valor);
+    public static Object setSessionValue(String key, Object value) {
+        Map<String, Object> session = getSession();
+        return session != null ? session.put(key, value) : null;
     }
 
     public static Object removeSessionValue(String key) {
         Map<String, Object> session = getSession();
-        if (session == null) {
-            return null;
-        }
-        return session.remove(key);
+        return session != null ? session.remove(key) : null;
     }
 
     public static void clearSessionValues() {
-        getSession().clear();
+        Map<String, Object> session = getSession();
+        if (session != null) {
+            session.clear();
+        }
     }
 
-    // OTHER
-    public static Object getBean(String bean) {
-        return getELResolver().getValue(getELContext(), null, bean);
-    }
-
+    // COOKIE
     public static Cookie[] getCookie() {
-        return ServletUtils.getHttpServletRequest().getCookies();
+        HttpServletRequest httpServletRequest = ServletUtils.getHttpServletRequest();
+        return httpServletRequest != null ? httpServletRequest.getCookies() : null;
     }
 
     public static void setCookie(String name, String value) {
@@ -242,71 +329,89 @@ public final class FacesUtils {
     }
 
     public static void setCookie(String name, String value, int expiry) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(expiry);
-        cookie.setPath(getRequestPath());
-        ServletUtils.getHttpServletResponse().addCookie(cookie);
+        String requestPath = getRequestPath();
+        HttpServletResponse httpServletResponse = ServletUtils.getHttpServletResponse();
+
+        if (requestPath != null && httpServletResponse != null) {
+            Cookie cookie = new Cookie(name, value);
+            cookie.setMaxAge(expiry);
+            cookie.setPath(requestPath);
+            httpServletResponse.addCookie(cookie);
+        }
     }
 
     public static void removeCookie(String name) {
-        Cookie cookie = new Cookie(name, "");
-        cookie.setMaxAge(0);
-        cookie.setPath(getRequestPath());
-        ServletUtils.getHttpServletResponse().addCookie(cookie);
+        setCookie(name, "", 0);
+    }
+
+    // OTHER
+    public static Object getBean(String bean) {
+        ELResolver elResolver = getELResolver();
+        return elResolver != null ? elResolver.getValue(getELContext(), null, bean) : null;
     }
 
     public static void navigation(String action) {
-        if (!(ServletUtils.getPath()).equals(action)) {
+        if (!action.equals(ServletUtils.getPath())) {
             getApplication().getNavigationHandler().handleNavigation(getFacesContext(), null, action);
         }
     }
 
     public static void redirect(String action) throws IOException {
-        if (!(ServletUtils.getPath()).equals(action)) {
+        if (!action.equals(ServletUtils.getPath())) {
             getExternalContext().redirect(action);
         }
     }
 
     // MESSAGES
     public static ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("ar.com.clevcore.resources.messages", FacesUtils.getLocale());
+        return ResourceBundle.getBundle("ar.com.clevcore.resources.messages", getLocale());
     }
 
     public static ResourceBundle getClevcoreResourceBundle() {
-        return ResourceBundle.getBundle("ar.com.clevcore.resources.clevcore", FacesUtils.getLocale());
+        return ResourceBundle.getBundle("ar.com.clevcore.resources.clevcore", getLocale());
     }
 
     public static String getResource(String... keys) {
         String resource = "";
-        for (String key : keys) {
-            try {
-                resource += getResourceBundle().getString(key);
-            } catch (Exception e) {
-                resource += key;
+        ResourceBundle resourceBundle = getResourceBundle();
+
+        if (resourceBundle != null) {
+            for (String key : keys) {
+                try {
+                    resource += resourceBundle.getString(key);
+                } catch (Exception e) {
+                    resource += key;
+                }
             }
         }
+
         return resource;
     }
 
     public static String getClevcoreResource(String... keys) {
         String resource = "";
-        for (String key : keys) {
-            try {
-                resource += getClevcoreResourceBundle().getString(key);
-            } catch (Exception e) {
-                resource += key;
+        ResourceBundle clevcoreResourceBundle = getClevcoreResourceBundle();
+
+        if (clevcoreResourceBundle != null) {
+            for (String key : keys) {
+                try {
+                    resource += clevcoreResourceBundle.getString(key);
+                } catch (Exception e) {
+                    resource += key;
+                }
             }
         }
+
         return resource;
     }
 
     // COMPONENTS
     public static void showPopup(String id) {
-        FacesUtils.executeScript("showPopup('" + id + "')");
+        executeScript("showPopup('" + id + "')");
     }
 
     public static void hidePopup(String id) {
-        FacesUtils.executeScript("hidePopup('" + id + "')");
+        executeScript("hidePopup('" + id + "')");
     }
 
 }
