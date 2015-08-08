@@ -1,6 +1,7 @@
 package ar.com.clevcore.faces.utils;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -371,20 +372,32 @@ public final class FacesUtils {
         return ResourceBundle.getBundle("ar.com.clevcore.resources.clevcore", getLocale());
     }
 
-    public static String getResource(String... keys) {
+    public static String getResource(String key) {
         String resource = "";
         ResourceBundle resourceBundle = getResourceBundle();
-
         if (resourceBundle != null) {
-            for (String key : keys) {
-                try {
-                    resource += resourceBundle.getString(key);
-                } catch (Exception e) {
-                    resource += key;
-                }
+            try {
+                resource = resourceBundle.getString(key);
+            } catch (Exception e) {
+                resource = key;
             }
         }
+        return resource;
+    }
 
+    public static String getResource(String key, Object... params) {
+        String resource = "";
+        ResourceBundle resourceBundle = getResourceBundle();
+        if (resourceBundle != null) {
+            try {
+                resource = resourceBundle.getString(key);
+                if (params.length != 0) {
+                    resource = MessageFormat.format(resource, (Object[]) params);
+                }
+            } catch (Exception e) {
+                resource = key;
+            }
+        }
         return resource;
     }
 
