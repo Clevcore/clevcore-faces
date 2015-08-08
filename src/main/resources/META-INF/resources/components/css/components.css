@@ -496,7 +496,8 @@ div.separator {
   padding-top: 20px;
 }
 .checkbox {
-  transform: translateZ(0);
+	margin: 0;
+	transform: translateZ(0);
 }
 .checkbox label {
   cursor: pointer;
