@@ -76,16 +76,7 @@ function handleNextElement(index, elementArray, event) {
 	} while (elementArray[index].classList.contains("dNone") || $(elementArray[index]).is("[disabled='disabled']")
 			|| $(elementArray[index]).is("input[type='hidden']"));
 
-	if ($(elementArray[currentIndex]).is("textarea")) {
-		if (!event.shiftKey) {
-			var textareaValue = $(elementArray[currentIndex]).val();
-			var textarea = $(elementArray[currentIndex]);
-              currentPos = getCaret(textarea.get(0));
-              beforeText = textareaValue.substr(0, currentPos);
-              afterText = textareaValue.substr(currentPos);
-              $(elementArray[currentIndex]).val(beforeText + "\n" + afterText);
-		}
-	} else {
+	if (!$(elementArray[currentIndex]).is("textarea")) {
 		helperNextElement(index, elementArray, event);
 	}
 }
