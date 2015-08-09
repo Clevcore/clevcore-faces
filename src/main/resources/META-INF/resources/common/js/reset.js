@@ -59,7 +59,7 @@ function reset() {
 	$("form").on("keyup keypress", function(e) {
 		var key = e.keyCode || e.which;
 		if (key == 13) {
-			if (!$(e.target).is("textarea") || !e.shiftKey) {
+			if (!$(e.target).is("textarea") || e.shiftKey) {
 				e.preventDefault();
 				return false;
 			}
@@ -78,7 +78,12 @@ function handleNextElement(index, elementArray, event) {
 
 	if ($(elementArray[currentIndex]).is("textarea")) {
 		if (!event.shiftKey) {
-			helperNextElement(index, elementArray, event);
+			var textareaValue = $(elementArray[currentIndex]).val();
+			var textarea = $(elementArray[currentIndex]);
+              currentPos = getCaret(textarea.get(0));
+              beforeText = textareaValue.substr(0, currentPos);
+              afterText = textareaValue.substr(currentPos);
+              $(elementArray[currentIndex]).val(beforeText + "\n" + afterText);
 		}
 	} else {
 		helperNextElement(index, elementArray, event);
@@ -101,4 +106,18 @@ function helperNextElement(index, elementArray, event) {
 	} else {
 		elementArray[0].focus();
 	}
+}
+
+function getCaret(input) {
+	if ('selectionStart' in input) {
+        // Standard-compliant browsers
+        return input.selectionStart;
+    } else if (document.selection) {
+        // IE
+        input.focus();
+        var sel = document.selection.createRange();
+        var selLen = document.selection.createRange().text.length;
+        sel.moveStart('character', -input.value.length);
+        return sel.text.length - selLen;
+    }
 }
