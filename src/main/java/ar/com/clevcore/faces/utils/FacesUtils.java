@@ -401,22 +401,35 @@ public final class FacesUtils {
         return resource;
     }
 
-    public static String getClevcoreResource(String... keys) {
+    public static String getClevcoreResource(String key) {
         String resource = "";
         ResourceBundle clevcoreResourceBundle = getClevcoreResourceBundle();
-
         if (clevcoreResourceBundle != null) {
-            for (String key : keys) {
-                try {
-                    resource += clevcoreResourceBundle.getString(key);
-                } catch (Exception e) {
-                    resource += key;
-                }
+            try {
+                resource += clevcoreResourceBundle.getString(key);
+            } catch (Exception e) {
+                resource += key;
             }
         }
-
         return resource;
     }
+    
+    public static String getClevcoreResource(String key, Object... params) {
+        String resource = "";
+        ResourceBundle clevcoreResourceBundle = getClevcoreResourceBundle();
+        if (clevcoreResourceBundle != null) {
+            try {
+                resource = clevcoreResourceBundle.getString(key);
+                if (params.length != 0) {
+                    resource = MessageFormat.format(resource, (Object[]) params);
+                }
+            } catch (Exception e) {
+                resource = key;
+            }
+        }
+        return resource;
+    }
+    
 
     // COMPONENTS
     public static void showPopup(String id) {
