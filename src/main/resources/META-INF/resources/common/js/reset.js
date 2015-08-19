@@ -1,24 +1,18 @@
 function reset() {
-	$("textarea[date-height]").each(function() {
-		var height = parseInt(getAttributeElement(this, "date-height"));
-		if (height != null) {
-			addClassElement(this, "oHidden");
-			if (this.scrollHeight > height) {
-				this.style.height = 0;
-				this.style.height = this.scrollHeight + "px";
-			} else {
-				this.style.height = height + "px";
-			}
-		}
-	});
 
-	$("textarea[date-height]").on("keyup keydown", function(e) {
-		var height = parseInt(getAttributeElement(this, "date-height"));
-		if (this.scrollHeight > height) {
-			this.style.height = 0;
-			this.style.height = this.scrollHeight + "px";
+	$('textarea[data-height]').each(function () {
+		var heightValue= this.scrollHeight;
+		if(heightValue == 0){
+			heightValue= 80;
 		}
-	});
+		this.setAttribute('style', 'height:' + (heightValue) + 'px;overflow-y:hidden;');
+		  
+		}).on('input', function () {
+		  this.style.height = 'auto';
+		  this.style.height = (this.scrollHeight) + 'px';
+		});
+	
+	
 
 	$("[data-only=number]").on(
 			"keyup keypress",
