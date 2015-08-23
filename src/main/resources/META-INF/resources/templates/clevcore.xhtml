@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:o="http://omnifaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -8,18 +9,16 @@
 	<h:head>
 		<h:outputStylesheet name="vendor/css/bootstrap.min.css" />
 		<h:outputStylesheet name="common/css/reset.css" />
-
+	
 		<h:outputStylesheet name="vendor/css/bootstrap-datetimepicker.min.css" />
 		<h:outputStylesheet name="vendor/css/font.min.css" />
 		<h:outputStylesheet name="vendor/css/font-awesome.min.css" />
-		
+	
 		<h:outputStylesheet name="common/css/faces.css" />
 		<h:outputStylesheet name="common/css/animate.css" />
 		<h:outputStylesheet name="components/css/components.css" />
 		<h:outputStylesheet name="common/css/common.css" />
-		
-		<script>var path = "#{bbClevcore.path}";</script>
-
+	
 		<h:outputScript name="vendor/js/jquery.min.js" />
 		<h:outputScript name="vendor/js/bootstrap.min.js" />
 		<h:outputScript name="vendor/js/moment.min.js" />
@@ -31,23 +30,37 @@
 		<h:outputScript name="common/js/common.js" />
 		<h:outputScript name="common/js/faces.js" />
 		<h:outputScript name="components/js/components.js" />
-
+	
 		<!--[if lt IE 9]>
-		<h:outputScript name="vendor/js/jquery.html5shiv.min.js" />
-		<h:outputScript name="vendor/js/jquery.respond.min.js" />
-		<![endif]-->
-		
+			<h:outputScript name="vendor/js/jquery.html5shiv.min.js" />
+			<h:outputScript name="vendor/js/jquery.respond.min.js" />
+			<![endif]-->
+	
+		<script>
+			$(document).ready(function() {
+				path = "#{bbClevcore.path}";
+				ConfirmNavigation.message = "#{clevcoreMsg.confirm_navigation_info}";
+			});
+		</script>
+	
 		<ui:insert name="head" />
 	</h:head>
 	<h:body>
 		<ui:insert name="body" />
-
+	
 		<cc:messages id="#{bbClevcore.idMessages}" />
-
-     	<cc:wait />
-     		
+	
+		<cc:wait />
+	
 		<h:panelGroup id="#{bbClevcore.idScript}">
 			<script>#{bbClevcore.script}</script>
 		</h:panelGroup>
+	
+		<o:onloadScript>
+			var facesContext = {
+				maximumSeverity : "#{facesContext.maximumSeverity}",
+				validationFailed : #{facesContext.validationFailed}
+			}
+		</o:onloadScript>
 	</h:body>
 </h:html>

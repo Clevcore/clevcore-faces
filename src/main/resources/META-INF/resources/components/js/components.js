@@ -17,6 +17,7 @@ HandleAjax.listener = function(data) {
 			addClassElement(data.source.childNodes[1], "oHidden");
 			waitDisable();
 		}
+
 		break;
 	case "complete":
 		if (getAttributeElement(data.source, "data-oncomplete") != null) {
@@ -89,6 +90,81 @@ function accordion(id) {
 		}, 200);
 	}
 }
+
+/* confirm navigation */
+var ConfirmNavigation = {
+	form : [],
+	message : "",
+
+	init : function() {
+		ConfirmNavigation.initAttributes();
+
+		ConfirmNavigation.listener();
+		ConfirmNavigation.action();
+
+		$(window).on("beforeunload", ConfirmNavigation.verify);
+	},
+
+	initAttributes : function() {
+		$("form[data-confirm-navigation]").each(function() {
+			ConfirmNavigation.form.push({
+				id : this.id,
+				enable : true
+			});
+		});
+	},
+
+	enable : function(id) {
+		ConfirmNavigation.form.forEach(function(form) {
+			if (form.id == id) {
+				form.enable = true;
+			}
+		});
+	},
+
+	disable : function(id) {
+		ConfirmNavigation.form.forEach(function(form) {
+			if (form.id == id) {
+				form.enable = false;
+			}
+		});
+	},
+
+	listener : function() {
+		jsf.ajax.addOnEvent(function(data) {
+			switch (data.status) {
+			case "complete":
+				var id = (data.source).closest('form').id;
+				ConfirmNavigation.disable(id);
+				break;
+			case "success":
+				var id = (data.source).closest('form').id;
+				ConfirmNavigation.enable(id);
+				break;
+			}
+		});
+	},
+
+	action : function() {
+		$("form[data-confirm-navigation]").submit(function() {
+			var id = this.id;
+			ConfirmNavigation.disable(id);
+		});
+	},
+
+	verify : function() {
+		ConfirmNavigation.form.forEach(function(form) {
+			if (form.enable) {
+				var e = e || window.event;
+				if (e) {
+					e.returnValue = ConfirmNavigation.message;
+				}
+				return ConfirmNavigation.message;
+			}
+		});
+	}
+
+};
 
 /* dataTable */
 function dataTableRow(id, size, rowIndex, onRowClick) {
@@ -388,32 +464,12 @@ function wait(status) {
 			addClass("wait", "dNone");
 		}
 	}
-};
+}
 
 function waitEnable() {
 	isWaitEnable = true;
-
-	if (window.addEventListener) {
-		window.addEventListener("beforeunload", function() {
-			wait("begin");
-		}, false);
-	} else {
-		window.attachEvent("onbeforeunload", function() {
-			wait("begin");
-		});
-	}
-};
+}
 
 function waitDisable() {
 	isWaitEnable = false;
-
-	if (window.removeEventListener) {
-		window.removeEventListener("beforeunload", function() {
-			wait("begin");
-		}, false);
-	} else {
-		window.detachEvent("onbeforeunload", function() {
-			wait("begin");
-		});
-	}
-};
+}
