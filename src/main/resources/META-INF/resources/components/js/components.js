@@ -99,10 +99,12 @@ var ConfirmNavigation = {
 	init : function() {
 		ConfirmNavigation.initAttributes();
 
-		ConfirmNavigation.listener();
-		ConfirmNavigation.action();
+		if (ConfirmNavigation.form.length > 0) {
+			ConfirmNavigation.listener();
+			ConfirmNavigation.action();
 
-		$(window).on("beforeunload", ConfirmNavigation.verify);
+			$(window).on("beforeunload", ConfirmNavigation.verify);
+		}
 	},
 
 	initAttributes : function() {
@@ -134,12 +136,16 @@ var ConfirmNavigation = {
 		jsf.ajax.addOnEvent(function(data) {
 			switch (data.status) {
 			case "complete":
-				var id = (data.source).closest('form').id;
-				ConfirmNavigation.disable(id);
+				var form = (data.source).closest('form');
+				if (form != null) {
+					ConfirmNavigation.disable(form.id);
+				}
 				break;
 			case "success":
-				var id = (data.source).closest('form').id;
-				ConfirmNavigation.enable(id);
+				var form = (data.source).closest('form');
+				if (form != null) {
+					ConfirmNavigation.enable(form.id);
+				}
 				break;
 			}
 		});
