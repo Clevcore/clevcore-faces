@@ -19,6 +19,7 @@
 		<composite:attribute name="requiredMessage"
 			required="#{cc.attrs.required}" type="java.lang.String" />
 		<composite:attribute name="autofocus" type="java.lang.Boolean" />
+			<composite:attribute name="converter" type="java.lang.String" />
 
 		<composite:attribute name="onchange" type="java.lang.String" />
 		<composite:attribute name="onclick" type="java.lang.String" />
@@ -35,12 +36,13 @@
 			<h:panelGroup styleClass="select">
 				<f:passThroughAttribute name="data-disabled"
 					value="#{cc.attrs.disabled}" />
-				<h:selectOneMenu id="selectOneMenu"
+				<h:selectOneMenu id="selectOneMenu" 
 					styleClass="#{cc.attrs.styleClass}" style="#{cc.attrs.style}"
 					value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
 					immediate="#{cc.attrs.immediate}" required="#{cc.attrs.required}"
 					requiredMessage="#{cc.attrs.requiredMessage}"
-					onchange="#{cc.attrs.onchange}" onclick="#{cc.attrs.onclick}">
+					onchange="#{cc.attrs.onchange}" onclick="#{cc.attrs.onclick}"
+					converter="#{cc.attrs.converter}">
 					<c:if test="#{cc.attrs.autofocus != null}">
 						<f:passThroughAttribute name="autofocus" value="autofocus" />
 					</c:if>
