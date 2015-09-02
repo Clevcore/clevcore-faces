@@ -19,12 +19,15 @@
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block" styleClass="mNormal hInherit">
 			<h:panelGroup layout="block"
-				styleClass="panel #{cc.attrs.styleClass}"
-				style="#{cc.attrs.style}">
+				styleClass="panel #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
 				<composite:insertChildren />
 			</h:panelGroup>
+			<f:passThroughAttribute name="data-accordion"
+				value="#{cc.attrs.accordion}" />
 			<c:if test="#{cc.attrs.accordion == true}">
-				<script>initAccordion("#{cc.clientId}", #{cc.attrs.accordionOpened});</script>
+				<f:passThroughAttribute name="data-opened"
+					value="#{cc.attrs.accordionOpened}" />
+				<script>initAccordion("#{cc.clientId}");</script>
 			</c:if>
 		</h:panelGroup>
 	</composite:implementation>

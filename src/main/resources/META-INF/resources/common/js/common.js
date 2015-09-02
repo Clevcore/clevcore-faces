@@ -247,6 +247,16 @@ function addInnerHTMLElement(element, isTop, innerHTML) {
 }
 
 // utils
+function getBoolean(value) {
+	if (value === "true") {
+		return true;
+	} else if (value === "false") {
+		return false;
+	}
+
+	return undefined;
+}
+
 function getHeight(id) {
 	return getHeightElement(getElement(id));
 }

@@ -51,54 +51,70 @@ HandleAjax.listener = function(data) {
 };
 
 /* accordion */
-function initAccordion(id, opened) {
-	var panelBody = getElement(id + ":id").firstChild.childNodes[1];
+function initAccordion(id) {
+	var panel = getElement(id + ":id");
+	var panelBody = panel.firstChild.childNodes[1];
+	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
-	addClassElement(panelBody, "hTransition oTransition");
-	panelBody.style.maxHeight = getHeightElement(panelBody) + "px";
 	if (opened) {
 		addClassElement(panelBody, "dBlock oMax");
-		panelBody.style.height = getHeightElement(panelBody) + "px";
 	} else {
+		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
 		addClassElement(panelBody, "dNone oMin");
-		panelBody.style.height = "0px";
 	}
 }
 
 function accordion(id, titleCompress, titleExpand) {
-	var panelHead = getElement(id + ":id").firstChild.childNodes[0];
-	var panelBody = getElement(id + ":id").firstChild.childNodes[1];
-	var panelfoot = getElement(id + ":id").firstChild.childNodes[2];
+	var panel = getElement(id + ":id");
+	var panelHead = panel.firstChild.childNodes[0];
+	var panelBody = panel.firstChild.childNodes[1];
+	var panelfoot = panel.firstChild.childNodes[2];
+	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
-	if ($(panelBody).hasClass("dNone")) {
+	if (opened) {
+		setAttributeElement(panel, "data-opened", "false");
+
+		setAttributeElement(panelHead, "title", titleExpand);
+		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
+		replaceClassElement($(panelHead).find(".fa-compress")[0], "fa-compress", "fa-expand");
+
+		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
+		panelBody.style.height = getHeightElement(panelBody) + "px";
+
+		setTimeout(function() {
+			replaceClassElement(panelBody, "oMax", "oMin");
+			panelBody.style.height = "0px";
+		}, 10);
+
+		setTimeout(function() {
+			replaceClassElement(panelBody, "dBlock", "dNone");
+		}, ANIMATION_TIME);
+
+		setTimeout(function() {
+			replaceClassElement(panelfoot, "dBlock", "dNone");
+		}, 20);
+	} else {
+		setAttributeElement(panel, "data-opened", "true");
+
+		setAttributeElement(panelHead, "title", titleCompress);
 		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");
 		replaceClassElement($(panelHead).find(".fa-expand")[0], "fa-expand", "fa-compress");
 
-		setAttributeElement(panelHead, "title", titleCompress);
-
-		replaceClassElement(panelfoot, "dNone", "dBlock");
+		panelBody.style.height = "0px";
 		replaceClassElement(panelBody, "dNone", "dBlock");
 
 		setTimeout(function() {
 			replaceClassElement(panelBody, "oMin", "oMax");
-			panelBody.style.height = panelBody.style.maxHeight;
+			panelBody.style.height = getAttributeElement(panelBody, "data-height");
 		}, 10);
-	} else {
-		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
-		replaceClassElement($(panelHead).find(".fa-compress")[0], "fa-compress", "fa-expand");
 
-		setAttributeElement(panelHead, "title", titleExpand);
-
-		replaceClassElement(panelfoot, "dBlock", "dNone");
-		replaceClassElement(panelBody, "oMax", "oMin");
-
-		panelBody.style.height = "0px";
 		setTimeout(function() {
-			replaceClassElement(panelBody, "dBlock", "dNone");
+			panelBody.style.height = "";
 		}, ANIMATION_TIME);
+
 		setTimeout(function() {
-			replaceClassElement(panelBody, "dBlock", "dNone");
-		}, ANIMATION_TIME);
+			replaceClassElement(panelfoot, "dNone", "dBlock");
+		}, 20);
 	}
 }
 
