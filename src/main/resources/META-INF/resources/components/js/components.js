@@ -336,8 +336,10 @@ function popupHandler(e) {
 }
 
 function movePopup(window, panelMove) {
+	var body = document.getElementsByTagName("body")[0];
+
 	panelMove.onmousedown = function(event) {
-		addClass("body", "unselectable");
+		setClassElement(body, "unselectable");
 		addClassElement(panelMove, "cMove");
 
 		document.onmousemove = function(event) {
@@ -362,7 +364,7 @@ function movePopup(window, panelMove) {
 		};
 
 		document.onmouseup = function() {
-			removeClass("body", "unselectable");
+			removeClassElement(body, "unselectable");
 			removeClassElement(panelMove, "cMove");
 			statusPopup = false;
 			document.onmousemove = null;
