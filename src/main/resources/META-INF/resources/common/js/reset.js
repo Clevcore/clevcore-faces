@@ -10,16 +10,13 @@ function reset() {
 		this.style.height = (this.scrollHeight) + 'px';
 	});
 
-	$("[data-only=number]").on(
-			"keyup keypress",
-			function(e) {
-				var key = e.keyCode || e.which;
-				if (!(35 <= key && key <= 39) && !(44 <= key && key <= 46) && !(48 <= key && key <= 57) && key != 8
-						&& key != 9 && key != 13) {
-					e.preventDefault();
-					return false;
-				}
-			});
+	$("[data-only=number]").on("keyup keypress", function(e) {
+		var value = this.value + String.fromCharCode(e.keyCode || e.which);
+		if (isNaN(value)) {
+			e.preventDefault();
+			return false;
+		}
+	});
 
 	$(".datetimepicker").datetimepicker({
 		pickTime : false,
