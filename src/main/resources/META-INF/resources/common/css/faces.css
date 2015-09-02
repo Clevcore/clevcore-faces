@@ -17,6 +17,10 @@ div.background img {
 	padding-bottom: 70px
 }
 
+.navbar-fixed-top, .navbar-fixed-bottom {
+	z-index: 0;
+}
+
 /* body */
 div.separator {
 	border-top: 1px solid #e7e7e7;
