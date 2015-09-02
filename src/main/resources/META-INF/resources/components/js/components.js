@@ -1,3 +1,6 @@
+/* var */
+var ANIMATION_TIME = 300;
+
 /* ajax */
 var HandleAjax = {};
 
@@ -84,10 +87,10 @@ function accordion(id) {
 		panelBody.style.height = "0px";
 		setTimeout(function() {
 			replaceClassElement(panelBody, "dBlock", "dNone");
-		}, 200);
+		}, ANIMATION_TIME);
 		setTimeout(function() {
 			replaceClassElement(panelBody, "dBlock", "dNone");
-		}, 200);
+		}, ANIMATION_TIME);
 	}
 }
 
@@ -307,7 +310,7 @@ function hidePopup(id) {
 		replaceClassElement(getElement(idPopup).firstChild.firstChild.firstChild, "animate-"
 				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
 		idPopup = null;
-	}, 500);
+	}, ANIMATION_TIME);
 
 	if (window.removeEventListener) {
 		if (eval(getAttribute(idPopup, "data-autocenter"))) {
@@ -443,7 +446,7 @@ function shortcut(id) {
 
 			replaceClassElement(panel, "dBlock", "dNone");
 			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
-		}, 500);
+		}, ANIMATION_TIME);
 
 		if (window.removeEventListener) {
 			window.removeEventListener("keydown", shortcutHandler, false);
