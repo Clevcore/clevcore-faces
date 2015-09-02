@@ -153,7 +153,10 @@ table {
 }
 
 textarea {
-	height: 100px;
-	overflow: auto;
+	height: 80px;
 	resize: none;
+}
+
+textarea[data-height] {
+	overflow-y: hidden;
 }

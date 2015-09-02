@@ -1,13 +1,13 @@
 function reset() {
 	$('textarea[data-height]').each(function() {
-		var heightValue = this.scrollHeight;
+		var heightValue = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight);
 		if (heightValue == 0) {
 			heightValue = 80;
 		}
-		this.setAttribute('style', 'height: ' + (heightValue) + 'px; overflow-y: hidden;');
+		this.style.height = heightValue + "px";
 	}).on('input', function() {
 		this.style.height = 'auto';
-		this.style.height = (this.scrollHeight) + 'px';
+		this.style.height = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight) + 'px';
 	});
 
 	$("[data-only=number]").on("keyup keypress", function(e) {
