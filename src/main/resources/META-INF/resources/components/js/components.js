@@ -65,25 +65,33 @@ function initAccordion(id, opened) {
 	}
 }
 
-function accordion(id) {
+function accordion(id, titleCompress, titleExpand) {
 	var panelHead = getElement(id + ":id").firstChild.childNodes[0];
 	var panelBody = getElement(id + ":id").firstChild.childNodes[1];
 	var panelfoot = getElement(id + ":id").firstChild.childNodes[2];
 
 	if ($(panelBody).hasClass("dNone")) {
-		replaceClassElement($(panelHead).find(".fa-arrow-down")[0], "fa-arrow-down", "fa-arrow-up");
-		replaceClassElement(panelfoot, "dNone", "dBlock");
+		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");
+		replaceClassElement($(panelHead).find(".fa-expand")[0], "fa-expand", "fa-compress");
 
+		setAttributeElement(panelHead, "title", titleCompress);
+
+		replaceClassElement(panelfoot, "dNone", "dBlock");
 		replaceClassElement(panelBody, "dNone", "dBlock");
+
 		setTimeout(function() {
 			replaceClassElement(panelBody, "oMin", "oMax");
 			panelBody.style.height = panelBody.style.maxHeight;
 		}, 10);
 	} else {
-		replaceClassElement($(panelHead).find(".fa-arrow-up")[0], "fa-arrow-up", "fa-arrow-down");
-		replaceClassElement(panelfoot, "dBlock", "dNone");
+		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
+		replaceClassElement($(panelHead).find(".fa-compress")[0], "fa-compress", "fa-expand");
 
+		setAttributeElement(panelHead, "title", titleExpand);
+
+		replaceClassElement(panelfoot, "dBlock", "dNone");
 		replaceClassElement(panelBody, "oMax", "oMin");
+
 		panelBody.style.height = "0px";
 		setTimeout(function() {
 			replaceClassElement(panelBody, "dBlock", "dNone");

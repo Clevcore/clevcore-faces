@@ -14,13 +14,39 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
-			styleClass="unselectable head fontRobotolight #{cc.attrs.styleClass}"
+			styleClass="unselectable head fontRobotolight #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
 			rendered="#{cc.attrs.rendered}">
+			<c:if test="#{cc.parent.attrs.accordion}">
+				<f:passThroughAttribute name="onclick"
+					value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
+				<c:choose>
+					<c:when test="#{cc.parent.attrs.accordionOpened == true}">
+						<f:passThroughAttribute name="title"
+							value="#{clevcoreMsg.compress}" />
+					</c:when>
+					<c:when test="#{cc.parent.attrs.accordionOpened == false}">
+						<f:passThroughAttribute name="title" value="#{clevcoreMsg.expand}" />
+					</c:when>
+				</c:choose>
+			</c:if>
+
 			<c:if test="#{cc.parent.parent.attrs.movable}">
 				<f:passThroughAttribute name="onmousemove"
 					value="movePopup(getElement('#{cc.parent.parent.clientId}:id'), this.firstChild);" />
 			</c:if>
+
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
+				<c:choose>
+					<c:when
+						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
+						<cc:icon styleClass="fs24 pRightNormal" value="chevron-down" />
+					</c:when>
+					<c:when
+						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
+						<cc:icon styleClass="fs24 pRightNormal" value="chevron-right" />
+					</c:when>
+				</c:choose>
+
 				<c:if test="#{cc.attrs.icon ne null}">
 					<cc:icon styleClass="fs24 pRightNormal" value="#{cc.attrs.icon}" />
 				</c:if>
@@ -33,17 +59,15 @@
 					<c:choose>
 						<c:when test="#{cc.parent.parent.attrs.closeable}">
 							<cc:icon styleClass="cInfoHover cPointer fs24" value="times"
-								onclick="hidePopup();" />
+								title="#{clevcoreMsg.close}" onclick="hidePopup();" />
 						</c:when>
 						<c:when
-							test="#{cc.parent.attrs.accordion == true and cc.parent.attrs.accordionOpened == true}">
-							<cc:icon styleClass="cInfoHover cPointer fs24" value="arrow-up"
-								onclick="accordion('#{cc.parent.clientId}'); #{cc.parent.attrs.onAccordionClick}" />
+							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
+							<cc:icon styleClass="fs24" value="compress" />
 						</c:when>
 						<c:when
-							test="#{cc.parent.attrs.accordion == true and cc.parent.attrs.accordionOpened == false}">
-							<cc:icon styleClass="cInfoHover cPointer fs24" value="arrow-down"
-								onclick="accordion('#{cc.parent.clientId}'); #{cc.parent.attrs.onAccordionClick}" />
+							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
+							<cc:icon styleClass="fs24" value="expand" />
 						</c:when>
 					</c:choose>
 				</h:panelGroup>
