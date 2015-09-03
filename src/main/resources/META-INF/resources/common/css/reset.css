@@ -102,6 +102,10 @@ input[type='button']:active,input[type='button']:focus,input[type='submit']:acti
 input[type='button']:disabled,input[type='submit']:disabled,button:disabled {
 	color: #eee;
 	cursor: default;
+
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+	        box-shadow: none;
 }
 
 input[type='checkbox'] {
