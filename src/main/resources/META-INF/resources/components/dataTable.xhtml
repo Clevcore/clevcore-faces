@@ -86,8 +86,7 @@
 			</h:dataTable>
 
 			<h:panelGroup layout="block" id="paginator">
-				<h:panelGroup rendered="#{cc.attrs.showpaginator and cc.pages > 1}"
-					layout="block" styleClass="mBottomNormal">
+				<h:panelGroup layout="block" styleClass="mBottomNormal">
 					<h:panelGroup layout="block" styleClass="dInlineBlock w10">
 						<h:panelGroup layout="block" styleClass="dInlineBlock">
 							<cc:selectOneMenu id="rows" style="width: 75px;"
@@ -103,7 +102,8 @@
 						</h:panelGroup>
 					</h:panelGroup>
 
-					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90">
+					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90"
+						rendered="#{cc.attrs.showpaginator and cc.pages > 1}">
 						<cc:commandButton styleClass="primary bwRightNone wAuto"
 							icon="chevron-left" title="#{clevcoreMsg.previous_page}"
 							disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
