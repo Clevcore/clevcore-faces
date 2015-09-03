@@ -38,6 +38,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         data.setVar(getAttributes().get("var").toString());
 
         // rows
+        data.setRowStatePreserved(true);
         data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
 
         // value
@@ -98,8 +99,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         if (objectList != null && !objectList.isEmpty()) {
             String path = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
                     + File.separator;
-            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")),
-                    path, true, FacesUtils.getClevcoreResource("pattern_date"));
+            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")), path,
+                    true, FacesUtils.getClevcoreResource("pattern_date"));
 
             setFile(ServletUtils.getUrl() + "/resources/temp/" + file);
         }
@@ -136,6 +137,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
     }
 
     public void rowslistener(AjaxBehaviorEvent event) {
+        data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
+
         initPages();
 
         if (getOrderBy() != null) {
@@ -178,9 +181,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         String search = getSearch();
 
         if (objectList != null && !objectList.isEmpty() && search != null && !search.isEmpty()) {
-            objectList = Utils.searchObject(search, objectList,
-                    getProperties((String) getAttributes().get("searchBy")), false,
-                    FacesUtils.getResource("patternDate"));
+            objectList = Utils.searchObject(search, objectList, getProperties((String) getAttributes().get("searchBy")),
+                    false, FacesUtils.getResource("patternDate"));
 
             setValueSearch(objectList);
             data.setValue(objectList);
