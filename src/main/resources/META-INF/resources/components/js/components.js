@@ -121,12 +121,15 @@ function accordion(id, titleCompress, titleExpand) {
 /* confirm navigation */
 var ConfirmNavigation = {
 	form : [],
+	enable : false,
 	message : "",
 
 	init : function() {
 		ConfirmNavigation.initAttributes();
 
 		if (ConfirmNavigation.form.length > 0) {
+			ConfirmNavigation.enable = true;
+
 			ConfirmNavigation.listener();
 			ConfirmNavigation.action();
 
@@ -138,24 +141,8 @@ var ConfirmNavigation = {
 		$("form[data-confirm-navigation]").each(function() {
 			ConfirmNavigation.form.push({
 				id : this.id,
-				enable : true
+				serialize : $(this).serialize()
 			});
-		});
-	},
-
-	enable : function(id) {
-		ConfirmNavigation.form.forEach(function(form) {
-			if (form.id == id) {
-				form.enable = true;
-			}
-		});
-	},
-
-	disable : function(id) {
-		ConfirmNavigation.form.forEach(function(form) {
-			if (form.id == id) {
-				form.enable = false;
-			}
 		});
 	},
 
@@ -163,16 +150,33 @@ var ConfirmNavigation = {
 		jsf.ajax.addOnEvent(function(data) {
 			switch (data.status) {
 			case "complete":
-				var form = (data.source).closest('form');
-				if (form != null) {
-					ConfirmNavigation.disable(form.id);
+				var formElement = (data.source).closest('form');
+
+				if (formElement != null) {
+					var form = Array.get(ConfirmNavigation.form, "id", formElement.id);
+
+					if (form != null) {
+						form.oldSerialize = form.serialize;
+						form.serialize = $("#" + form.id).serialize();
+					}
 				}
+
 				break;
 			case "success":
-				var form = (data.source).closest('form');
-				if (form != null) {
-					ConfirmNavigation.enable(form.id);
+				var formElement = (data.source).closest('form');
+
+				if (formElement != null) {
+					var form = Array.get(ConfirmNavigation.form, "id", formElement.id);
+
+					if (form != null) {
+						if (facesContext.maximumSeverity.indexOf("INFO") == -1) {
+							form.serialize = form.oldSerialize;
+						}
+
+						form.oldSerialize = undefined;
+					}
 				}
+
 				break;
 			}
 		});
@@ -180,14 +184,27 @@ var ConfirmNavigation = {
 
 	action : function() {
 		$("form[data-confirm-navigation]").submit(function() {
-			var id = this.id;
-			ConfirmNavigation.disable(id);
+			var form = Array.get(ConfirmNavigation.form, "id", this.id);
+			form.serialize = $("#" + form.id).serialize();
 		});
+	},
+
+	enable : function(id) {
+		ConfirmNavigation.enable = true;
+	},
+
+	disable : function(id) {
+		ConfirmNavigation.enable = false;
 	},
 
 	verify : function() {
 		ConfirmNavigation.form.forEach(function(form) {
-			if (form.enable) {
+			if (ConfirmNavigation.enable && form.serialize != $("#" + form.id).serialize()) {
+				addClass(form.id, "animate animate-no");
+				setTimeout(function() {
+					removeClass(form.id, "animate animate-no");
+				}, ANIMATION_TIME);
+
 				var e = e || window.event;
 				if (e) {
 					e.returnValue = ConfirmNavigation.message;
@@ -195,6 +212,19 @@ var ConfirmNavigation = {
 				return ConfirmNavigation.message;
 			}
 		});
+	},
+
+	modifiedForms : function() {
+		var modifiedForms = false;
+
+		ConfirmNavigation.form.forEach(function(form) {
+			if (ConfirmNavigation.enable && form.serialize != $("#" + form.id).serialize()) {
+				modifiedForms = true;
+				return;
+			}
+		});
+
+		return modifiedForms;
 	}
 
 };
@@ -298,6 +328,10 @@ var vx, vy;
 function showPopup(id) {
 	idPopup = id;
 
+	if (getAttribute(idPopup, "data-onshow") != null) {
+		eval(getAttribute(idPopup, "data-onshow"));
+	}
+
 	remplaceClass(idPopup, "dNone", "dBlock");
 
 	popupAutoCenter();
@@ -322,6 +356,10 @@ function showPopup(id) {
 function hidePopup(id) {
 	if (id != null) {
 		idPopup = id;
+	}
+
+	if (getAttribute(idPopup, "data-onhide") != null) {
+		eval(getAttribute(idPopup, "data-onhide"));
 	}
 
 	remplaceClass(idPopup, "animate-fadeIn", "animate-fadeOut");

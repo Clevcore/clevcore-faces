@@ -301,6 +301,24 @@ function getWidthCurrentScroll() {
 	return (window.pageXOffset || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
 }
 
+Array.get = function(array, key, value) {
+	var indexOf = Array.indexOf(array, key, value);
+	if (indexOf != -1) {
+		return array[indexOf];
+	} else {
+		return undefined;
+	}
+}
+
+Array.indexOf = function(array, key, value) {
+	for (var i = 0; i < array.length; i++) {
+		if (array[i][key] == value) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 function keyRestriction(keys) {
 	key = ((event.which) ? event.which : event.keyCode);
 	keys = keys.split(",");

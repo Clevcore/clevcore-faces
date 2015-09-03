@@ -17,6 +17,8 @@
 			type="java.lang.Boolean" />
 		<composite:attribute name="movable" default="true"
 			type="java.lang.Boolean" />
+		<composite:attribute name="onshow" />
+		<composite:attribute name="onhide" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -31,6 +33,8 @@
 				value="#{cc.attrs.autocenter}" />
 			<f:passThroughAttribute name="data-closeable"
 				value="#{cc.attrs.closeable}" />
+			<f:passThroughAttribute name="data-onshow" value="#{cc.attrs.onshow}" />
+			<f:passThroughAttribute name="data-onhide" value="#{cc.attrs.onhide}" />
 			<h:panelGroup layout="block" styleClass="popup">
 				<h:panelGroup id="id" layout="block"
 					styleClass="pRelative #{cc.attrs.styleClass}">
