@@ -38,7 +38,6 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         data.setVar(getAttributes().get("var").toString());
 
         // rows
-        data.setRowStatePreserved(true);
         data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
 
         // value

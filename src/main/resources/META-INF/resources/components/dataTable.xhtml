@@ -73,6 +73,7 @@
 
 			<h:dataTable id="dataTable"
 				styleClass="table table-striped table-bordered mBottomNormal #{cc.attrs.rowlistener != null ? 'table-hover' : ''} #{cc.attrs.styleClass}"
+				rowStatePreserved="true"
 				columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
 				binding="#{cc.data}">
 				<h:column rendered="#{cc.attrs.rowlistener != null}">
