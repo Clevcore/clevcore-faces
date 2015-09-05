@@ -8,6 +8,9 @@ import java.util.Locale;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.DateUtils;
 
@@ -15,6 +18,8 @@ import ar.com.clevcore.utils.DateUtils;
 @ApplicationScoped
 public class BBClevcore implements Serializable {
     private static final long serialVersionUID = 1L;
+    
+    private static final Logger log = LoggerFactory.getLogger(BBClevcore.class);
 
     public Long getAge(Date date) {
         if (date != null) {
@@ -31,6 +36,7 @@ public class BBClevcore implements Serializable {
         try {
             return DateUtils.getDateFormat(new Date(), FacesUtils.getClevcoreResource("pattern_date"));
         } catch (ParseException e) {
+            log.error("[E] ParseException ocurred in [getDateFormat]", e);
             return null;
         }
     }

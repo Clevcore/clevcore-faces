@@ -14,6 +14,9 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.DateUtils;
 import ar.com.clevcore.utils.IntegerUtils;
@@ -22,6 +25,8 @@ import ar.com.clevcore.utils.ValidatorUtils;
 @FacesComponent("inputDate")
 public class InputDate extends UIInput implements NamingContainer {
 
+    private static final Logger log = LoggerFactory.getLogger(InputDate.class);
+    
     private final int DEFAULT_MINYEAR = 100;
 
     private UIPanel panel;
@@ -107,12 +112,13 @@ public class InputDate extends UIInput implements NamingContainer {
             String[] array = ((String) submittedValue).split("-");
             if ("0".equals(array[0]) || "0".equals(array[1]) || "0".equals(array[2])) {
                 if ((boolean) getAttributes().get("required")) {
+                    log.error("[E] ParseException in [getConvertedValue] - {}", getAttributes().get("requiredMessage"));
                     FacesUtils.addMessage(getId(context), FacesMessage.SEVERITY_ERROR,
                             (String) getAttributes().get("requiredMessage"));
                     return null;
                 }
             }
-
+            log.error("[E] ParseException in [getConvertedValue] - {}", getAttributes().get("validatorMessage"));
             FacesUtils.addMessage(getId(context), FacesMessage.SEVERITY_ERROR,
                     (String) getAttributes().get("validatorMessage"));
             return null;
@@ -140,6 +146,7 @@ public class InputDate extends UIInput implements NamingContainer {
                 }
             }
         } catch (Exception e) {
+            log.error("[E] Exception with getCalendar in [updateDaysIfNecessary] - {}", getAttributes().get("validatorMessage"));
             FacesUtils.addMessage(getId(FacesUtils.getFacesContext()), FacesMessage.SEVERITY_ERROR,
                     (String) getAttributes().get("validatorMessage"));
         }

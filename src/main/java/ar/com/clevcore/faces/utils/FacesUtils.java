@@ -22,14 +22,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ar.com.clevcore.exceptions.ClevcoreException;
 
 public final class FacesUtils {
-
+    
     public static final String ID_MESSAGES = "ar-com-clevcore-faces-messages";
     public static final String ID_SCRIPT = "ar-com-clevcore-faces-script";
     public static final String SCRIPT_SESSION = "ar.com.clevcore.faces.script";
 
+    private static final Logger log = LoggerFactory.getLogger(FacesUtils.class);
+    
     private FacesUtils() {
         throw new AssertionError();
     }
@@ -379,6 +384,7 @@ public final class FacesUtils {
             try {
                 resource = resourceBundle.getString(key);
             } catch (Exception e) {
+                log.error("[E] Exception in [getResource]", e);
                 resource = key;
             }
         }
@@ -395,6 +401,7 @@ public final class FacesUtils {
                     resource = MessageFormat.format(resource, (Object[]) params);
                 }
             } catch (Exception e) {
+                log.error("[E] Exception in [getResource]", e);
                 resource = key;
             }
         }
@@ -408,6 +415,7 @@ public final class FacesUtils {
             try {
                 resource += clevcoreResourceBundle.getString(key);
             } catch (Exception e) {
+                log.error("[E] Exception in [getClevcoreResource]", e);
                 resource += key;
             }
         }
@@ -424,6 +432,7 @@ public final class FacesUtils {
                     resource = MessageFormat.format(resource, (Object[]) params);
                 }
             } catch (Exception e) {
+                log.error("[E] Exception in [getClevcoreResource]", e);
                 resource = key;
             }
         }
