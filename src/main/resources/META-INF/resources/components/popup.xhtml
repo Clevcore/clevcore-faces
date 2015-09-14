@@ -17,13 +17,14 @@
 			type="java.lang.Boolean" />
 		<composite:attribute name="movable" default="true"
 			type="java.lang.Boolean" />
+		<composite:attribute name="scrollable" default="true"
+			type="java.lang.Boolean" />
 		<composite:attribute name="onshow" />
 		<composite:attribute name="onhide" />
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGroup layout="block"
-			styleClass="dNone zModal animate animate-fadeIn">
+		<h:panelGroup layout="block" styleClass="dNone pRelative zNormal">
 			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
 			<f:passThroughAttribute name="data-animatein"
 				value="#{cc.attrs.animateIn}" />
@@ -33,21 +34,22 @@
 				value="#{cc.attrs.autocenter}" />
 			<f:passThroughAttribute name="data-closeable"
 				value="#{cc.attrs.closeable}" />
+			<f:passThroughAttribute name="data-scrollable"
+				value="#{cc.attrs.scrollable}" />
 			<f:passThroughAttribute name="data-onshow" value="#{cc.attrs.onshow}" />
 			<f:passThroughAttribute name="data-onhide" value="#{cc.attrs.onhide}" />
 			<h:panelGroup layout="block" styleClass="popup">
-				<h:panelGroup id="id" layout="block"
-					styleClass="pRelative #{cc.attrs.styleClass}">
+				<h:panelGroup id="id" layout="block" styleClass="pRelative oAuto">
 					<h:panelGroup layout="block"
-						styleClass="animate animate-#{cc.attrs.animateIn}">
+						styleClass="animate animate-#{cc.attrs.animateIn} #{cc.attrs.styleClass}">
 						<composite:insertChildren />
 					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGroup>
 
 			<c:if test="#{cc.attrs.modal}">
-				<h:panelGroup layout="block"
-					styleClass="modal #{cc.attrs.closeable ? 'cZoomOut' : ''}">
+				<h:panelGroup id="modal" layout="block"
+					styleClass="modal animate animate-fadeIn #{cc.attrs.closeable ? 'cZoomOut' : ''}">
 					<c:if test="#{cc.attrs.closeable}">
 						<f:passThroughAttribute name="onclick" value="hidePopup();" />
 					</c:if>

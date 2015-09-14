@@ -1741,6 +1741,10 @@
 	z-index: -1;
 }
 
+.zNone{
+	z-index: 0;
+}
+
 .zNormal {
 	z-index: 1;
 }

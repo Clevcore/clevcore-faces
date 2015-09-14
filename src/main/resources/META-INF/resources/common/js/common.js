@@ -11,6 +11,14 @@ function getElement(id) {
 	return document.getElementById(id);
 }
 
+function getSelector(selector) {
+	return document.querySelector(selector);
+}
+
+function getSelectors(selector) {
+	return document.querySelectorAll(selector);
+}
+
 function getValue(id) {
 	return getValueElement(getElement(id));
 }
@@ -265,6 +273,14 @@ function getHeightElement(element) {
 	return Math.max(element.clientHeight, element.offsetHeight);
 }
 
+function getHeightScroll(id) {
+	return getHeightScrollElement(getElement(id));
+}
+
+function getHeightScrollElement(element) {
+	return element.scrollHeight;
+}
+
 function getHeightWindow() {
 	return document.documentElement["clientHeight"];
 }
@@ -285,6 +301,14 @@ function getWidth(id) {
 
 function getWidthElement(element) {
 	return Math.max(element.clientWidth, element.offsetWidth);
+}
+
+function getWidthScroll(id) {
+	return getWidthScrollElement(getElement(id));
+}
+
+function getWidthScrollElement(element) {
+	return element.scrollWidth;
 }
 
 function getWidthWindow() {

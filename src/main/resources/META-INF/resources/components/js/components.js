@@ -68,7 +68,7 @@ function accordion(id, titleCompress, titleExpand) {
 	var panel = getElement(id + ":id");
 	var panelHead = panel.firstChild.childNodes[0];
 	var panelBody = panel.firstChild.childNodes[1];
-	var panelfoot = panel.firstChild.childNodes[2];
+	var panelFoot = panel.firstChild.childNodes[2];
 	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 	if (opened) {
@@ -91,7 +91,7 @@ function accordion(id, titleCompress, titleExpand) {
 		}, ANIMATION_TIME);
 
 		setTimeout(function() {
-			replaceClassElement(panelfoot, "dBlock", "dNone");
+			replaceClassElement(panelFoot, "dBlock", "dNone");
 		}, 20);
 	} else {
 		setAttributeElement(panel, "data-opened", "true");
@@ -113,7 +113,7 @@ function accordion(id, titleCompress, titleExpand) {
 		}, ANIMATION_TIME);
 
 		setTimeout(function() {
-			replaceClassElement(panelfoot, "dNone", "dBlock");
+			replaceClassElement(panelFoot, "dNone", "dBlock");
 		}, 20);
 	}
 }
@@ -326,30 +326,26 @@ var statusPopup = false;
 var vx, vy;
 
 function showPopup(id) {
-	idPopup = id;
+	addClassElement(getSelector("body"), "oHidden");
 
-	if (getAttribute(idPopup, "data-onshow") != null) {
-		eval(getAttribute(idPopup, "data-onshow"));
-	}
+	idPopup = id;
 
 	remplaceClass(idPopup, "dNone", "dBlock");
 
-	popupAutoCenter();
+	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
+		popupAutoCenter();
+		window.addEventListener("resize", popupAutoCenter);
+	}
+	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
+		popupAutoScroll();
+		window.addEventListener("resize", popupAutoScroll);
+	}
+	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
+		window.addEventListener("keydown", popupHandler);
+	}
 
-	if (window.addEventListener) {
-		if (eval(getAttribute(idPopup, "data-autocenter"))) {
-			window.addEventListener("resize", popupAutoCenter, false);
-		}
-		if (eval(getAttribute(idPopup, "data-closeable"))) {
-			window.addEventListener("keydown", popupHandler, false);
-		}
-	} else {
-		if (eval(getAttribute(idPopup, "data-autocenter"))) {
-			window.attachEvent("onresize", popupAutoCenter);
-		}
-		if (eval(getAttribute(idPopup, "data-closeable"))) {
-			window.attachEvent("onkeydown", popupHandler);
-		}
+	if (getAttribute(idPopup, "data-onshow") != null) {
+		eval(getAttribute(idPopup, "data-onshow"));
 	}
 }
 
@@ -358,37 +354,33 @@ function hidePopup(id) {
 		idPopup = id;
 	}
 
-	if (getAttribute(idPopup, "data-onhide") != null) {
-		eval(getAttribute(idPopup, "data-onhide"));
-	}
-
-	remplaceClass(idPopup, "animate-fadeIn", "animate-fadeOut");
-	replaceClassElement(getElement(idPopup).firstChild.firstChild.firstChild, "animate-"
-			+ getAttribute(idPopup, "data-animatein"), "animate-" + getAttribute(idPopup, "data-animateout"));
+	remplaceClass(idPopup + ":modal", "animate-fadeIn", "animate-fadeOut");
+	replaceClassElement(getElement(idPopup + ":id").firstChild, "animate-" + getAttribute(idPopup, "data-animatein"),
+			"animate-" + getAttribute(idPopup, "data-animateout"));
 
 	setTimeout(function() {
 		remplaceClass(idPopup, "dBlock", "dNone");
-		remplaceClass(idPopup, "animate-fadeOut", "animate-fadeIn");
-		replaceClassElement(getElement(idPopup).firstChild.firstChild.firstChild, "animate-"
+		remplaceClass(idPopup + ":modal", "animate-fadeOut", "animate-fadeIn");
+		replaceClassElement(getElement(idPopup + ":id").firstChild, "animate-"
 				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
 		idPopup = null;
 	}, ANIMATION_TIME);
 
-	if (window.removeEventListener) {
-		if (eval(getAttribute(idPopup, "data-autocenter"))) {
-			window.removeEventListener("resize", popupAutoCenter, false);
-		}
-		if (eval(getAttribute(idPopup, "data-closeable"))) {
-			window.removeEventListener("keydown", popupHandler, false);
-		}
-	} else {
-		if (eval(getAttribute(idPopup, "data-autocenter"))) {
-			window.detachEvent("onresize", popupAutoCenter);
-		}
-		if (eval(getAttribute(idPopup, "data-closeable"))) {
-			window.detachEvent("onkeydown", popupHandler);
-		}
+	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
+		window.removeEventListener("resize", popupAutoCenter);
 	}
+	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
+		window.removeEventListener("resize", popupAutoScroll);
+	}
+	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
+		window.removeEventListener("keydown", popupHandler);
+	}
+
+	if (getAttribute(idPopup, "data-onhide") != null) {
+		eval(getAttribute(idPopup, "data-onhide"));
+	}
+
+	removeClassElement(getSelector("body"), "oHidden");
 }
 
 function popupHandler(e) {
@@ -398,10 +390,8 @@ function popupHandler(e) {
 }
 
 function movePopup(window, panelMove) {
-	var body = document.getElementsByTagName("body")[0];
-
 	panelMove.onmousedown = function(event) {
-		setClassElement(body, "unselectable");
+		addClassElement(getSelector("body"), "unselectable");
 		addClassElement(panelMove, "cMove");
 
 		document.onmousemove = function(event) {
@@ -410,8 +400,8 @@ function movePopup(window, panelMove) {
 				window.style.left = (event.clientX - vx) + "px";
 				window.style.top = (event.clientY - vy) + "px";
 
-				if (panelMove.offsetLeft + panelMove.offsetWidth > widthWindow()) {
-					window.style.left = (widthWindow() - panelMove.offsetWidth) + "px";
+				if (panelMove.offsetLeft + panelMove.offsetWidth > getWidthWindow()) {
+					window.style.left = (getWidthWindow() - panelMove.offsetWidth) + "px";
 				}
 				if (panelMove.offsetTop + panelMove.offsetHeight > getHeightWindow()) {
 					window.style.top = (getHeightWindow() - panelMove.offsetHeight) + "px";
@@ -426,7 +416,7 @@ function movePopup(window, panelMove) {
 		};
 
 		document.onmouseup = function() {
-			removeClassElement(body, "unselectable");
+			removeClassElement(getSelector("body"), "unselectable");
 			removeClassElement(panelMove, "cMove");
 			statusPopup = false;
 			document.onmousemove = null;
@@ -435,15 +425,29 @@ function movePopup(window, panelMove) {
 }
 
 function popupAutoCenter() {
-	if (idPopup != null) {
-		getElement(idPopup).firstChild.firstChild.style.left = "";
-		var top = ((getHeightWindow() - 20 - getHeightElement(getElement(idPopup).firstChild.firstChild.firstChild)) / 2)
-				+ getHeightCurrentScroll();
-		if (top > 0) {
-			getElement(idPopup).firstChild.firstChild.style.top = top + "px";
-		} else {
-			getElement(idPopup).firstChild.firstChild.style.top = "";
-		}
+	var popup = getElement(idPopup + ":id");
+	var top = ((getHeightWindow() - 10 - getHeightElement(popup)) / 2);
+
+	popup.style.left = "";
+
+	if (top > 0) {
+		popup.style.top = top + "px";
+	} else {
+		popup.style.top = "";
+	}
+}
+
+function popupAutoScroll() {
+	var popupHead = getSelector("#" + idPopup + " .head");
+	var popupBody = getSelector("#" + idPopup + " .body");
+	var popupFoot = getSelector("#" + idPopup + " .foot");
+
+	var heightBody = getHeightWindow() - 20 - getHeightElement(popupHead) - getHeightElement(popupFoot);
+
+	if (heightBody - getHeightScrollElement(popupBody) > 0) {
+		popupBody.style.height = "";
+	} else {
+		popupBody.style.height = heightBody + "px";
 	}
 }
 

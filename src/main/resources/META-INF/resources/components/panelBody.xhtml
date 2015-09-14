@@ -13,7 +13,7 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
-			styleClass="body #{cc.parent.attrs.accordion ? 'hTransition oTransition' : ''} #{cc.attrs.styleClass}"
+			styleClass="body #{cc.parent.parent.attrs.scrollable ? 'oAuto' : ''} #{cc.parent.attrs.accordion ? 'hTransition oTransition' : ''} #{cc.attrs.styleClass}"
 			rendered="#{cc.attrs.rendered}">
 			<h:panelGroup layout="block" styleClass="pNormal">
 				<composite:insertChildren />
