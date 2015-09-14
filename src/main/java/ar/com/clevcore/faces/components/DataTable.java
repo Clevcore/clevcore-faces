@@ -62,9 +62,6 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         initPages();
         paginatorRefresh();
 
-        // file
-        setFile(null);
-
         super.encodeBegin(context);
     }
 
@@ -101,7 +98,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
             String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")), path,
                     true, FacesUtils.getClevcoreResource("pattern_date"));
 
-            setFile(ServletUtils.getUrl() + "/resources/temp/" + file);
+            FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
         }
     }
 
@@ -115,7 +112,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
             String file = OfficeUtils.getPdf(objectList, getProperties((String) getAttributes().get("pdfBy")), path,
                     true, FacesUtils.getClevcoreResource("pattern_date"));
 
-            setFile(ServletUtils.getUrl() + "/resources/temp/" + file);
+            FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
         }
     }
 
@@ -158,6 +155,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
     public void onPaginatorManager(int page) {
         setPage(page);
         paginatorRefresh();
+        executeOnRender();
     }
 
     // HELPER
@@ -181,7 +179,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
         if (objectList != null && !objectList.isEmpty() && search != null && !search.isEmpty()) {
             objectList = Utils.searchObject(search, objectList, getProperties((String) getAttributes().get("searchBy")),
-                    false, FacesUtils.getResource("patternDate"));
+                    false, FacesUtils.getClevcoreResource("pattern_date"));
 
             setValueSearch(objectList);
             data.setValue(objectList);
@@ -229,6 +227,12 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         setPageList(pageList);
     }
 
+    private void executeOnRender() {
+        if (getAttributes().get("onRender") != null) {
+            FacesUtils.executeScript(getAttributes().get("onRender").toString());
+        }
+    }
+
     // GETTER & SETTER
     public UIData getData() {
         return data;
@@ -252,14 +256,6 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
     public void setSearch(String search) {
         getStateHelper().put("search", search);
-    }
-
-    public String getFile() {
-        return (String) getStateHelper().get("file");
-    }
-
-    public void setFile(String file) {
-        getStateHelper().put("file", file);
     }
 
     public String getOrderBy() {
