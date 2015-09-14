@@ -1,26 +1,3 @@
-div.background {
-	height: 100%;
-	position: fixed;
-	width: 100%;
-	z-index: -1;
-}
-
-div.background img {
-	height: 100%;
-	min-height: 660px;
-	min-width: 1040px;
-	width: 100%;
-}
-
-/* header */
-.nav-padding {
-	padding-bottom: 50px
-}
-
-.navbar-fixed-top, .navbar-fixed-bottom {
-	z-index: 0;
-}
-
 /* body */
 div.separator {
 	border-top: 1px solid #e7e7e7;
@@ -55,13 +32,6 @@ input.transparent:focus {
 table.table  {
 	background: #fff;
 	border: 1px solid #e7e7e7;
-}
-
-/* footer*/
-.footer, .footer * {
-	font-family: robotolight;
-	font-size: 10px;
-	text-align: center;
 }
 
 /* loader */
