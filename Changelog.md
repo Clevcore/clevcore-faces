@@ -1,24 +1,55 @@
+# v1.3.0
+- New Release 1.3.0
+- US-141: Move unused styles in Clevcore engine
+- US-140: Optimize popup element for to be scrollable when do not enter in the screen
+- US-139: The onRender attribute execute it from bean Datatable
+- Added slf4j-log4j support
+- BG-49: The proyect don't navega with action
+- US-122: Remove the Contract css feature
+- US-137: Keep atributter rows of "dataTabla" in current session
+- BG-48: The "DataTable" record selector is hidden when no pages
+- US-136: Reduce white spaces in Study-data to move up the important fields
+- BG-38: when saving all the data in medical record and click on another item in the menu, the message continue to appear that the changes were not saved
+- BG-46: The textarea[data-height] don't work good
+- BG-45: The accordion panel doesn't work good with new autoheight attribute
+- US-114: Change icon in panel head for "expand" and "compress" and make it more intuitive
+- BG-44: Movable popup doesn't work
+- US-129: remove or make more performant animation of delete
+- BG-40: Verify data-only='number' (isNaN)
+- BG-41: The popup component does not hide the header
+- Added converter attribute to selectOneMenu
+- BG-36: Order by columns doesn't work!
+- US-123: Capturing the "onbeforeunload" event and ask if the user is sure to out because it might loose the changes
+- updated autosize textarea feature
+- US-108: Add params support for getClevcoreResource in facesUtils
+
+# v1.2.0
 - New Release v1.2.0
 - US-107: Add ReplaceLineBreak converter
 - US-106: Make Enter on textarea a new line instead of shift+Enter
 - US-104: Add params support for getResource in facesUtils
 - BG-32: Delete margin in checkbox material
 - US-99: Optimization the FacesUtils class
-- US-98: Improve function "next element". The "buttons" with onclick, it will treat as "submit" and It don't follo15b8f5a Add the "change" and "click" event in selectOneMenu
+- US-98: Improve function "next element". The "buttons" with onclick, it will treat as "submit" and It don't follow with "next element" when in textarea - the have the "event.shiftKey = true"
+- Add the "change" and "click" event in selectOneMenu
 - US-94: Add select for rows
 - US-92: Remove selectUniqueElement the dataTable and all page in that used
 - US-87: Add new pattern date property for year small in clevcore_es (ex: pattern_date_small=dd/MM/yy)
-- US-86: Add to clevcore.xhtml <ui:insert name="head" /> and <ui:insert name="body" /> in section head and body re9ab9993 US-85: Add height and width style in common.css, for multiples for 5, ex: w5, w15, ..., w105.
+- US-86: Add to clevcore.xhtml <ui:insert name="head" /> and <ui:insertn name="body" /> in section head and body respectively
+- US-85: Add height and width style in common.css, for multiples for 5, ex: w5, w15, ..., w105.
 - US-82: Update Font Awesome style
 - US-78: Remove animations on titles and body
 - BG-18: The popup element doesn't work when your height is greater than the height of the page
-material design checkbox style
-fixed some null checks on FacesUtils
+- material design checkbox style
+- fixed some null checks on FacesUtils
 - US-68: Create a "shortcut" component, similar to the of Android App called "keep"
 - Add message resource excel and pdf
 - US-56: Make a float button to go to the bottom of all the form
 - US-62: JSF library update
 - US-59: separate default.xhtml for clev faces and for medical frontend
 - Adding fonts and fixing gitignore
-- v1.1.0
+
+# v1.1.0
+- New Release v1.1.0
 - US-31: Clevcore-Engine migration to GitHub
+- Initial commit

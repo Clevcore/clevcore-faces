@@ -4,7 +4,7 @@
 
 	<groupId>ar.com.clevcore</groupId>
 	<artifactId>clevcore-faces</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0</version>
 	<name>ClevCore Faces</name>
 
 	<properties>
@@ -18,7 +18,7 @@
 		<servlet.version>3.0.1</servlet.version>
 		<slf4j.version>1.7.12</slf4j.version>
 
-		<clevcore.java.version>1.2.0</clevcore.java.version>
+		<clevcore.java.version>1.3.0</clevcore.java.version>
 	</properties>
 
 	<dependencies>
