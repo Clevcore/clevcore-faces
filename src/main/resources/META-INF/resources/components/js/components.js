@@ -2,52 +2,76 @@
 var ANIMATION_TIME = 300;
 
 /* ajax */
-var HandleAjax = {};
+var HandleAjax = {
+	init : {
+		onEvent : function onEvent(data) {
+			var event = new CustomEvent("jsfAjaxEvent", {
+				detail : {
+					data : data
+				}
+			});
 
-HandleAjax.listener = function(data) {
-	switch (data.status) {
-	case "begin":
-		if (getAttributeElement(data.source, "data-onbegin") != null) {
-			eval(getAttributeElement(data.source, "data-onbegin"));
+			window.dispatchEvent(event);
+		},
+
+		onError : function onError(data) {
+			var event = new CustomEvent("jsfAjaxError", {
+				detail : {
+					data : data
+				}
+			});
+
+			window.dispatchEvent(event);
+		}
+	},
+
+	listener : function() {
+		var data = event.detail.data;
+
+		switch (data.status) {
+		case "begin":
+			if (getAttributeElement(data.source, "data-onbegin") != null) {
+				eval(getAttributeElement(data.source, "data-onbegin"));
+			}
+
+			if (data.source.tagName == "BUTTON") {
+				setDisabledElement(data.source, true);
+				addClassElement(data.source, "vTop");
+				replaceClassElement(data.source.childNodes[0], "dNone", "dBlock");
+				replaceClassElement(data.source.childNodes[1], "vVisible", "vHidden");
+				addClassElement(data.source.childNodes[1], "h0");
+				addClassElement(data.source.childNodes[1], "oHidden");
+				waitDisable();
+			}
+
+			break;
+		case "complete":
+			if (getAttributeElement(data.source, "data-oncomplete") != null) {
+				eval(getAttributeElement(data.source, "data-oncomplete"));
+			}
+
+			if (data.source.tagName == "BUTTON") {
+				setDisabledElement(data.source, false);
+				removeClassElement(data.source, "vTop");
+				replaceClassElement(data.source.childNodes[0], "dBlock", "dNone");
+				replaceClassElement(data.source.childNodes[1], "vHidden", "vVisible");
+				removeClassElement(data.source.childNodes[1], "h0");
+				removeClassElement(data.source.childNodes[1], "oHidden");
+				waitEnable();
+			}
+
+			break;
+		case "success":
+			if (getAttributeElement(data.source, "data-onsuccess") != null) {
+				eval(getAttributeElement(data.source, "data-onsuccess"));
+			}
+
+			reset();
+			break;
 		}
 
-		if (data.source.tagName == "BUTTON") {
-			setDisabledElement(data.source, true);
-			addClassElement(data.source, "vTop");
-			replaceClassElement(data.source.childNodes[0], "dNone", "dBlock");
-			replaceClassElement(data.source.childNodes[1], "vVisible", "vHidden");
-			addClassElement(data.source.childNodes[1], "h0");
-			addClassElement(data.source.childNodes[1], "oHidden");
-			waitDisable();
-		}
-
-		break;
-	case "complete":
-		if (getAttributeElement(data.source, "data-oncomplete") != null) {
-			eval(getAttributeElement(data.source, "data-oncomplete"));
-		}
-
-		if (data.source.tagName == "BUTTON") {
-			setDisabledElement(data.source, false);
-			removeClassElement(data.source, "vTop");
-			replaceClassElement(data.source.childNodes[0], "dBlock", "dNone");
-			replaceClassElement(data.source.childNodes[1], "vHidden", "vVisible");
-			removeClassElement(data.source.childNodes[1], "h0");
-			removeClassElement(data.source.childNodes[1], "oHidden");
-			waitEnable();
-		}
-
-		break;
-	case "success":
-		if (getAttributeElement(data.source, "data-onsuccess") != null) {
-			eval(getAttributeElement(data.source, "data-onsuccess"));
-		}
-
-		reset();
-		break;
+		wait(data.status);
 	}
-
-	wait(data.status);
 };
 
 /* accordion */
@@ -147,7 +171,9 @@ var ConfirmNavigation = {
 	},
 
 	listener : function() {
-		jsf.ajax.addOnEvent(function(data) {
+		window.addEventListener('jsfAjaxEvent', function() {
+			var data = event.detail.data;
+
 			switch (data.status) {
 			case "complete":
 				var formElement = (data.source).closest('form');
@@ -340,6 +366,7 @@ function showPopup(id) {
 	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
 		popupScrollable();
 		window.addEventListener("resize", popupScrollable);
+		window.addEventListener("jsfAjaxEvent", popupScrollable);
 	}
 
 	if (getAttribute(idPopup, "data-onshow") != null) {
@@ -377,6 +404,7 @@ function hidePopup(id) {
 	}
 	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
 		window.removeEventListener("resize", popupScrollable);
+		window.removeEventListener("jsfAjaxEvent", popupScrollable);
 	}
 
 	if (getAttribute(idPopup, "data-onhide") != null) {
