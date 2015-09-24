@@ -11,6 +11,8 @@
 		<composite:attribute name="columnClasses" />
 		<composite:attribute name="propertyFile" />
 		<composite:attribute name="searchBy" />
+		<composite:attribute name="responsive" default="true"
+			type="java.lang.Boolean" />
 		<composite:attribute name="showFile" default="true"
 			type="java.lang.Boolean" />
 		<composite:attribute name="showInfo" default="true"
@@ -71,20 +73,23 @@
 					render="#{cc.attrs.rowRender}" />
 			</h:inputText>
 
-			<h:dataTable id="dataTable"
-				styleClass="table table-striped table-bordered mBottomNormal #{cc.attrs.rowlistener != null ? 'table-hover' : ''} #{cc.attrs.styleClass}"
-				rowStatePreserved="true"
-				columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
-				binding="#{cc.data}">
-				<h:column rendered="#{cc.attrs.rowlistener != null}">
-					<f:passThroughAttribute name="id"
-						value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
-					<script>
+			<h:panelGroup layout="block"
+				styleClass="#{cc.attrs.responsive ? 'table-responsive' : ''}">
+				<h:dataTable id="dataTable"
+					styleClass="table table-striped table-bordered mBottomNormal #{cc.attrs.rowlistener != null ? 'table-hover' : ''} #{cc.attrs.styleClass}"
+					rowStatePreserved="true"
+					columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
+					binding="#{cc.data}">
+					<h:column rendered="#{cc.attrs.rowlistener != null}">
+						<f:passThroughAttribute name="id"
+							value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
+						<script>
 						dataTableRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}", "#{cc.attrs.onRow}");
 					</script>
-				</h:column>
-				<composite:insertChildren />
-			</h:dataTable>
+					</h:column>
+					<composite:insertChildren />
+				</h:dataTable>
+			</h:panelGroup>
 
 			<h:panelGroup layout="block" id="paginator">
 				<h:panelGroup layout="block" styleClass="mBottomNormal">
