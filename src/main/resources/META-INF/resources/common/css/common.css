@@ -413,6 +413,10 @@
 }
 
 /* Cursor */
+.cDefault {
+	cursor: default;
+}
+
 .cMove {
 	cursor: move;
 }
