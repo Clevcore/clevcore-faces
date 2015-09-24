@@ -1,10 +1,10 @@
 /* generix */
-function remove(id) {
-	removeElement(getElement(id));
+function getHead() {
+	return document.head;
 }
 
-function removeElement(element) {
-	element.parentNode.removeChild(element);
+function getBody() {
+	return document.body;
 }
 
 function getElement(id) {
@@ -254,6 +254,14 @@ function addInnerHTMLElement(element, isTop, innerHTML) {
 	}
 }
 
+function remove(id) {
+	removeElement(getElement(id));
+}
+
+function removeElement(element) {
+	element.parentNode.removeChild(element);
+}
+
 // utils
 function getBoolean(value) {
 	if (value === "true") {
@@ -265,12 +273,129 @@ function getBoolean(value) {
 	return undefined;
 }
 
+function getKeyCode() {
+	return event.which || event.keyCode;
+}
+
+function autoscrollHeight() {
+	var args = [];
+
+	for (var i = 0; i < arguments.length; i++) {
+		args.push(getElement(arguments[i]));
+	}
+
+	autoscrollHeightElement.apply(this, args);
+}
+
+function autoscrollHeightElement() {
+	var height = getHeightWindow();
+
+	for (var i = 1; i < arguments.length; i++) {
+		height -= getHeightElement(arguments[i]);
+	}
+
+	if (height - getHeightScrollElement(arguments[0]) > 0) {
+		arguments[0].style.height = "";
+	} else {
+		arguments[0].style.height = height + "px";
+	}
+}
+
+function autoscrollWidth() {
+	var args = [];
+
+	for (var i = 0; i < arguments.length; i++) {
+		args.push(getElement(arguments[i]));
+	}
+
+	autoscrollWidthElement.apply(this, args);
+}
+
+function autoscrollWidthElement() {
+	var width = getWidthWindow();
+
+	for (var i = 1; i < arguments.length; i++) {
+		width -= getHeightElement(arguments[i]);
+	}
+
+	if (width - getWidthScrollElement(arguments[0]) > 0) {
+		arguments[0].style.width = "";
+	} else {
+		arguments[0].style.width = width + "px";
+	}
+}
+
+function autoscroll() {
+	autoscrollHeight.apply(this, arguments);
+	autoscrollWidth.apply(this, arguments);
+}
+
+function autoscrollElement() {
+	autoscrollHeightElement.apply(this, arguments);
+	autoscrollWidthElement.apply(this, arguments);
+}
+
+function autocenterHeight(idContainer, idElement) {
+	if (idElement === undefined) {
+		idElement = idContainer;
+	}
+	autocenterHeightElement(getElement(idContainer), getElement(idElement));
+}
+
+function autocenterHeightElement(container, element) {
+	if (element === undefined) {
+		element = container;
+	}
+
+	var top = 0;
+	if (getTopElement(element) == 0) {
+		top = (getHeightWindow() - getHeightElement(element)) / 2;
+	}
+	if (top > 0) {
+		container.style.top = top + "px";
+	} else {
+		container.style.top = "";
+	}
+}
+
+function autocenterWidth(idContainer, idElement) {
+	if (idElement === undefined) {
+		idElement = idContainer;
+	}
+	autocenterWidthElement(getElement(idContainer), getElement(idElement));
+}
+
+function autocenterWidthElement(container, element) {
+	if (element === undefined) {
+		element = container;
+	}
+
+	var left = 0;
+	if (getLeftElement(element) == 0) {
+		left = (getWidthWindow() - getWidthElement(element)) / 2;
+	}
+	if (left > 0) {
+		container.style.left = left + "px";
+	} else {
+		container.style.left = "";
+	}
+}
+
+function autocenter(idContainer, idElement) {
+	autocenterElement(getElement(idContainer), getElement(idElement));
+}
+
+function autocenterElement(container, element) {
+	autocenterHeightElement(container, element);
+	autocenterWidthElement(container, element);
+}
+
 function getHeight(id) {
 	return getHeightElement(getElement(id));
 }
 
 function getHeightElement(element) {
-	return Math.max(element.clientHeight, element.offsetHeight);
+	return element.offsetHeight;
 }
 
 function getHeightScroll(id) {
@@ -282,17 +407,15 @@ function getHeightScrollElement(element) {
 }
 
 function getHeightWindow() {
-	return document.documentElement["clientHeight"];
+	return window.innerHeight;
 }
 
-function getHeightWindowFull() {
-	return Math.max(document.documentElement["clientHeight"], document.body["offsetHeight"],
-			document.documentElement["offsetHeight"], document.body["scrollHeight"],
-			document.documentElement["scrollHeight"]);
+function getHeightWindowScroll() {
+	return getBody().scrollHeight;
 }
 
-function getHeightCurrentScroll() {
-	return (window.pageYOffset || document.documentElement.scrollTop) - (document.documentElement.clientTop || 0);
+function getHeightScreen() {
+	return screen.height;
 }
 
 function getWidth(id) {
@@ -300,7 +423,7 @@ function getWidth(id) {
 }
 
 function getWidthElement(element) {
-	return Math.max(element.clientWidth, element.offsetWidth);
+	return element.offsetWidth;
 }
 
 function getWidthScroll(id) {
@@ -312,17 +435,47 @@ function getWidthScrollElement(element) {
 }
 
 function getWidthWindow() {
-	return document.documentElement["clientWidth"];
+	return window.innerWidth;
 }
 
-function getWidthWindowFull() {
-	return Math.max(document.documentElement["clientWidth"], document.body["offsetWidth"],
-			document.documentElement["offsetWidth"], document.body["scrollWidth"],
-			document.documentElement["scrollWidth"]);
+function getWidthWindowScroll() {
+	return getBody().scrollWidth;
 }
 
-function getWidthCurrentScroll() {
-	return (window.pageXOffset || document.documentElement.scrollLeft) - (document.documentElement.clientLeft || 0);
+function getWidthScreen() {
+	return screen.width;
+}
+
+function getLeft(id) {
+	return getLeftElement(getElement(id));
+}
+
+function getLeftElement(element) {
+	return element.offsetLeft;
+}
+
+function getLeftScroll(id) {
+	return getLeftScrollElement(getElement(id));
+}
+
+function getLeftScrollElement(element) {
+	return element.scrollLeft;
+}
+
+function getTop(id) {
+	return getTopElement(getElement(id));
+}
+
+function getTopElement(element) {
+	return element.offsetTop;
+}
+
+function getTopScroll(id) {
+	return getTopScrollElement(getElement(id));
+}
+
+function getTopScrollElement(element) {
+	return element.scrollTop;
 }
 
 Array.get = function(array, key, value) {
@@ -343,8 +496,14 @@ Array.indexOf = function(array, key, value) {
 	return -1;
 }
 
+function actionToEscKey(callback) {
+	if (getKeyCode() == 27) {
+		callback.call(this);
+	}
+}
+
 function keyRestriction(keys) {
-	key = ((event.which) ? event.which : event.keyCode);
+	key = getKeyCode();
 	keys = keys.split(",");
 
 	for (var i = 0; i < keys.length; i++) {
@@ -362,10 +521,6 @@ function fullTrim(id) {
 
 function isNoData(id) {
 	return fullTrim(id) == "";
-}
-
-function heightCenter(id) {
-	getElement(id).style.top = (getHeightWindow() - getHeightElement(getElement(id))) / 2 + "px";
 }
 
 function fullScreen() {
@@ -425,6 +580,95 @@ function redirect(url) {
 function windowOpen(url) {
 	window.open(url);
 }
+
+var HandleMove = {
+	container : undefined,
+	elementToMove : undefined,
+	elementToClick : undefined,
+
+	minLimitX : undefined,
+	minLimitY : undefined,
+	maxLimitX : undefined,
+	maxLimitY : undefined,
+
+	startX : undefined,
+	startY : undefined,
+
+	init : function(container, elementToMove, elementToClick) {
+		HandleMove.container = container;
+		HandleMove.elementToMove = elementToMove;
+		HandleMove.elementToClick = elementToClick;
+
+		HandleMove.minLimitX = 0;
+		HandleMove.minLimitX -= getLeftElement(HandleMove.elementToMove);
+		if (HandleMove.minLimitX == 0) {
+			HandleMove.maxLimitX = getWidthWindow() - getWidthElement(HandleMove.elementToMove);
+		} else {
+			HandleMove.minLimitX -= getLeftElement(HandleMove.container);
+			HandleMove.maxLimitX = HandleMove.minLimitX * -1;
+		}
+
+		HandleMove.minLimitY = 0;
+		HandleMove.minLimitY -= getTopElement(HandleMove.elementToMove);
+		if (HandleMove.minLimitY == 0) {
+			HandleMove.maxLimitY = getHeightWindow() - getHeightElement(HandleMove.elementToMove);
+		} else {
+			HandleMove.minLimitY -= getTopElement(HandleMove.container);
+			HandleMove.maxLimitY = HandleMove.minLimitY * -1;
+		}
+
+		HandleMove.startX = event.clientX - getLeftElement(container);
+		HandleMove.startY = event.clientY - getTopElement(container);
+
+		addClassElement(getBody(), "unselectable");
+		addClassElement(HandleMove.elementToClick, "cDefault");
+
+		window.addEventListener("mousemove", HandleMove.move);
+		window.addEventListener("mouseup", HandleMove.dest);
+	},
+
+	move : function(event) {
+		var x = event.clientX - HandleMove.startX;
+		var y = event.clientY - HandleMove.startY;
+
+		if (x < HandleMove.minLimitX) {
+			x = HandleMove.minLimitX;
+		}
+		if (x > HandleMove.maxLimitX) {
+			x = HandleMove.maxLimitX;
+		}
+
+		if (y < HandleMove.minLimitY) {
+			y = HandleMove.minLimitY;
+		}
+		if (y > HandleMove.maxLimitY) {
+			y = HandleMove.maxLimitY;
+		}
+
+		HandleMove.container.style.left = x + "px";
+		HandleMove.container.style.top = y + "px";
+	},
+
+	dest : function() {
+		removeClassElement(getBody(), "unselectable");
+		removeClassElement(HandleMove.elementToClick, "cDefault");
+
+		HandleMove.container = undefined;
+		HandleMove.elementToMove = undefined;
+		HandleMove.elementToClick = undefined;
+
+		HandleMove.minLimitX = undefined;
+		HandleMove.minLimitY = undefined;
+		HandleMove.maxLimitX = undefined;
+		HandleMove.maxLimitY = undefined;
+
+		HandleMove.startX = undefined;
+		HandleMove.startY = undefined;
+
+		window.removeEventListener("mousemove", HandleMove.move);
+		window.removeEventListener("mouseup", HandleMove.dest);
+	}
+};
 
 var browserDetect = {
 	init : function() {
