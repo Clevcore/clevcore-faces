@@ -16,6 +16,12 @@
 		<h:panelGroup id="id" layout="block"
 			styleClass="unselectable head fontRobotolight #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
 			rendered="#{cc.attrs.rendered}">
+
+			<c:if
+				test="#{bbComponent.isPopup(cc.parent.parent) and cc.parent.parent.attrs.movable}">
+				<f:passThroughAttribute name="onmousedown" value="popupMovable();" />
+			</c:if>
+
 			<c:if test="#{cc.parent.attrs.accordion}">
 				<f:passThroughAttribute name="onclick"
 					value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
@@ -28,11 +34,6 @@
 						<f:passThroughAttribute name="title" value="#{clevcoreMsg.expand}" />
 					</c:when>
 				</c:choose>
-			</c:if>
-
-			<c:if test="#{cc.parent.parent.attrs.movable}">
-				<f:passThroughAttribute name="onmousemove"
-					value="movePopup(getElement('#{cc.parent.parent.clientId}:id'), this.firstChild);" />
 			</c:if>
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">

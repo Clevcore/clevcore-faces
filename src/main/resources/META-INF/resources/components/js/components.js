@@ -322,31 +322,31 @@ function menuOut() {
 
 /* popup */
 var idPopup = null;
-var statusPopup = false;
-var vx, vy;
 
 function showPopup(id) {
-	addClassElement(getSelector("body"), "oHidden");
-
 	idPopup = id;
 
-	remplaceClass(idPopup, "dNone", "dBlock");
+	addClassElement(getSelector("body"), "oHidden");
+	removeClass(idPopup, "dNone");
+
+	popupAutocenter();
 
 	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
-		popupAutoCenter();
-		window.addEventListener("resize", popupAutoCenter);
-	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		popupAutoScroll();
-		window.addEventListener("resize", popupAutoScroll);
+		window.addEventListener("resize", popupAutocenter);
 	}
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
-		window.addEventListener("keydown", popupHandler);
+		window.addEventListener("keydown", popupCloseable);
+	}
+	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
+		popupScrollable();
+		window.addEventListener("resize", popupScrollable);
 	}
 
 	if (getAttribute(idPopup, "data-onshow") != null) {
 		eval(getAttribute(idPopup, "data-onshow"));
 	}
+
+	removeClass(idPopup, "vHidden");
 }
 
 function hidePopup(id) {
@@ -355,25 +355,28 @@ function hidePopup(id) {
 	}
 
 	remplaceClass(idPopup + ":modal", "animate-fadeIn", "animate-fadeOut");
-	replaceClassElement(getElement(idPopup + ":id").firstChild, "animate-" + getAttribute(idPopup, "data-animatein"),
+
+	replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-" + getAttribute(idPopup, "data-animatein"),
 			"animate-" + getAttribute(idPopup, "data-animateout"));
 
 	setTimeout(function() {
-		remplaceClass(idPopup, "dBlock", "dNone");
+		addClass(idPopup, "dNone");
+		addClass(idPopup, "vHidden");
+
 		remplaceClass(idPopup + ":modal", "animate-fadeOut", "animate-fadeIn");
-		replaceClassElement(getElement(idPopup + ":id").firstChild, "animate-"
+		replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-"
 				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
 		idPopup = null;
 	}, ANIMATION_TIME);
 
 	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
-		window.removeEventListener("resize", popupAutoCenter);
-	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		window.removeEventListener("resize", popupAutoScroll);
+		window.removeEventListener("resize", popupAutocenter);
 	}
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
-		window.removeEventListener("keydown", popupHandler);
+		window.removeEventListener("keydown", popupCloseable);
+	}
+	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
+		window.removeEventListener("resize", popupScrollable);
 	}
 
 	if (getAttribute(idPopup, "data-onhide") != null) {
@@ -383,72 +386,35 @@ function hidePopup(id) {
 	removeClassElement(getSelector("body"), "oHidden");
 }
 
-function popupHandler(e) {
-	if (((e.which) ? e.which : event.keyCode) == 27) {
-		hidePopup();
+function popupAutocenter(data) {
+	var container = getElement(idPopup + ':id');
+	var element = getSelector("#" + idPopup + " .panel");
+
+	autocenterElement(container, element);
+}
+
+function popupCloseable() {
+	actionToEscKey(hidePopup);
+}
+
+function popupMovable() {
+	var container = getElement(idPopup + ':id');
+	var elementToMove = getSelector("#" + idPopup + " .panel");
+	var elementToClick = getSelector("#" + idPopup + " .head");
+
+	HandleMove.init(container, elementToMove, elementToClick);
+}
+
+function popupScrollable(data) {
+	if (data != undefined && data.status != undefined && data.status != "success") {
+		return;
 	}
-}
 
-function movePopup(window, panelMove) {
-	panelMove.onmousedown = function(event) {
-		addClassElement(getSelector("body"), "unselectable");
-		addClassElement(panelMove, "cMove");
-
-		document.onmousemove = function(event) {
-			event = event || window.event;
-			if (statusPopup) {
-				window.style.left = (event.clientX - vx) + "px";
-				window.style.top = (event.clientY - vy) + "px";
-
-				if (panelMove.offsetLeft + panelMove.offsetWidth > getWidthWindow()) {
-					window.style.left = (getWidthWindow() - panelMove.offsetWidth) + "px";
-				}
-				if (panelMove.offsetTop + panelMove.offsetHeight > getHeightWindow()) {
-					window.style.top = (getHeightWindow() - panelMove.offsetHeight) + "px";
-				}
-			} else {
-				if (!statusPopup) {
-					statusPopup = true;
-					vx = event.clientX - window.offsetLeft;
-					vy = event.clientY - window.offsetTop;
-				}
-			}
-		};
-
-		document.onmouseup = function() {
-			removeClassElement(getSelector("body"), "unselectable");
-			removeClassElement(panelMove, "cMove");
-			statusPopup = false;
-			document.onmousemove = null;
-		};
-	};
-}
-
-function popupAutoCenter() {
-	var popup = getElement(idPopup + ":id");
-	var top = ((getHeightWindow() - 10 - getHeightElement(popup)) / 2);
-
-	popup.style.left = "";
-
-	if (top > 0) {
-		popup.style.top = top + "px";
-	} else {
-		popup.style.top = "";
-	}
-}
-
-function popupAutoScroll() {
 	var popupHead = getSelector("#" + idPopup + " .head");
 	var popupBody = getSelector("#" + idPopup + " .body");
 	var popupFoot = getSelector("#" + idPopup + " .foot");
 
-	var heightBody = getHeightWindow() - 20 - getHeightElement(popupHead) - getHeightElement(popupFoot);
-
-	if (heightBody - getHeightScrollElement(popupBody) > 0) {
-		popupBody.style.height = "";
-	} else {
-		popupBody.style.height = heightBody + "px";
-	}
+	autoscrollHeightElement(popupBody, popupHead, popupFoot);
 }
 
 /* shortcut */

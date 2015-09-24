@@ -1,6 +1,6 @@
 /* generix */
 .modal {
-	background-color: rgba(0, 0, 0, .8);
+	background-color: rgba(10, 10, 10, .6);
 	height: 100%;
 	left: 0;
 	position: fixed;
@@ -376,9 +376,9 @@ div.popup {
 }
 
 div.popup div.panel {
-	-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
-	   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, .2);
-	        box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+	-webkit-box-shadow: 0 0 14px rgba(0, 0, 0, .24), 0 14px 28px rgba(0, 0, 0, .48);
+	   -moz-box-shadow: 0 0 14px rgba(0, 0, 0, .24), 0 14px 28px rgba(0, 0, 0, .48);
+	        box-shadow: 0 0 14px rgba(0, 0, 0, .24), 0 14px 28px rgba(0, 0, 0, .48);
 }
 
 
