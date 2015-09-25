@@ -164,3 +164,13 @@ textarea {
 textarea[data-height] {
 	overflow-y: hidden;
 }
+
+::-webkit-input-placeholder {
+	color: #999;
+	line-height: 1.4;
+}
+
+::-moz-placeholder {
+	color: #999;
+	line-height: 1.4;
+}
