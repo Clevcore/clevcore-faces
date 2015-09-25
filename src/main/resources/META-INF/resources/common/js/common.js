@@ -604,7 +604,9 @@ var HandleMove = {
 		if (HandleMove.minLimitX == 0) {
 			HandleMove.maxLimitX = getWidthWindow() - getWidthElement(HandleMove.elementToMove);
 		} else {
-			HandleMove.minLimitX -= getLeftElement(HandleMove.container);
+			if (HandleMove.container.style.left == "") {
+				HandleMove.minLimitX -= getLeftElement(HandleMove.container);
+			}
 			HandleMove.maxLimitX = HandleMove.minLimitX * -1;
 		}
 
@@ -613,12 +615,14 @@ var HandleMove = {
 		if (HandleMove.minLimitY == 0) {
 			HandleMove.maxLimitY = getHeightWindow() - getHeightElement(HandleMove.elementToMove);
 		} else {
-			HandleMove.minLimitY -= getTopElement(HandleMove.container);
+			if (HandleMove.container.style.top == "") {
+				HandleMove.minLimitY -= getTopElement(HandleMove.container);
+			}
 			HandleMove.maxLimitY = HandleMove.minLimitY * -1;
 		}
 
-		HandleMove.startX = event.clientX - getLeftElement(container);
-		HandleMove.startY = event.clientY - getTopElement(container);
+		HandleMove.startX = event.clientX - getLeftElement(HandleMove.container);
+		HandleMove.startY = event.clientY - getTopElement(HandleMove.container);
 
 		addClassElement(getBody(), "unselectable");
 		addClassElement(HandleMove.elementToClick, "cDefault");
