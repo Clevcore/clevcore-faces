@@ -28,11 +28,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	text-shadow: none;
 }
 
-body {
-	background-color: #fff;
-	overflow-x: hidden;
-}
-
 a {
 	color: #555 ;
 	cursor: pointer;
