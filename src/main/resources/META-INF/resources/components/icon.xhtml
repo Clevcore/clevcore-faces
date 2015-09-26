@@ -20,7 +20,7 @@
 			styleClass="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
 			rendered="#{cc.attrs.rendered}" onclick="#{cc.attrs.onclick}">
 			<c:if test="#{cc.attrs.title ne null}">
-				<f:passThroughAttribute name="title" value="#{cc.attrs.title}" />
+				<f:passThroughAttribute name="data-title" value="#{cc.attrs.title}" />
 			</c:if>
 
 			<f:passThroughAttribute name="data-disabled"

@@ -38,15 +38,14 @@
 			jsf:rendered="#{cc.attrs.rendered}"
 			jsf:onclick="#{cc.attrs.redirect ne null ? 'redirect(\'' : ''}#{cc.attrs.redirect ne null ? bbClevcore.path : ''}#{cc.attrs.redirect ne null ? cc.attrs.redirect : ''}#{cc.attrs.redirect ne null ? '\');' : ''} #{cc.attrs.onclick}">
 			<h:panelGroup layout="block" styleClass="cInherit fInherit dNone">
-				<cc:icon styleClass="cInherit fs18 vMiddle"
-					value="refresh  fa-pulse" title="#{clevcoreMsg.loading}" />
+				<cc:icon styleClass="cInherit fs18 vMiddle" value="refresh fa-pulse" />
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="cInherit fInherit vVisible">
 				<cc:icon id="icon"
 					styleClass="cInherit fs18 #{cc.attrs.value ne null ? 'mRightNormal' : ''}"
-					value="#{cc.attrs.icon}" title="#{cc.attrs.title}"
-					disabled="#{cc.attrs.disabled}" rendered="#{cc.attrs.icon ne null}" />
+					value="#{cc.attrs.icon}" disabled="#{cc.attrs.disabled}"
+					rendered="#{cc.attrs.icon ne null}" />
 
 				<h:outputText id="value" styleClass="cInherit fInherit"
 					value="#{cc.attrs.value}" rendered="#{cc.attrs.value ne null}" />
@@ -55,7 +54,7 @@
 			<f:passThroughAttribute name="type" value="#{cc.type}" />
 
 			<c:if test="#{cc.attrs.title ne null}">
-				<f:passThroughAttribute name="title" value="#{cc.attrs.title}" />
+				<f:passThroughAttribute name="data-title" value="#{cc.attrs.title}" />
 			</c:if>
 
 			<c:if test="#{cc.attrs.onbegin ne null}">

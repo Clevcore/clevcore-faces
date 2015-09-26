@@ -43,25 +43,27 @@ table.table  {
 	min-width: 32px;
 }
 
-/* tooltip */
-*[data-tooltip]:before {
-	content: attr(data-tooltip);
+/* title */
+*[data-title]:after {
 	background: rgba(0, 0, 0, .8);
 	color: #fff;
+	content: attr(data-title);
 	font-family: notosans;
-	font-size: 12px;
-	margin-top: 20px;
-	padding: 6px;
+	font-size: 16px;
+	line-height: 20px;
+	margin-top: 10px;
 	opacity: 0;
+	padding: 10px;
 	position: absolute;
-	z-index: -1;
 	word-break: normal;
-	-webkit-transition: opacity .25s;
-	-moz-transition: opacity .25s;
-	transition: opacity .25s;
+	z-index: -1;
+
+	-webkit-transition: opacity .5s;
+	   -moz-transition: opacity .5s;
+	        transition: opacity .5s;
 }
 
-*[data-tooltip]:hover:before {
+*[data-title]:hover:after {
 	opacity: 1;
 	z-index: 1;
 }
