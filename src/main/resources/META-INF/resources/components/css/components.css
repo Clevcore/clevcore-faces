@@ -41,6 +41,22 @@
 	color: #eee;
 }
 
+.default-outline {
+	background-color: transparent;
+	border-color: #474949;
+	color: #474949;
+}
+
+.default-outline:hover {
+	border-color: #3a3c3c;
+	color: #3a3c3c;
+}
+
+.default-outline:disabled,.default-outline[data-disabled='true'],.default-outline[data-disabled='true']:hover {
+	border-color: #929696;
+	color: #929696;
+}
+
 .default2 {
 	background-color: #fff;
 	border-color: #e7e7e7;
@@ -56,6 +72,22 @@
 	background-color: #fff;
 	border-color: #e7e7e7;
 	color: #777;
+}
+
+.default2-outline {
+	background-color: transparent;
+	border-color: #e7e7e7;
+	color: #e7e7e7;
+}
+
+.default2-outline:hover {
+	border-color: #ddd;
+	color: #ddd;
+}
+
+.default2-outline:disabled,.default2-outline[data-disabled='true'],.default2-outline[data-disabled='true']:hover {
+	border-color: #e7e7e7;
+	color: #e7e7e7;
 }
 
 .primary  {
@@ -75,6 +107,22 @@
 	color: #eee;
 }
 
+.primary-outline  {
+	background-color: transparent;
+	border-color: #428bca;
+	color: #428bca;
+}
+
+.primary-outline:hover {
+	border-color: #357ebd;
+	color: #357ebd;
+}
+
+.primary-outline:disabled,.primary-outline[data-disabled='true'],.primary-outline[data-disabled='true']:hover {
+	border-color: #7fa7c9;
+	color: #7fa7c9;
+}
+
 .secondary {
 	background-color: #ca4242;
 	border-color: #ca4242;
@@ -90,6 +138,22 @@
 	background-color: #c97f7f;
 	border-color: #c97f7f;
 	color: #eee;
+}
+
+.secondary-outline {
+	background-color: transparent;
+	border-color: #ca4242;
+	color: #ca4242;
+}
+
+.secondary-outline:hover {
+	border-color: #bd3535;
+	color: #bd3535;
+}
+
+.secondary-outline:disabled,.secondary-outline[data-disabled='true'],.secondary-outline[data-disabled='true']:hover {
+	border-color: #c97f7f;
+	color: #c97f7f;
 }
 
 .tertiary {
@@ -109,6 +173,22 @@
 	color: #eee;
 }
 
+.tertiary-outline {
+	background-color: transparent;
+	border-color: #60c451;
+	color: #60c451;
+}
+
+.tertiary-outline:hover {
+	border-color: #4bbd35;
+	color: #4bbd35;
+}
+
+.tertiary-outline:disabled,.tertiary-outline[data-disabled='true'],.tertiary-outline[data-disabled='true']:hover {
+	border-color: #89c97f;
+	color: #89c97f;
+}
+
 .quaternary {
 	background-color: #f2f2f2;
 	border-color: #ddd;
@@ -124,6 +204,22 @@
 	background-color: #eee;
 	border-color: #ddd;
 	color: #aaa;
+}
+
+.quaternary-outline {
+	background-color: transparent;
+	border-color: #ddd;
+	color: #666;
+}
+
+.quaternary-outline:hover {
+	border-color: #eaeaea;
+	color: #eaeaea;
+}
+
+.quaternary-outline:disabled,.quaternary-outline[data-disabled='true'],.quaternary-outline[data-disabled='true']:hover {
+	border-color: #eee;
+	color: #eee;
 }
 
 input[type='button'].transparent,input[type='submit'].transparent,button.transparent {
