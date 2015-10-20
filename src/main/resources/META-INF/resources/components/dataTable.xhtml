@@ -109,24 +109,27 @@
 
 					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90"
 						rendered="#{cc.attrs.showpaginator and cc.pages > 1}">
-						<cc:commandButton styleClass="primary bwRightNone wAuto"
-							icon="chevron-left" title="#{clevcoreMsg.previous_page}"
-							disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
-							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-
-						<ui:repeat var="page" value="#{cc.pageList}">
+						<h:panelGroup layout="block" styleClass="dInlineBlock bShadow2dp">
 							<cc:commandButton
-								styleClass="#{page == cc.page ? 'default' : 'primary'} bwRightNone wAuto"
-								value="#{page == -1 ? '...' : page}"
-								disabled="#{page == -1 || page == cc.page}"
-								action="#{cc.onPaginatorManager(page)}"
+								styleClass="primary bwRightNone wAuto bShadow0dp"
+								icon="chevron-left" title="#{clevcoreMsg.previous_page}"
+								disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
 								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-						</ui:repeat>
 
-						<cc:commandButton styleClass="primary wAuto" icon="chevron-right"
-							title="#{clevcoreMsg.next_page}"
-							disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
-							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+							<ui:repeat var="page" value="#{cc.pageList}">
+								<cc:commandButton
+									styleClass="#{page == cc.page ? 'default' : 'primary'} bwRightNone wAuto bShadow0dp"
+									value="#{page == -1 ? '...' : page}"
+									disabled="#{page == -1 || page == cc.page}"
+									action="#{cc.onPaginatorManager(page)}"
+									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+							</ui:repeat>
+
+							<cc:commandButton styleClass="primary wAuto bShadow0dp"
+								icon="chevron-right" title="#{clevcoreMsg.next_page}"
+								disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+						</h:panelGroup>
 					</h:panelGroup>
 				</h:panelGroup>
 

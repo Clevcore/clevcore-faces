@@ -20,7 +20,8 @@
 		<h:panelGroup id="id" layout="block"
 			styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit">
 			<h:panelGroup layout="block"
-				styleClass="panel #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+				styleClass="panel #{bbComponent.isPopup(cc.parent) ? 'bShadow24dp' : 'bShadow2dp bShadowTransition'} #{cc.attrs.accordion ? 'bShadow8dpHover' : ''} #{cc.attrs.styleClass}"
+				style="#{cc.attrs.style}">
 				<composite:insertChildren />
 			</h:panelGroup>
 			<f:passThroughAttribute name="data-accordion"

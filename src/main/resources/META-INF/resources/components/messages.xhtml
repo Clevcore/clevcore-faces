@@ -22,31 +22,32 @@
 			<h:panelGroup id="script" layout="block"
 				rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}">
 				<script>
-			 		addInnerHTML('#{cc.clientId}:old', true, removeInnerHTML('#{cc.clientId}:new'));
+			 		addInnerHTML("#{cc.clientId}:old", true, removeInnerHTML("#{cc.clientId}:new"));
 
-			 		var height = getHeightElement(getElement('#{cc.clientId}:old').firstChild);
-					setAttributeElement(getElement('#{cc.clientId}:old').firstChild, 'style', 'height: 0');
-
+			 		var height = getHeightElement(getElement("#{cc.clientId}:old").firstChild);
+					setAttributeElement(getElement("#{cc.clientId}:old").firstChild, "style", "height: 0");
+					addClassElement(getElement("#{cc.clientId}:old").firstChild.firstChild, "bShadow6dp");
+					
 					setTimeout(function() {
-						setClassElement(getElement('#{cc.clientId}:old').firstChild, 'aRight');
-						setAttributeElement(getElement('#{cc.clientId}:old').firstChild, 'style', 'height: ' + height + 'px');
+						setClassElement(getElement("#{cc.clientId}:old").firstChild, "aRight");
+						setAttributeElement(getElement("#{cc.clientId}:old").firstChild, "style", "height: " + height + "px");
 					}, 10);
 
 					setTimeout(function() {
-						removeClassElement(getElement('#{cc.clientId}:old').lastChild, 'aRight');
-						setAttributeElement(getElement('#{cc.clientId}:old').lastChild, 'style', 'height: 0');
+						removeClassElement(getElement("#{cc.clientId}:old").lastChild, "aRight");
+						setAttributeElement(getElement("#{cc.clientId}:old").lastChild, "style", "height: 0");
 						setTimeout(function() {
-							removeElement(getElement('#{cc.clientId}:old').lastChild);
+							removeElement(getElement("#{cc.clientId}:old").lastChild);
 						}, 500);
 					}, #{cc.attrs.timeHide});
 					
-					if(getElement('#{cc.clientId}:old').firstChild.firstChild.className == 'info') {
+					if(getElement("#{cc.clientId}:old").firstChild.firstChild.className == "info") {
 						if (idPopup != null) {
 							hidePopup();
 						}
 					}
 
-					remove('#{cc.clientId}:script');
+					remove("#{cc.clientId}:script");
 				</script>
 			</h:panelGroup>
 		</h:panelGroup>

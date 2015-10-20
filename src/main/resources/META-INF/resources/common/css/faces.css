@@ -55,6 +55,7 @@ table.table  {
 	opacity: 0;
 	padding: 10px;
 	position: absolute;
+	text-transform: none;
 	word-break: normal;
 	z-index: -1;
 

@@ -91,23 +91,15 @@ input[type='button'],input[type='submit'],button {
 	color: #fff;
 	cursor: pointer;
 	font-family: robotolight;
-	font-size: 17px;
+	font-size: 16px;
 	min-width: 56px;
-}
-
-input[type='button']:active,input[type='button']:focus,input[type='submit']:active,input[type='submit']:focus,button:active,button:focus {
-	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
-	   -moz-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
-	        box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
+	text-transform: uppercase;
 }
 
 input[type='button']:disabled,input[type='submit']:disabled,button:disabled {
+	box-shadow: none !important;
 	color: #eee;
 	cursor: default;
-
-	-webkit-box-shadow: none;
-	   -moz-box-shadow: none;
-	        box-shadow: none;
 }
 
 input[type='checkbox'] {
