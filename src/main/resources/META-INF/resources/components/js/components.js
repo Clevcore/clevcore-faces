@@ -381,7 +381,7 @@ function hidePopup(id) {
 		idPopup = id;
 	}
 
-	remplaceClass(idPopup + ":modal", "animate-fadeIn", "animate-fadeOut");
+	replaceClass(idPopup + ":modal", "animate-fadeIn", "animate-fadeOut");
 
 	replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-" + getAttribute(idPopup, "data-animatein"),
 			"animate-" + getAttribute(idPopup, "data-animateout"));
@@ -390,7 +390,7 @@ function hidePopup(id) {
 		addClass(idPopup, "dNone");
 		addClass(idPopup, "vHidden");
 
-		remplaceClass(idPopup + ":modal", "animate-fadeOut", "animate-fadeIn");
+		replaceClass(idPopup + ":modal", "animate-fadeOut", "animate-fadeIn");
 		replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-"
 				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
 		idPopup = null;

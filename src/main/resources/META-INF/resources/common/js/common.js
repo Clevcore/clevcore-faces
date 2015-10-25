@@ -97,11 +97,11 @@ function addStyleElement(element, style) {
 	element.style = styleCurrent + " " + style;
 }
 
-function deleteStyle(id) {
-	deleteStyleElement(getElement(id));
+function removeAllStyle(id) {
+	removeAllStyleElement(getElement(id));
 }
 
-function deleteStyleElement(element) {
+function removeAllStyleElement(element) {
 	element.style = "";
 }
 
@@ -115,11 +115,11 @@ function removeStyleElement(element, style) {
 	element.style = classStyle;
 }
 
-function remplaceStyle(id, styleNameOld, styleNameNew) {
-	remplaceStyleElement(getElement(id), styleNameOld, styleNameNew);
+function replaceStyle(id, styleNameOld, styleNameNew) {
+	replaceStyleElement(getElement(id), styleNameOld, styleNameNew);
 }
 
-function remplaceStyleElement(element, styleNameOld, styleNameNew) {
+function replaceStyleElement(element, styleNameOld, styleNameNew) {
 	try {
 		var styleCurrent = element.style;
 		styleCurrent = styleCurrent.replace(styleNameOld, styleNameNew);
@@ -180,11 +180,11 @@ function addClassElement(element, className) {
 	}
 }
 
-function deleteClass(id) {
-	deleteClassElement(getElement(id));
+function removeAllClass(id) {
+	removeAllClassElement(getElement(id));
 }
 
-function deleteClassElement(element) {
+function removeAllClassElement(element) {
 	element.className = "";
 }
 
@@ -198,7 +198,7 @@ function removeClassElement(element, className) {
 	element.className = classCurrent;
 }
 
-function remplaceClass(id, classNameOld, classNameNew) {
+function replaceClass(id, classNameOld, classNameNew) {
 	replaceClassElement(getElement(id), classNameOld, classNameNew);
 }
 
