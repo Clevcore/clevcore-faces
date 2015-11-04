@@ -513,6 +513,22 @@ function getWidthScreen() {
 	return screen.width;
 }
 
+function getBottom(id) {
+	return getBottomElement(getElement(id));
+}
+
+function getBottomElement(element) {
+	return getTopElement(element) + getHeightElement(element);
+}
+
+function getBottomScroll(id) {
+	return getBottomScrollElement(getElement(id));
+}
+
+function getBottomScrollElement(element) {
+	return getTopScrollElement(element) + getHeightElement(element);
+}
+
 function getLeft(id) {
 	return getLeftElement(getElement(id));
 }
@@ -527,6 +543,22 @@ function getLeftScroll(id) {
 
 function getLeftScrollElement(element) {
 	return element.scrollLeft;
+}
+
+function getRight(id) {
+	return getRightElement(getElement(id));
+}
+
+function getRightElement(element) {
+	return getLeftElement(element) + getWidthElement(element);
+}
+
+function getRightScroll(id) {
+	return getRightScrollElement(getElement(id));
+}
+
+function getRightScrollElement(element) {
+	return getLeftScrollElement(element) + getWidthElement(element);
 }
 
 function getTop(id) {
