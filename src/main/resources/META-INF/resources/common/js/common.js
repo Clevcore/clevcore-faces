@@ -529,6 +529,10 @@ function getBottomScrollElement(element) {
 	return getTopScrollElement(element) + getHeightElement(element);
 }
 
+function getBottomWindowScroll() {
+	return getBottomScrollElement(getBody());
+}
+
 function getLeft(id) {
 	return getLeftElement(getElement(id));
 }
@@ -543,6 +547,10 @@ function getLeftScroll(id) {
 
 function getLeftScrollElement(element) {
 	return element.scrollLeft;
+}
+
+function getLeftWindowScroll() {
+	return getLeftScrollElement(getBody());
 }
 
 function getRight(id) {
@@ -561,6 +569,10 @@ function getRightScrollElement(element) {
 	return getLeftScrollElement(element) + getWidthElement(element);
 }
 
+function getRightWindowScroll() {
+	return getRightScrollElement(getBody());
+}
+
 function getTop(id) {
 	return getTopElement(getElement(id));
 }
@@ -575,6 +587,10 @@ function getTopScroll(id) {
 
 function getTopScrollElement(element) {
 	return element.scrollTop;
+}
+
+function getTopWindowScroll() {
+	return getTopScrollElement(getBody());
 }
 
 Array.get = function(array, key, value) {
