@@ -469,11 +469,11 @@ function getHeightScrollElement(element) {
 }
 
 function getHeightWindow() {
-	return window.innerHeight;
+	return getHeight(getBody());
 }
 
 function getHeightWindowScroll() {
-	return getBody().scrollHeight;
+	return getHeightScrollElement(getBody());
 }
 
 function getHeightScreen() {
@@ -502,11 +502,11 @@ function getWidthScrollElement(element) {
 }
 
 function getWidthWindow() {
-	return window.innerWidth;
+	return getWidth(getBody());
 }
 
 function getWidthWindowScroll() {
-	return getBody().scrollWidth;
+	return getWidthScrollElement(getBody());
 }
 
 function getWidthScreen() {
