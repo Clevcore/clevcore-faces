@@ -211,6 +211,18 @@ function replaceClassElement(element, classNameOld, classNameNew) {
 	}
 }
 
+function getClassStyle(id, style) {
+	return getClassStyleElement(getElement(id), style);
+}
+
+function getClassStyleElement(element, style) {
+	var computedStyle = document.defaultView.getComputedStyle(element, "");
+	if (style !== undefined) {
+		return computedStyle.getPropertyValue(style);
+	}
+	return computedStyle;
+}
+
 function getInnerHTML(id) {
 	return getInnerHTMLElement(getElement(id));
 }
@@ -390,12 +402,17 @@ function autocenterElement(container, element) {
 	autocenterWidthElement(container, element);
 }
 
-function getHeight(id) {
-	return getHeightElement(getElement(id));
+function getHeight(id, withMargin) {
+	return getHeightElement(getElement(id), withMargin);
 }
 
-function getHeightElement(element) {
-	return element.offsetHeight;
+function getHeightElement(element, withMargin) {
+	var margin = 0;
+	if (withMargin !== undefined && withMargin) {
+		margin = parseInt(getClassStyleElement(element, 'margin-top'))
+				+ parseInt(getClassStyleElement(element, 'margin-bottom'));
+	}
+	return element.offsetHeight + margin;
 }
 
 function getHeightScroll(id) {
@@ -418,12 +435,17 @@ function getHeightScreen() {
 	return screen.height;
 }
 
-function getWidth(id) {
-	return getWidthElement(getElement(id));
+function getWidth(id, withMargin) {
+	return getWidthElement(getElement(id), withMargin);
 }
 
-function getWidthElement(element) {
-	return element.offsetWidth;
+function getWidthElement(element, withMargin) {
+	var margin = 0;
+	if (withMargin !== undefined && withMargin) {
+		margin = parseInt(getClassStyleElement(element, 'margin-left'))
+				+ parseInt(getClassStyleElement(element, 'margin-right'));
+	}
+	return element.offsetWidth + margin;
 }
 
 function getWidthScroll(id) {
