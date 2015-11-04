@@ -593,6 +593,30 @@ function getTopWindowScroll() {
 	return getTopScrollElement(getBody());
 }
 
+function isVisibleVertical(id) {
+	return isVisibleVerticalElement(getElement(id));
+}
+
+function isVisibleVerticalElement(element) {
+	return getBottomElement(element) > getTopWindowScroll() && getTopElement(element) < getBottomWindowScroll();
+}
+
+function isVisibleHorizontal(id) {
+	return isVisibleHorizontalElement(getElement(id));
+}
+
+function isVisibleHorizontalElement(element) {
+	return getRightElement(element) > getLeftWindowScroll() && getLeftElement(element) < getRightWindowScroll();
+}
+
+function isVisible(id) {
+	return isVisibleElement(getElement(id));
+}
+
+function isVisibleElement(element) {
+	return isVisibleVerticalElement(element) && isVisibleHorizontalElement(element);
+}
+
 Array.get = function(array, key, value) {
 	var indexOf = Array.indexOf(array, key, value);
 	if (indexOf != -1) {
