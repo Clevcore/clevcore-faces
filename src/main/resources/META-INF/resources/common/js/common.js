@@ -72,6 +72,133 @@ function setDisabledElement(element, disabled) {
 	}
 }
 
+function hasAttribute(id, attribute) {
+	return hasAttributeElement(getElement(id), attribute);
+}
+
+function hasAttributeElement(element, attribute) {
+	return getAttributeElement(element, attribute) != null;
+}
+
+function getAttribute(id, attribute) {
+	return getAttributeElement(getElement(id), attribute);
+}
+
+function getAttributeElement(element, attribute) {
+	return element.getAttribute(attribute);
+}
+
+function setAttribute(id, attribute, value) {
+	setAttributeElement(getElement(id), attribute, value);
+}
+
+function setAttributeElement(element, attribute, value) {
+	element.setAttribute(attribute, value);
+}
+
+function removeAttribute(id, attribute) {
+	removeAttributeElement(getElement(id), attribute);
+}
+
+function removeAttributeElement(element, attribute) {
+	element.removeAttribute(attribute);
+}
+
+function hasClassStyle(id, style, value) {
+	return hasClassStyleElement(getElement(id), style, value);
+}
+
+function hasClassStyleElement(element, style, value) {
+	return getClassStyleElement(element, style).indexOf(value) != -1;
+}
+
+function getClassStyle(id, style) {
+	return getClassStyleElement(getElement(id), style);
+}
+
+function getClassStyleElement(element, style) {
+	var computedStyle = document.defaultView.getComputedStyle(element, "");
+	if (style !== undefined) {
+		return computedStyle.getPropertyValue(style);
+	}
+	return computedStyle;
+}
+
+function hasClass(id, className) {
+	return hasClassElement(getElement(id), className);
+}
+
+function hasClassElement(element, className) {
+	return getClassElement(element).indexOf(className) != -1;
+}
+
+function getClass(id) {
+	return getClassElement(getElement(id));
+}
+
+function getClassElement(element) {
+	return element.className;
+}
+
+function setClass(id, className) {
+	setClassElement(getElement(id), className);
+}
+
+function setClassElement(element, className) {
+	element.className = className;
+}
+
+function addClass(id, className) {
+	addClassElement(getElement(id), className);
+}
+
+function addClassElement(element, className) {
+	var classCurrent = element.className;
+
+	if (classCurrent.indexOf(className) == -1) {
+		element.className = classCurrent + " " + className;
+	}
+}
+
+function removeAllClass(id) {
+	removeAllClassElement(getElement(id));
+}
+
+function removeAllClassElement(element) {
+	element.className = "";
+}
+
+function removeClass(id, className) {
+	removeClassElement(getElement(id), className);
+}
+
+function removeClassElement(element, className) {
+	var classCurrent = element.className;
+	classCurrent = classCurrent.replace(className, "");
+	element.className = classCurrent;
+}
+
+function replaceClass(id, classNameOld, classNameNew) {
+	replaceClassElement(getElement(id), classNameOld, classNameNew);
+}
+
+function replaceClassElement(element, classNameOld, classNameNew) {
+	try {
+		var classCurrent = element.className;
+		classCurrent = classCurrent.replace(classNameOld, classNameNew);
+		element.className = classCurrent;
+	} catch (e) {
+	}
+}
+
+function hasStyle(id, style) {
+	return hasStyleElement(getElement(id), style);
+}
+
+function hasStyleElement(element, style) {
+	return getStyleElement(element).indexOf(style) != -1;
+}
+
 function getStyle(id, style) {
 	return getStyleElement(getElement(id), style);
 }
@@ -139,101 +266,6 @@ function replaceStyleElement(element, styleOld, styleNew) {
 		setStyleElement(element, styleCurrent);
 	} catch (e) {
 	}
-}
-
-function getAttribute(id, attribute) {
-	return getAttributeElement(getElement(id), attribute);
-}
-
-function getAttributeElement(element, attribute) {
-	return element.getAttribute(attribute);
-}
-
-function setAttribute(id, attribute, value) {
-	setAttributeElement(getElement(id), attribute, value);
-}
-
-function setAttributeElement(element, attribute, value) {
-	element.setAttribute(attribute, value);
-}
-
-function removeAttribute(id, attribute) {
-	removeAttributeElement(getElement(id), attribute);
-}
-
-function removeAttributeElement(element, attribute) {
-	element.removeAttribute(attribute);
-}
-
-function getClass(id) {
-	return getClassElement(getElement(id));
-}
-
-function getClassElement(element) {
-	return element.className;
-}
-
-function setClass(id, className) {
-	setClassElement(getElement(id), className);
-}
-
-function setClassElement(element, className) {
-	element.className = className;
-}
-
-function addClass(id, className) {
-	addClassElement(getElement(id), className);
-}
-
-function addClassElement(element, className) {
-	var classCurrent = element.className;
-
-	if (classCurrent.indexOf(className) == -1) {
-		element.className = classCurrent + " " + className;
-	}
-}
-
-function removeAllClass(id) {
-	removeAllClassElement(getElement(id));
-}
-
-function removeAllClassElement(element) {
-	element.className = "";
-}
-
-function removeClass(id, className) {
-	removeClassElement(getElement(id), className);
-}
-
-function removeClassElement(element, className) {
-	var classCurrent = element.className;
-	classCurrent = classCurrent.replace(className, "");
-	element.className = classCurrent;
-}
-
-function replaceClass(id, classNameOld, classNameNew) {
-	replaceClassElement(getElement(id), classNameOld, classNameNew);
-}
-
-function replaceClassElement(element, classNameOld, classNameNew) {
-	try {
-		var classCurrent = element.className;
-		classCurrent = classCurrent.replace(classNameOld, classNameNew);
-		element.className = classCurrent;
-	} catch (e) {
-	}
-}
-
-function getClassStyle(id, style) {
-	return getClassStyleElement(getElement(id), style);
-}
-
-function getClassStyleElement(element, style) {
-	var computedStyle = document.defaultView.getComputedStyle(element, "");
-	if (style !== undefined) {
-		return computedStyle.getPropertyValue(style);
-	}
-	return computedStyle;
 }
 
 function getInnerHTML(id) {
