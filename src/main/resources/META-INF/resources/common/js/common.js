@@ -537,6 +537,16 @@ function keyRestriction(keys) {
 	return false;
 }
 
+function camelcaseToHyphens(value) {
+	return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+function hyphensToCamelcase(value) {
+	return value.toLowerCase().replace(/-(.)/g, function(match, group) {
+		return group.toUpperCase();
+	});
+}
+
 function fullTrim(id) {
 	return getElement(id).value.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, '').replace(/\s+/g, ' ');
 }
