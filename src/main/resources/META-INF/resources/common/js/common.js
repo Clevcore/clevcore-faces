@@ -72,12 +72,16 @@ function setDisabledElement(element, disabled) {
 	}
 }
 
-function getStyle(id) {
-	return getStyleElement(getElement(id));
+function getStyle(id, style) {
+	return getStyleElement(getElement(id), style);
 }
 
-function getStyleElement(element) {
-	return element.style;
+function getStyleElement(element, style) {
+	var style = element.style;
+	if (style !== undefined) {
+		return style.getPropertyValue(style);
+	}
+	return style.cssText;
 }
 
 function setStyle(id, style) {
@@ -85,7 +89,8 @@ function setStyle(id, style) {
 }
 
 function setStyleElement(element, style) {
-	element.style = style;
+	removeAllStyleElement(element);
+	addStyleElement(element, style);
 }
 
 function addStyle(id, style) {
@@ -93,8 +98,16 @@ function addStyle(id, style) {
 }
 
 function addStyleElement(element, style) {
-	var styleCurrent = element.style;
-	element.style = styleCurrent + " " + style;
+	var styleArray = style.split(";");
+	for (var i = 0; i < styleArray.length; i++) {
+		var propertyValueArray = styleArray[i].split(":");
+		if (propertyValueArray.length == 2) {
+			var property = hyphensToCamelcase(propertyValueArray[0].trim(" "));
+			var value = propertyValueArray[1].trim(" ");
+			var execute = "element.style." + property + " = '" + value + "';";
+			eval(execute);
+		}
+	}
 }
 
 function removeAllStyle(id) {
@@ -102,7 +115,7 @@ function removeAllStyle(id) {
 }
 
 function removeAllStyleElement(element) {
-	element.style = "";
+	removeAttributeElement(element, "style");
 }
 
 function removeStyle(id, style) {
@@ -110,20 +123,20 @@ function removeStyle(id, style) {
 }
 
 function removeStyleElement(element, style) {
-	var classStyle = element.style;
-	classStyle = classStyle.replace(style, "");
-	element.style = classStyle;
+	var styleCurrent = element.style.cssText;
+	styleCurrent = styleCurrent.replace(style, "");
+	setStyleElement(element, styleCurrent);
 }
 
-function replaceStyle(id, styleNameOld, styleNameNew) {
-	replaceStyleElement(getElement(id), styleNameOld, styleNameNew);
+function replaceStyle(id, styleOld, styleNew) {
+	replaceStyleElement(getElement(id), styleOld, styleNew);
 }
 
-function replaceStyleElement(element, styleNameOld, styleNameNew) {
+function replaceStyleElement(element, styleOld, styleNew) {
 	try {
-		var styleCurrent = element.style;
-		styleCurrent = styleCurrent.replace(styleNameOld, styleNameNew);
-		element.style = styleCurrent;
+		var styleCurrent = element.style.cssText;
+		styleCurrent = styleCurrent.replace(styleOld, styleNew);
+		setStyleElement(element, styleCurrent);
 	} catch (e) {
 	}
 }
