@@ -55,6 +55,7 @@ function reset() {
 
 	ConfirmNavigation.action();
 
+	FloatIfNotVisible.init();
 }
 
 function handleNextElement(index, elementArray, event) {
