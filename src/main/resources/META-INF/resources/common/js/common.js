@@ -706,7 +706,7 @@ function animateScrollTop(time) {
 
 function animateScrollBottom(time) {
 	$("html, body").stop().animate({
-		scrollTop : getHeightWindowFull()
+		scrollTop : getHeightWindow()
 	}, time | 1500);
 }
 
