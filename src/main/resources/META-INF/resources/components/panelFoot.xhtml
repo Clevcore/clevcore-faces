@@ -9,27 +9,13 @@
 		<composite:attribute name="id" targets="id" />
 		<composite:attribute name="styleClass" />
 		<composite:attribute name="rendered" />
-		<composite:attribute name="floatIfNotVisible" default="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="floatPosition" default="bottom"
-			shortDescription="Position indication of the component on screen. Valid values are: top, left, right and bottom. The default value is 'bottom'." /> />
-		<composite:attribute name="floatClass"
-			shortDescription="Class of the float component." />
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGroup layout="block" styleClass="">
-			<c:if test="#{cc.attrs.floatIfNotVisible}">
-				<f:passThroughAttribute name="class"
-					value="js-float-#{cc.attrs.floatPosition}-if-not-visible" />
-				<f:passThroughAttribute name="data-floatClass"
-					value="#{cc.attrs.floatClass}" />
-			</c:if>
-			<h:panelGroup id="id" layout="block"
-				styleClass="bLight foot pNormal #{cc.parent.attrs.accordion == true ? (cc.parent.attrs.accordionOpened ? 'dBlock' : 'dNone') : ''} #{cc.attrs.styleClass}"
-				rendered="#{cc.attrs.rendered}">
-				<composite:insertChildren />
-			</h:panelGroup>
+		<h:panelGroup id="id" layout="block"
+			styleClass="foot pNormal #{cc.parent.attrs.accordion == true ? (cc.parent.attrs.accordionOpened ? 'dBlock' : 'dNone') : ''} #{cc.attrs.styleClass}"
+			rendered="#{cc.attrs.rendered}">
+			<composite:insertChildren />
 		</h:panelGroup>
 	</composite:implementation>
 </ui:composition>
