@@ -20,7 +20,7 @@
 	<composite:implementation>
 		<h:panelGroup layout="block"
 			styleClass="dNone modal animate animate-fadeIn"
-			onclick="shortcut('#{cc.clientId}')" rendered="#{cc.attrs.modal}" />
+			onclick="fab('#{cc.clientId}')" rendered="#{cc.attrs.modal}" />
 
 		<h:panelGroup layout="block"
 			styleClass="pEventsNone pFixed zModal #{cc.attrs.position == 'topLeft' ? 'aTop aLeft' : cc.attrs.position == 'topRight' ? 'aTop aRight' : cc.attrs.position == 'bottomLeft' ? 'aBottom aLeft' : 'aBottom aRight'}">
@@ -33,24 +33,24 @@
 				value="#{cc.attrs.animateOut}" />
 			<f:passThroughAttribute name="data-modal" value="#{cc.attrs.modal}" />
 
-			<cc:shortcutItem
+			<cc:fabItem
 				rendered="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight'}">
 				<cc:commandButton
 					styleClass="primary btn-circle bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
 					icon="plus" />
-			</cc:shortcutItem>
+			</cc:fabItem>
 
 			<h:panelGroup layout="block"
 				styleClass="dNone animate animate-#{cc.attrs.animateIn}">
 				<composite:insertChildren />
 			</h:panelGroup>
 
-			<cc:shortcutItem
+			<cc:fabItem
 				rendered="#{cc.attrs.position != 'topLeft' and cc.attrs.position !=  'topRight'}">
 				<cc:commandButton
 					styleClass="btn-circle bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
 					icon="plus" />
-			</cc:shortcutItem>
+			</cc:fabItem>
 		</h:panelGroup>
 	</composite:implementation>
 </ui:composition>

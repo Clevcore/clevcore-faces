@@ -445,11 +445,11 @@ function popupScrollable(data) {
 	autoscrollHeightElement(popupBody, popupHead, popupFoot);
 }
 
-/* shortcut */
-var idShortcut = null;
-var shortcutClick;
+/* fab */
+var idFab = null;
+var fabClick;
 
-function shortcut(id) {
+function fab(id) {
 	id = id;
 
 	var position = getAttributeElement(getElement(id), "data-position");
@@ -490,11 +490,11 @@ function shortcut(id) {
 		replaceClassElement(panel, "dNone", "dBlock");
 		addClassElement(trigger.childNodes[1].childNodes[0], "trz225");
 
-		idShortcut = id;
-		shortcutClick = false;
+		idFab = id;
+		fabClick = false;
 
-		window.addEventListener("click", shortcutHandler, false);
-		window.addEventListener("keydown", shortcutHandler, false);
+		window.addEventListener("click", fabHandler, false);
+		window.addEventListener("keydown", fabHandler, false);
 	} else {
 		if (modal != null) {
 			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
@@ -513,23 +513,23 @@ function shortcut(id) {
 			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
 		}, ANIMATION_TIME);
 
-		idShortcut = null;
-		shortcutClick = null;
+		idFab = null;
+		fabClick = null;
 
-		window.removeEventListener("click", shortcutHandler, false);
-		window.removeEventListener("keydown", shortcutHandler, false);
+		window.removeEventListener("click", fabHandler, false);
+		window.removeEventListener("keydown", fabHandler, false);
 	}
 }
 
-function shortcutHandler(e) {
+function fabHandler(e) {
 	var key = e.which ? e.which : event.keyCode;
 
-	if (shortcutClick && (key == 1 || key == 27)) {
-		shortcut(idShortcut);
+	if (fabClick && (key == 1 || key == 27)) {
+		fab(idFab);
 	}
 
-	if (!shortcutClick) {
-		shortcutClick = true;
+	if (!fabClick) {
+		fabClick = true;
 	}
 }
 
