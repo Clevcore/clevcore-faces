@@ -50,32 +50,99 @@
 }
 
 /* Background */
-.bBlack {
-	background: #000;
+.bDefault, .bDefaultHover {
+	background-color: #474949;
 }
 
-.bDark {
-	background: #555;
+.bDefaultHover:hover {
+	background-color: #3a3c3c;
 }
 
-.bHover:hover {
-	background: #eaeaea;
+.bDefault2, .bDefault2Hover {
+	background-color: #e7e7e7;
 }
 
-.bInfo {
-	background: #999;
+.bDefault2Hover:hover {
+	background-color: #ddd;
 }
 
-.bLight {
-	background: #f5f5f5;
+.bPrimary, .bPrimaryHover {
+	background-color: #428ba;
+}
+
+.bPrimaryHover:hover {
+	background-color: #357ebd;
+}
+
+.bSecondary, .bSecondaryHover {
+	background-color: #ca4242;
+}
+
+.bSecondaryHover:hover {
+	background-color: #bd3535;
+}
+.bTertiary, .bTertiaryHover {
+	background-color: #60c451;
+}
+
+.bTertiaryHover:hover {
+	background-color: #4bbd35;
+}
+
+.bQuaternary, .bQuaternaryHover {
+	background-color: #f2f2f2;
+}
+
+.bQuaternaryHover:hover {
+	background-color: #eaeaea;
+}
+
+.bBlack, .bBlackHover {
+	background-color: #000;
+}
+
+.bBlackHover:hover {
+	background-color: #555;
+}
+
+.bDark, .bDarkHover {
+	background-color: #555;
+}
+
+.bDarkHover:hover {
+	background-color: #111;
+}
+
+.bInfo, .bInfoHover {
+	background-color: #999;
+}
+
+.bInfoHover:hover {
+	background-color: #444;
+}
+
+.bLight, .bLightHover {
+	background-color: #f2f2f2;
+}
+
+.bLightHover:hover {
+	background-color: #e2e2e2;
 }
 
 .bTransparent {
-	background: transparent;
+	background-color: transparent;
 }
 
-.bWhite {
-	background: #fff;
+.bTransparentHover:hover {
+	background-color: transparent;
+}
+
+.bWhite, .bWhiteHover {
+	background-color: #fff;
+}
+
+.bWhiteHover:hover {
+	background-color: #eaeaea;
 }
 
 .bsCover {
@@ -249,12 +316,20 @@
 	border-color: #e2e2e2;
 }
 
+.bcTransparent {
+	border-color: transparent;
+}
+
+.bcTransparentHover:hover {
+	border-color: transparent;
+}
+
 .bcWhite, .bcWhiteHover {
 	border-color: #fff;
 }
 
 .bcWhiteHover:hover {
-	border-color: #bbb;
+	border-color: #eaeaea;
 }
 
 .bsDashed {
@@ -900,7 +975,7 @@
 }
 
 .oSmall {
-	opacity: .2;
+	opacity: .8;
 }
 
 .oNormal {
@@ -908,7 +983,7 @@
 }
 
 .oLarge {
-	opacity: .8;
+	opacity: .2;
 }
 
 .oHover {

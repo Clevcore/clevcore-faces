@@ -16,13 +16,13 @@
 		<c:if test="#{cc.attrs.value != null}">
 			<c:if test="#{cc.attrs.src == null}">
 				<h:outputLabel
-					styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+					styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
 					value="#{cc.attrs.value}" onclick="#{cc.attrs.onclick} hideMenu();" />
 			</c:if>
 
 			<c:if test="#{cc.attrs.src != null}">
 				<h:outputLink
-					styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+					styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
 					value="#{cc.attrs.src}" onclick="#{cc.attrs.onclick} hideMenu();">
 					<composite:insertChildren />
 					<h:outputText value="#{cc.attrs.value}" />
@@ -32,7 +32,7 @@
 
 		<c:if test="#{cc.attrs.value == null}">
 			<h:panelGroup layout="block"
-				styleClass="bTransition bHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
+				styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
 				onclick="#{cc.attrs.onclick} hideMenu();">
 				<composite:insertChildren />
 			</h:panelGroup>
