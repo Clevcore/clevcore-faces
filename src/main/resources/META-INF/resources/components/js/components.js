@@ -447,17 +447,18 @@ function popupScrollable(data) {
 
 /* shortcut */
 var idShortcut = null;
+var shortcutClick;
 
 function shortcut(id) {
-	idShortcut = id;
+	id = id;
 
-	var position = getAttributeElement(getElement(idShortcut), "data-position");
-	var animateIn = getAttributeElement(getElement(idShortcut), "data-animatein");
-	var animateOut = getAttributeElement(getElement(idShortcut), "data-animateout");
+	var position = getAttributeElement(getElement(id), "data-position");
+	var animateIn = getAttributeElement(getElement(id), "data-animatein");
+	var animateOut = getAttributeElement(getElement(id), "data-animateout");
 
 	var modal;
-	if (eval(getAttributeElement(getElement(idShortcut), "data-modal"))) {
-		modal = getElement(idShortcut).previousSibling;
+	if (eval(getAttributeElement(getElement(id), "data-modal"))) {
+		modal = getElement(id).previousSibling;
 	} else {
 		modal = null;
 	}
@@ -466,18 +467,20 @@ function shortcut(id) {
 	var trigger;
 
 	if (position == "topLeft") {
-		panel = getElement(idShortcut).childNodes[1];
-		trigger = getElement(idShortcut).childNodes[0].childNodes[0].childNodes[0];
+		panel = getElement(id).childNodes[1];
+		trigger = getElement(id).childNodes[0].childNodes[0].childNodes[0];
 	} else if (position == "topRight") {
-		panel = getElement(idShortcut).childNodes[1];
-		trigger = getElement(idShortcut).childNodes[0].childNodes[1].childNodes[0];
+		panel = getElement(id).childNodes[1];
+		trigger = getElement(id).childNodes[0].childNodes[1].childNodes[0];
 	} else if (position == "bottomLeft") {
-		panel = getElement(idShortcut).childNodes[0];
-		trigger = getElement(idShortcut).childNodes[1].childNodes[0].childNodes[0];
+		panel = getElement(id).childNodes[0];
+		trigger = getElement(id).childNodes[1].childNodes[0].childNodes[0];
 	} else {
-		panel = getElement(idShortcut).childNodes[0];
-		trigger = getElement(idShortcut).childNodes[1].childNodes[1].childNodes[0];
+		panel = getElement(id).childNodes[0];
+		trigger = getElement(id).childNodes[1].childNodes[1].childNodes[0];
 	}
+
+	addClassElement(trigger.childNodes[1].childNodes[0], "tTransform");
 
 	if (getClassElement(panel).indexOf("dNone") != -1) {
 		if (modal != null) {
@@ -485,20 +488,20 @@ function shortcut(id) {
 		}
 
 		replaceClassElement(panel, "dNone", "dBlock");
-		addClassElement(trigger, "trz225");
+		addClassElement(trigger.childNodes[1].childNodes[0], "trz225");
 
-		if (window.addEventListener) {
-			window.addEventListener("keydown", shortcutHandler, false);
-		} else {
-			window.attachEvent("onkeydown", shortcutHandler);
-		}
+		idShortcut = id;
+		shortcutClick = false;
+
+		window.addEventListener("click", shortcutHandler, false);
+		window.addEventListener("keydown", shortcutHandler, false);
 	} else {
 		if (modal != null) {
 			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
 		}
 
 		replaceClassElement(panel, "animate-" + animateIn, "animate-" + animateOut);
-		removeClassElement(trigger, "trz225");
+		removeClassElement(trigger.childNodes[1].childNodes[0], "trz225");
 
 		setTimeout(function() {
 			if (modal != null) {
@@ -510,19 +513,23 @@ function shortcut(id) {
 			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
 		}, ANIMATION_TIME);
 
-		if (window.removeEventListener) {
-			window.removeEventListener("keydown", shortcutHandler, false);
-		} else {
-			window.detachEvent("onkeydown", shortcutHandler);
-		}
-
 		idShortcut = null;
+		shortcutClick = null;
+
+		window.removeEventListener("click", shortcutHandler, false);
+		window.removeEventListener("keydown", shortcutHandler, false);
 	}
 }
 
 function shortcutHandler(e) {
-	if (((e.which) ? e.which : event.keyCode) == 27) {
+	var key = e.which ? e.which : event.keyCode;
+
+	if (shortcutClick && (key == 1 || key == 27)) {
 		shortcut(idShortcut);
+	}
+
+	if (!shortcutClick) {
+		shortcutClick = true;
 	}
 }
 

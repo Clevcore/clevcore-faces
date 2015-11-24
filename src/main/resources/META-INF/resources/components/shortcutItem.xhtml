@@ -8,21 +8,26 @@
 	<composite:interface>
 		<composite:attribute name="styleClass" />
 		<composite:attribute name="value" />
+		<composite:attribute name="rendered" type="java.lang.Boolean" />
 	</composite:interface>
 
 	<composite:implementation>
 		<h:panelGroup layout="block"
-			styleClass="#{cc.attrs.styleClass} #{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft' ? 'tLeft' : 'tRight'}">
-			<h:outputText styleClass="cWhite fs20 vMiddle"
+			styleClass="#{cc.attrs.styleClass} #{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft' ? 'tLeft' : 'tRight'}"
+			rendered="#{cc.attrs.rendered}">
+			<h:outputText
+				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
 				value="#{cc.attrs.value}"
 				rendered="#{cc.parent.attrs.position != 'topLeft' and cc.parent.attrs.position !=  'bottomLeft'}" />
 
-			<h:panelGroup layout="block" styleClass="dInlineBlock mLarge"
+			<h:panelGroup layout="block"
+				styleClass="dInlineBlock mLarge pEventsVisible"
 				onclick="shortcut('#{cc.parent.clientId}')">
 				<composite:insertChildren />
 			</h:panelGroup>
 
-			<h:outputText styleClass="cWhite fs20 vMiddle"
+			<h:outputText
+				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
 				value="#{cc.attrs.value}"
 				rendered="#{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft'}" />
 		</h:panelGroup>
