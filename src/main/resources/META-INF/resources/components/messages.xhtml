@@ -37,11 +37,11 @@
 						removeClassElement(getElement("#{cc.clientId}:old").lastChild, "aRight");
 						setAttributeElement(getElement("#{cc.clientId}:old").lastChild, "style", "height: 0");
 						setTimeout(function() {
-							removeElement(getElement("#{cc.clientId}:old").lastChild);
+							//removeElement(getElement("#{cc.clientId}:old").lastChild);
 						}, 500);
 					}, #{cc.attrs.timeHide});
 					
-					if(getElement("#{cc.clientId}:old").firstChild.firstChild.className == "info") {
+					if(hasClassElement(getElement("#{cc.clientId}:old").firstChild.firstChild, "info")) {
 						if (idPopup != null) {
 							hidePopup();
 						}
