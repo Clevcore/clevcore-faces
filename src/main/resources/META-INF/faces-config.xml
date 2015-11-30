@@ -12,10 +12,6 @@
 		</locale-config>
 
 		<resource-bundle>
-			<base-name>ar.com.clevcore.resources.messages</base-name>
-			<var>msg</var>
-		</resource-bundle>
-		<resource-bundle>
 			<base-name>ar.com.clevcore.resources.clevcore</base-name>
 			<var>clevcoreMsg</var>
 		</resource-bundle>

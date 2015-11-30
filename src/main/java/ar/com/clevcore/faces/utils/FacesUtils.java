@@ -28,13 +28,15 @@ import org.slf4j.LoggerFactory;
 import ar.com.clevcore.exceptions.ClevcoreException;
 
 public final class FacesUtils {
-    
+
     public static final String ID_MESSAGES = "ar-com-clevcore-faces-messages";
     public static final String ID_SCRIPT = "ar-com-clevcore-faces-script";
     public static final String SCRIPT_SESSION = "ar.com.clevcore.faces.script";
 
+    public static String resourceBundleVar = "msg";
+
     private static final Logger log = LoggerFactory.getLogger(FacesUtils.class);
-    
+
     private FacesUtils() {
         throw new AssertionError();
     }
@@ -91,7 +93,12 @@ public final class FacesUtils {
         return elContext != null ? elContext.getELResolver() : null;
     }
 
-    public static Object resolveExpression(String expression, Class<?> clazz) {
+    public static Object elResolverValue(String property) {
+        ELResolver elResolver = getELResolver();
+        return elResolver != null ? elResolver.getValue(getELContext(), null, property) : null;
+    }
+
+    public static Object valueExpression(String expression, Class<?> clazz) {
         ELContext elContext = getELContext();
         ExpressionFactory expressionFactory = getExpressionFactory();
         if (elContext != null && expressionFactory != null) {
@@ -101,6 +108,12 @@ public final class FacesUtils {
             }
         }
         return null;
+    }
+
+    public static Object evaluateExpressionGet(String expression, Class<?> clazz) {
+        Application application = getApplication();
+        return application != null ? getApplication().evaluateExpressionGet(getFacesContext(), expression, clazz)
+                : null;
     }
 
     public static String getRealPath() {
@@ -352,8 +365,7 @@ public final class FacesUtils {
 
     // OTHER
     public static Object getBean(String bean) {
-        ELResolver elResolver = getELResolver();
-        return elResolver != null ? elResolver.getValue(getELContext(), null, bean) : null;
+        return elResolverValue(bean);
     }
 
     public static void navigation(String action) {
@@ -369,12 +381,13 @@ public final class FacesUtils {
     }
 
     // MESSAGES
+    @SuppressWarnings("el-syntax")
     public static ResourceBundle getResourceBundle() {
-        return ResourceBundle.getBundle("ar.com.clevcore.resources.messages", getLocale());
+        return (ResourceBundle) evaluateExpressionGet("#{" + resourceBundleVar + "}", ResourceBundle.class);
     }
 
     public static ResourceBundle getClevcoreResourceBundle() {
-        return ResourceBundle.getBundle("ar.com.clevcore.resources.clevcore", getLocale());
+        return (ResourceBundle) evaluateExpressionGet("#{clevcoreMsg}", ResourceBundle.class);
     }
 
     public static String getResource(String key) {
@@ -421,7 +434,7 @@ public final class FacesUtils {
         }
         return resource;
     }
-    
+
     public static String getClevcoreResource(String key, Object... params) {
         String resource = "";
         ResourceBundle clevcoreResourceBundle = getClevcoreResourceBundle();
@@ -438,7 +451,6 @@ public final class FacesUtils {
         }
         return resource;
     }
-    
 
     // COMPONENTS
     public static void showPopup(String id) {
