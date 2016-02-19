@@ -66,6 +66,10 @@ var HandleAjax = {
 				eval(getAttributeElement(data.source, "data-onsuccess"));
 			}
 
+			if (!facesContext.validationFailed && getAttributeElement(data.source, "data-onvalidation") != null) {
+				eval(getAttributeElement(data.source, "data-onvalidation"));
+			}
+
 			reset();
 			break;
 		}
