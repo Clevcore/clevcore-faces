@@ -93,7 +93,11 @@ function setAttribute(id, attribute, value) {
 }
 
 function setAttributeElement(element, attribute, value) {
-	element.setAttribute(attribute, value);
+	if (value === undefined) {
+		element.setAttribute(attribute, "");
+	} else {
+		element.setAttribute(attribute, value);
+	}
 }
 
 function removeAttribute(id, attribute) {
