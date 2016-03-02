@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface componentType="selectManyCheckbox">
+        <composite:attribute name="style" type="java.lang.String" />
+        <composite:attribute name="styleClass" type="java.lang.String" />
+        <composite:attribute name="value" required="true" />
+        <composite:attribute name="disabled" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="immediate" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="converter" />
+        <composite:attribute name="required" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="requiredMessage"
+            required="#{cc.attrs.required}" type="java.lang.String" />
+
+        <composite:attribute name="onchange" type="java.lang.String" />
+        <composite:attribute name="onclick" type="java.lang.String" />
+
+        <composite:clientBehavior name="change" event="change"
+            targets="selectManyCheckbox" />
+        <composite:clientBehavior name="click" event="click"
+            targets="selectManyCheckbox" />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup layout="block" styleClass="#{cc.attrs.styleClass}"
+            style="#{cc.attrs.style}">
+            <f:passThroughAttribute name="id" value="#{cc.clientId}" />
+
+            <h:selectManyCheckbox binding="#{cc.component}"
+                id="selectManyCheckbox" styleClass="dNone"
+                value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
+                immediate="#{cc.attrs.immediate}"
+                converter="#{cc.attrs.converter}"
+                required="#{cc.attrs.required}"
+                requiredMessage="#{cc.attrs.requiredMessage}">
+                <composite:insertChildren />
+            </h:selectManyCheckbox>
+
+            <ui:repeat var="item" value="#{cc.itemList}" varStatus="status">
+                <h:panelGroup layout="block" styleClass="checkbox pBottomNormal">
+                    <h:outputLabel>
+                        <input id="#{cc.clientId}:#{status.index}"
+                            type="checkbox"
+                            onchange="selectManyCheckboxChange('#{cc.clientId}', '#{status.index}', this); #{cc.attrs.onchange}"
+                            onclick="selectManyCheckboxClick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}" />
+                        <h:panelGroup styleClass="checkbox-material">
+                            <h:panelGroup styleClass="check" />
+                        </h:panelGroup>
+                        <h:outputText styleClass="mLeftNormal"
+                            value="#{item.label}"
+                            rendered="#{item.label ne null}" />
+                    </h:outputLabel>
+                </h:panelGroup>
+            </ui:repeat>
+        </h:panelGroup>
+        <script>initSelectManyCheckbox('#{cc.clientId}');</script>
+    </composite:implementation>
+</ui:composition>

@@ -279,6 +279,94 @@ function searchDataTable(id, value) {
 	getElement(id + ":searchCommandButton:id").click();
 }
 
+/* fab */
+var idFab = null;
+var fabClick;
+
+function fab(id) {
+	id = id;
+
+	var position = getAttributeElement(getElement(id), "data-position");
+	var animateIn = getAttributeElement(getElement(id), "data-animatein");
+	var animateOut = getAttributeElement(getElement(id), "data-animateout");
+
+	var modal;
+	if (eval(getAttributeElement(getElement(id), "data-modal"))) {
+		modal = getElement(id).previousSibling;
+	} else {
+		modal = null;
+	}
+
+	var panel;
+	var trigger;
+
+	if (position == "topLeft") {
+		panel = getElement(id).childNodes[1];
+		trigger = getElement(id).childNodes[0].childNodes[0].childNodes[0];
+	} else if (position == "topRight") {
+		panel = getElement(id).childNodes[1];
+		trigger = getElement(id).childNodes[0].childNodes[1].childNodes[0];
+	} else if (position == "bottomLeft") {
+		panel = getElement(id).childNodes[0];
+		trigger = getElement(id).childNodes[1].childNodes[0].childNodes[0];
+	} else {
+		panel = getElement(id).childNodes[0];
+		trigger = getElement(id).childNodes[1].childNodes[1].childNodes[0];
+	}
+
+	addClassElement(trigger.childNodes[1].childNodes[0], "tTransform");
+
+	if (getClassElement(panel).indexOf("dNone") != -1) {
+		if (modal != null) {
+			replaceClassElement(modal, "dNone", "dBlock");
+		}
+
+		replaceClassElement(panel, "dNone", "dBlock");
+		addClassElement(trigger.childNodes[1].childNodes[0], "trz225");
+
+		idFab = id;
+		fabClick = false;
+
+		window.addEventListener("click", fabHandler, false);
+		window.addEventListener("keydown", fabHandler, false);
+	} else {
+		if (modal != null) {
+			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
+		}
+
+		replaceClassElement(panel, "animate-" + animateIn, "animate-" + animateOut);
+		removeClassElement(trigger.childNodes[1].childNodes[0], "trz225");
+
+		setTimeout(function() {
+			if (modal != null) {
+				replaceClassElement(modal, "dBlock", "dNone");
+				replaceClassElement(modal, "animate-fadeOut", "animate-fadeIn");
+			}
+
+			replaceClassElement(panel, "dBlock", "dNone");
+			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
+		}, ANIMATION_TIME);
+
+		idFab = null;
+		fabClick = null;
+
+		window.removeEventListener("click", fabHandler, false);
+		window.removeEventListener("keydown", fabHandler, false);
+	}
+}
+
+function fabHandler(e) {
+	var key = e.which ? e.which : event.keyCode;
+
+	if (fabClick && (key == 1 || key == 27)) {
+		fab(idFab);
+	}
+
+	if (!fabClick) {
+		fabClick = true;
+	}
+}
+
 /* graphicImage */
 function lazyload() {
 	$("img.lazy").lazyload();
@@ -449,92 +537,22 @@ function popupScrollable(data) {
 	autoscrollHeightElement(popupBody, popupHead, popupFoot);
 }
 
-/* fab */
-var idFab = null;
-var fabClick;
+/* selectManyCheckbox */
+function initSelectManyCheckbox(id) {
+	var checkbox = getSelectors("[name='" + id + ":selectManyCheckbox']");
 
-function fab(id) {
-	id = id;
-
-	var position = getAttributeElement(getElement(id), "data-position");
-	var animateIn = getAttributeElement(getElement(id), "data-animatein");
-	var animateOut = getAttributeElement(getElement(id), "data-animateout");
-
-	var modal;
-	if (eval(getAttributeElement(getElement(id), "data-modal"))) {
-		modal = getElement(id).previousSibling;
-	} else {
-		modal = null;
-	}
-
-	var panel;
-	var trigger;
-
-	if (position == "topLeft") {
-		panel = getElement(id).childNodes[1];
-		trigger = getElement(id).childNodes[0].childNodes[0].childNodes[0];
-	} else if (position == "topRight") {
-		panel = getElement(id).childNodes[1];
-		trigger = getElement(id).childNodes[0].childNodes[1].childNodes[0];
-	} else if (position == "bottomLeft") {
-		panel = getElement(id).childNodes[0];
-		trigger = getElement(id).childNodes[1].childNodes[0].childNodes[0];
-	} else {
-		panel = getElement(id).childNodes[0];
-		trigger = getElement(id).childNodes[1].childNodes[1].childNodes[0];
-	}
-
-	addClassElement(trigger.childNodes[1].childNodes[0], "tTransform");
-
-	if (getClassElement(panel).indexOf("dNone") != -1) {
-		if (modal != null) {
-			replaceClassElement(modal, "dNone", "dBlock");
-		}
-
-		replaceClassElement(panel, "dNone", "dBlock");
-		addClassElement(trigger.childNodes[1].childNodes[0], "trz225");
-
-		idFab = id;
-		fabClick = false;
-
-		window.addEventListener("click", fabHandler, false);
-		window.addEventListener("keydown", fabHandler, false);
-	} else {
-		if (modal != null) {
-			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
-		}
-
-		replaceClassElement(panel, "animate-" + animateIn, "animate-" + animateOut);
-		removeClassElement(trigger.childNodes[1].childNodes[0], "trz225");
-
-		setTimeout(function() {
-			if (modal != null) {
-				replaceClassElement(modal, "dBlock", "dNone");
-				replaceClassElement(modal, "animate-fadeOut", "animate-fadeIn");
-			}
-
-			replaceClassElement(panel, "dBlock", "dNone");
-			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
-		}, ANIMATION_TIME);
-
-		idFab = null;
-		fabClick = null;
-
-		window.removeEventListener("click", fabHandler, false);
-		window.removeEventListener("keydown", fabHandler, false);
+	for (var i = 0; checkbox[i]; i++) {
+		getElement(id + ':' + i).checked = checkbox[i].checked;
 	}
 }
 
-function fabHandler(e) {
-	var key = e.which ? e.which : event.keyCode;
+function selectManyCheckboxChange(id, index, element) {
+	getElement(id + ':selectManyCheckbox:' + index).checked = element.checked;
+	getElement(id + ':selectManyCheckbox:' + index).onchange();
+}
 
-	if (fabClick && (key == 1 || key == 27)) {
-		fab(idFab);
-	}
-
-	if (!fabClick) {
-		fabClick = true;
-	}
+function selectManyCheckboxClick(id, index) {
+	getElement(id + ':selectManyCheckbox:' + index).onclick();
 }
 
 /* wait */

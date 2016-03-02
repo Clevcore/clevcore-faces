@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface>
+        <composite:attribute name="uid" type="java.lang.String" />
+        <composite:attribute name="style" type="java.lang.String" />
+        <composite:attribute name="styleClass" type="java.lang.String" />
+        <composite:attribute name="value" />
+        <composite:attribute name="label" type="java.lang.String" />
+        <composite:attribute name="disabled" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="immediate" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="required" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="requiredMessage"
+            required="#{cc.attrs.required}" type="java.lang.String" />
+
+        <composite:attribute name="onchange" type="java.lang.String" />
+        <composite:attribute name="onclick" type="java.lang.String" />
+
+        <composite:clientBehavior name="change" event="change"
+            targets="inputCheckbox" />
+        <composite:clientBehavior name="click" event="click"
+            targets="inputCheckbox" />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup layout="block"
+            styleClass="checkbox #{cc.attrs.styleClass}"
+            style="#{cc.attrs.style}">
+            <f:passThroughAttribute name="id" value="#{cc.clientId}" />
+            <h:outputLabel>
+                <h:selectBooleanCheckbox id="inputCheckbox"
+                    value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
+                    immediate="#{cc.attrs.immediate}"
+                    required="#{cc.attrs.required}"
+                    requiredMessage="#{cc.attrs.requiredMessage}"
+                    onchange="#{cc.attrs.onchange}"
+                    onclick="#{cc.attrs.onclick}">
+                    <f:passThroughAttribute name="data-uid"
+                        value="#{cc.attrs.uid}" />
+                </h:selectBooleanCheckbox>
+                <h:panelGroup styleClass="checkbox-material">
+                    <h:panelGroup styleClass="check" />
+                </h:panelGroup>
+                <h:outputText styleClass="mLeftNormal" value="#{cc.attrs.label}"
+                    rendered="#{cc.attrs.label ne null}" />
+            </h:outputLabel>
+        </h:panelGroup>
+    </composite:implementation>
+</ui:composition>
