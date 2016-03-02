@@ -324,6 +324,14 @@ function removeElement(element) {
 }
 
 // utils
+function setInputCheckbox(selectors, value) {
+	var elements = getSelectors(selectors);
+
+	for (var i = 0; elements.length; i++) {
+		elements[i].checked = value;
+	}
+}
+
 function getBoolean(value) {
 	if (value === undefined || value == null) {
 		return value;
