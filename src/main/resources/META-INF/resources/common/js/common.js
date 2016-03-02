@@ -325,13 +325,16 @@ function removeElement(element) {
 
 // utils
 function getBoolean(value) {
-	if (value === "true") {
-		return true;
-	} else if (value === "false") {
-		return false;
+	if (value === undefined || value == null) {
+		return value;
+	} else {
+		value = value.toLowerCase();
+		if (value == "true" || value == "yes" || value == "on") {
+			return true;
+		} else {
+			return false;
+		}
 	}
-
-	return undefined;
 }
 
 function getKeyCode() {
