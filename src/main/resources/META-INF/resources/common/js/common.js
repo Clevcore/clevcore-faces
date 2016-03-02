@@ -8,7 +8,7 @@ function getBody() {
 }
 
 function getElement(id) {
-	return document.getElementById(id);
+	return document.getElementById(id) || getSelector(id);
 }
 
 function getSelector(selector) {
