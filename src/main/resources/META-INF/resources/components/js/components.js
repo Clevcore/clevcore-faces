@@ -263,8 +263,13 @@ var ConfirmNavigation = {
 function dataTableRow(id, size, rowIndex, onRowClick) {
 	var trElement = getElement(id + ":dataTable:td:" + rowIndex).parentNode;
 	setAttributeElement(trElement, "id", id + ":dataTable:tr:" + rowIndex);
-	setAttributeElement(trElement, "onclick", "getElement('" + id + ":rowIndex').value = '" + rowIndex
-			+ "'; getElement('" + id + ":rowIndex').onchange(); " + onRowClick);
+
+	trElement.addEventListener('click', function() {
+		getElement(id + ':rowIndex').value = rowIndex;
+		getElement(id + ':rowIndex').onchange();
+		eval(onRowClick);
+	}, false);
+
 	setClassElement(trElement, "cPointer");
 	remove(id + ":dataTable:td:" + rowIndex);
 	try {
