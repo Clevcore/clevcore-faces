@@ -552,12 +552,21 @@ function initSelectManyCheckbox(id) {
 }
 
 function selectManyCheckboxChange(id, index, element) {
-	getElement(id + ':selectManyCheckbox:' + index).checked = element.checked;
-	getElement(id + ':selectManyCheckbox:' + index).onchange();
+	var selectManyCheckbox = getElement(id + ':selectManyCheckbox:' + index);
+
+	selectManyCheckbox.checked = element.checked;
+
+	if (selectManyCheckbox.onchange != null) {
+		getElement(id + ':selectManyCheckbox:' + index).onchange();
+	}
 }
 
 function selectManyCheckboxClick(id, index) {
-	getElement(id + ':selectManyCheckbox:' + index).onclick();
+	var selectManyCheckbox = getElement(id + ':selectManyCheckbox:' + index);
+
+	if (selectManyCheckbox.onclick != null) {
+		getElement(id + ':selectManyCheckbox:' + index).onclick();
+	}
 }
 
 /* wait */
