@@ -52,14 +52,6 @@ function addValueElement(element, value, isTop) {
 	}
 }
 
-function focus(id) {
-	focusElement(getElement(id));
-}
-
-function focusElement(element) {
-	element.focus();
-}
-
 function setDisabled(id, disabled) {
 	setDisabledElement(getElement(id), disabled);
 }
