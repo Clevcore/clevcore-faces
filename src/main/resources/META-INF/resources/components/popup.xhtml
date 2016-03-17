@@ -1,63 +1,68 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface componentType="popup">
-		<composite:attribute name="styleClass" />
-		<composite:attribute name="animateIn" default="zoomFadeIn" />
-		<composite:attribute name="animateOut" default="zoomFadeOut" />
-		<composite:attribute name="autocenter" default="true"
-			type="java.lang.Boolean" />
-		<composite:attribute name="closeable" default="true"
-			type="java.lang.Boolean" />
-		<composite:attribute name="modal" default="true"
-			type="java.lang.Boolean" />
-		<composite:attribute name="movable" default="true"
-			type="java.lang.Boolean" />
-		<composite:attribute name="scrollable" default="true"
-			type="java.lang.Boolean" />
-		<composite:attribute name="onshow" />
-		<composite:attribute name="onhide" />
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface componentType="popup">
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="animateIn" default="zoomFadeIn" />
+        <composite:attribute name="animateOut" default="zoomFadeOut" />
+        <composite:attribute name="autocenter" default="true"
+            type="java.lang.Boolean" />
+        <composite:attribute name="closeable" default="true"
+            type="java.lang.Boolean" />
+        <composite:attribute name="modal" default="true"
+            type="java.lang.Boolean" />
+        <composite:attribute name="movable" default="true"
+            type="java.lang.Boolean" />
+        <composite:attribute name="scrollable" default="true"
+            type="java.lang.Boolean" />
+        <composite:attribute name="onshow" />
+        <composite:attribute name="onhide" />
+    </composite:interface>
 
-	<composite:implementation>
-		<h:panelGroup layout="block"
-			styleClass="dNone vHidden pRelative zNormal">
-			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
-			<f:passThroughAttribute name="data-animatein"
-				value="#{cc.attrs.animateIn}" />
-			<f:passThroughAttribute name="data-animateout"
-				value="#{cc.attrs.animateOut}" />
-			<f:passThroughAttribute name="data-autocenter"
-				value="#{cc.attrs.autocenter}" />
-			<f:passThroughAttribute name="data-closeable"
-				value="#{cc.attrs.closeable}" />
-			<f:passThroughAttribute name="data-movable"
-				value="#{cc.attrs.movable}" />
-			<f:passThroughAttribute name="data-scrollable"
-				value="#{cc.attrs.scrollable}" />
-			<f:passThroughAttribute name="data-onshow" value="#{cc.attrs.onshow}" />
-			<f:passThroughAttribute name="data-onhide" value="#{cc.attrs.onhide}" />
-			<h:panelGroup layout="block" styleClass="popup bShadow24dp">
-				<h:panelGroup id="id" layout="block" styleClass="pRelative">
-					<h:panelGroup layout="block"
-						styleClass="animate animate-#{cc.attrs.animateIn} #{cc.attrs.styleClass}">
-						<composite:insertChildren />
-					</h:panelGroup>
-				</h:panelGroup>
-			</h:panelGroup>
+    <composite:implementation>
+        <h:panelGroup layout="block"
+            styleClass="dNone vHidden pRelative zNormal">
+            <f:passThroughAttribute name="id" value="#{cc.clientId}" />
+            <f:passThroughAttribute name="data-animatein"
+                value="#{cc.attrs.animateIn}" />
+            <f:passThroughAttribute name="data-animateout"
+                value="#{cc.attrs.animateOut}" />
+            <f:passThroughAttribute name="data-autocenter"
+                value="#{cc.attrs.autocenter}" />
+            <f:passThroughAttribute name="data-closeable"
+                value="#{cc.attrs.closeable}" />
+            <f:passThroughAttribute name="data-movable"
+                value="#{cc.attrs.movable}" />
+            <f:passThroughAttribute name="data-scrollable"
+                value="#{cc.attrs.scrollable}" />
+            <f:passThroughAttribute name="data-onshow"
+                value="#{cc.attrs.onshow}" />
+            <f:passThroughAttribute name="data-onhide"
+                value="#{cc.attrs.onhide}" />
+            <h:panelGroup layout="block" styleClass="popup bShadow24dp">
+                <h:panelGroup id="id" layout="block" styleClass="pRelative">
+                    <h:panelGroup layout="block"
+                        styleClass="animate animate-#{cc.attrs.animateIn} #{cc.attrs.styleClass}"
+                        style="#{cc.attrs.style}">
+                        <composite:insertChildren />
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
 
-			<c:if test="#{cc.attrs.modal}">
-				<h:panelGroup id="modal" layout="block"
-					styleClass="modal animate animate-fadeIn">
-					<c:if test="#{cc.attrs.closeable}">
-						<f:passThroughAttribute name="onclick" value="hidePopup();" />
-					</c:if>
-				</h:panelGroup>
-			</c:if>
-		</h:panelGroup>
-	</composite:implementation>
+            <c:if test="#{cc.attrs.modal}">
+                <h:panelGroup id="modal" layout="block"
+                    styleClass="modal animate animate-fadeIn">
+                    <c:if test="#{cc.attrs.closeable}">
+                        <f:passThroughAttribute name="onclick"
+                            value="hidePopup();" />
+                    </c:if>
+                </h:panelGroup>
+            </c:if>
+        </h:panelGroup>
+    </composite:implementation>
 </ui:composition>
