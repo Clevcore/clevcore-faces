@@ -49,17 +49,35 @@
                         <input id="#{cc.clientId}:#{status.index}"
                             type="checkbox"
                             onchange="selectManyCheckboxChange('#{cc.clientId}', '#{status.index}', this); #{cc.attrs.onchange}"
-                            onclick="selectManyCheckboxClick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}" />
-                        <h:panelGroup styleClass="checkbox-material">
+                            onclick="selectManyCheckboxClick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}">
+                        <c:if test="#{cc.attrs.disabled}">
+                            <f:passThroughAttribute name="disabled"
+                                value="disabled" />
+                        </c:if>
+                        </input>
+
+                        <h:panelGroup styleClass="checkbox-material"
+                            rendered="#{item.label == null}">
                             <h:panelGroup styleClass="check" />
                         </h:panelGroup>
-                        <h:outputText styleClass="mLeftNormal"
-                            value="#{item.label}"
-                            rendered="#{item.label ne null}" />
+
+                        <h:panelGrid columns="2"
+                            styleClass="checkbox-material w100"
+                            columnClasses="pRightNormal,lhNormal tJustify"
+                            rendered="#{item.label != null}">
+                            <h:panelGroup styleClass="check" />
+                            <h:outputText value="#{item.label}" />
+                        </h:panelGrid>
                     </h:outputLabel>
                 </h:panelGroup>
             </ui:repeat>
         </h:panelGroup>
-        <script>initSelectManyCheckbox('#{cc.clientId}');</script>
+
+        <h:panelGroup id="script" layout="block">
+            <script>
+                initSelectManyCheckbox('#{cc.clientId}');
+                remove("#{cc.clientId}:script");
+            </script>
+        </h:panelGroup>
     </composite:implementation>
 </ui:composition>

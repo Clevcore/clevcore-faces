@@ -122,7 +122,7 @@
 }
 
 .bLight, .bLightHover {
-	background-color: #f2f2f2;
+	background-color: #f8f8f8;
 }
 
 .bLightHover:hover {
@@ -807,9 +807,12 @@
 }
 
 /* Line height */
-
 .lhNone {
 	line-height: 0;
+}
+
+.lhNormal {
+	line-height: normal;
 }
 
 .lh1 {
@@ -1505,8 +1508,16 @@
 }
 
 /* Word */
+.wbAll {
+	word-break: break-all;
+}
+
 .wbNormal {
 	word-break: normal;
+}
+
+.wbWord {
+	word-break: break-word;
 }
 
 /* Text align */
@@ -1567,6 +1578,60 @@
 		   transform-style: preserve-3d;
 }
 
+/* Transform origin*/
+.toXleftYbottom {
+	webkit-transform-origin: left bottom 0;
+	  -moz-transform-origin: left bottom 0;
+	       transform-origin: left bottom 0;
+}
+
+.toXleftYcenter {
+	webkit-transform-origin: left center 0;
+	  -moz-transform-origin: left center 0;
+	       transform-origin: left center 0;
+}
+
+.toXleftYtop {
+	webkit-transform-origin: left top 0;
+	  -moz-transform-origin: left top 0;
+	       transform-origin: left top 0;
+}
+
+.toXcenterYbottom {
+	webkit-transform-origin: center bottom 0;
+	  -moz-transform-origin: center bottom 0;
+	       transform-origin: center bottom 0;
+}
+
+.toXcenterYcenter {
+	webkit-transform-origin: center center 0;
+	  -moz-transform-origin: center center 0;
+	       transform-origin: center center 0;
+}
+
+.toXcenterYtop {
+	webkit-transform-origin: center top 0;
+	  -moz-transform-origin: center top 0;
+	       transform-origin: center top 0;
+}
+
+.toXrightYbottom {
+	webkit-transform-origin: right bottom 0;
+	  -moz-transform-origin: right bottom 0;
+	       transform-origin: right bottom 0;
+}
+
+.toXrightYcenter {
+	webkit-transform-origin: right center 0;
+	  -moz-transform-origin: right center 0;
+	       transform-origin: right center 0;
+}
+
+.toXrightYtop {
+	webkit-transform-origin: right top 0;
+	  -moz-transform-origin: right top 0;
+	       transform-origin: right top 0;
+}
 
 /* Transform rotate*/
 .trx0 {
