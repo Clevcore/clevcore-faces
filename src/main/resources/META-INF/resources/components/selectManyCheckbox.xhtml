@@ -44,7 +44,8 @@
             </h:selectManyCheckbox>
 
             <ui:repeat var="item" value="#{cc.itemList}" varStatus="status">
-                <h:panelGroup layout="block" styleClass="checkbox pBottomNormal">
+                <h:panelGroup layout="block"
+                    styleClass="checkbox #{!status.last ? 'pBottomNormal' : ''}">
                     <h:outputLabel>
                         <input id="#{cc.clientId}:#{status.index}"
                             type="checkbox"
