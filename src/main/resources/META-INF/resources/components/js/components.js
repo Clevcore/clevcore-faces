@@ -379,68 +379,45 @@ function lazyload() {
 
 /* menu */
 var idMenu = null;
-var idMenuTrigger = null;
-var isMenuOut = false;
 
-function showMenu(id, idTrigger) {
-	hideMenu();
+function showMenu(id) {
+	if (id != idMenu) {
+		idMenu = id;
 
-	idMenu = id;
-	idMenuTrigger = idTrigger;
-	isMenuOut = false;
+		removeClass(idMenu + ":menuItems", "dNone");
 
-	setClass(idMenu + ":menu", "dBlock");
+		window.addEventListener("click", menuHandler);
+		window.addEventListener("keydown", menuCloseable);
 
-	if (window.addEventListener) {
-		window.addEventListener("click", menuHandler, false);
-		getElement(idMenu + ":id").addEventListener("mouseover", menuOver, false);
-		getElement(idMenu + ":id").addEventListener("mouseout", menuOut, false);
-		getElement(idMenuTrigger).addEventListener("mouseover", menuOver, false);
-		getElement(idMenuTrigger).addEventListener("mouseout", menuOut, false);
-	} else {
-		window.attachEvent("onclick", menuHandler);
-		getElement(idMenu + ":id").attachEvent("onmouseover", menuOver);
-		getElement(idMenu + ":id").attachEvent("onmouseout", menuOut);
-		getElement(idMenuTrigger).attachEvent("onmouseover", menuOver);
-		getElement(idMenuTrigger).attachEvent("onmouseout", menuOut);
+		event.stopPropagation();
 	}
 }
 
 function hideMenu() {
-	if (idMenu != null) {
-		setClass(idMenu + ":menu", "dNone");
+	replaceClassElement(getElement(idMenu + ":menuItems").firstChild, "animate-"
+			+ getAttribute(idMenu, "data-animatein"), "animate-" + getAttribute(idMenu, "data-animateout"));
 
-		if (window.removeEventListener) {
-			window.removeEventListener("click", menuHandler, false);
-			getElement(idMenu + ":id").removeEventListener("mouseover", menuOver, false);
-			getElement(idMenu + ":id").removeEventListener("mouseout", menuOut, false);
-			getElement(idMenuTrigger).removeEventListener("mouseover", menuOver, false);
-			getElement(idMenuTrigger).removeEventListener("mouseout", menuOut, false);
-		} else {
-			window.detachEvent("onclick", menuHandler);
-			getElement(idMenu + ":id").detachEvent("onmouseover", menuOver);
-			getElement(idMenu + ":id").detachEvent("onmouseout", menuOut);
-			getElement(idMenuTrigger).detachEvent("onmouseover", menuOver);
-			getElement(idMenuTrigger).detachEvent("onmouseout", menuOut);
-		}
+	setTimeout(function() {
+		addClass(idMenu + ":menuItems", "dNone");
+
+		replaceClassElement(getElement(idMenu + ":menuItems").firstChild, "animate-"
+				+ getAttribute(idMenu, "data-animateout"), "animate-" + getAttribute(idMenu, "data-animatein"));
 
 		idMenu = null;
-		idMenuTrigger = null;
-	}
+	}, ANIMATION_TIME);
+
+	window.removeEventListener("click", menuHandler);
+	window.removeEventListener("keydown", menuCloseable);
 }
 
-function menuHandler(e) {
-	if (isMenuOut) {
+function menuHandler() {
+	if (!containElement(getElement(idMenu + ":menuTrigger"), event.toElement)) {
 		hideMenu();
 	}
 }
 
-function menuOver() {
-	isMenuOut = false;
-}
-
-function menuOut() {
-	isMenuOut = true;
+function menuCloseable() {
+	actionToEscKey(hideMenu);
 }
 
 /* popup */

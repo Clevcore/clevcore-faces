@@ -1,16 +1,4 @@
 /* body */
-div.separator {
-	border-top: 1px solid #e7e7e7;
-	padding: 5px;
-	margin: 10px -10px 0 -10px;
-}
-
-div.separator2 {
-	border-top: 1px dashed #e7e7e7;
-	padding: 5px;
-	margin: 10px -10px 0 -10px;
-}
-
 input.transparent {
 	background: transparent;
 	border: none;

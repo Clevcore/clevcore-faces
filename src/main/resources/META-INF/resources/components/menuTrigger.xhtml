@@ -6,10 +6,17 @@
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
     <composite:interface>
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
     </composite:interface>
 
     <composite:implementation>
-        <h:panelGroup layout="block"
-            styleClass="mBottomSmall mTopSmall bcDefault2 bsSolid bwNone bwTopNormal" />
+        <h:panelGroup styleClass="#{cc.attrs.styleClass}"
+            style="#{cc.attrs.style}"
+            onclick="showMenu('#{cc.parent.clientId}')">
+            <f:passThroughAttribute name="id"
+                value="#{cc.parent.clientId}:menuTrigger" />
+            <composite:insertChildren />
+        </h:panelGroup>
     </composite:implementation>
 </ui:composition>

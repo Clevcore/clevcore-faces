@@ -1,41 +1,39 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface>
-		<composite:attribute name="styleClass" />
-		<composite:attribute name="value" />
-		<composite:attribute name="src" />
-		<composite:attribute name="onclick" />
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface>
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="icon" />
+        <composite:attribute name="value" />
+        <composite:attribute name="title" />
+        <composite:attribute name="rendered" />
+        <composite:attribute name="disabled" />
+        <composite:attribute name="redirect" />
+        <composite:attribute name="onclick" />
+    </composite:interface>
 
-	<composite:implementation>
-		<c:if test="#{cc.attrs.value != null}">
-			<c:if test="#{cc.attrs.src == null}">
-				<h:outputLabel
-					styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
-					value="#{cc.attrs.value}" onclick="#{cc.attrs.onclick} hideMenu();" />
-			</c:if>
+    <composite:implementation>
+        <h:panelGroup layout="block"
+            styleClass="bLightHover pNormal #{cc.attrs.disabled == true ? 'cDefault' : 'cPointer'} #{cc.attrs.styleClass}"
+            style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered ne null}"
+            onclick="#{cc.attrs.redirect ne null ? 'redirect(\'' : ''}#{cc.attrs.redirect ne null ? bbClevcore.path : ''}#{cc.attrs.redirect ne null ? cc.attrs.redirect : ''}#{cc.attrs.redirect ne null ? '\');' : ''}  #{cc.attrs.disabled == true ? '' : cc.attrs.onclick} hideMenu();">
+            <c:if test="#{cc.attrs.disabled ne null}">
+                <f:passThroughAttribute name="data-disabled"
+                    value="#{cc.attrs.disabled}" />
+            </c:if>
 
-			<c:if test="#{cc.attrs.src != null}">
-				<h:outputLink
-					styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
-					value="#{cc.attrs.src}" onclick="#{cc.attrs.onclick} hideMenu();">
-					<composite:insertChildren />
-					<h:outputText value="#{cc.attrs.value}" />
-				</h:outputLink>
-			</c:if>
-		</c:if>
+            <cc:icon id="icon"
+                styleClass="cInherit fs18 #{cc.attrs.value ne null ? 'mRightNormal' : ''}"
+                value="#{cc.attrs.icon}" title="#{cc.attrs.title}"
+                rendered="#{cc.attrs.icon ne null}" />
 
-		<c:if test="#{cc.attrs.value == null}">
-			<h:panelGroup layout="block"
-				styleClass="bTransition bWhiteHover dBlock fontNotosansbold pBottomSmall pLeftNormal pRightNormal pTopSmall tLeft wbNormal #{cc.attrs.styleClass}"
-				onclick="#{cc.attrs.onclick} hideMenu();">
-				<composite:insertChildren />
-			</h:panelGroup>
-		</c:if>
-	</composite:implementation>
+            <h:outputText styleClass="fs14 wbNormal" value="#{cc.attrs.value}"
+                rendered="#{cc.attrs.value ne null}" />
+        </h:panelGroup>
+    </composite:implementation>
 </ui:composition>
