@@ -315,6 +315,14 @@ function removeElement(element) {
 	element.parentNode.removeChild(element);
 }
 
+function contain(idParent, idChild) {
+	return containElement(getElement(idParent), getElement(idChild));
+}
+
+function containElement(parent, child) {
+	return parent.contains(child);
+}
+
 // utils
 function setInputCheckbox(selectors, value) {
 	var elements = getSelectors(selectors);
