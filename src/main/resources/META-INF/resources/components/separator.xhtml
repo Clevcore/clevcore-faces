@@ -6,10 +6,13 @@
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
     <composite:interface>
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
     </composite:interface>
 
     <composite:implementation>
         <h:panelGroup layout="block"
-            styleClass="mBottomSmall mTopSmall bcDefault2 bsSolid bwNone bwTopNormal" />
+            styleClass="mBottomSmall mTopSmall bcDefault2 bsSolid bwNone bwTopNormal #{cc.attrs.styleClass}"
+            style="#{cc.attrs.style}" />
     </composite:implementation>
 </ui:composition>
