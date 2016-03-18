@@ -101,6 +101,7 @@ function accordion(id, titleCompress, titleExpand) {
 
 	if (opened) {
 		setAttributeElement(panel, "data-opened", "false");
+		addClassElement(panel, "noPrint");
 
 		setAttributeElement(panelHead, "title", titleExpand);
 		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
@@ -123,6 +124,7 @@ function accordion(id, titleCompress, titleExpand) {
 		}, 20);
 	} else {
 		setAttributeElement(panel, "data-opened", "true");
+		removeClassElement(panel, "noPrint");
 
 		setAttributeElement(panelHead, "title", titleCompress);
 		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");

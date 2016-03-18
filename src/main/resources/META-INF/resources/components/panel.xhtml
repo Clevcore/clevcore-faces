@@ -1,36 +1,36 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface>
-		<composite:attribute name="id" targets="id" />
-		<composite:attribute name="styleClass" />
-		<composite:attribute name="style" />
-		<composite:attribute name="accordion" default="false" required="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="accordionOpened"
-			required="#{cc.attrs.accordion}" type="java.lang.Boolean" />
-		<composite:attribute name="onAccordionClick" />
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface>
+        <composite:attribute name="id" targets="id" />
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="accordion" default="false" required="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="accordionOpened"
+            required="#{cc.attrs.accordion}" type="java.lang.Boolean" />
+        <composite:attribute name="onAccordionClick" />
+    </composite:interface>
 
-	<composite:implementation>
-		<h:panelGroup id="id" layout="block"
-			styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit">
-			<h:panelGroup layout="block"
-				styleClass="panel #{bbComponent.isPopup(cc.parent) ? 'bShadow24dp' : 'bShadow2dp bShadowTransition'} #{cc.attrs.styleClass}"
-				style="#{cc.attrs.style}">
-				<composite:insertChildren />
-			</h:panelGroup>
-			<f:passThroughAttribute name="data-accordion"
-				value="#{cc.attrs.accordion}" />
-			<c:if test="#{cc.attrs.accordion == true}">
-				<f:passThroughAttribute name="data-opened"
-					value="#{cc.attrs.accordionOpened}" />
-				<script>initAccordion("#{cc.clientId}");</script>
-			</c:if>
-		</h:panelGroup>
-	</composite:implementation>
+    <composite:implementation>
+        <h:panelGroup id="id" layout="block"
+            styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit">
+            <h:panelGroup layout="block"
+                styleClass="panel #{bbComponent.isPopup(cc.parent) ? 'bShadow24dp' : 'bShadow2dp bShadowTransition'} #{cc.attrs.styleClass}"
+                style="#{cc.attrs.style}">
+                <composite:insertChildren />
+            </h:panelGroup>
+            <f:passThroughAttribute name="data-accordion"
+                value="#{cc.attrs.accordion}" />
+            <c:if test="#{cc.attrs.accordion == true}">
+                <f:passThroughAttribute name="data-opened"
+                    value="#{cc.attrs.accordionOpened}" />
+                <script>initAccordion("#{cc.clientId}");</script>
+            </c:if>
+        </h:panelGroup>
+    </composite:implementation>
 </ui:composition>
