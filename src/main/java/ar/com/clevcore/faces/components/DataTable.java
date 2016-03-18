@@ -38,7 +38,11 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         data.setVar(getAttributes().get("var").toString());
 
         // rows
-        data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
+        if (getAttributes().get("rows") != null && !getAttributes().get("rows").toString().isEmpty()) {
+            data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
+        } else {
+            data.setRows(5);
+        }
 
         // value
         data.setValue(getAttributes().get("value"));
@@ -61,6 +65,11 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         }
         initPages();
         paginatorRefresh();
+
+        // pagination
+        if (getAttributes().get("pagination") != null && !(boolean) getAttributes().get("pagination")) {
+            data.setRows(getPages());
+        }
 
         super.encodeBegin(context);
     }
@@ -95,8 +104,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         if (objectList != null && !objectList.isEmpty()) {
             String path = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
                     + File.separator;
-            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")), path,
-                    true, FacesUtils.getClevcoreResource("pattern_date"));
+            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")),
+                    path, true, FacesUtils.getClevcoreResource("pattern_date"));
 
             FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
         }
@@ -178,8 +187,9 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         String search = getSearch();
 
         if (objectList != null && !objectList.isEmpty() && search != null && !search.isEmpty()) {
-            objectList = Utils.searchObject(search, objectList, getProperties((String) getAttributes().get("searchBy")),
-                    false, FacesUtils.getClevcoreResource("pattern_date"));
+            objectList = Utils.searchObject(search, objectList,
+                    getProperties((String) getAttributes().get("searchBy")), false,
+                    FacesUtils.getClevcoreResource("pattern_date"));
 
             setValueSearch(objectList);
             data.setValue(objectList);

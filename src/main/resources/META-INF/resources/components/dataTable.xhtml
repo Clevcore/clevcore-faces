@@ -9,8 +9,15 @@
         <composite:attribute name="id" targets="id" />
         <composite:attribute name="styleClass" />
         <composite:attribute name="columnClasses" />
+        <composite:attribute name="var" />
+        <composite:attribute name="rows" />
+        <composite:attribute name="value" />
         <composite:attribute name="propertyFile" />
         <composite:attribute name="searchBy" />
+        <composite:attribute name="simplified" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="pagination" default="true"
+            type="java.lang.Boolean" />
         <composite:attribute name="responsive" default="true"
             type="java.lang.Boolean" />
         <composite:attribute name="showFile" default="true"
@@ -19,7 +26,7 @@
             type="java.lang.Boolean" />
         <composite:attribute name="showSearch" default="true"
             type="java.lang.Boolean" />
-        <composite:attribute name="showpaginator" default="true"
+        <composite:attribute name="showPaginator" default="true"
             type="java.lang.Boolean" />
         <composite:attribute name="onRender" />
         <composite:attribute name="onRow" />
@@ -30,7 +37,8 @@
 
     <composite:implementation>
         <h:panelGroup id="id" layout="block">
-            <h:panelGroup layout="block" styleClass="lhNone pBottomNormal">
+            <h:panelGroup layout="block" styleClass="lhNone fs0 pBottomNormal"
+                rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch and cc.attrs.showFile and cc.data.value.size() gt 0)}">
                 <h:panelGroup layout="block"
                     styleClass="dInlineBlock pRightNormal w50">
                     <h:panelGrid columns="2" styleClass="w100"
@@ -81,7 +89,7 @@
             <h:panelGroup layout="block"
                 styleClass="#{cc.attrs.responsive ? 'table-responsive' : ''}">
                 <h:dataTable id="dataTable"
-                    styleClass="table table-striped table-bordered mBottomNormal #{cc.attrs.rowlistener != null ? 'table-hover' : ''} #{cc.attrs.styleClass}"
+                    styleClass="table table-striped table-bordered #{cc.attrs.rowlistener != null ? 'table-hover' : ''} mNone #{cc.attrs.styleClass}"
                     rowStatePreserved="true"
                     columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
                     binding="#{cc.data}">
@@ -89,16 +97,17 @@
                         <f:passThroughAttribute name="id"
                             value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
                         <script>
-						dataTableRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}", "#{cc.attrs.onRow}");
-					</script>
+    						dataTableRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}", "#{cc.attrs.onRow}");
+    					</script>
                     </h:column>
                     <composite:insertChildren />
                 </h:dataTable>
             </h:panelGroup>
 
             <h:panelGroup layout="block" id="paginator">
-                <h:panelGroup layout="block" styleClass="mBottomNormal"
-                    rendered="#{cc.data.value.size() gt 5}">
+                <h:panelGroup layout="block"
+                    styleClass="mTopNormal mBottomNormal"
+                    rendered="#{!cc.attrs.simplified and (cc.data.value.size() gt 5 and cc.attrs.pagination)}">
                     <h:panelGroup layout="block" styleClass="dInlineBlock w10">
                         <h:panelGroup layout="block" styleClass="dInlineBlock">
                             <cc:selectOneMenu id="rows" style="width: 75px;"
@@ -117,7 +126,7 @@
 
                     <h:panelGroup layout="block"
                         styleClass="dInlineBlock tRight w90"
-                        rendered="#{cc.attrs.showpaginator and cc.pages > 1}">
+                        rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
                         <h:panelGroup layout="block"
                             styleClass="dInlineBlock bShadow2dp">
                             <cc:commandButton
@@ -146,16 +155,16 @@
                                 render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
                         </h:panelGroup>
                     </h:panelGroup>
-                </h:panelGroup>
 
-                <h:panelGroup rendered="#{cc.attrs.showInfo}">
-                    <h:outputFormat styleClass="fs10"
-                        value="#{clevcoreMsg.showing_records}">
-                        <f:param value="#{cc.data.first + 1}" />
-                        <f:param
-                            value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
-                        <f:param value="#{cc.data.value.size()}" />
-                    </h:outputFormat>
+                    <h:panelGroup rendered="#{cc.attrs.showInfo}">
+                        <h:outputFormat styleClass="fs10"
+                            value="#{clevcoreMsg.showing_records}">
+                            <f:param value="#{cc.data.first + 1}" />
+                            <f:param
+                                value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
+                            <f:param value="#{cc.data.value.size()}" />
+                        </h:outputFormat>
+                    </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
