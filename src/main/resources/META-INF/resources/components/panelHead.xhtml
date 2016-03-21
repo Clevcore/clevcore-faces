@@ -42,12 +42,12 @@
                 <c:choose>
                     <c:when
                         test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                        <cc:icon styleClass="fs24 pRightNormal noPrint"
+                        <cc:icon styleClass="cInfo fs14 pRightNormal noPrint"
                             value="chevron-down" />
                     </c:when>
                     <c:when
                         test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                        <cc:icon styleClass="fs24 pRightNormal noPrint"
+                        <cc:icon styleClass="cInfo fs14 pRightNormal noPrint"
                             value="chevron-right" />
                     </c:when>
                 </c:choose>
@@ -61,7 +61,7 @@
                     <composite:insertChildren />
                 </h:panelGroup>
 
-                <h:panelGroup layout="block" styleClass="fRight mTopNormal">
+                <h:panelGroup layout="block" styleClass="accordionIcon">
                     <c:choose>
                         <c:when test="#{cc.parent.parent.attrs.closeable}">
                             <cc:icon styleClass="cInfoHover cPointer fs24"
@@ -70,11 +70,13 @@
                         </c:when>
                         <c:when
                             test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                            <cc:icon styleClass="fs24 noPrint" value="compress" />
+                            <cc:icon styleClass="cInfo fs14 noPrint"
+                                value="minus" />
                         </c:when>
                         <c:when
                             test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                            <cc:icon styleClass="fs24 noPrint" value="expand" />
+                            <cc:icon styleClass="cInfo fs14 noPrint"
+                                value="plus" />
                         </c:when>
                     </c:choose>
                 </h:panelGroup>

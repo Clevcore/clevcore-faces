@@ -105,7 +105,7 @@ function accordion(id, titleCompress, titleExpand) {
 
 		setAttributeElement(panelHead, "title", titleExpand);
 		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
-		replaceClassElement($(panelHead).find(".fa-compress")[0], "fa-compress", "fa-expand");
+		replaceClassElement($(panelHead).find(".fa-minus")[0], "fa-minus", "fa-plus");
 
 		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
 		panelBody.style.height = getHeightElement(panelBody) + "px";
@@ -128,7 +128,7 @@ function accordion(id, titleCompress, titleExpand) {
 
 		setAttributeElement(panelHead, "title", titleCompress);
 		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");
-		replaceClassElement($(panelHead).find(".fa-expand")[0], "fa-expand", "fa-compress");
+		replaceClassElement($(panelHead).find(".fa-plus")[0], "fa-plus", "fa-minus");
 
 		panelBody.style.height = "0px";
 		replaceClassElement(panelBody, "dNone", "dBlock");
