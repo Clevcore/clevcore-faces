@@ -68,7 +68,9 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
         // pagination
         if (getAttributes().get("pagination") != null && !(boolean) getAttributes().get("pagination")) {
-            data.setRows(getPages());
+            if (data != null && data.getValue() != null) {
+                data.setRows(((List<Object>) data.getValue()).size());
+            }
         }
 
         super.encodeBegin(context);
