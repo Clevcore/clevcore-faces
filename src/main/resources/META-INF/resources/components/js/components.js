@@ -490,7 +490,7 @@ function hidePopup(id) {
 	removeClassElement(getSelector("body"), "oHidden");
 }
 
-function popupAutocenter(data) {
+function popupAutocenter() {
 	var container = getElement(idPopup + ':id');
 	var element = getSelector("#" + idPopup + " .panel");
 
