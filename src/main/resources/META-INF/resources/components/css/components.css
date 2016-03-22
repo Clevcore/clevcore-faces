@@ -321,6 +321,25 @@ datetimepicker {
 }
 
 
+/* data table */
+@media screen {
+	.tableResponsive {
+		overflow-x: auto;
+		overflow-y: hidden;
+		width: 100%;
+	}
+	
+	.tableResponsive > table > thead > tr > th,
+	.tableResponsive > table > tbody > tr > th,
+	.tableResponsive > table > tfoot > tr > th,
+	.tableResponsive > table > thead > tr > td,
+	.tableResponsive > table > tbody > tr > td,
+	.tableResponsive > table > tfoot > tr > td {
+		white-space: nowrap;
+	}
+}
+
+
 /* menu */
 
 

@@ -8,6 +8,7 @@
     <composite:interface componentType="dataTable">
         <composite:attribute name="id" targets="id" />
         <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
         <composite:attribute name="columnClasses" />
         <composite:attribute name="var" />
         <composite:attribute name="rows" />
@@ -87,10 +88,10 @@
             </h:inputText>
 
             <h:panelGroup layout="block"
-                styleClass="#{cc.attrs.responsive ? 'table-responsive' : ''}">
+                styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
                 <h:dataTable id="dataTable"
                     styleClass="table table-striped table-bordered #{cc.attrs.rowlistener != null ? 'table-hover' : ''} mNone #{cc.attrs.styleClass}"
-                    rowStatePreserved="true"
+                    style="#{cc.attrs.style}" rowStatePreserved="true"
                     columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
                     binding="#{cc.data}">
                     <h:column rendered="#{cc.attrs.rowlistener != null}">
