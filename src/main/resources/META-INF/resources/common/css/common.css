@@ -1507,6 +1507,27 @@
 			transition: width .2s;
 }
 
+/* White space */
+.wsNormal {
+	white-space: normal;
+}
+
+.wsNowrap {
+	white-space: nowrap;
+}
+
+.wsPre {
+	white-space: pre;
+}
+
+.wsPreLine {
+	white-space: pre-line;
+}
+
+.wsPreWrap {
+	white-space: pre-wrap;
+}
+
 /* Word */
 .wbAll {
 	word-break: break-all;
