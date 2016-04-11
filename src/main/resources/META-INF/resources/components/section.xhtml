@@ -15,16 +15,17 @@
 
     <composite:implementation>
         <h:panelGroup rendered="#{cc.attrs.rendered}">
-            <section class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+            <section id="#{cc.clientId}"
+                class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
                 <h:panelGroup rendered="#{cc.attrs.value != null}"
-                    layout="block"
-                    styleClass="value pBottomNormal fontRobotolight">
+                    layout="block" styleClass="pBottomNormal fontRobotolight">
                     <c:if test="#{cc.attrs.icon ne null}">
                         <cc:icon styleClass="fs20 pRightNormal"
                             value="#{cc.attrs.icon}" />
                     </c:if>
                     <h:outputText styleClass="fs18 tUppercase"
                         value="#{cc.attrs.value}" />
+                    <cc:separator styleClass="mTopNormal" />
                 </h:panelGroup>
                 <composite:insertChildren />
             </section>
