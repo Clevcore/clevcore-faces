@@ -52,11 +52,11 @@ input[type='checkbox'] {
 	width: 20px;
 }
 
-input[type='checkbox']:hover,input[type='text']:hover,input[type='password']:hover,select:hover,textarea:hover,.checkbox .checkbox-material .check:hover {
+input[type='checkbox']:hover,input[type='text']:hover,input[type='password']:hover,select:hover,textarea:hover,.checkbox .checkbox-material .check:hover,.default2:hover {
 	border-color: #ccc;
 }
 
-input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:focus,select:focus,textarea:focus,.checkbox input[type=checkbox]:focus + .checkbox-material .check {
+input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:focus,select:focus,textarea:focus,.checkbox input[type=checkbox]:focus + .checkbox-material .check,.default2:focus {
 	border-color: #aaa;
 }
 
@@ -108,6 +108,7 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	background-color: transparent;
 	border-color: #474949;
 	color: #474949;
+	box-shadow: none !important;
 }
 
 .default-outline:hover {
@@ -124,11 +125,11 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	background-color: #fff;
 	border-color: #e7e7e7;
 	color: #777;
+	box-shadow: none !important;
 }
 
 .default2:hover {
 	background-color: #f2f2f2;
-	border-color: #ddd;
 }
 
 .default2:disabled,.default2[data-disabled='true'],.default2[data-disabled='true']:hover {
@@ -170,10 +171,11 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	color: #eee;
 }
 
-.primary-outline  {
+.primary-outline {
 	background-color: transparent;
 	border-color: #428bca;
 	color: #428bca;
+	box-shadow: none !important;
 }
 
 .primary-outline:hover {
@@ -207,6 +209,7 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	background-color: transparent;
 	border-color: #ca4242;
 	color: #ca4242;
+	box-shadow: none !important;
 }
 
 .secondary-outline:hover {
@@ -240,6 +243,7 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	background-color: transparent;
 	border-color: #60c451;
 	color: #60c451;
+	box-shadow: none !important;
 }
 
 .tertiary-outline:hover {
@@ -273,6 +277,7 @@ input[type='checkbox']:focus,input[type='text']:focus,input[type='password']:foc
 	background-color: transparent;
 	border-color: #ddd;
 	color: #666;
+	box-shadow: none !important;
 }
 
 .quaternary-outline:hover {
@@ -295,6 +300,7 @@ input[type='button'].transparent,input[type='submit'].transparent,button.transpa
 	line-height: 20px;
 	min-width: 0;
 	padding: 0;
+	text-transform: none;
 	width: auto;
 }
 
@@ -310,7 +316,7 @@ input[type='button'].transparent:disabled,input[type='submit'].transparent:disab
 	color: #eee;
 }
 
-input[type='button'].transparent, input[type='submit'].transparent, button.transparent, input[type='button'].transparent:hover, input[type='submit'].transparent:hover, button.transparent:hover {
+input[type='button'].transparent, input[type='submit'].transparent, button.transparent, input[type='button'].transparent:hover, input[type='submit'].transparent:hover, button.transparent:hover, input[type='button'].transparent:focus, input[type='submit'].transparent:focus, button.transparent:focus {
 	box-shadow: none;
 }
 
