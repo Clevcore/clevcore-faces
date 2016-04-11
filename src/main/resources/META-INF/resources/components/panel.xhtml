@@ -9,6 +9,7 @@
         <composite:attribute name="id" targets="id" />
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
+        <composite:attribute name="rendered" />
         <composite:attribute name="accordion" default="false" required="false"
             type="java.lang.Boolean" />
         <composite:attribute name="accordionOpened"
@@ -18,7 +19,8 @@
 
     <composite:implementation>
         <h:panelGroup id="id" layout="block"
-            styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit">
+            styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit"
+            rendered="#{cc.attrs.rendered}">
             <h:panelGroup layout="block"
                 styleClass="panel #{bbComponent.isPopup(cc.parent) ? 'bShadow24dp' : 'bShadow2dp bShadowTransition'} #{cc.attrs.styleClass}"
                 style="#{cc.attrs.style}">
