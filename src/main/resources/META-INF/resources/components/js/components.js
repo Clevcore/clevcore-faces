@@ -35,12 +35,7 @@ var HandleAjax = {
 			}
 
 			if (data.source.tagName == "BUTTON") {
-				setDisabledElement(data.source, true);
-				addClassElement(data.source, "vTop");
-				replaceClassElement(data.source.childNodes[0], "dNone", "dBlock");
-				replaceClassElement(data.source.childNodes[1], "vVisible", "vHidden");
-				addClassElement(data.source.childNodes[1], "h0");
-				addClassElement(data.source.childNodes[1], "oHidden");
+				CommandButton.loadingOn(data.source);
 				waitDisable();
 			}
 
@@ -51,12 +46,7 @@ var HandleAjax = {
 			}
 
 			if (data.source.tagName == "BUTTON") {
-				setDisabledElement(data.source, false);
-				removeClassElement(data.source, "vTop");
-				replaceClassElement(data.source.childNodes[0], "dBlock", "dNone");
-				replaceClassElement(data.source.childNodes[1], "vHidden", "vVisible");
-				removeClassElement(data.source.childNodes[1], "h0");
-				removeClassElement(data.source.childNodes[1], "oHidden");
+				CommandButton.loadingOff(data.source);
 				waitEnable();
 			}
 
@@ -147,6 +137,28 @@ function accordion(id, titleCompress, titleExpand) {
 		}, 20);
 	}
 }
+
+/* command button */
+var CommandButton = {
+	loadingOn : function(element) {
+		setDisabledElement(element, true);
+		addClassElement(element, "vTop");
+		replaceClassElement(element.childNodes[0], "dNone", "dBlock");
+		replaceClassElement(element.childNodes[1], "vVisible", "vHidden");
+		addClassElement(element.childNodes[1], "h0");
+		addClassElement(element.childNodes[1], "oHidden");
+	},
+
+	loadingOff : function(element) {
+		setDisabledElement(element, false);
+		removeClassElement(element, "vTop");
+		replaceClassElement(element.childNodes[0], "dBlock", "dNone");
+		replaceClassElement(element.childNodes[1], "vHidden", "vVisible");
+		removeClassElement(element.childNodes[1], "h0");
+		removeClassElement(element.childNodes[1], "oHidden");
+	}
+
+};
 
 /* confirm navigation */
 var ConfirmNavigation = {
