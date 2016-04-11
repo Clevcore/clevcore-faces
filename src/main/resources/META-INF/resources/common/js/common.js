@@ -1023,3 +1023,71 @@ var browserDetect = {
 	} ]
 };
 browserDetect.init();
+
+var Geolocation = {
+	supported : navigator.geolocation !== undefined,
+
+	options : {
+		enableHighAccuracy : true,
+		timeout : Infinity,
+		maximumAge : 0
+	},
+
+	onSuccess : function(position) {
+		var event = new CustomEvent("onGeolocationSuccess", {
+			detail : {
+				data : position
+			}
+		});
+		window.dispatchEvent(event);
+	},
+
+	onError : function(error) {
+		var event = new CustomEvent("onGeolocationError", {
+			detail : {
+				data : error
+			}
+		});
+		window.dispatchEvent(event);
+	},
+
+	onNotSupported : function(error) {
+		var event = new CustomEvent("onGeolocationNotSupported");
+		window.dispatchEvent(event);
+	},
+
+	getLocation : function() {
+		if (Geolocation.supported) {
+			var successCallback;
+			var errorCallback;
+			var options;
+
+			if (arguments.length == 1) {
+				successCallback = arguments[0];
+				options = Geolocation.options;
+			} else if (arguments.length == 2) {
+				if (typeof (arguments[1]) === "function") {
+					errorCallback = arguments[1];
+					options = Geolocation.options;
+				} else {
+					options = arguments[1];
+				}
+			} else if (arguments.length == 3) {
+				errorCallback = arguments[1];
+				options = arguments[2];
+			}
+
+			navigator.geolocation.getCurrentPosition(function(position) {
+				Geolocation.onSuccess(position);
+				successCallback.call(this, position);
+			}, function(error) {
+				Geolocation.onError(error);
+				if (errorCallback) {
+					errorCallback.call(this, error);
+				}
+			}, options);
+		} else {
+			Geolocation.onNotSupported();
+		}
+	}
+};
