@@ -78,6 +78,7 @@ function initAccordion(id) {
 		addClassElement(panelBody, "dBlock oMax");
 	} else {
 		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
+		addClassElement(panel, "noPrint");
 		addClassElement(panelBody, "dNone oMin");
 	}
 }
