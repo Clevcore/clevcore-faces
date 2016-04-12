@@ -1066,6 +1066,7 @@ var Geolocation = {
 				successCallback = arguments[0];
 				options = Geolocation.options;
 			} else if (arguments.length == 2) {
+				successCallback = arguments[0];
 				if (typeof (arguments[1]) === "function") {
 					errorCallback = arguments[1];
 					options = Geolocation.options;
@@ -1073,6 +1074,7 @@ var Geolocation = {
 					options = arguments[1];
 				}
 			} else if (arguments.length == 3) {
+				successCallback = arguments[0];
 				errorCallback = arguments[1];
 				options = arguments[2];
 			}
