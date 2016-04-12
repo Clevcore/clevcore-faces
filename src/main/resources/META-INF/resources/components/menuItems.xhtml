@@ -13,7 +13,7 @@
     <composite:implementation>
         <h:panelGroup layout="block" styleClass="pRelative">
             <h:panelGroup layout="block"
-                styleClass="pAbsolute mTopNormal #{cc.parent.attrs.position == 'left' ? 'aLeft' : 'aRight'} dNone">
+                styleClass="pAbsolute mTopNormal zNormal #{cc.parent.attrs.position == 'left' ? 'aLeft' : 'aRight'} dNone">
                 <f:passThroughAttribute name="id"
                     value="#{cc.parent.clientId}:menuItems" />
                 <h:panelGroup layout="block"
