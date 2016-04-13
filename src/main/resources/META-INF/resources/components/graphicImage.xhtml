@@ -1,46 +1,46 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface>
-		<composite:attribute name="uid" />
-		<composite:attribute name="styleClass" />
-		<composite:attribute name="style" />
-		<composite:attribute name="library" />
-		<composite:attribute name="name" />
-		<composite:attribute name="gender" />
-		<composite:attribute name="isBackground" default="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="isLazy" default="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="onclick" />
-		<composite:attribute name="onload" />
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface>
+        <composite:attribute name="id" />
+        <composite:attribute name="styleClass" />
+        <composite:attribute name="style" />
+        <composite:attribute name="library" />
+        <composite:attribute name="name" />
+        <composite:attribute name="isBackground" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="isLazy" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="onclick" />
+        <composite:attribute name="onload" />
+    </composite:interface>
 
-	<composite:implementation>
-		<h:panelGroup rendered="#{cc.attrs.isBackground eq false}">
-			<h:panelGroup rendered="#{cc.attrs.isLazy eq false}">
-				<img id="#{cc.attrs.uid}" class="loader #{cc.attrs.styleClass}"
-					style="#{cc.attrs.style}"
-					src="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
-					onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
-			</h:panelGroup>
-			<h:panelGroup rendered="#{cc.attrs.isLazy eq true}">
-				<img id="#{cc.attrs.uid}" class="lazy #{cc.attrs.styleClass}"
-					style="#{cc.attrs.style}"
-					data-original="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
-					onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
-			</h:panelGroup>
-		</h:panelGroup>
-		<h:panelGroup rendered="#{cc.attrs.isBackground eq true}">
-			<div id="#{cc.attrs.uid}"
-				class="loader bsCover #{cc.attrs.styleClass}" style="#{cc.attrs.style} background-image: url('#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}');"
-				onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}">
-				<composite:insertChildren />
-			</div>
-		</h:panelGroup>
-	</composite:implementation>
+    <composite:implementation>
+        <h:panelGroup rendered="#{cc.attrs.isBackground eq false}">
+            <h:panelGroup rendered="#{cc.attrs.isLazy eq false}">
+                <img id="#{cc.attrs.id}"
+                    class="dInlineBlock loader #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
+                    src="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
+                    onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
+            </h:panelGroup>
+            <h:panelGroup rendered="#{cc.attrs.isLazy eq true}">
+                <img id="#{cc.attrs.id}"
+                    class="dInlineBlock lazy #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
+                    data-original="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
+                    onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
+            </h:panelGroup>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{cc.attrs.isBackground eq true}">
+            <div id="#{cc.attrs.id}"
+                class="dInlineBlock loader bsCover #{cc.attrs.styleClass}"
+                style="#{cc.attrs.style} background-image: url('#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}');" onclick="#{cc.attrs.onclick}"
+                onload="#{cc.attrs.onload}">
+                <composite:insertChildren />
+            </div>
+        </h:panelGroup>
+    </composite:implementation>
 </ui:composition>
