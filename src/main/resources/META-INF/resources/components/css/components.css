@@ -24,10 +24,13 @@ select {
 }
 
 input:disabled,select:disabled,textarea:disabled,*[data-disabled='true'],*[data-disabled='true']:hover,.checkbox input[type=checkbox]:disabled + .checkbox-material .check {
-	background: #eee;
 	border-color: #ddd;
 	color: #555;
 	cursor: default;
+}
+
+input:disabled,select:disabled,textarea:disabled,.checkbox input[type=checkbox]:disabled + .checkbox-material .check {
+	background: #eee;
 }
 
 input[type='button'],input[type='submit'],button {
@@ -492,7 +495,7 @@ datetimepicker {
 
 
 /* panel */
-div.panel {
+.panel {
 	background-color: #f8f8f8;
 	border: none;
 	margin: auto;
@@ -501,7 +504,11 @@ div.panel {
     border-radius: 0;
 }
 
-div.panel div.head {
+.panel .border {
+	border: 1px solid #e7e7e7;
+}
+
+.panel .head {
 	background: #f2f2f2;
 	border-bottom: 1px solid #e7e7e7;
 	color: #444;
@@ -510,18 +517,29 @@ div.panel div.head {
 	width: 100%;
 }
 
-div.panel div.head .accordionIcon {
+.panel .headHover:hover {
+	background: #eaeaea;
+	border-bottom: 1px solid #ddd;
+}
+
+.panel .head .accordionIcon {
 	float: right;
 	margin-top: 8px;
 }
 
-div.panel div.body {
+.panel .body {
 
 }
 
-div.panel div.foot {
+.panel .foot {
 	background: #f2f2f2;
 	border-top: 1px solid #e7e7e7;
+}
+
+@media print {
+	.panel {
+		border: 1px solid #e7e7e7;
+	}
 }
 
 
