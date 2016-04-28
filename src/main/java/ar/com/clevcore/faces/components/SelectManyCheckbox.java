@@ -12,9 +12,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 import ar.com.clevcore.faces.utils.ComponentsUtils;
+import ar.com.clevcore.faces.utils.Constant;
 
 @SuppressWarnings("unchecked")
-@FacesComponent("selectManyCheckbox")
+@FacesComponent(Constant.SELECT_MANY_CHECKBOX)
 public class SelectManyCheckbox extends UISelectMany implements NamingContainer {
 
     private UISelectMany component;

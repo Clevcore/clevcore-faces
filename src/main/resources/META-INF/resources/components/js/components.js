@@ -78,8 +78,11 @@ function initAccordion(id) {
 		addClassElement(panelBody, "dBlock oMax");
 	} else {
 		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
-		addClassElement(panel, "noPrint");
 		addClassElement(panelBody, "dNone oMin");
+
+		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
+			addClassElement(panel, "noPrint");
+		}
 	}
 }
 
@@ -92,7 +95,10 @@ function accordion(id, titleCompress, titleExpand) {
 
 	if (opened) {
 		setAttributeElement(panel, "data-opened", "false");
-		addClassElement(panel, "noPrint");
+
+		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
+			addClassElement(panel, "noPrint");
+		}
 
 		setAttributeElement(panelHead, "title", titleExpand);
 		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
@@ -115,7 +121,10 @@ function accordion(id, titleCompress, titleExpand) {
 		}, 20);
 	} else {
 		setAttributeElement(panel, "data-opened", "true");
-		removeClassElement(panel, "noPrint");
+
+		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
+			removeClassElement(panel, "noPrint");
+		}
 
 		setAttributeElement(panelHead, "title", titleCompress);
 		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");

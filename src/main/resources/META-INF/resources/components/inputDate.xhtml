@@ -1,68 +1,74 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface componentType="inputDate">
-		<composite:attribute name="value" required="true"
-			type="java.util.Date" />
-		<composite:attribute name="maxyear" type="java.lang.Integer" />
-		<composite:attribute name="minyear" type="java.lang.Integer" />
-		<composite:attribute name="disabled" default="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="required" default="false" required="false"
-			type="java.lang.Boolean" />
-		<composite:attribute name="requiredMessage"
-			required="#{cc.attrs.required}" type="java.lang.String" />
-		<composite:attribute name="validatorMessage" type="java.lang.String" />
-		<composite:attribute name="yearLabel" default="#{msg.year}"
-			type="java.lang.String" />
-		<composite:attribute name="monthLabel" default="#{msg.month}"
-			type="java.lang.String" />
-		<composite:attribute name="dayLabel" default="#{msg.day}"
-			type="java.lang.String" />
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface componentType="#{bbClevcore.INPUT_DATE}">
+        <composite:attribute name="value" required="true" type="java.util.Date" />
+        <composite:attribute name="maxyear" type="java.lang.Integer" />
+        <composite:attribute name="minyear" type="java.lang.Integer" />
+        <composite:attribute name="disabled" default="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="required" default="false" required="false"
+            type="java.lang.Boolean" />
+        <composite:attribute name="requiredMessage"
+            required="#{cc.attrs.required}" type="java.lang.String" />
+        <composite:attribute name="validatorMessage" type="java.lang.String" />
+        <composite:attribute name="yearLabel" default="#{msg.year}"
+            type="java.lang.String" />
+        <composite:attribute name="monthLabel" default="#{msg.month}"
+            type="java.lang.String" />
+        <composite:attribute name="dayLabel" default="#{msg.day}"
+            type="java.lang.String" />
+    </composite:interface>
 
-	<composite:implementation>
-		<span id="#{cc.clientId}"> <h:panelGrid id="inputDate"
-				columns="3" styleClass="w100"
-				columnClasses="pRightNormal, pRightNormal," binding="#{cc.panel}">
-				<h:panelGroup styleClass="select">
-					<f:passThroughAttribute name="data-disabled"
-						value="#{cc.attrs.disabled}" />
-					<h:selectOneMenu id="day" binding="#{cc.day}"
-						converter="javax.faces.Integer" disabled="#{cc.attrs.disabled}">
-						<f:selectItem itemLabel="#{cc.attrs.dayLabel}" itemValue="0" />
-						<f:selectItems value="#{cc.days}" />
-					</h:selectOneMenu>
-				</h:panelGroup>
+    <composite:implementation>
+        <span id="#{cc.clientId}"> <h:panelGrid id="inputDate"
+                columns="3" styleClass="w100"
+                columnClasses="pRightNormal, pRightNormal,"
+                binding="#{cc.panel}">
+                <h:panelGroup styleClass="select">
+                    <f:passThroughAttribute name="data-disabled"
+                        value="#{cc.attrs.disabled}" />
+                    <h:selectOneMenu id="day" binding="#{cc.day}"
+                        converter="javax.faces.Integer"
+                        disabled="#{cc.attrs.disabled}">
+                        <f:selectItem itemLabel="#{cc.attrs.dayLabel}"
+                            itemValue="0" />
+                        <f:selectItems value="#{cc.days}" />
+                    </h:selectOneMenu>
+                </h:panelGroup>
 
-				<h:panelGroup styleClass="select">
-					<f:passThroughAttribute name="data-disabled"
-						value="#{cc.attrs.disabled}" />
-					<h:selectOneMenu id="month" binding="#{cc.month}"
-						converter="javax.faces.Integer" disabled="#{cc.attrs.disabled}">
-						<f:selectItem itemLabel="#{cc.attrs.monthLabel}" itemValue="0" />
-						<f:selectItems value="#{cc.months}" />
-						<f:ajax execute="@this" render="day"
-							listener="#{cc.updateDaysIfNecessary}" />
-					</h:selectOneMenu>
-				</h:panelGroup>
+                <h:panelGroup styleClass="select">
+                    <f:passThroughAttribute name="data-disabled"
+                        value="#{cc.attrs.disabled}" />
+                    <h:selectOneMenu id="month" binding="#{cc.month}"
+                        converter="javax.faces.Integer"
+                        disabled="#{cc.attrs.disabled}">
+                        <f:selectItem itemLabel="#{cc.attrs.monthLabel}"
+                            itemValue="0" />
+                        <f:selectItems value="#{cc.months}" />
+                        <f:ajax execute="@this" render="day"
+                            listener="#{cc.updateDaysIfNecessary}" />
+                    </h:selectOneMenu>
+                </h:panelGroup>
 
-				<h:panelGroup styleClass="select">
-					<f:passThroughAttribute name="data-disabled"
-						value="#{cc.attrs.disabled}" />
-					<h:selectOneMenu id="year" binding="#{cc.year}"
-						converter="javax.faces.Integer" disabled="#{cc.attrs.disabled}">
-						<f:selectItem itemLabel="#{cc.attrs.yearLabel}" itemValue="0" />
-						<f:selectItems value="#{cc.years}" />
-						<f:ajax execute="@this" render="day"
-							listener="#{cc.updateDaysIfNecessary}" />
-					</h:selectOneMenu>
-				</h:panelGroup>
-			</h:panelGrid>
-		</span>
-	</composite:implementation>
+                <h:panelGroup styleClass="select">
+                    <f:passThroughAttribute name="data-disabled"
+                        value="#{cc.attrs.disabled}" />
+                    <h:selectOneMenu id="year" binding="#{cc.year}"
+                        converter="javax.faces.Integer"
+                        disabled="#{cc.attrs.disabled}">
+                        <f:selectItem itemLabel="#{cc.attrs.yearLabel}"
+                            itemValue="0" />
+                        <f:selectItems value="#{cc.years}" />
+                        <f:ajax execute="@this" render="day"
+                            listener="#{cc.updateDaysIfNecessary}" />
+                    </h:selectOneMenu>
+                </h:panelGroup>
+            </h:panelGrid>
+        </span>
+    </composite:implementation>
 </ui:composition>

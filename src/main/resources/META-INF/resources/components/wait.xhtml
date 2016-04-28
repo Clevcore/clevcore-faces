@@ -1,21 +1,21 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-	<composite:interface>
-	</composite:interface>
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface componentType="#{bbClevcore.WAIT}">
+    </composite:interface>
 
-	<composite:implementation>
-		<h:panelGroup layout="block" styleClass="wait dNone">
-			<f:passThroughAttribute name="id" value="wait" />
-			<h:panelGroup layout="block" styleClass="waitImg" />
-		</h:panelGroup>
-		<h:panelGroup layout="block" styleClass="vHidden waitImg" />
-		<script>
+    <composite:implementation>
+        <h:panelGroup layout="block" styleClass="wait dNone">
+            <f:passThroughAttribute name="id" value="wait" />
+            <h:panelGroup layout="block" styleClass="waitImg" />
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="vHidden waitImg" />
+        <script>
 			waitEnable();
 		</script>
-	</composite:implementation>
+    </composite:implementation>
 </ui:composition>

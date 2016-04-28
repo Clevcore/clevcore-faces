@@ -5,7 +5,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface>
+    <composite:interface componentType="#{bbClevcore.PANEL}">
         <composite:attribute name="id" targets="id" />
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
@@ -14,15 +14,17 @@
             type="java.lang.Boolean" />
         <composite:attribute name="accordionOpened"
             required="#{cc.attrs.accordion}" type="java.lang.Boolean" />
+        <composite:attribute name="onlyPrintWhenAccordionOpened" default="true"
+            type="java.lang.Boolean" />
         <composite:attribute name="onAccordionClick" />
     </composite:interface>
 
     <composite:implementation>
         <h:panelGroup id="id" layout="block"
-            styleClass="#{bbComponent.isPopup(cc.parent) ? '' : 'mNormal'} hInherit"
+            styleClass="#{bbClevcore.isComponent(bbClevcore.PANEL_BODY, cc.parent) or bbClevcore.isComponent(bbClevcore.POPUP, cc.parent) ? '' : 'mNormal'} hInherit"
             rendered="#{cc.attrs.rendered}">
             <h:panelGroup layout="block"
-                styleClass="panel #{bbComponent.isPopup(cc.parent) ? 'bShadow24dp' : 'bShadow2dp bShadowTransition'} #{cc.attrs.styleClass}"
+                styleClass="panel #{bbClevcore.isComponent(bbClevcore.PANEL_BODY, cc.parent) ? 'bShadowNone border' : (bbClevcore.isComponent(bbClevcore.POPUP, cc.parent) ? 'bShadow24dp' : 'bShadow2dp')} #{cc.attrs.styleClass}"
                 style="#{cc.attrs.style}">
                 <composite:insertChildren />
             </h:panelGroup>
@@ -31,6 +33,8 @@
             <c:if test="#{cc.attrs.accordion == true}">
                 <f:passThroughAttribute name="data-opened"
                     value="#{cc.attrs.accordionOpened}" />
+                <f:passThroughAttribute name="data-only-print-when-opened"
+                    value="#{cc.attrs.onlyPrintWhenAccordionOpened}" />
                 <script>initAccordion("#{cc.clientId}");</script>
             </c:if>
         </h:panelGroup>

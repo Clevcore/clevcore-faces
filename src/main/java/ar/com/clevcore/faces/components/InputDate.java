@@ -17,16 +17,17 @@ import javax.faces.event.AjaxBehaviorEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ar.com.clevcore.faces.utils.Constant;
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.DateUtils;
 import ar.com.clevcore.utils.IntegerUtils;
 import ar.com.clevcore.utils.ValidatorUtils;
 
-@FacesComponent("inputDate")
+@FacesComponent(Constant.INPUT_DATE)
 public class InputDate extends UIInput implements NamingContainer {
 
     private static final Logger log = LoggerFactory.getLogger(InputDate.class);
-    
+
     private final int DEFAULT_MINYEAR = 100;
 
     private UIPanel panel;
@@ -146,7 +147,8 @@ public class InputDate extends UIInput implements NamingContainer {
                 }
             }
         } catch (Exception e) {
-            log.error("[E] Exception with getCalendar in [updateDaysIfNecessary] - {}", getAttributes().get("validatorMessage"));
+            log.error("[E] Exception with getCalendar in [updateDaysIfNecessary] - {}",
+                    getAttributes().get("validatorMessage"));
             FacesUtils.addMessage(getId(FacesUtils.getFacesContext()), FacesMessage.SEVERITY_ERROR,
                     (String) getAttributes().get("validatorMessage"));
         }

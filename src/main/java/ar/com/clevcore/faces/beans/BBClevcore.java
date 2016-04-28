@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ar.com.clevcore.faces.utils.Constant;
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.DateUtils;
 
@@ -63,6 +64,127 @@ public class BBClevcore implements Serializable {
 
     public String getScript() {
         return FacesUtils.getScript();
+    }
+
+    public Boolean isComponent(String component, Object object) {
+        if (object != null) {
+            return object.getClass().getName().equals(component);
+        } else {
+            return false;
+        }
+    }
+
+    // CONSTANT
+    public String getCOLUMN() {
+        return Constant.COLUMN;
+    }
+
+    public String getCOMMAND_BUTTON() {
+        return Constant.COMMAND_BUTTON;
+    }
+
+    public String getCOMPONENT_PATH() {
+        return Constant.COMPONENT_PATH;
+    }
+
+    public String getDATA_TABLE() {
+        return Constant.DATA_TABLE;
+    }
+
+    public String getFAB() {
+        return Constant.FAB;
+    }
+
+    public String getFAB_ITEM() {
+        return Constant.FAB_ITEM;
+    }
+
+    public String getFLOAT_IF_NOT_VISIBLE() {
+        return Constant.FLOAT_IF_NOT_VISIBLE;
+    }
+
+    public String getGRAPHIC_IMAGE() {
+        return Constant.GRAPHIC_IMAGE;
+    }
+
+    public String getICON() {
+        return Constant.ICON;
+    }
+
+    public String getINPUT_CHECKBOX() {
+        return Constant.INPUT_CHECKBOX;
+    }
+
+    public String getINPUT_DATE() {
+        return Constant.INPUT_DATE;
+    }
+
+    public String getMENU() {
+        return Constant.MENU;
+    }
+
+    public String getMENU_ITEM() {
+        return Constant.MENU_ITEM;
+    }
+
+    public String getMENU_ITEMS() {
+        return Constant.MENU_ITEMS;
+    }
+
+    public String getMENU_TRIGGER() {
+        return Constant.MENU_TRIGGER;
+    }
+
+    public String getMESSAGE() {
+        return Constant.MESSAGE;
+    }
+
+    public String getMESSAGES() {
+        return Constant.MESSAGES;
+    }
+
+    public String getPANEL() {
+        return Constant.PANEL;
+    }
+
+    public String getPANEL_BODY() {
+        return Constant.PANEL_BODY;
+    }
+
+    public String getPANEL_FOOT() {
+        return Constant.PANEL_FOOT;
+    }
+
+    public String getPANEL_HEAD() {
+        return Constant.PANEL_HEAD;
+    }
+
+    public String getPOPUP() {
+        return Constant.POPUP;
+    }
+
+    public String getSECTION() {
+        return Constant.SECTION;
+    }
+
+    public String getSELECT_MANY_CHECKBOX() {
+        return Constant.SELECT_MANY_CHECKBOX;
+    }
+
+    public String getSELECT_ONE_MENU() {
+        return Constant.SELECT_ONE_MENU;
+    }
+
+    public String getSEPARATOR() {
+        return Constant.SEPARATOR;
+    }
+
+    public String getTITLE() {
+        return Constant.TITLE;
+    }
+
+    public String getWAIT() {
+        return Constant.WAIT;
     }
 
 }

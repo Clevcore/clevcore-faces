@@ -10,7 +10,9 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
-@FacesComponent("message")
+import ar.com.clevcore.faces.utils.Constant;
+
+@FacesComponent(Constant.MESSAGE)
 public class Message extends UIPanel implements NamingContainer {
 
     private UIPanel panel;

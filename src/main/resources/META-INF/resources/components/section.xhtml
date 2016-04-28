@@ -5,7 +5,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface>
+    <composite:interface componentType="#{bbClevcore.SECTION}">
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
         <composite:attribute name="value" />
@@ -17,14 +17,15 @@
         <h:panelGroup rendered="#{cc.attrs.rendered}">
             <section id="#{cc.clientId}"
                 class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-                <h:panelGroup rendered="#{cc.attrs.value != null}"
-                    layout="block" styleClass="pBottomNormal fontRobotolight">
-                    <c:if test="#{cc.attrs.icon ne null}">
-                        <cc:icon styleClass="fs20 pRightNormal"
-                            value="#{cc.attrs.icon}" />
-                    </c:if>
-                    <h:outputText styleClass="fs18 tUppercase"
-                        value="#{cc.attrs.value}" />
+                <h:panelGroup layout="block" styleClass="pBottomNormal">
+                    <cc:icon styleClass="fs20 pRightNormal"
+                        value="#{cc.attrs.icon}"
+                        rendered="#{cc.attrs.icon ne null}" />
+
+                    <h:outputText styleClass="fontRobotolight fs18 tUppercase"
+                        value="#{cc.attrs.value}"
+                        rendered="#{cc.attrs.value != null}" />
+
                     <cc:separator styleClass="mTopNormal" />
                 </h:panelGroup>
                 <composite:insertChildren />

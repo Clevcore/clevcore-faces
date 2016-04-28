@@ -67,7 +67,7 @@
 }
 
 .bPrimary, .bPrimaryHover {
-	background-color: #428ba;
+	background-color: #428bca;
 }
 
 .bPrimaryHover:hover {
@@ -81,6 +81,7 @@
 .bSecondaryHover:hover {
 	background-color: #bd3535;
 }
+
 .bTertiary, .bTertiaryHover {
 	background-color: #60c451;
 }

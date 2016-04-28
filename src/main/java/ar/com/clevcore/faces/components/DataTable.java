@@ -15,6 +15,7 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import ar.com.clevcore.faces.utils.Constant;
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.faces.utils.ServletUtils;
 import ar.com.clevcore.utils.OfficeUtils;
@@ -22,7 +23,7 @@ import ar.com.clevcore.utils.StringUtils;
 import ar.com.clevcore.utils.Utils;
 
 @SuppressWarnings("unchecked")
-@FacesComponent("dataTable")
+@FacesComponent(Constant.DATA_TABLE)
 public class DataTable extends UIComponentBase implements NamingContainer {
 
     private UIData data;

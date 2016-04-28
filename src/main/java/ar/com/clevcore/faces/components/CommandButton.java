@@ -9,7 +9,9 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
-@FacesComponent("commandButton")
+import ar.com.clevcore.faces.utils.Constant;
+
+@FacesComponent(Constant.COMMAND_BUTTON)
 public class CommandButton extends UIComponentBase implements NamingContainer {
 
     private UICommand commandButton;
