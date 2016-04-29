@@ -745,6 +745,14 @@ function windowOpen(url) {
 	window.open(url);
 }
 
+function windowOpenNew(url) {
+	if (url.indexOf("http://") == -1) {
+		url = "http://" + url;
+	}
+
+	window.open(url, "_blank");
+}
+
 var HandleMove = {
 	container : undefined,
 	elementToMove : undefined,
