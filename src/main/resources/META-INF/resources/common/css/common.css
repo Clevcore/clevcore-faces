@@ -1,14 +1,3 @@
-/* Generix */
-@media print {
-	.print {
-		display: block;
-	}
-
-	.noPrint {
-		display: none;
-	}
-}
-
 /* Align */
 .aBottom {
 	bottom: 0;
@@ -2034,4 +2023,23 @@
 
 .zModalChildren {
 	z-index: 2500;
+}
+
+/* print */
+@media print {	
+	body {
+	    padding: 2mm;
+	}
+	
+	main {
+	    padding: 2mm 10mm;
+	}
+	
+	.print {
+		display: block;
+	}
+
+	.noPrint {
+		display: none;
+	}
 }

@@ -8,4 +8,9 @@ $(document).ready(function() {
 	ConfirmNavigation.init();
 
 	reset();
+
+	if (browserDetect.browser == "Firefox") {
+		setAttribute("html", "moznomarginboxes", "");
+		setAttribute("html", "mozdisallowselectionprint", "");
+	}
 });
