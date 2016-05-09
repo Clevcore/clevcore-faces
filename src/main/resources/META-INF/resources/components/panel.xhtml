@@ -20,23 +20,23 @@
     </composite:interface>
 
     <composite:implementation>
-        <h:panelGroup id="id" layout="block"
+        <h:panelGroup layout="block"
             styleClass="#{bbClevcore.isComponent(bbClevcore.PANEL_BODY, cc.parent) or bbClevcore.isComponent(bbClevcore.POPUP, cc.parent) ? '' : 'mNormal'} hInherit"
             rendered="#{cc.attrs.rendered}">
-            <h:panelGroup layout="block"
-                styleClass="panel #{bbClevcore.isComponent(bbClevcore.PANEL_BODY, cc.parent) ? 'bShadowNone border' : (bbClevcore.isComponent(bbClevcore.POPUP, cc.parent) ? 'bShadow24dp' : 'bShadow2dp')} #{cc.attrs.styleClass}"
+            <h:panelGroup id="id" layout="block"
+                styleClass="panel #{bbClevcore.isComponent(bbClevcore.PANEL_BODY, cc.parent) ? 'bShadowNone' : (bbClevcore.isComponent(bbClevcore.POPUP, cc.parent) ? 'bShadow24dp' : 'bShadow2dp')} #{cc.attrs.styleClass}"
                 style="#{cc.attrs.style}">
                 <composite:insertChildren />
+                <f:passThroughAttribute name="data-accordion"
+                    value="#{cc.attrs.accordion}" />
+                <c:if test="#{cc.attrs.accordion == true}">
+                    <f:passThroughAttribute name="data-opened"
+                        value="#{cc.attrs.accordionOpened}" />
+                    <f:passThroughAttribute name="data-only-print-when-opened"
+                        value="#{cc.attrs.onlyPrintWhenAccordionOpened}" />
+                    <script>initAccordion("#{cc.clientId}");</script>
+                </c:if>
             </h:panelGroup>
-            <f:passThroughAttribute name="data-accordion"
-                value="#{cc.attrs.accordion}" />
-            <c:if test="#{cc.attrs.accordion == true}">
-                <f:passThroughAttribute name="data-opened"
-                    value="#{cc.attrs.accordionOpened}" />
-                <f:passThroughAttribute name="data-only-print-when-opened"
-                    value="#{cc.attrs.onlyPrintWhenAccordionOpened}" />
-                <script>initAccordion("#{cc.clientId}");</script>
-            </c:if>
         </h:panelGroup>
     </composite:implementation>
 </ui:composition>

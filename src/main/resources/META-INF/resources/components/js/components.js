@@ -1,6 +1,16 @@
 /* var */
 var ANIMATION_TIME = 300;
 
+/* init */
+$(document).ready(function() {
+	jsf.ajax.addOnEvent(HandleAjax.init.onEvent);
+	jsf.ajax.addOnError(HandleAjax.init.onError);
+
+	window.addEventListener('jsfAjaxEvent', HandleAjax.listener);
+
+	ConfirmNavigation.init();
+});
+
 /* ajax */
 var HandleAjax = {
 	init : {
@@ -71,7 +81,7 @@ var HandleAjax = {
 /* accordion */
 function initAccordion(id) {
 	var panel = getElement(id + ":id");
-	var panelBody = panel.firstChild.childNodes[1];
+	var panelBody = panel.childNodes[1];
 	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 	if (opened) {
@@ -88,9 +98,9 @@ function initAccordion(id) {
 
 function accordion(id, titleCompress, titleExpand) {
 	var panel = getElement(id + ":id");
-	var panelHead = panel.firstChild.childNodes[0];
-	var panelBody = panel.firstChild.childNodes[1];
-	var panelFoot = panel.firstChild.childNodes[2];
+	var panelHead = panel.childNodes[0];
+	var panelBody = panel.childNodes[1];
+	var panelFoot = panel.childNodes[2];
 	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 	if (opened) {
