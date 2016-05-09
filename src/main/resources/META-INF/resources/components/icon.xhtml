@@ -11,7 +11,6 @@
         <composite:attribute name="style" />
         <composite:attribute name="value" />
         <composite:attribute name="title" />
-        <composite:attribute name="disabled" />
         <composite:attribute name="rendered" />
         <composite:attribute name="onclick" />
     </composite:interface>
@@ -24,11 +23,6 @@
             <c:if test="#{cc.attrs.title ne null}">
                 <f:passThroughAttribute name="data-title"
                     value="#{cc.attrs.title}" />
-            </c:if>
-
-            <c:if test="#{cc.attrs.disabled ne null}">
-                <f:passThroughAttribute name="data-disabled"
-                    value="#{cc.attrs.disabled}" />
             </c:if>
         </h:panelGroup>
     </composite:implementation>

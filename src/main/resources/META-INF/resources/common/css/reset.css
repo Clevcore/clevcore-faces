@@ -8,7 +8,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	textarea, button {
 	background-color: transparent;
 	border: 0;
-	color: #666;
+	color: #757575;  /* grey-600 */
 	font: inherit;
 	font-weight: normal;
 	font-family: notosans;
@@ -24,24 +24,24 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 }
 
 ::selection {
-	background: #ddd;
-	text-shadow: none;
+	background-color: #BDBDBD; /* grey-400 */
+	text-shadow: none !important;
 }
 
 a {
-	color: #555 ;
+	color: #616161; /* grey-700 */;
 	cursor: pointer;
 	font-family: notosansbold;
 	text-decoration: none;
 }
 
 a:hover {
-	color: #333;
+	color: #424242; /* grey-800 */;
 	text-decoration: none;
 }
 
 a:link {
-	color: #555;
+	color: #212121; /* grey-900 */
 	text-decoration: none;
 }
 
@@ -51,6 +51,7 @@ form {
 
 label {
 	display: inline-block;
+	font-family: notosansbold;
 	font-weight: normal;
 }
 
@@ -78,12 +79,8 @@ textarea[data-height] {
 	overflow-y: hidden;
 }
 
-::-webkit-input-placeholder {
-	color: #999;
-	line-height: 1.4;
-}
-
+::-webkit-input-placeholder,
 ::-moz-placeholder {
-	color: #999;
+	color: #9E9E9E; /* grey-500 */
 	line-height: 1.4;
 }

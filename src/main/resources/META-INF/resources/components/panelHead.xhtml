@@ -14,7 +14,7 @@
 
     <composite:implementation>
         <h:panelGroup id="id" layout="block"
-            styleClass="unselectable head fontRobotolight #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
+            styleClass="head unselectable #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
             rendered="#{cc.attrs.rendered}">
 
             <c:if
@@ -42,12 +42,12 @@
                 <c:choose>
                     <c:when
                         test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                        <cc:icon styleClass="cInfo fs14 pRightNormal noPrint"
+                        <cc:icon styleClass="fs14 pRightNormal noPrint"
                             value="chevron-down" />
                     </c:when>
                     <c:when
                         test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                        <cc:icon styleClass="cInfo fs14 pRightNormal noPrint"
+                        <cc:icon styleClass="fs14 pRightNormal noPrint"
                             value="chevron-right" />
                     </c:when>
                 </c:choose>
@@ -64,19 +64,17 @@
                 <h:panelGroup layout="block" styleClass="accordionIcon">
                     <c:choose>
                         <c:when test="#{cc.parent.parent.attrs.closeable}">
-                            <cc:icon styleClass="cInfoHover cPointer fs24"
+                            <cc:icon styleClass="cWhiteHover cPointer fs24"
                                 value="times" title="#{clevcoreMsg.close}"
                                 onclick="hidePopup();" />
                         </c:when>
                         <c:when
                             test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                            <cc:icon styleClass="cInfo fs14 noPrint"
-                                value="minus" />
+                            <cc:icon styleClass="fs14 noPrint" value="minus" />
                         </c:when>
                         <c:when
                             test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                            <cc:icon styleClass="cInfo fs14 noPrint"
-                                value="plus" />
+                            <cc:icon styleClass="fs14 noPrint" value="plus" />
                         </c:when>
                     </c:choose>
                 </h:panelGroup>

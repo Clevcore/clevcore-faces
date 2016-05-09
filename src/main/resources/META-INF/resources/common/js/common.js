@@ -12,10 +12,12 @@ function getElement(id) {
 }
 
 function getSelector(selector) {
+	selector = selector.replaceAll(":", "\\:");
 	return document.querySelector(selector);
 }
 
 function getSelectors(selector) {
+	selector = selector.replaceAll(":", "\\:");
 	return document.querySelectorAll(selector);
 }
 
