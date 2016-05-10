@@ -360,7 +360,7 @@ table.table  {
 
 
 /* graphicImage */
-.loader {
+.loadingImage {
 	background-image: url('../img/loader.gif');
 	background-position: 50%;
 	background-repeat: no-repeat;

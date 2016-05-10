@@ -15,7 +15,7 @@
             type="java.lang.Boolean" />
         <composite:attribute name="isLazy" default="false"
             type="java.lang.Boolean" />
-        <composite:attribute name="isLoader" default="false"
+        <composite:attribute name="isLoading" default="false"
             type="java.lang.Boolean" />
         <composite:attribute name="onclick" />
         <composite:attribute name="onload" />
@@ -25,23 +25,23 @@
         <h:panelGroup rendered="#{cc.attrs.isBackground eq false}">
             <h:panelGroup rendered="#{cc.attrs.isLazy eq false}">
                 <img id="#{cc.attrs.id}"
-                    class="dInlineBlock #{cc.attrs.isLoader ? 'loader' : ''} #{cc.attrs.styleClass}"
-                    style=""
+                    class="dInlineBlock #{cc.attrs.isLoading ? 'loadingImage' : ''} #{cc.attrs.styleClass}"
+                    style="#{cc.attrs.style}"
                     src="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
                     onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
             </h:panelGroup>
             <h:panelGroup rendered="#{cc.attrs.isLazy eq true}">
                 <img id="#{cc.attrs.id}"
-                    class="dInlineBlock lazy #{cc.attrs.styleClass}" style=""
+                    class="dInlineBlock lazy #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
                     data-original="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
                     onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.isBackground eq true}">
             <div id="#{cc.attrs.id}"
-                class="dInlineBlock #{cc.attrs.isLoader ? 'loader' : ''} bsCover #{cc.attrs.styleClass}"
-                style="" onclick="#{cc.attrs.onclick}"
-                onload="#{cc.attrs.onload}">
+                class="dInlineBlock #{cc.attrs.isLoading ? 'loadingImage' : ''} bsCover #{cc.attrs.styleClass}"
+                style="#{cc.attrs.style} background-image: url('#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}');"
+                onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}">
                 <composite:insertChildren />
             </div>
         </h:panelGroup>
