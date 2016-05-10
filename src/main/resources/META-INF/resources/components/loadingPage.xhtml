@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+    <composite:interface componentType="#{bbClevcore.LOADING_PAGE}">
+        <composite:attribute name="position" default="top"
+            shortDescription="Position indication of the component on screen. Valid values are: 'top', and 'bottom'. The default value is 'top'." />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup layout="block"
+            styleClass="aLeft #{cc.attrs.position == 'bottom' ? 'aBottom' : 'aTop'} pFixed w100 zNormal">
+            <h:panelGroup layout="block" styleClass="loadingPage">
+                <f:passThroughAttribute name="id" value="loadingPage" />
+                <h:panelGroup layout="block" styleClass="loadingPage-bar" />
+            </h:panelGroup>
+        </h:panelGroup>
+        <script>initLoadingpage();</script>
+    </composite:implementation>
+</ui:composition>

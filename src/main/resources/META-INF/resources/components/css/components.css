@@ -376,6 +376,46 @@ table.table  {
 }
 
 
+/* loadingPage */
+.loadingPage {
+	position: relative;
+    background-color: #7fa7c9;
+    border-radius: 0;
+    box-shadow: none;
+    display: block;
+    height: 4px;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.loadingPage .loadingPage-bar {
+	background-color: #357ebd;
+}
+
+.loadingPage .loadingPage-bar:before {
+	content: '';
+	position: absolute;
+	background-color: inherit;
+	bottom: 0;
+	left: 0;
+	top: 0;
+	animation: loadingPage 5s ease-in-out infinite;
+}
+
+@keyframes loadingPage {
+	0% {
+		left: -150%;
+		right: 100%;
+	}
+	
+	100% {
+		left: 100%;
+		right: -150%;
+	}
+}
+
+
 /* message */
 .message span {
 	vertical-align: middle;

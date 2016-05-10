@@ -119,6 +119,10 @@ public class BBClevcore implements Serializable {
         return Constant.INPUT_DATE;
     }
 
+    public String getLOADING_PAGE() {
+        return Constant.LOADING_PAGE;
+    }
+
     public String getMENU() {
         return Constant.MENU;
     }

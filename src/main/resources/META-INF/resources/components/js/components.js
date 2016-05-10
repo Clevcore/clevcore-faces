@@ -262,6 +262,10 @@ var ConfirmNavigation = {
 	},
 
 	verify : function() {
+		setTimeout(function() {
+			addClass("loadingPage", "dNone");
+		}, 5000);
+
 		ConfirmNavigation.form.forEach(function(form) {
 			if (ConfirmNavigation.enable && form.serialize != $("#" + form.id).serialize()) {
 				addClass(form.id, "animate animate-no");
@@ -578,6 +582,17 @@ function selectManyCheckboxClick(id, index) {
 	if (selectManyCheckbox.onclick != null) {
 		getElement(id + ':selectManyCheckbox:' + index).onclick();
 	}
+}
+
+/* loadingPage */
+function initLoadingpage() {
+	window.addEventListener("load", function(event) {
+		addClass("loadingPage", "dNone");
+	});
+
+	window.addEventListener("beforeunload", function(event) {
+		removeClass("loadingPage", "dNone");
+	});
 }
 
 /* wait */
