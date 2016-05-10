@@ -438,7 +438,7 @@
 .bShadowTransition {
 	transition-property: box-shadow;
     transition-duration: .28s;
-    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-timing-function: ease;
 }
 
 
@@ -1172,8 +1172,10 @@
 
 /* Select */
 .unselectable {
+	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
+	    -ms-user-select: none;
 	        user-select: none;
 }
 

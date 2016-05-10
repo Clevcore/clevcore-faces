@@ -1,3 +1,8 @@
+html {
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;	
+}
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
 	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
@@ -8,7 +13,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	textarea, button {
 	background-color: transparent;
 	border: 0;
-	color: #757575;  /* grey-600 */
+	color: #757575; /* grey-600 */
 	font: inherit;
 	font-weight: normal;
 	font-family: notosans;
@@ -16,16 +21,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	margin: 0;
 	outline: 0;
 	padding: 0;
+	text-rendering: optimizeLegibility;
 	word-break: break-word;
 	word-wrap: break-word;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-::selection {
-	background-color: #BDBDBD; /* grey-400 */
-	text-shadow: none !important;
 }
 
 a {
@@ -79,8 +80,15 @@ textarea[data-height] {
 	overflow-y: hidden;
 }
 
+::selection {
+	background-color: #BDBDBD; /* grey-400 */
+	text-shadow: none !important;
+}
+
 ::-webkit-input-placeholder,
-::-moz-placeholder {
+::-moz-placeholder,
+:-moz-placeholder,
+:-ms-input-placeholder {
 	color: #9E9E9E; /* grey-500 */
 	line-height: 1.4;
 }
