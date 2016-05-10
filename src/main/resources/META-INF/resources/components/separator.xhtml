@@ -8,11 +8,12 @@
     <composite:interface componentType="#{bbClevcore.SEPARATOR}">
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
+        <composite:attribute name="rendered" />
     </composite:interface>
 
     <composite:implementation>
         <h:panelGroup layout="block"
             styleClass="mBottomSmall mTopSmall bcDefault2 bsSolid bwNone bwTopNormal #{cc.attrs.styleClass}"
-            style="#{cc.attrs.style}" />
+            style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}" />
     </composite:implementation>
 </ui:composition>
