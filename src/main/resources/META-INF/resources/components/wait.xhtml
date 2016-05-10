@@ -5,17 +5,17 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.WAIT}">
+    <composite:interface componentType="#{bbClevcore.WAIT}">.
+        <composite:attribute name="position" default="center"
+            shortDescription="Position indication of the component on screen. Valid values are: center, topLeft, topRight, bottomLeft and bottomRight. The default value is 'center'." />
     </composite:interface>
 
     <composite:implementation>
-        <h:panelGroup layout="block" styleClass="wait dNone">
+        <h:panelGroup layout="block"
+            styleClass="aContainer cWait zModalChildren dNone">
             <f:passThroughAttribute name="id" value="wait" />
-            <h:panelGroup layout="block" styleClass="waitImg" />
+            <h:panelGroup layout="block" styleClass="wait #{cc.attrs.position == 'topLeft' ? 'mLarge aTop aLeft' : cc.attrs.position == 'topRight' ? 'mLarge aTop aRight' : cc.attrs.position == 'bottomLeft' ? 'mLarge aBottom aLeft' : cc.attrs.position == 'bottomRight' ? 'mLarge aBottom aRight' : 'aAutocenter'}" />
         </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="vHidden waitImg" />
-        <script>
-			waitEnable();
-		</script>
+        <script>waitEnable();</script>
     </composite:implementation>
 </ui:composition>

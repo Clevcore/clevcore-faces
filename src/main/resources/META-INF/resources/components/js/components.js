@@ -596,8 +596,10 @@ function initLoadingpage() {
 }
 
 /* wait */
+var isWaitEnable = false;
+
 function wait(status) {
-	if (isWaitEnable) {
+	if (isWaitEnable && getElement("wait") !== undefined) {
 		if (status == "begin") {
 			removeClass("wait", "dNone");
 		} else {

@@ -818,30 +818,15 @@ select {
 
 /* wait */
 .wait {
-	cursor: wait;
-	height: 100%;
-	left: 0;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 3001;
-}
-
-.waitImg {
 	background: #000 url("../img/wait.gif") no-repeat 50% 50%;
 	border-radius: 25px;
     box-shadow: 0 0 10px #000000; /* black */
 	display: block;
 	height: 50px;
-	left: 50%;
-	margin-left: -25px;
-	margin-top: -25px;
 	opacity: .4;
 	position: absolute;
-	top: 50%;
 	width: 50px;
 }
-
 
 /* others */
 datetimepicker {
