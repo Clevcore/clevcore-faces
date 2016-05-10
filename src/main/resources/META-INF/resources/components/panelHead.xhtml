@@ -18,7 +18,7 @@
             rendered="#{cc.attrs.rendered}">
 
             <c:if
-                test="#{bbComponent.isPopup(cc.parent.parent) and cc.parent.parent.attrs.movable}">
+                test="#{bbClevcore.isComponent(bbClevcore.POPUP, cc.parent.parent) and cc.parent.parent.attrs.movable}">
                 <f:passThroughAttribute name="onmousedown"
                     value="popupMovable();" />
             </c:if>
