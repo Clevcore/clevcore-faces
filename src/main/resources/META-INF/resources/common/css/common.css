@@ -701,8 +701,24 @@
 }
 
 /* Font weight */
+.fwThin {
+	font-weight: 100;
+}
+
+.fwLight {
+	font-weight: 300;
+}
+
+.fwRegular {
+	font-weight: 400;
+}
+
+.fwMedium {
+	font-weight: 500;
+}
+
 .fwBold {
-	font-weight: bold;
+	font-weight: 700;
 }
 
 .fwNormal {

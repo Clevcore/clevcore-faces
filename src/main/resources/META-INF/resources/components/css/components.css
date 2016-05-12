@@ -18,7 +18,7 @@ select,
 textarea,
 .input {
     box-sizing: border-box;
-	font-family: notosans;
+	font-weight: 400;
 	font-size: 15px;
 	height: 44px;
 	padding: 10px;
@@ -38,7 +38,7 @@ input[type=button],
 input[type=submit] {
 	color: #FFFFFF; /* white */
 	cursor: pointer;
-	font-family: robotolight;
+	font-weight: 300;
 	font-size: 16px;
 	min-width: 56px;
 	text-transform: uppercase;
@@ -562,7 +562,7 @@ table.table  {
 .panel > .head {
 	background-color: #90A4AE; /* blue-grey-300 */
 	border-bottom: 1px solid #90A4AE; /* blue-grey-300 */
-	font-family: robotolight;
+	font-weight: 300;
 	font-size: 22px;
 	text-transform: uppercase;
 	width: 100%;
@@ -841,7 +841,7 @@ input[data-only='number'] {
 	background-color: rgba(0, 0, 0, .8);
 	color: #FFFFFF; /* white */
 	content: attr(data-title);
-	font-family: notosans;
+	font-weight: 400;
 	font-size: 16px;
 	line-height: 20px;
 	margin-top: 10px;
