@@ -21,6 +21,12 @@ public final class Constant {
     public static final String MENU_TRIGGER = COMPONENT_PATH + "MenuTrigger";
     public static final String MESSAGE = COMPONENT_PATH + "Message";
     public static final String MESSAGES = COMPONENT_PATH + "Messages";
+    public static final String NAVBAR = COMPONENT_PATH + "Navbar";
+    public static final String NAVBAR_ITEM = COMPONENT_PATH + "NavbarItem";
+    public static final String NAVBAR_ITEMS = COMPONENT_PATH + "NavbarItems";
+    public static final String NAVBAR_MAIN = COMPONENT_PATH + "NavbarMain";
+    public static final String NAVBAR_MENU = COMPONENT_PATH + "NavbarMenu";
+    public static final String NAVBAR_SIDE = COMPONENT_PATH + "NavbarSide";
     public static final String PANEL = COMPONENT_PATH + "Panel";
     public static final String PANEL_BODY = COMPONENT_PATH + "PanelBody";
     public static final String PANEL_FOOT = COMPONENT_PATH + "PanelFoot";

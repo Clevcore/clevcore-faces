@@ -17,8 +17,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	outline: 0;
 	padding: 0;
 	text-rendering: optimizeLegibility;
-	word-break: break-word;
-	word-wrap: break-word;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -33,11 +31,16 @@ body {
 	background-color: #F5F5F5; /* grey-100 */
 }
 
+div, span {
+	color: inherit;
+    font: inherit;
+}
+
 a {
 	color: #616161; /* grey-700 */;
 	cursor: pointer;
 	font-weight: 500;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 a:hover {
@@ -45,7 +48,7 @@ a:hover {
 	text-decoration: none;
 }
 
-a:link {
+a:focus {
 	color: #212121; /* grey-900 */
 	text-decoration: none;
 }
@@ -110,4 +113,15 @@ textarea[data-height] {
 	color: #9E9E9E; /* grey-500 */
 	font-weight: 300 !important;
 	line-height: 1.4;
+}
+
+/* print */
+@media print {
+	body {
+	    padding: 2mm;
+	}
+	
+	main {
+	    padding: 2mm 10mm;
+	}
 }

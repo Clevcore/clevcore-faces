@@ -147,6 +147,30 @@ public class BBClevcore implements Serializable {
         return Constant.MESSAGES;
     }
 
+    public String getNAVBAR() {
+        return Constant.NAVBAR;
+    }
+
+    public String getNAVBAR_ITEM() {
+        return Constant.NAVBAR_ITEM;
+    }
+
+    public String getNAVBAR_ITEMS() {
+        return Constant.NAVBAR_ITEMS;
+    }
+
+    public String getNAVBAR_MAIN() {
+        return Constant.NAVBAR_MAIN;
+    }
+
+    public String getNAVBAR_MENU() {
+        return Constant.NAVBAR_MENU;
+    }
+
+    public String getNAVBAR_SIDE() {
+        return Constant.NAVBAR_SIDE;
+    }
+
     public String getPANEL() {
         return Constant.PANEL;
     }

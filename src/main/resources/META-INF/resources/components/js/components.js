@@ -158,7 +158,7 @@ function accordion(id, titleCompress, titleExpand) {
 	}
 }
 
-/* command button */
+/* commandButton */
 var CommandButton = {
 	loadingOn : function(element) {
 		setDisabledElement(element, true);
@@ -180,7 +180,7 @@ var CommandButton = {
 
 };
 
-/* confirm navigation */
+/* confirmNavigation */
 var ConfirmNavigation = {
 	form : [],
 	enable : false,
@@ -456,6 +456,143 @@ function menuHandler() {
 
 function menuCloseable() {
 	actionToEscKey(hideMenu);
+}
+
+/* navbar */
+var idNavbar = null;
+
+function showNavbar(id) {
+	idNavbar = id;
+
+	addClass("#" + idNavbar + " .side", "ttx0");
+
+	if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
+		removeClass("#" + idNavbar + " .modal", "dNone");
+	}
+
+	window.addEventListener("keydown", navbarCloseable);
+}
+
+function hideNavbar(id) {
+	if (id != null) {
+		idNavbar = id;
+	}
+
+	removeClass("#" + idNavbar + " .side", "ttx0");
+
+	if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
+		replaceClass("#" + idNavbar + " .modal", "animate-fadeIn", "animate-fadeOut");
+	}
+
+	setTimeout(function() {
+		if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
+			addClass("#" + idNavbar + " .modal", "dNone");
+			replaceClass("#" + idNavbar + " .modal", "animate-fadeOut", "animate-fadeIn");
+		}
+		idNavbar = null;
+	}, ANIMATION_TIME);
+
+	window.removeEventListener("keydown", navbarCloseable);
+}
+
+function navbarCloseable() {
+	actionToEscKey(hideNavbar);
+}
+
+var idNavbarItems = null;
+
+function showNavbarItems(id) {
+	event.stopPropagation();
+
+	if (id != idNavbarItems) {
+		if (idNavbarItems != null) {
+			hideNavbarItems()
+		}
+		idNavbarItems = id;
+
+		removeClass(idNavbarItems, "dNone");
+
+		window.addEventListener("click", navbarItemsHandler);
+		window.addEventListener("keydown", navbarItemsCloseable);
+	} else {
+		hideNavbarItems();
+	}
+}
+
+function hideNavbarItems() {
+	var animatein = getAttribute(idNavbarItems, "data-animatein");
+	var animateout = getAttribute(idNavbarItems, "data-animateout");
+
+	replaceClassElement(getElement(idNavbarItems).firstElementChild, "animate-" + animatein, "animate-" + animateout);
+
+	var idTemp = idNavbarItems;
+	idNavbarItems = null;
+
+	setTimeout(function() {
+		addClass(idTemp, "dNone");
+
+		replaceClassElement(getElement(idTemp).firstElementChild, "animate-" + animateout, "animate-" + animatein);
+	}, ANIMATION_TIME);
+
+	window.removeEventListener("click", navbarItemsHandler);
+	window.removeEventListener("keydown", navbarItemsCloseable);
+}
+
+function navbarItemsHandler() {
+	hideNavbarItems();
+}
+
+function navbarItemsCloseable() {
+	actionToEscKey(hideNavbarItems);
+}
+
+function initAccordionNavbarItems(id) {
+	var element = getElement(id);
+	var opened = getBoolean(getAttributeElement(element, "data-opened"));
+
+	if (!opened) {
+		setAttributeElement(element, "data-height", getHeightElement(element) + "px");
+		addClassElement(element, "dNone");
+	}
+}
+
+function accordionNavbarItems(id) {
+	var element = getElement(id);
+	var opened = getBoolean(getAttributeElement(element, "data-opened"));
+
+	if (opened) {
+		var animatein = getAttributeElement(element, "data-animatein");
+		var animateout = getAttributeElement(element, "data-animateout");
+
+		setAttributeElement(element, "data-opened", "false");
+
+		setAttributeElement(element, "data-height", getHeightElement(element) + "px");
+		element.style.height = getAttributeElement(element, "data-height");
+
+		setTimeout(function() {
+			element.style.height = "0px";
+			replaceClassElement(element.firstElementChild, "animate-" + animatein, "animate-" + animateout);
+		}, 10);
+
+		setTimeout(function() {
+			addClassElement(element, "dNone");
+
+			replaceClassElement(element.firstElementChild, "animate-" + animateout, "animate-" + animatein);
+		}, ANIMATION_TIME);
+	} else {
+		setAttributeElement(element, "data-opened", "true");
+
+		element.style.height = "0px";
+		removeClassElement(element, "dNone");
+
+		setTimeout(function() {
+			element.style.height = getAttributeElement(element, "data-height");
+		}, 10);
+
+		setTimeout(function() {
+			element.style.height = "";
+		}, ANIMATION_TIME);
+	}
 }
 
 /* popup */
