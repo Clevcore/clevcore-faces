@@ -5,7 +5,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.NAVBAR_ITEM}">
+    <composite:interface componentType="#{bbClevcore.ITEM}">
         <composite:attribute name="id" />
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
@@ -14,6 +14,7 @@
         <composite:attribute name="title" />
         <composite:attribute name="redirect" default="#" />
         <composite:attribute name="rendered" />
+        <composite:attribute name="disabled" />
         <composite:attribute name="onclick" />
         <composite:attribute name="action"
             method-signature="java.lang.String action()" />
@@ -24,8 +25,10 @@
             <li>
                 <h:outputLink styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
                     style="#{cc.attrs.style}"
+                    value="#{cc.attrs.redirect}"
                     rendered="#{cc.attrs.action == null}"
-                    value="#{cc.attrs.redirect}" onclick="#{cc.attrs.onclick}">
+                    disabled="#{cc.attrs.disabled}"
+                    onclick="#{cc.attrs.onclick}">
                     <cc:icon
                         styleClass="fs18 #{cc.attrs.value != null ? 'pRightNormal' : ''}"
                         value="#{cc.attrs.icon}"
@@ -36,8 +39,10 @@
                 
                 <h:commandLink styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
                     style="#{cc.attrs.style}"
+                    action="#{cc.attrs.action}"
                     rendered="#{cc.attrs.action != null}"
-                    action="#{cc.attrs.action}" onclick="#{cc.attrs.onclick}">
+                    disabled="#{cc.attrs.disabled}"
+                    onclick="#{cc.attrs.onclick}">
                     <cc:icon
                         styleClass="fs18 #{cc.attrs.value != null ? 'pRightNormal' : ''}"
                         value="#{cc.attrs.icon}"

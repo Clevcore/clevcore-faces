@@ -7,8 +7,8 @@ import javax.faces.component.UINamingContainer;
 
 import ar.com.clevcore.faces.utils.Constant;
 
-@FacesComponent(Constant.MENU_ITEMS)
-public class MenuItems extends UIComponentBase implements NamingContainer {
+@FacesComponent(Constant.ITEM)
+public class Item extends UIComponentBase implements NamingContainer {
 
     @Override
     public String getFamily() {

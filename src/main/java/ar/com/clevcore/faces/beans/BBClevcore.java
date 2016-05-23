@@ -119,24 +119,16 @@ public class BBClevcore implements Serializable {
         return Constant.INPUT_DATE;
     }
 
+    public String getITEM() {
+        return Constant.ITEM;
+    }
+
+    public String getITEMS() {
+        return Constant.ITEMS;
+    }
+
     public String getLOADING_PAGE() {
         return Constant.LOADING_PAGE;
-    }
-
-    public String getMENU() {
-        return Constant.MENU;
-    }
-
-    public String getMENU_ITEM() {
-        return Constant.MENU_ITEM;
-    }
-
-    public String getMENU_ITEMS() {
-        return Constant.MENU_ITEMS;
-    }
-
-    public String getMENU_TRIGGER() {
-        return Constant.MENU_TRIGGER;
     }
 
     public String getMESSAGE() {
@@ -147,16 +139,12 @@ public class BBClevcore implements Serializable {
         return Constant.MESSAGES;
     }
 
+    public String getMENU() {
+        return Constant.MENU;
+    }
+
     public String getNAVBAR() {
         return Constant.NAVBAR;
-    }
-
-    public String getNAVBAR_ITEM() {
-        return Constant.NAVBAR_ITEM;
-    }
-
-    public String getNAVBAR_ITEMS() {
-        return Constant.NAVBAR_ITEMS;
     }
 
     public String getNAVBAR_MAIN() {

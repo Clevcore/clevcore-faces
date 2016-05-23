@@ -415,47 +415,128 @@ function lazyload() {
 	$("img.lazy").lazyload();
 }
 
-/* menu */
-var idMenu = null;
+/* items */
+var idItems = null;
 
-function showMenu(id) {
-	if (id != idMenu) {
-		idMenu = id;
+function initItems(id, isAccordion) {
+	var items = getElement(id + ":items");
+	var trigger = getElement(id + ":trigger");
 
-		removeClass(idMenu + ":menuItems", "dNone");
+	if (isAccordion) {
+		var opened = getBoolean(getAttributeElement(items, "data-opened"));
 
-		window.addEventListener("click", menuHandler);
-		window.addEventListener("keydown", menuCloseable);
+		if (!opened) {
+			setAttributeElement(items, "data-height", getHeightElement(items));
+			items.style.height = "0";
+			addClassElement(items, "dNone");
+		}
 
-		event.stopPropagation();
+		if (trigger != null) {
+			trigger.addEventListener("click", function() {
+				accordionItems(items.id);
+			});
+		}
+	} else {
+		if (trigger != null) {
+			trigger.addEventListener("click", function() {
+				showItems(items.id);
+			});
+		}
 	}
 }
 
-function hideMenu() {
-	replaceClassElement(getElement(idMenu + ":menuItems").firstChild, "animate-"
-			+ getAttribute(idMenu, "data-animatein"), "animate-" + getAttribute(idMenu, "data-animateout"));
+function accordionItems(id) {
+	var items = getElement(id);
+	var opened = getBoolean(getAttributeElement(items, "data-opened"));
+
+	if (opened) {
+		var animatein = getAttributeElement(items, "data-animatein");
+		var animateout = getAttributeElement(items, "data-animateout");
+
+		setAttributeElement(items, "data-height", getHeightElement(items));
+		items.style.height = getAttributeElement(items, "data-height") + "px";
+
+		setTimeout(function() {
+			items.style.height = "0";
+			replaceClassElement(items.firstElementChild, "animate-" + animatein, "animate-" + animateout);
+		}, 10);
+
+		setTimeout(function() {
+			addClassElement(items, "dNone");
+			replaceClassElement(items.firstElementChild, "animate-" + animateout, "animate-" + animatein);
+		}, ANIMATION_TIME);
+
+		setAttributeElement(items, "data-opened", "false");
+	} else {
+		removeClassElement(items, "dNone");
+
+		setTimeout(function() {
+			items.style.height = getAttributeElement(items, "data-height") + "px";
+		}, 10);
+
+		setTimeout(function() {
+			items.style.height = "";
+		}, ANIMATION_TIME);
+
+		setAttributeElement(items, "data-opened", "true");
+	}
+}
+
+function showItems(id) {
+	event.stopPropagation();
+
+	if (id != idItems) {
+		if (idItems != null) {
+			hideItems()
+		}
+		idItems = id;
+
+		removeClass(idItems, "dNone");
+
+		window.addEventListener("click", itemsHandler);
+		window.addEventListener("keydown", itemsCloseable);
+	} else {
+		hideItems();
+	}
+}
+
+function hideItems() {
+	var items = getElement(idItems);
+
+	var animatein = getAttributeElement(items, "data-animatein");
+	var animateout = getAttributeElement(items, "data-animateout");
+
+	replaceClassElement(items.firstElementChild, "animate-" + animatein, "animate-" + animateout);
 
 	setTimeout(function() {
-		addClass(idMenu + ":menuItems", "dNone");
+		addClassElement(items, "dNone");
 
-		replaceClassElement(getElement(idMenu + ":menuItems").firstChild, "animate-"
-				+ getAttribute(idMenu, "data-animateout"), "animate-" + getAttribute(idMenu, "data-animatein"));
-
-		idMenu = null;
+		replaceClassElement(items.firstElementChild, "animate-" + animateout, "animate-" + animatein);
 	}, ANIMATION_TIME);
 
-	window.removeEventListener("click", menuHandler);
-	window.removeEventListener("keydown", menuCloseable);
+	window.removeEventListener("click", itemsHandler);
+	window.removeEventListener("keydown", itemsCloseable);
+
+	idItems = null;
 }
 
-function menuHandler() {
-	if (!containElement(getElement(idMenu + ":menuTrigger"), event.toElement)) {
-		hideMenu();
-	}
+function itemsHandler() {
+	hideItems();
 }
 
-function menuCloseable() {
-	actionToEscKey(hideMenu);
+function itemsCloseable() {
+	actionToEscKey(hideItems);
+}
+
+/* menu */
+function initMenu(id) {
+	var menu = getElement(id);
+	var trigger = menu.firstElementChild;
+	var items = getElement("#" + id + " .items");
+
+	trigger.addEventListener("click", function() {
+		showItems(items.id);
+	});
 }
 
 /* navbar */
@@ -497,102 +578,6 @@ function hideNavbar(id) {
 
 function navbarCloseable() {
 	actionToEscKey(hideNavbar);
-}
-
-var idNavbarItems = null;
-
-function showNavbarItems(id) {
-	event.stopPropagation();
-
-	if (id != idNavbarItems) {
-		if (idNavbarItems != null) {
-			hideNavbarItems()
-		}
-		idNavbarItems = id;
-
-		removeClass(idNavbarItems, "dNone");
-
-		window.addEventListener("click", navbarItemsHandler);
-		window.addEventListener("keydown", navbarItemsCloseable);
-	} else {
-		hideNavbarItems();
-	}
-}
-
-function hideNavbarItems() {
-	var animatein = getAttribute(idNavbarItems, "data-animatein");
-	var animateout = getAttribute(idNavbarItems, "data-animateout");
-
-	replaceClassElement(getElement(idNavbarItems).firstElementChild, "animate-" + animatein, "animate-" + animateout);
-
-	var idTemp = idNavbarItems;
-	idNavbarItems = null;
-
-	setTimeout(function() {
-		addClass(idTemp, "dNone");
-
-		replaceClassElement(getElement(idTemp).firstElementChild, "animate-" + animateout, "animate-" + animatein);
-	}, ANIMATION_TIME);
-
-	window.removeEventListener("click", navbarItemsHandler);
-	window.removeEventListener("keydown", navbarItemsCloseable);
-}
-
-function navbarItemsHandler() {
-	hideNavbarItems();
-}
-
-function navbarItemsCloseable() {
-	actionToEscKey(hideNavbarItems);
-}
-
-function initAccordionNavbarItems(id) {
-	var element = getElement(id);
-	var opened = getBoolean(getAttributeElement(element, "data-opened"));
-
-	if (!opened) {
-		setAttributeElement(element, "data-height", getHeightElement(element) + "px");
-		addClassElement(element, "dNone");
-	}
-}
-
-function accordionNavbarItems(id) {
-	var element = getElement(id);
-	var opened = getBoolean(getAttributeElement(element, "data-opened"));
-
-	if (opened) {
-		var animatein = getAttributeElement(element, "data-animatein");
-		var animateout = getAttributeElement(element, "data-animateout");
-
-		setAttributeElement(element, "data-opened", "false");
-
-		setAttributeElement(element, "data-height", getHeightElement(element) + "px");
-		element.style.height = getAttributeElement(element, "data-height");
-
-		setTimeout(function() {
-			element.style.height = "0px";
-			replaceClassElement(element.firstElementChild, "animate-" + animatein, "animate-" + animateout);
-		}, 10);
-
-		setTimeout(function() {
-			addClassElement(element, "dNone");
-
-			replaceClassElement(element.firstElementChild, "animate-" + animateout, "animate-" + animatein);
-		}, ANIMATION_TIME);
-	} else {
-		setAttributeElement(element, "data-opened", "true");
-
-		element.style.height = "0px";
-		removeClassElement(element, "dNone");
-
-		setTimeout(function() {
-			element.style.height = getAttributeElement(element, "data-height");
-		}, 10);
-
-		setTimeout(function() {
-			element.style.height = "";
-		}, ANIMATION_TIME);
-	}
 }
 
 /* popup */

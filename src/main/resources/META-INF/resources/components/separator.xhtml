@@ -12,8 +12,16 @@
     </composite:interface>
 
     <composite:implementation>
+        <h:outputText
+            rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
+            value="&lt;li&gt;" escape="false" />
+
         <h:panelGroup layout="block"
-            styleClass="mBottomSmall mTopSmall bcDefault2 bsSolid bwNone bwTopNormal #{cc.attrs.styleClass}"
+            styleClass="bcDefault2 bsSolid bwNone bwTopNormal #{cc.attrs.styleClass}"
             style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}" />
+
+        <h:outputText
+            rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
+            value="&lt;li&gt;" escape="false" />
     </composite:implementation>
 </ui:composition>

@@ -7,8 +7,8 @@ import javax.faces.component.UINamingContainer;
 
 import ar.com.clevcore.faces.utils.Constant;
 
-@FacesComponent(Constant.NAVBAR_ITEM)
-public class NavbarItem extends UIComponentBase implements NamingContainer {
+@FacesComponent(Constant.ITEMS)
+public class Items extends UIComponentBase implements NamingContainer {
 
     @Override
     public String getFamily() {

@@ -10,7 +10,7 @@ textarea,
 	background-color: #FFFFFF; /* white */
 	border: 1px solid #E0E0E0; /* grey-300 */
 	color: #757575;  /* grey-600 */
-}	
+}
 
 button,
 input,
@@ -549,6 +549,33 @@ table.table  {
 	content: "\f06a";
 }
 
+/* items */
+.items {
+	margin: 10px;
+	position: absolute;
+}
+
+.items ul {
+	background-color: #FFFFFF; /* white */
+}
+
+.items li {
+	display: block !important;
+}
+
+.items a  {
+	color: #424242 !important; /* grey-800 */
+	display: block;
+	padding: 15px;
+	text-align: left !important;
+	white-space: nowrap;
+	
+	transition: background-color .28s;
+}
+
+.items a:hover {
+	background-color: rgba(0,0,0,.05);
+}
 
 /* navbar */
 nav {
@@ -577,38 +604,20 @@ nav .menu li,nav .main li {
 }
 
 nav .menu a,nav .main a {
-	color: #FFFFFF !important; /* white */
+	color: #FFFFFF; /* white */
 	display: block;
 	min-width: 50px;
 	padding: 0 15px;
 	text-align: center;
-	transition: background-color .28s;
 }
 
 nav .menu .items,nav .main .items {
-	margin: 10px;
-	position: absolute;
 	top: -56px;
 	z-index: 1;
 }
 
-nav .menu .items ul,nav .main .items ul {
-	background-color: #FFFFFF !important; /* white */
-}
-
-nav .menu .items li,nav .main .items li {
-	display: block;
-}
-
-nav .menu .items a,nav .main .items a {
-	color: #424242 !important; /* grey-800 */
-	display: block;
-	text-align: left;
-	white-space: nowrap;
-}
-
 nav .side {
-	background-color: #fff;
+	background-color: #FFFFFF; /* white */;
 	height: 100%;
 	left: 0;
 	overflow-y: auto;
@@ -616,6 +625,7 @@ nav .side {
 	top: 0;
 	width: 240px;
 	z-index: 2001;
+	
 	will-change: transform;
 	transform: translateX(-105%);
 	transition: transform .28s ease;
@@ -627,13 +637,15 @@ nav .side li {
 }
 
 nav .side a {
-	color: #424242 !important; /* grey-800 */
+	color: #424242; /* grey-800 */
 	display: block;
 	padding: 0 30px;
 	transition: background-color .28s;
 }
 
 nav .side .items {
+	margin: 0;
+	position: inherit;
 	overflow: hidden;
 	transition: height .28s;
 }
@@ -642,7 +654,7 @@ nav .side .items a {
 	padding-left: 40px;
 }
 
-nav ul a:hover,nav .iconSide:hover,nav .logo:hover {
+nav ul a:hover,nav .iconSide:hover {
 	background-color: rgba(0,0,0,.05);
 }
 
