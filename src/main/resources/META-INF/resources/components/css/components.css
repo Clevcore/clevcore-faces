@@ -779,7 +779,7 @@ nav ul a:hover,nav .iconSide:hover {
 	z-index: 2000;
 }
 
-div.popup {
+.popup {
 	bottom: 0;
 	left: 0;
 	pointer-events: none;
@@ -789,6 +789,9 @@ div.popup {
 	z-index: 2001;
 }
 
+.popup .panel > .body {
+	overflow: auto;
+}
 
 /* section */
 section.section {

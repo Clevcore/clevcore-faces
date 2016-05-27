@@ -18,8 +18,6 @@
             type="java.lang.Boolean" />
         <composite:attribute name="movable" default="true"
             type="java.lang.Boolean" />
-        <composite:attribute name="scrollable" default="true"
-            type="java.lang.Boolean" />
         <composite:attribute name="onshow" />
         <composite:attribute name="onhide" />
     </composite:interface>
@@ -38,8 +36,6 @@
                 value="#{cc.attrs.closeable}" />
             <f:passThroughAttribute name="data-movable"
                 value="#{cc.attrs.movable}" />
-            <f:passThroughAttribute name="data-scrollable"
-                value="#{cc.attrs.scrollable}" />
             <f:passThroughAttribute name="data-onshow"
                 value="#{cc.attrs.onshow}" />
             <f:passThroughAttribute name="data-onhide"

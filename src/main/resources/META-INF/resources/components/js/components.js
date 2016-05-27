@@ -598,6 +598,7 @@ function showPopup(id) {
 	removeClass(idPopup, "dNone");
 
 	popupAutocenter();
+	popupScrollable();
 
 	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
 		window.addEventListener("resize", popupAutocenter);
@@ -605,11 +606,9 @@ function showPopup(id) {
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
 		window.addEventListener("keydown", popupCloseable);
 	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		popupScrollable();
-		window.addEventListener("resize", popupScrollable);
-		window.addEventListener("jsfAjaxEvent", popupScrollable);
-	}
+
+	window.addEventListener("resize", popupScrollable);
+	window.addEventListener("jsfAjaxEvent", popupScrollable);
 
 	if (getAttribute(idPopup, "data-onshow") != null) {
 		eval(getAttribute(idPopup, "data-onshow"));
@@ -644,10 +643,9 @@ function hidePopup(id) {
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
 		window.removeEventListener("keydown", popupCloseable);
 	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		window.removeEventListener("resize", popupScrollable);
-		window.removeEventListener("jsfAjaxEvent", popupScrollable);
-	}
+
+	window.removeEventListener("resize", popupScrollable);
+	window.removeEventListener("jsfAjaxEvent", popupScrollable);
 
 	if (getAttribute(idPopup, "data-onhide") != null) {
 		eval(getAttribute(idPopup, "data-onhide"));
