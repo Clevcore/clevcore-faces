@@ -557,6 +557,8 @@ table.table  {
 
 .items ul {
 	background-color: #FFFFFF; /* white */
+	overflow-x: hidden;
+	overflow-y: auto; 
 }
 
 .items li {

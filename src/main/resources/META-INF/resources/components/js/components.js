@@ -493,8 +493,11 @@ function showItems(id) {
 
 		removeClass(idItems, "dNone");
 
+		itemsScrollable();
+
 		window.addEventListener("click", itemsHandler);
 		window.addEventListener("keydown", itemsCloseable);
+		window.addEventListener("resize", itemsScrollable);
 	} else {
 		hideItems();
 	}
@@ -516,6 +519,7 @@ function hideItems() {
 
 	window.removeEventListener("click", itemsHandler);
 	window.removeEventListener("keydown", itemsCloseable);
+	window.removeEventListener("resize", itemsScrollable);
 
 	idItems = null;
 }
@@ -526,6 +530,10 @@ function itemsHandler() {
 
 function itemsCloseable() {
 	actionToEscKey(hideItems);
+}
+
+function itemsScrollable() {
+	autoscrollHeightElement(getElement(idItems).firstElementChild, 10);
 }
 
 /* menu */
@@ -652,7 +660,15 @@ function popupAutocenter() {
 	var container = getElement(idPopup + ':id');
 	var element = getSelector("#" + idPopup + " .panel");
 
-	autocenterElement(container, element);
+	getSelector("#" + idPopup + " .body").style.height = "";
+
+	if (getLeftElement(element) == 0) {
+		autocenterWidthElement(container, element);
+	}
+
+	if (getTopElement(element) == 0) {
+		autocenterHeightElement(container, element);
+	}
 }
 
 function popupCloseable() {
@@ -672,11 +688,10 @@ function popupScrollable(data) {
 		return;
 	}
 
-	var popupHead = getSelector("#" + idPopup + " .head");
 	var popupBody = getSelector("#" + idPopup + " .body");
 	var popupFoot = getSelector("#" + idPopup + " .foot");
 
-	autoscrollHeightElement(popupBody, popupHead, popupFoot);
+	autoscrollHeightElement(popupBody, popupFoot);
 }
 
 /* selectManyCheckbox */
