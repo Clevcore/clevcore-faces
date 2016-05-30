@@ -364,8 +364,14 @@ function autoscrollHeight() {
 function autoscrollHeightElement() {
 	var height = getHeightWindow();
 
+	height -= getAbsoluteTopElement(arguments[0]);
+
 	for (var i = 1; i < arguments.length; i++) {
-		height -= getHeightElement(arguments[i]);
+		if (!isNaN(arguments[i])) {
+			height -= arguments[i];
+		} else {
+			height -= getHeightElement(arguments[i]);
+		}
 	}
 
 	if (height - getHeightScrollElement(arguments[0]) > 0) {
@@ -388,8 +394,14 @@ function autoscrollWidth() {
 function autoscrollWidthElement() {
 	var width = getWidthWindow();
 
+	width -= getAbsoluteLeftElement(arguments[0]);
+
 	for (var i = 1; i < arguments.length; i++) {
-		width -= getHeightElement(arguments[i]);
+		if (!isNaN(arguments[i])) {
+			width -= arguments[i];
+		} else {
+			width -= getWidthElement(arguments[i]);
+		}
 	}
 
 	if (width - getWidthScrollElement(arguments[0]) > 0) {
@@ -421,10 +433,8 @@ function autocenterHeightElement(container, element) {
 		element = container;
 	}
 
-	var top = 0;
-	if (getTopElement(element) == 0) {
-		top = (getHeightWindow() - getHeightElement(element)) / 2;
-	}
+	var top = (getHeightWindow() - getHeightElement(element)) / 2;
+
 	if (top > 0) {
 		container.style.top = top + "px";
 	} else {
@@ -444,10 +454,8 @@ function autocenterWidthElement(container, element) {
 		element = container;
 	}
 
-	var left = 0;
-	if (getLeftElement(element) == 0) {
-		left = (getWidthWindow() - getWidthElement(element)) / 2;
-	}
+	var left = (getWidthWindow() - getWidthElement(element)) / 2;
+
 	if (left > 0) {
 		container.style.left = left + "px";
 	} else {
@@ -528,6 +536,52 @@ function getWidthWindowScroll() {
 
 function getWidthScreen() {
 	return screen.width;
+}
+
+function getAbsoluteBottom(id) {
+	return getAbsoluteBottomElement(getElement(id));
+}
+
+function getAbsoluteBottomElement(element) {
+	return getAbsoluteTopElement(element) + getHeightElement(element);
+}
+
+function getAbsoluteLeft(id) {
+	return getAbsoluteLeftElement(getElement(id));
+}
+
+function getAbsoluteLeftElement(element) {
+	var result = 0;
+
+	while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetLeft)) {
+		result += element.offsetLeft - element.scrollLeft;
+		element = element.offsetParent;
+	}
+
+	return result;
+}
+
+function getAbsoluteRight(id) {
+	return getAbsoluteRightElement(getElement(id));
+}
+
+function getAbsoluteRightElement(element) {
+	return getAbsoluteLeftElement(element) + getWidthElement(element);
+}
+
+function getAbsoluteTop(id) {
+	return getAbsoluteTopElement(getElement(id));
+}
+
+function getAbsoluteTopElement(element) {
+	var result = 0;
+
+	while (element && !isNaN(element.offsetLeft) && !isNaN(element.offsetTop)) {
+		result += element.offsetTop - element.scrollTop;
+		element = element.offsetParent;
+	}
+
+	return result;
 }
 
 function getBottom(id) {

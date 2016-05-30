@@ -493,8 +493,11 @@ function showItems(id) {
 
 		removeClass(idItems, "dNone");
 
+		itemsScrollable();
+
 		window.addEventListener("click", itemsHandler);
 		window.addEventListener("keydown", itemsCloseable);
+		window.addEventListener("resize", itemsScrollable);
 	} else {
 		hideItems();
 	}
@@ -516,6 +519,7 @@ function hideItems() {
 
 	window.removeEventListener("click", itemsHandler);
 	window.removeEventListener("keydown", itemsCloseable);
+	window.removeEventListener("resize", itemsScrollable);
 
 	idItems = null;
 }
@@ -526,6 +530,10 @@ function itemsHandler() {
 
 function itemsCloseable() {
 	actionToEscKey(hideItems);
+}
+
+function itemsScrollable() {
+	autoscrollHeightElement(getElement(idItems).firstElementChild, 10);
 }
 
 /* menu */
@@ -590,6 +598,7 @@ function showPopup(id) {
 	removeClass(idPopup, "dNone");
 
 	popupAutocenter();
+	popupScrollable();
 
 	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
 		window.addEventListener("resize", popupAutocenter);
@@ -597,11 +606,9 @@ function showPopup(id) {
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
 		window.addEventListener("keydown", popupCloseable);
 	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		popupScrollable();
-		window.addEventListener("resize", popupScrollable);
-		window.addEventListener("jsfAjaxEvent", popupScrollable);
-	}
+
+	window.addEventListener("resize", popupScrollable);
+	window.addEventListener("jsfAjaxEvent", popupScrollable);
 
 	if (getAttribute(idPopup, "data-onshow") != null) {
 		eval(getAttribute(idPopup, "data-onshow"));
@@ -636,10 +643,9 @@ function hidePopup(id) {
 	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
 		window.removeEventListener("keydown", popupCloseable);
 	}
-	if (getBoolean(getAttribute(idPopup, "data-scrollable"))) {
-		window.removeEventListener("resize", popupScrollable);
-		window.removeEventListener("jsfAjaxEvent", popupScrollable);
-	}
+
+	window.removeEventListener("resize", popupScrollable);
+	window.removeEventListener("jsfAjaxEvent", popupScrollable);
 
 	if (getAttribute(idPopup, "data-onhide") != null) {
 		eval(getAttribute(idPopup, "data-onhide"));
@@ -652,7 +658,15 @@ function popupAutocenter() {
 	var container = getElement(idPopup + ':id');
 	var element = getSelector("#" + idPopup + " .panel");
 
-	autocenterElement(container, element);
+	getSelector("#" + idPopup + " .body").style.height = "";
+
+	if (getLeftElement(element) == 0) {
+		autocenterWidthElement(container, element);
+	}
+
+	if (getTopElement(element) == 0) {
+		autocenterHeightElement(container, element);
+	}
 }
 
 function popupCloseable() {
@@ -672,11 +686,10 @@ function popupScrollable(data) {
 		return;
 	}
 
-	var popupHead = getSelector("#" + idPopup + " .head");
 	var popupBody = getSelector("#" + idPopup + " .body");
 	var popupFoot = getSelector("#" + idPopup + " .foot");
 
-	autoscrollHeightElement(popupBody, popupHead, popupFoot);
+	autoscrollHeightElement(popupBody, popupFoot);
 }
 
 /* selectManyCheckbox */
