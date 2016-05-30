@@ -137,7 +137,7 @@ textarea:disabled,
 .select[data-disabled='true']:before,
 .checkbox input[type=checkbox]:disabled + .checkbox-material .check,
 .default2:disabled {
-	background-color: #EEEEEE; /* grey-200 */ 
+	background-color: #EEEEEE; /* grey-200 */
 }
 
 .select:before,
@@ -347,7 +347,7 @@ table.table  {
 		overflow-y: hidden;
 		width: 100%;
 	}
-	
+
 	.tableResponsive > table > thead > tr > th,
 	.tableResponsive > table > tbody > tr > th,
 	.tableResponsive > table > tfoot > tr > th,
@@ -409,7 +409,7 @@ table.table  {
 		left: -150%;
 		right: 100%;
 	}
-	
+
 	100% {
 		left: 100%;
 		right: -150%;
@@ -569,7 +569,7 @@ table.table  {
 	padding: 15px;
 	text-align: left !important;
 	white-space: nowrap;
-	
+
 	transition: background-color .28s;
 }
 
@@ -625,7 +625,7 @@ nav .side {
 	top: 0;
 	width: 240px;
 	z-index: 2001;
-	
+
 	will-change: transform;
 	transform: translateX(-105%);
 	transition: transform .28s ease;
@@ -747,7 +747,6 @@ nav ul a:hover,nav .iconSide:hover {
 
 .panel > .head .accordionIcon {
 	float: right;
-	margin-top: 8px;
 }
 
 .panel > .body {
@@ -850,11 +849,11 @@ section.section .title {
 	0% {
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 15px 2px 0 11px;
 	}
-	
+
 	50% {
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px 2px 0 11px;
 	}
-	
+
 	100% {
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;
 	}
@@ -864,11 +863,11 @@ section.section .title {
 	0% {
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px, 0 0 0 0 inset;
 	}
-	
+
 	25% {
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px, 0 0 0 0 inset;
 	}
-	
+
 	50% {
 		transform: rotate(45deg);
 		margin-top: -4px;
@@ -877,7 +876,7 @@ section.section .title {
 		height: 0px;
 		box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0px 0 20px, 0px 32px 0 20px, -5px 5px 0 10px, 15px 2px 0 11px, 0 0 0 0 inset;
 	}
-	
+
 	51% {
 		transform: rotate(0deg);
 		margin-top: -2px;
@@ -886,7 +885,7 @@ section.section .title {
 		height: 20px;
 		box-shadow: 0 0 0 0, 0 0 0 0,  0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 10px inset;
 	}
-	
+
 	100% {
 		transform: rotate(0deg);
 		margin-top: -2px;
@@ -962,15 +961,17 @@ input[data-only='number'] {
 	background-color: rgba(0, 0, 0, .8);
 	color: #FFFFFF; /* white */
 	content: attr(data-title);
-	font-weight: 400;
+	font-family: "Roboto", sans-serif;
 	font-size: 16px;
+	font-weight: 400;
 	line-height: 20px;
 	margin-top: 10px;
 	opacity: 0;
 	padding: 10px;
 	position: absolute;
 	text-transform: none;
-	transition: opacity .5s;
+	transition: opacity .28s;
+	white-space: nowrap;
 	word-break: normal;
 	z-index: -1;
 }
