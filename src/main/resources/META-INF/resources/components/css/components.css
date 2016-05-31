@@ -660,13 +660,13 @@ nav ul a:hover,nav .iconSide:hover {
 	background-color: rgba(0,0,0,.05);
 }
 
-@media only screen and (min-width: 993px) {
+@media only screen and (min-width: 641px) {
 	nav[data-autoHide='true'] .iconSide {
 		display: none;
 	}
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 640px) {
 	nav[data-autoHide='true'] .main {
 		display: none;
 	}
