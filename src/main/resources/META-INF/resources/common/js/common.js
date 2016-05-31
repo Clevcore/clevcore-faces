@@ -421,55 +421,41 @@ function autoscrollElement() {
 	autoscrollWidthElement.apply(this, arguments);
 }
 
-function autocenterHeight(idContainer, idElement) {
-	if (idElement === undefined) {
-		idElement = idContainer;
-	}
-	autocenterHeightElement(getElement(idContainer), getElement(idElement));
+function autocenterHeight(id) {
+	autocenterHeightElement(getElement(id));
 }
 
-function autocenterHeightElement(container, element) {
-	if (element === undefined) {
-		element = container;
-	}
-
+function autocenterHeightElement(element) {
 	var top = (getHeightWindow() - getHeightElement(element)) / 2;
 
 	if (top > 0) {
-		container.style.top = top + "px";
+		element.style.top = top + "px";
 	} else {
-		container.style.top = "";
+		element.style.top = "";
 	}
 }
 
-function autocenterWidth(idContainer, idElement) {
-	if (idElement === undefined) {
-		idElement = idContainer;
-	}
-	autocenterWidthElement(getElement(idContainer), getElement(idElement));
+function autocenterWidth(id) {
+	autocenterWidthElement(getElement(id));
 }
 
-function autocenterWidthElement(container, element) {
-	if (element === undefined) {
-		element = container;
-	}
-
+function autocenterWidthElement(element) {
 	var left = (getWidthWindow() - getWidthElement(element)) / 2;
 
 	if (left > 0) {
-		container.style.left = left + "px";
+		element.style.left = left + "px";
 	} else {
-		container.style.left = "";
+		element.style.left = "";
 	}
 }
 
-function autocenter(idContainer, idElement) {
-	autocenterElement(getElement(idContainer), getElement(idElement));
+function autocenter(id) {
+	autocenterElement(getElement(id));
 }
 
-function autocenterElement(container, element) {
-	autocenterHeightElement(container, element);
-	autocenterWidthElement(container, element);
+function autocenterElement(element) {
+	autocenterHeightElement(element);
+	autocenterWidthElement(element);
 }
 
 function getHeight(id, withMargin) {

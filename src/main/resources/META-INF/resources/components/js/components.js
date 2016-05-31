@@ -1,6 +1,15 @@
 /* var */
 var ANIMATION_TIME = 300;
 
+var MIN_WIDTH_PHONE = 320;
+var MAX_WIDTH_PHONE = 480;
+
+var MIN_WIDTH_TABLET = 640;
+var MAX_WIDTH_TABLET = 800;
+
+var MIN_WIDTH_60_DESKTOP = 960;
+var MAX_WIDTH_70_DESKTOP = 1120;
+
 /* init */
 $(document).ready(function() {
 	jsf.ajax.addOnEvent(HandleAjax.init.onEvent);
@@ -590,106 +599,199 @@ function navbarCloseable() {
 
 /* popup */
 var idPopup = null;
+var Popup = {
+	id : undefined,
+	component : undefined,
 
+	container : undefined,
+	modal : undefined,
+
+	panel : undefined,
+	panelHead : undefined,
+	panelBody : undefined,
+	panelFoot : undefined,
+
+	isAutocenter : undefined,
+	isCloseable : undefined,
+	isExpandable : undefined,
+	isMovable : undefined,
+
+	init : function(id) {
+		Popup.id = id;
+		Popup.component = getElement(Popup.id);
+
+		Popup.container = getElement(Popup.id + ":container");
+		Popup.modal = getSelector("#" + Popup.id + " .modal");
+
+		Popup.panel = getSelector("#" + Popup.id + " .panel");
+		Popup.panelHead = getSelector("#" + Popup.id + " .head");
+		Popup.panelBody = getSelector("#" + Popup.id + " .body");
+		Popup.panelFoot = getSelector("#" + Popup.id + " .foot");
+
+		Popup.isAutocenter = getBoolean(getAttributeElement(Popup.component, "data-autocenter"));
+		Popup.isCloseable = getBoolean(getAttributeElement(Popup.component, "data-closeable"));
+		Popup.isExpandable = getBoolean(getAttributeElement(Popup.component, "data-expandable"));
+		Popup.isMovable = getBoolean(getAttributeElement(Popup.component, "data-movable"));
+	},
+
+	reset : function(data) {
+		if (data == undefined || data.status == undefined || data.status == "success") {
+			Popup.panel = getSelector("#" + Popup.id + " .panel");
+			Popup.panelHead = getSelector("#" + Popup.id + " .head");
+			Popup.panelBody = getSelector("#" + Popup.id + " .body");
+			Popup.panelFoot = getSelector("#" + Popup.id + " .foot");
+
+			Popup.panelHead.addEventListener("mousedown", Popup.movable);
+
+			Popup.expandable();
+			Popup.scrollable();
+		}
+	},
+
+	dest : function(id) {
+		Popup.id = undefined;
+		Popup.component = undefined;
+
+		Popup.container = undefined;
+		Popup.modal = undefined;
+
+		Popup.panel = undefined;
+		Popup.panelHead = undefined;
+		Popup.panelBody = undefined;
+		Popup.panelFoot = undefined;
+
+		Popup.isAutocenter = undefined;
+		Popup.isCloseable = undefined;
+		Popup.isExpandable = undefined;
+		Popup.isMovable = undefined;
+	},
+
+	event : {
+		add : function() {
+			window.addEventListener("resize", Popup.resize);
+			window.addEventListener("jsfAjaxEvent", Popup.reset);
+			window.addEventListener("keydown", Popup.closeable);
+			Popup.panelHead.addEventListener("mousedown", Popup.movable);
+		},
+
+		remove : function() {
+			window.removeEventListener("resize", Popup.resize);
+			window.removeEventListener("jsfAjaxEvent", Popup.reset);
+			window.removeEventListener("keydown", Popup.closeable);
+			Popup.panelHead.removeEventListener("mousedown", Popup.movable);
+		}
+	},
+
+	show : function(id) {
+		Popup.init(id);
+		Popup.event.add();
+
+		addClassElement(getBody(), "oHidden");
+		removeClassElement(Popup.component, "dNone");
+
+		Popup.resize();
+
+		removeClassElement(Popup.component, "vHidden");
+
+		var onshow = getAttributeElement(Popup.component, "data-onshow");
+		if (onshow != null) {
+			eval(onshow);
+		}
+	},
+
+	hide : function() {
+		Popup.event.remove();
+
+		replaceClassElement(Popup.modal, "fadeIn", "fadeOut");
+		replaceClassElement(Popup.container.firstChild, getAttributeElement(Popup.component, "data-animatein"),
+				getAttributeElement(Popup.component, "data-animateout"));
+
+		removeClassElement(getBody(), "oHidden");
+
+		var onhide = getAttributeElement(Popup.component, "data-onhide");
+		if (onhide != null) {
+			eval(onhide);
+		}
+
+		var component = Popup.component;
+		var container = Popup.container;
+		var modal = Popup.modal;
+		setTimeout(function() {
+			addClassElement(component, "dNone");
+			addClassElement(component, "vHidden");
+
+			replaceClassElement(modal, "fadeOut", "fadeIn");
+			replaceClassElement(container.firstChild, getAttributeElement(component, "data-animateout"),
+					getAttributeElement(component, "data-animatein"));
+		}, ANIMATION_TIME);
+
+		Popup.dest();
+	},
+
+	resize : function() {
+		Popup.expandable();
+		Popup.autocenter();
+		Popup.scrollable();
+	},
+
+	autocenter : function() {
+		if (Popup.isAutocenter) {
+			if (!Popup.isExpandable) {
+				Popup.panelBody.style.height = "";
+			}
+
+			autocenterElement(Popup.container);
+		}
+	},
+
+	closeable : function() {
+		if (Popup.isCloseable) {
+			actionToEscKey(hidePopup);
+		}
+	},
+
+	expandable : function() {
+		if (Popup.isExpandable) {
+			var height = getHeightWindow();
+			var width = getWidthWindow();
+
+			if (width <= MAX_WIDTH_PHONE) {
+				Popup.container.style.top = "";
+				Popup.container.style.left = "";
+
+				Popup.panel.style.maxWidth = width + "px";
+				Popup.panelBody.style.height = (height - getHeightElement(Popup.panelHead) - getHeightElement(Popup.panelFoot))
+						+ "px";
+			} else {
+				Popup.panel.style.maxWidth = "";
+				Popup.panelBody.style.height = "";
+			}
+		}
+	},
+
+	movable : function() {
+		if (Popup.isMovable) {
+			HandleMove.init(Popup.container, Popup.panel, Popup.panelHead);
+		}
+	},
+
+	scrollable : function() {
+		autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
+	}
+};
+
+/**
+ * @deprecated Since version 1.4. Use Popup.show() instead.
+ */
 function showPopup(id) {
-	idPopup = id;
-
-	addClassElement(getSelector("body"), "oHidden");
-	removeClass(idPopup, "dNone");
-
-	popupAutocenter();
-	popupScrollable();
-
-	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
-		window.addEventListener("resize", popupAutocenter);
-	}
-	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
-		window.addEventListener("keydown", popupCloseable);
-	}
-
-	window.addEventListener("resize", popupScrollable);
-	window.addEventListener("jsfAjaxEvent", popupScrollable);
-
-	if (getAttribute(idPopup, "data-onshow") != null) {
-		eval(getAttribute(idPopup, "data-onshow"));
-	}
-
-	removeClass(idPopup, "vHidden");
+	Popup.show(id);
 }
 
-function hidePopup(id) {
-	if (id != null) {
-		idPopup = id;
-	}
-
-	replaceClass(idPopup + ":modal", "animate-fadeIn", "animate-fadeOut");
-
-	replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-" + getAttribute(idPopup, "data-animatein"),
-			"animate-" + getAttribute(idPopup, "data-animateout"));
-
-	setTimeout(function() {
-		addClass(idPopup, "dNone");
-		addClass(idPopup, "vHidden");
-
-		replaceClass(idPopup + ":modal", "animate-fadeOut", "animate-fadeIn");
-		replaceClassElement(getElement(idPopup + ':id').firstChild, "animate-"
-				+ getAttribute(idPopup, "data-animateout"), "animate-" + getAttribute(idPopup, "data-animatein"));
-		idPopup = null;
-	}, ANIMATION_TIME);
-
-	if (getBoolean(getAttribute(idPopup, "data-autocenter"))) {
-		window.removeEventListener("resize", popupAutocenter);
-	}
-	if (getBoolean(getAttribute(idPopup, "data-closeable"))) {
-		window.removeEventListener("keydown", popupCloseable);
-	}
-
-	window.removeEventListener("resize", popupScrollable);
-	window.removeEventListener("jsfAjaxEvent", popupScrollable);
-
-	if (getAttribute(idPopup, "data-onhide") != null) {
-		eval(getAttribute(idPopup, "data-onhide"));
-	}
-
-	removeClassElement(getSelector("body"), "oHidden");
-}
-
-function popupAutocenter() {
-	var container = getElement(idPopup + ':id');
-	var element = getSelector("#" + idPopup + " .panel");
-
-	getSelector("#" + idPopup + " .body").style.height = "";
-
-	if (getLeftElement(element) == 0) {
-		autocenterWidthElement(container, element);
-	}
-
-	if (getTopElement(element) == 0) {
-		autocenterHeightElement(container, element);
-	}
-}
-
-function popupCloseable() {
-	actionToEscKey(hidePopup);
-}
-
-function popupMovable() {
-	var container = getElement(idPopup + ':id');
-	var elementToMove = getSelector("#" + idPopup + " .panel");
-	var elementToClick = getSelector("#" + idPopup + " .head");
-
-	HandleMove.init(container, elementToMove, elementToClick);
-}
-
-function popupScrollable(data) {
-	if (data != undefined && data.status != undefined && data.status != "success") {
-		return;
-	}
-
-	var popupBody = getSelector("#" + idPopup + " .body");
-	var popupFoot = getSelector("#" + idPopup + " .foot");
-
-	autoscrollHeightElement(popupBody, popupFoot);
+/**
+ * @deprecated Since version 1.4. Use Popup.hide() instead.
+ */
+function hidePopup() {
+	Popup.hide();
 }
 
 /* selectManyCheckbox */

@@ -17,12 +17,6 @@
             styleClass="head unselectable #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
             rendered="#{cc.attrs.rendered}">
 
-            <c:if
-                test="#{bbClevcore.isComponent(bbClevcore.POPUP, cc.parent.parent) and cc.parent.parent.attrs.movable}">
-                <f:passThroughAttribute name="onmousedown"
-                    value="popupMovable();" />
-            </c:if>
-
             <c:if test="#{cc.parent.attrs.accordion}">
                 <f:passThroughAttribute name="onclick"
                     value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
