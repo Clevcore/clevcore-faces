@@ -6,37 +6,26 @@
     xmlns:composite="http://xmlns.jcp.org/jsf/composite"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
     <composite:interface componentType="#{bbClevcore.NAVBAR}">
-        <composite:attribute name="id" />
         <composite:attribute name="styleClass" />
         <composite:attribute name="style" />
         <composite:attribute name="value" />
         <composite:attribute name="autoHide" default="true"
             type="java.lang.Boolean" />
-        <composite:attribute name="modal" default="true"
-            type="java.lang.Boolean" />
     </composite:interface>
 
     <composite:implementation>
         <h:panelGroup layout="block" styleClass="pRelative zNormal">
-            <nav id="#{cc.clientId}" class="bShadow4dp #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-                data-autoHide="#{cc.attrs.autoHide}"
-                data-modal="#{cc.attrs.modal}">
-                    
+            <nav id="navbar" class="bShadow4dp #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
+                data-autoHide="#{cc.attrs.autoHide}">
+
                 <cc:icon styleClass="iconSide" value="bars"
-                    onclick="showNavbar('#{cc.clientId}');"/>
-            
+                    onclick="Navbar.side.show();" />
+
                 <h:outputLink styleClass="logo" value="#{bbClevcore.path}">
                     <h:outputText value="#{cc.attrs.value}" />
                 </h:outputLink>
-                
-                <composite:insertChildren />
 
-                <c:if test="#{cc.attrs.modal}">
-                    <h:panelGroup layout="block"
-                        styleClass="modal animate animate-fadeIn dNone">
-                        <f:passThroughAttribute name="onclick" value="hideNavbar();" />
-                    </h:panelGroup>
-                </c:if>
+                <composite:insertChildren />
             </nav>
         </h:panelGroup>
     </composite:implementation>

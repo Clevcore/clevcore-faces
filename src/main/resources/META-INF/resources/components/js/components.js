@@ -557,45 +557,106 @@ function initMenu(id) {
 }
 
 /* navbar */
-var idNavbar = null;
+var Navbar = {
+	component : undefined,
 
-function showNavbar(id) {
-	idNavbar = id;
+	init : function() {
+		Navbar.component = getElement("#navbar");
+	},
 
-	addClass("#" + idNavbar + " .side", "ttx0");
+	side : {
+		SILL : 20,
+		WITDH : 240,
 
-	if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
-		removeClass("#" + idNavbar + " .modal", "dNone");
-	}
+		component : undefined,
+		isOpen : undefined,
 
-	window.addEventListener("keydown", navbarCloseable);
-}
+		init : function() {
+			Navbar.side.component = getSelector("#navbar .side");
+			Navbar.side.isOpen = false;
 
-function hideNavbar(id) {
-	if (id != null) {
-		idNavbar = id;
-	}
+			Navbar.side.modal.component = getSelector("#navbar .modal");
+		},
 
-	removeClass("#" + idNavbar + " .side", "ttx0");
+		state : {
+			start : function() {
+				Navbar.side.state.progress(0);
+			},
 
-	if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
-		replaceClass("#" + idNavbar + " .modal", "animate-fadeIn", "animate-fadeOut");
-	}
+			progress : function(x) {
+				Navbar.side.component.style.transform = "translateX(" + x + "px)";
+			},
 
-	setTimeout(function() {
-		if (getBoolean(getAttribute(idNavbar, "data-modal"))) {
-			addClass("#" + idNavbar + " .modal", "dNone");
-			replaceClass("#" + idNavbar + " .modal", "animate-fadeOut", "animate-fadeIn");
+			end : function() {
+				Navbar.side.state.progress(-(Navbar.side.WITDH + Navbar.side.SILL));
+			}
+		},
+
+		event : {
+			add : function() {
+				Navbar.side.modal.component.addEventListener("click", Navbar.side.hide);
+				window.addEventListener("keydown", Navbar.side.closeable);
+			},
+
+			remove : function() {
+				Navbar.side.modal.component.removeEventListener("click", Navbar.side.hide);
+				window.removeEventListener("keydown", Navbar.side.closeable);
+			}
+		},
+
+		show : function() {
+			Navbar.side.isOpen = true;
+
+			Navbar.side.event.add();
+			Navbar.side.state.start();
+			Navbar.side.modal.show();
+		},
+
+		hide : function() {
+			Navbar.side.isOpen = false;
+
+			Navbar.side.event.remove();
+			Navbar.side.state.end();
+			Navbar.side.modal.hide();
+		},
+
+		closeable : function() {
+			actionToEscKey(Navbar.side.hide);
+		},
+
+		modal : {
+			component : undefined,
+
+			state : {
+				start : function() {
+					Navbar.side.modal.state.progress(1);
+				},
+
+				progress : function(x) {
+					Navbar.side.modal.component.style.opacity = x;
+				},
+
+				end : function() {
+					Navbar.side.modal.state.progress(0);
+				}
+			},
+
+			show : function() {
+				removeClassElement(Navbar.side.modal.component, "dNone");
+				setTimeout(function() {
+					Navbar.side.modal.state.start();
+				}, 10);
+			},
+
+			hide : function() {
+				Navbar.side.modal.state.end();
+				setTimeout(function() {
+					addClassElement(Navbar.side.modal.component, "dNone");
+				}, ANIMATION_TIME);
+			}
 		}
-		idNavbar = null;
-	}, ANIMATION_TIME);
-
-	window.removeEventListener("keydown", navbarCloseable);
-}
-
-function navbarCloseable() {
-	actionToEscKey(hideNavbar);
-}
+	}
+};
 
 /* popup */
 var idPopup = null;

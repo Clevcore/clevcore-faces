@@ -627,10 +627,9 @@ nav .side {
 	top: 0;
 	width: 240px;
 	z-index: 2001;
-
+	
 	will-change: transform;
-	transform: translateX(-105%);
-	transition: transform .28s ease;
+	transform: translateX(-260px);
 }
 
 nav .side li {

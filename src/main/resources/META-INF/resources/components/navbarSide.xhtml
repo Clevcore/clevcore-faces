@@ -12,9 +12,16 @@
     </composite:interface>
 
     <composite:implementation>
-        <ul class="side bShadow16dp #{cc.attrs.styleClass}"
+        <ul class="side bShadow16dp tTransform #{cc.attrs.styleClass}"
             style="#{cc.attrs.style}">
             <composite:insertChildren />
         </ul>
+
+        <h:panelGroup layout="block" styleClass="modal oMin oTransition dNone" />
+
+        <script>
+			Navbar.init();
+			Navbar.side.init();
+		</script>
     </composite:implementation>
 </ui:composition>
