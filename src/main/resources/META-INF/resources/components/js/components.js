@@ -562,6 +562,12 @@ var Navbar = {
 
 	init : function() {
 		Navbar.component = getElement("#navbar");
+
+		window.addEventListener("load", function() {
+			window.addEventListener("touchstart", Navbar.side.touch.start);
+			window.addEventListener("touchmove", Navbar.side.touch.move);
+			window.addEventListener("touchend", Navbar.side.touch.end);
+		});
 	},
 
 	side : {
@@ -653,6 +659,77 @@ var Navbar = {
 				setTimeout(function() {
 					addClassElement(Navbar.side.modal.component, "dNone");
 				}, ANIMATION_TIME);
+			}
+		},
+
+		touch : {
+			startPageX : undefined,
+			realStartPageX : undefined,
+
+			start : function(event) {
+				var pageX = event.changedTouches[0].pageX;
+
+				if (Navbar.side.isOpen) {
+					Navbar.side.touch.startPageX = pageX < Navbar.side.WITDH ? pageX : Navbar.side.WITDH;
+					Navbar.side.touch.realStartPageX = pageX;
+					removeClassElement(Navbar.side.component, "tTransform");
+					removeClassElement(Navbar.side.modal.component, "oTransition");
+				} else if (pageX < Navbar.side.SILL) {
+					Navbar.side.touch.startPageX = pageX;
+					Navbar.side.touch.realStartPageX = pageX;
+					removeClassElement(Navbar.side.component, "tTransform");
+					removeClassElement(Navbar.side.modal.component, "oTransition");
+					removeClassElement(Navbar.side.modal.component, "dNone");
+				}
+			},
+
+			move : function(event) {
+				if (Navbar.side.touch.startPageX != undefined) {
+					var pageX = event.changedTouches[0].pageX;
+
+					if (pageX < Navbar.side.WITDH) {
+						var translate = pageX - (Navbar.side.isOpen ? Navbar.side.touch.startPageX : Navbar.side.WITDH);
+
+						if (translate > 0) {
+							translate = 0;
+						}
+
+						Navbar.side.state.progress(translate);
+						Navbar.side.modal.state.progress(1 - (Math.abs(translate) / Navbar.side.WITDH));
+					}
+				}
+			},
+
+			end : function(event) {
+				var pageX = event.changedTouches[0].pageX;
+
+				if (Navbar.side.touch.startPageX != undefined) {
+					addClassElement(Navbar.side.component, "tTransform");
+					addClassElement(Navbar.side.modal.component, "oTransition");
+
+					if (Navbar.side.touch.realStartPageX != pageX) {
+						if (pageX < Navbar.side.WITDH / 2) {
+							if (Navbar.side.isOpen) {
+								Navbar.side.hide();
+							} else {
+								Navbar.side.state.end();
+								Navbar.side.modal.state.end();
+							}
+						} else {
+							if (!Navbar.side.isOpen) {
+								Navbar.side.show();
+							} else {
+								Navbar.side.state.start();
+								Navbar.side.modal.state.start();
+							}
+						}
+					} else if (!Navbar.side.isOpen && pageX < Navbar.side.SILL) {
+						addClassElement(Navbar.side.modal.component, "dNone");
+					}
+
+					Navbar.side.touch.startPageX = undefined;
+					Navbar.side.touch.realStartPageX = undefined;
+				}
 			}
 		}
 	}
