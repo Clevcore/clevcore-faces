@@ -196,7 +196,7 @@ public final class FacesUtils {
     public static void addMessage(FacesMessage facesMessage) {
         FacesContext facesContext = getFacesContext();
         if (facesContext != null) {
-            getFacesContext().addMessage(null, facesMessage);
+            facesContext.addMessage(null, facesMessage);
             render(ID_MESSAGES + ":new");
         }
     }
@@ -204,7 +204,7 @@ public final class FacesUtils {
     public static void addMessage(String id, FacesMessage facesMessage) {
         FacesContext facesContext = getFacesContext();
         if (facesContext != null) {
-            getFacesContext().addMessage(id, facesMessage);
+            facesContext.addMessage(id, facesMessage);
             render(ID_MESSAGES + ":new");
         }
     }
@@ -212,7 +212,7 @@ public final class FacesUtils {
     public static void addMessage(String id, Severity severity, String summary, String message) {
         FacesContext facesContext = getFacesContext();
         if (facesContext != null) {
-            getFacesContext().addMessage(id, getFacesMessage(severity, summary, message));
+            facesContext.addMessage(id, getFacesMessage(severity, summary, message));
             render(ID_MESSAGES + ":new");
         }
     }

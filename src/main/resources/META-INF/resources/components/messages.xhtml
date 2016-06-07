@@ -12,42 +12,14 @@
 
     <composite:implementation>
         <h:panelGroup id="old" layout="block" styleClass="messages pEventsNone" />
-
         <h:panelGroup id="new" layout="block" styleClass="dNone">
-            <h:messages errorClass="error" fatalClass="fatal" infoClass="info"
-                warnClass="warn" globalOnly="true" showDetail="true"
+            <h:messages errorClass="error bShadow6dp"
+                fatalClass="fatal bShadow6dp" infoClass="info bShadow6dp"
+                warnClass="warn bShadow6dp" globalOnly="true" showDetail="true"
                 showSummary="false" />
-
             <h:panelGroup id="script" layout="block"
                 rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}">
-                <script>
-			 		addInnerHTML("#{cc.clientId}:old", true, removeInnerHTML("#{cc.clientId}:new"));
-
-			 		var height = getHeightElement(getElement("#{cc.clientId}:old").firstChild);
-					setAttributeElement(getElement("#{cc.clientId}:old").firstChild, "style", "height: 0");
-					addClassElement(getElement("#{cc.clientId}:old").firstChild.firstChild, "bShadow6dp");
-					
-					setTimeout(function() {
-						setClassElement(getElement("#{cc.clientId}:old").firstChild, "aRight");
-						setAttributeElement(getElement("#{cc.clientId}:old").firstChild, "style", "height: " + height + "px");
-					}, 10);
-
-					setTimeout(function() {
-						removeClassElement(getElement("#{cc.clientId}:old").lastChild, "aRight");
-						setAttributeElement(getElement("#{cc.clientId}:old").lastChild, "style", "height: 0");
-						setTimeout(function() {
-							removeElement(getElement("#{cc.clientId}:old").lastChild);
-						}, 500);
-					}, #{cc.attrs.timeHide});
-					
-					if(hasClassElement(getElement("#{cc.clientId}:old").firstChild.firstChild, "info")) {
-						if (idPopup != null) {
-							hidePopup();
-						}
-					}
-
-					remove("#{cc.clientId}:script");
-				</script>
+                <script>initMessages("#{cc.clientId}", #{cc.attrs.timeHide});</script>
             </h:panelGroup>
         </h:panelGroup>
     </composite:implementation>

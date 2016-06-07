@@ -556,6 +556,35 @@ function initMenu(id) {
 	});
 }
 
+/* messages */
+function initMessages(id, timeHide) {
+	var messages = getElement(id + ":old");
+	addInnerHTMLElement(messages, true, removeInnerHTMLElement(getElement(id + ":new")));
+
+	var message = messages.firstChild;
+	var height = getHeightElement(message);
+	message.style.height = "0";
+
+	setTimeout(function() {
+		message.style.height = height + "px";
+		setClassElement(message, "aRight");
+	}, 10);
+
+	setTimeout(function() {
+		removeClassElement(messages.lastChild, "aRight");
+		messages.lastChild.style.height = "0";
+		setTimeout(function() {
+			removeElement(messages.lastChild);
+		}, ANIMATION_TIME);
+	}, timeHide);
+
+	if (hasClassElement(message.firstChild, "info") && Popup.id != null) {
+		hidePopup();
+	}
+
+	remove(id + ":script");
+}
+
 /* navbar */
 var Navbar = {
 	component : undefined,
