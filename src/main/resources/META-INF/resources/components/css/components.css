@@ -372,8 +372,6 @@ table.table  {
 /* icon */
 .fa {
 	color: inherit;
-    display: inline;
-	line-height: 0;
 }
 
 
