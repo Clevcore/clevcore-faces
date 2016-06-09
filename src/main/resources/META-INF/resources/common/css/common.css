@@ -1322,15 +1322,15 @@
 }
 
 .mwLarge {
-	max-width: 960px;
+	max-width: 980px;
 }
 
 .mwNormal {
-	max-width: 640px;
+	max-width: 660px;
 }
 
 .mwSmall {
-	max-width: 320px;
+	max-width: 340px;
 }
 
 .maxW0 {
@@ -1354,15 +1354,15 @@
 }
 
 .wLarge {
-	width: 960px;
+	width: 980px;
 }
 
 .wNormal {
-	width: 640px;
+	width: 660px;
 }
 
 .wSmall {
-	width: 320px;
+	width: 340px;
 }
 
 .w100v {
