@@ -29,6 +29,12 @@
 			<version>${clevcore.java.version}</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>ar.com.clevcore</groupId>
+			<artifactId>clevcore-backend</artifactId>
+			<version>${clevcore.java.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- JSF -->
 		<dependency>

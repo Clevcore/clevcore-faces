@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ar.com.clevcore.exceptions.ClevcoreException;
+import ar.com.clevcore.backend.exceptions.ClevcoreException;
 
 public final class FacesUtils {
 
