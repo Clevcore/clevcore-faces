@@ -11,12 +11,16 @@
         <composite:attribute name="style" />
         <composite:attribute name="position" default="right"
             shortDescription="Position indication of the component on screen. Valid values are: left and right. The default value is 'right'." />
+        <composite:attribute name="rendered" />
     </composite:interface>
 
     <composite:implementation>
-        <ul class="menu #{cc.attrs.position == 'left' ? 'fLeft' : 'fRight'} #{cc.attrs.styleClass}"
-            style="#{cc.attrs.style}">
-            <composite:insertChildren />
-        </ul>
+        <h:panelGroup rendered="#{cc.attrs.rendered}">
+            <ul
+                class="menu #{cc.attrs.position == 'left' ? 'fLeft' : 'fRight'} #{cc.attrs.styleClass}"
+                style="#{cc.attrs.style}">
+                <composite:insertChildren />
+            </ul>
+        </h:panelGroup>
     </composite:implementation>
 </ui:composition>
