@@ -692,8 +692,11 @@ var Navbar = {
 		},
 
 		touch : {
+			LIMIT_TIME : 500,
+
 			startPageX : undefined,
 			realStartPageX : undefined,
+			startTime : undefined,
 
 			start : function(event) {
 				var pageX = event.changedTouches[0].pageX;
@@ -701,11 +704,15 @@ var Navbar = {
 				if (Navbar.side.isOpen) {
 					Navbar.side.touch.startPageX = pageX < Navbar.side.WITDH ? pageX : Navbar.side.WITDH;
 					Navbar.side.touch.realStartPageX = pageX;
+					Navbar.side.touch.startTime = (new Date()).getTime();
+
 					removeClassElement(Navbar.side.component, "tTransform");
 					removeClassElement(Navbar.side.modal.component, "oTransition");
 				} else if (pageX < Navbar.side.SILL) {
 					Navbar.side.touch.startPageX = pageX;
 					Navbar.side.touch.realStartPageX = pageX;
+					Navbar.side.touch.startTime = (new Date()).getTime();
+
 					removeClassElement(Navbar.side.component, "tTransform");
 					removeClassElement(Navbar.side.modal.component, "oTransition");
 					removeClassElement(Navbar.side.modal.component, "dNone");
@@ -730,26 +737,46 @@ var Navbar = {
 			},
 
 			end : function(event) {
-				var pageX = event.changedTouches[0].pageX;
-
 				if (Navbar.side.touch.startPageX != undefined) {
+					var pageX = event.changedTouches[0].pageX;
+
 					addClassElement(Navbar.side.component, "tTransform");
 					addClassElement(Navbar.side.modal.component, "oTransition");
 
 					if (Navbar.side.touch.realStartPageX != pageX) {
-						if (pageX < Navbar.side.WITDH / 2) {
-							if (Navbar.side.isOpen) {
-								Navbar.side.hide();
+						var time = (new Date()).getTime() - Navbar.side.touch.startTime;
+
+						if (time < Navbar.side.touch.LIMIT_TIME) {
+							if (pageX < Navbar.side.touch.realStartPageX) {
+								if (Navbar.side.isOpen) {
+									Navbar.side.hide();
+								} else {
+									Navbar.side.state.end();
+									Navbar.side.modal.state.end();
+								}
 							} else {
-								Navbar.side.state.end();
-								Navbar.side.modal.state.end();
+								if (!Navbar.side.isOpen) {
+									Navbar.side.show();
+								} else {
+									Navbar.side.state.start();
+									Navbar.side.modal.state.start();
+								}
 							}
 						} else {
-							if (!Navbar.side.isOpen) {
-								Navbar.side.show();
+							if (pageX < Navbar.side.WITDH / 2) {
+								if (Navbar.side.isOpen) {
+									Navbar.side.hide();
+								} else {
+									Navbar.side.state.end();
+									Navbar.side.modal.state.end();
+								}
 							} else {
-								Navbar.side.state.start();
-								Navbar.side.modal.state.start();
+								if (!Navbar.side.isOpen) {
+									Navbar.side.show();
+								} else {
+									Navbar.side.state.start();
+									Navbar.side.modal.state.start();
+								}
 							}
 						}
 					} else if (!Navbar.side.isOpen && pageX < Navbar.side.SILL) {
@@ -758,6 +785,7 @@ var Navbar = {
 
 					Navbar.side.touch.startPageX = undefined;
 					Navbar.side.touch.realStartPageX = undefined;
+					Navbar.side.touch.startTime = undefined;
 				}
 			}
 		}
