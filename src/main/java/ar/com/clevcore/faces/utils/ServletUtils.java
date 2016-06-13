@@ -52,20 +52,14 @@ public final class ServletUtils {
     }
 
     public static String getPath() {
-        int index = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
-
-        if (index != -1) {
-            return getUrlFull().substring(index);
-        } else {
-            return "";
-        }
+        return ServletUtils.getHttpServletRequest().getServletPath();
     }
 
     public static String getUrl() {
-        int result = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
+        int index = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
 
-        if (result != -1) {
-            return getUrlFull().substring(0, result);
+        if (index != -1) {
+            return getUrlFull().substring(0, index);
         } else {
             return "";
         }

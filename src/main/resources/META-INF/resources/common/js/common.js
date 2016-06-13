@@ -767,9 +767,45 @@ function animateScrollBottom(time) {
 	}, time | 1500);
 }
 
+function getDirectory() {
+	var beginIndex = getUrlFull().ordinalIndexOf("/", 4);
+	var endIndex = getUrlFull().lastIndexOf("/");
+
+	if (beginIndex != endIndex) {
+		return getUrlFull().substring(beginIndex, endIndex + 1);
+	} else {
+		return "";
+	}
+}
+
+function getPage() {
+	var index = getUrlFull().lastIndexOf("/");
+
+	if (index != -1) {
+		return getUrlFull().substring(index + 1);
+	} else {
+		return "";
+	}
+}
+
+function getPath() {
+	var index = getUrlFull().ordinalIndexOf("/", 4);
+
+	if (index != -1) {
+		return getUrlFull().substring(index);
+	} else {
+		return "";
+	}
+}
+
 function getUrl() {
-	var url = getUrlFull();
-	return url.split("pages").length > 0 ? url.split("pages")[0] : url;
+	var index = getUrlFull().ordinalIndexOf("/", 4);
+
+	if (index != -1) {
+		return getUrlFull().substring(0, index);
+	} else {
+		return "";
+	}
 }
 
 function getUrlFull() {

@@ -112,12 +112,53 @@ function getCaret(input) {
 	}
 }
 
+/* String */
 (function() {
 	String.prototype.replaceAll = function(search, replacement) {
 		var target = this;
 		return target.split(search).join(replacement);
 	};
 
+	String.prototype.ordinalIndexOf = function(search, ordinal) {
+		var target = this;
+		return ordinalIndexOf(target, search, ordinal, false);
+	};
+
+	String.prototype.lastOrdinalIndexOf = function(search, ordinal) {
+		var target = this;
+		return ordinalIndexOf(target, search, ordinal, true);
+	};
+
+	function ordinalIndexOf(value, searchValue, ordinal, lastIndex) {
+		if (value == null || searchValue == null || ordinal <= 0) {
+			return -1;
+		}
+
+		if (searchValue.length == 0) {
+			return lastIndex ? value.length : 0;
+		}
+
+		var found = 0;
+		var index = lastIndex ? value.length : -1;
+
+		do {
+			if (lastIndex) {
+				index = value.lastIndexOf(searchValue, index - 1);
+			} else {
+				index = value.indexOf(searchValue, index + 1);
+			}
+			if (index < 0) {
+				return index;
+			}
+			found++;
+		} while (found < ordinal);
+
+		return index;
+	}
+})();
+
+/* Math */
+(function() {
 	function decimalAdjust(type, value, exp) {
 		if (typeof exp === 'undefined' || +exp === 0) {
 			return Math[type](value);
