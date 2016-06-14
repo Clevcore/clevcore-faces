@@ -16,15 +16,23 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	margin: 0;
 	outline: 0;
 	padding: 0;
+
+	/* webKit */
+	-webkit-font-smoothing: antialiased;
+
+	/* Safari and Chrome */
 	text-rendering: optimizeLegibility;
 
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	/* Firefox */
+	-moz-osx-font-smoothing : grayscale;
+
+	/* IE */
+	font-feature-settings: 'liga';
 }
 
 html {
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;	
+      -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -120,7 +128,7 @@ textarea[data-height] {
 	body {
 	    padding: 2mm;
 	}
-	
+
 	main {
 	    padding: 2mm 10mm;
 	}

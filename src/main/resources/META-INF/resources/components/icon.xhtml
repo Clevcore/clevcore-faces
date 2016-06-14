@@ -1,29 +1,34 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.ICON}">
-        <composite:attribute name="id" targets="id" />
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="value" />
-        <composite:attribute name="title" />
-        <composite:attribute name="rendered" />
-        <composite:attribute name="onclick" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.ICON}">
+		<composite:attribute name="id" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="value" />
+		<composite:attribute name="title" />
+		<composite:attribute name="type" default="fa"
+			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="rendered" />
+		<composite:attribute name="onclick" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup id="id"
-            styleClass="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
-            style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}"
-            onclick="#{cc.attrs.onclick}">
-            <c:if test="#{cc.attrs.title ne null}">
-                <f:passThroughAttribute name="data-title"
-                    value="#{cc.attrs.title}" />
-            </c:if>
-        </h:panelGroup>
-    </composite:implementation>
+	<composite:implementation>
+		<h:panelGroup rendered="#{cc.attrs.rendered}">
+			<h:panelGroup rendered="#{cc.attrs.type == 'fa'}">
+				<i id="#{cc.clientId}" class="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" onclick="#{cc.attrs.onclick}"
+					data-title="#{cc.attrs.title}" data-type="#{cc.attrs.type}"></i>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{cc.attrs.type == 'md'}">
+				<i id="#{cc.clientId}" class="material-icons #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" onclick="#{cc.attrs.onclick}"
+					data-title="#{cc.attrs.title}" data-type="#{cc.attrs.type}">#{cc.attrs.value}</i>
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

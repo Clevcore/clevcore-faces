@@ -1,58 +1,59 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.ITEM}">
-        <composite:attribute name="id" />
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="icon" />
-        <composite:attribute name="value" />
-        <composite:attribute name="title" />
-        <composite:attribute name="redirect" default="#" />
-        <composite:attribute name="rendered" />
-        <composite:attribute name="disabled" />
-        <composite:attribute name="onclick" />
-        <composite:attribute name="action"
-            method-signature="java.lang.String action()" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.ITEM}">
+		<composite:attribute name="id" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="icon" />
+		<composite:attribute name="iconType" default="fa"
+			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="iconClass" />
+		<composite:attribute name="iconStyle" />
+		<composite:attribute name="value" />
+		<composite:attribute name="title" />
+		<composite:attribute name="redirect" default="#" />
+		<composite:attribute name="rendered" />
+		<composite:attribute name="disabled" />
+		<composite:attribute name="onclick" />
+		<composite:attribute name="action"
+			method-signature="java.lang.String action()" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup rendered="#{cc.attrs.rendered}">
-            <li>
-                <h:outputLink styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
-                    style="#{cc.attrs.style}"
-                    value="#{cc.attrs.redirect}"
-                    rendered="#{cc.attrs.action == null}"
-                    disabled="#{cc.attrs.disabled}"
-                    onclick="#{cc.attrs.onclick}">
-                    <cc:icon
-                        styleClass="fs18 #{cc.attrs.value != null ? 'pRightNormal' : ''}"
-                        value="#{cc.attrs.icon}"
-                        rendered="#{cc.attrs.icon != null}" />
-                    <h:outputText value="#{cc.attrs.value}"
-                        rendered="#{cc.attrs.value != null}" />
-                </h:outputLink>
-                
-                <h:commandLink styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
-                    style="#{cc.attrs.style}"
-                    action="#{cc.attrs.action}"
-                    rendered="#{cc.attrs.action != null}"
-                    disabled="#{cc.attrs.disabled}"
-                    onclick="#{cc.attrs.onclick}">
-                    <cc:icon
-                        styleClass="fs18 #{cc.attrs.value != null ? 'pRightNormal' : ''}"
-                        value="#{cc.attrs.icon}"
-                        rendered="#{cc.attrs.icon != null}" />
-                    <h:outputText value="#{cc.attrs.value}"
-                        rendered="#{cc.attrs.value != null}" />
-                </h:commandLink>
-                
-                <composite:insertChildren />
-            </li>
-        </h:panelGroup>
-    </composite:implementation>
+	<composite:implementation>
+		<h:panelGroup rendered="#{cc.attrs.rendered}">
+			<li>
+				<h:outputLink
+					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" value="#{cc.attrs.redirect}"
+					rendered="#{cc.attrs.action == null}"
+					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
+					<cc:icon type="#{cc.attrs.iconType}"
+						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
+						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
+						rendered="#{cc.attrs.icon != null}" />
+					<h:outputText value="#{cc.attrs.value}"
+						rendered="#{cc.attrs.value != null}" />
+				</h:outputLink>
+				<h:commandLink
+					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" action="#{cc.attrs.action}"
+					rendered="#{cc.attrs.action != null}"
+					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
+					<cc:icon type="#{cc.attrs.iconType}"
+						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
+						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
+						rendered="#{cc.attrs.icon != null}" />
+					<h:outputText value="#{cc.attrs.value}"
+						rendered="#{cc.attrs.value != null}" />
+				</h:commandLink>
+				<composite:insertChildren />
+			</li>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

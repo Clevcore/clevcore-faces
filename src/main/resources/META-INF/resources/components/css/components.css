@@ -371,7 +371,32 @@ table.table  {
 
 /* icon */
 .fa {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.material-icons {
+	line-height: 0;
+}
+
+.fa, .material-icons {
 	color: inherit;
+}
+
+.fa.head {
+	font-size: 24px;
+}
+
+.material-icons.head {
+	font-size: 36px;
+}
+
+.fa.title {
+	font-size: 20px;
+}
+
+.material-icons.title {
+	font-size: 28px;
 }
 
 
@@ -556,7 +581,7 @@ table.table  {
 .items ul {
 	background-color: #FFFFFF; /* white */
 	overflow-x: hidden;
-	overflow-y: auto; 
+	overflow-y: auto;
 }
 
 .items li {
@@ -590,7 +615,7 @@ nav .iconSide,nav .logo  {
 	cursor: pointer;
 	display: inline-block;
 	float: left;
-	font-size: 1.6rem;
+	font-size: 24px;
 	line-height: inherit;
 	padding: 0 15px;
 }
@@ -625,7 +650,7 @@ nav .side {
 	top: 0;
 	width: 240px;
 	z-index: 2001;
-	
+
 	will-change: transform;
 	transform: translateX(-260px);
 }

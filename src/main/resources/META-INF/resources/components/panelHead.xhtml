@@ -1,78 +1,81 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.PANEL_HEAD}">
-        <composite:attribute name="id" targets="id" />
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="icon" />
-        <composite:attribute name="rendered" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.PANEL_HEAD}">
+		<composite:attribute name="id" targets="id" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="icon" />
+		<composite:attribute name="iconType" default="fa"
+			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="iconClass" />
+		<composite:attribute name="iconStyle" />
+		<composite:attribute name="rendered" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup id="id" layout="block"
-            styleClass="head unselectable #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
-            rendered="#{cc.attrs.rendered}">
+	<composite:implementation>
+		<h:panelGroup id="id" layout="block"
+			styleClass="head unselectable #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
+			rendered="#{cc.attrs.rendered}">
 
-            <c:if test="#{cc.parent.attrs.accordion}">
-                <f:passThroughAttribute name="onclick"
-                    value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
-                <c:choose>
-                    <c:when test="#{cc.parent.attrs.accordionOpened == true}">
-                        <f:passThroughAttribute name="title"
-                            value="#{clevcoreMsg.compress}" />
-                    </c:when>
-                    <c:when test="#{cc.parent.attrs.accordionOpened == false}">
-                        <f:passThroughAttribute name="title"
-                            value="#{clevcoreMsg.expand}" />
-                    </c:when>
-                </c:choose>
-            </c:if>
+			<c:if test="#{cc.parent.attrs.accordion}">
+				<f:passThroughAttribute name="onclick"
+					value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
+				<c:choose>
+					<c:when test="#{cc.parent.attrs.accordionOpened == true}">
+						<f:passThroughAttribute name="title"
+							value="#{clevcoreMsg.compress}" />
+					</c:when>
+					<c:when test="#{cc.parent.attrs.accordionOpened == false}">
+						<f:passThroughAttribute name="title" value="#{clevcoreMsg.expand}" />
+					</c:when>
+				</c:choose>
+			</c:if>
 
-            <h:panelGroup layout="block" styleClass="fInherit pNormal">
-                <c:choose>
-                    <c:when
-                        test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                        <cc:icon styleClass="fs14 pRightNormal noPrint"
-                            value="chevron-down" />
-                    </c:when>
-                    <c:when
-                        test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                        <cc:icon styleClass="fs14 pRightNormal noPrint"
-                            value="chevron-right" />
-                    </c:when>
-                </c:choose>
+			<h:panelGroup layout="block" styleClass="fInherit pNormal">
+				<c:choose>
+					<c:when
+						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
+						<cc:icon styleClass="fs14 pRightNormal noPrint"
+							value="chevron-down" />
+					</c:when>
+					<c:when
+						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
+						<cc:icon styleClass="fs14 pRightNormal noPrint"
+							value="chevron-right" />
+					</c:when>
+				</c:choose>
 
-                <c:if test="#{cc.attrs.icon ne null}">
-                    <cc:icon styleClass="fs24 pRightNormal"
-                        value="#{cc.attrs.icon}" />
-                </c:if>
+				<c:if test="#{cc.attrs.icon ne null}">
+					<cc:icon type="#{cc.attrs.iconType}"
+						styleClass="head pRightNormal #{cc.attrs.iconClass}"
+						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}" />
+				</c:if>
 
-                <h:panelGroup styleClass="fInherit ">
-                    <composite:insertChildren />
-                </h:panelGroup>
+				<h:panelGroup styleClass="fInherit ">
+					<composite:insertChildren />
+				</h:panelGroup>
 
-                <h:panelGroup layout="block" styleClass="accordionIcon">
-                    <c:choose>
-                        <c:when test="#{cc.parent.parent.attrs.closeable}">
-                            <cc:icon styleClass="cWhiteHover cPointer fs24"
-                                value="times" title="#{clevcoreMsg.close}"
-                                onclick="hidePopup();" />
-                        </c:when>
-                        <c:when
-                            test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-                            <cc:icon styleClass="fs14 noPrint" value="minus" />
-                        </c:when>
-                        <c:when
-                            test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-                            <cc:icon styleClass="fs14 noPrint" value="plus" />
-                        </c:when>
-                    </c:choose>
-                </h:panelGroup>
-            </h:panelGroup>
-        </h:panelGroup>
-    </composite:implementation>
+				<h:panelGroup layout="block" styleClass="accordionIcon">
+					<c:choose>
+						<c:when test="#{cc.parent.parent.attrs.closeable}">
+							<cc:icon styleClass="cWhiteHover cPointer fs24" value="times"
+								title="#{clevcoreMsg.close}" onclick="hidePopup();" />
+						</c:when>
+						<c:when
+							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
+							<cc:icon styleClass="fs14 noPrint" value="minus" />
+						</c:when>
+						<c:when
+							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
+							<cc:icon styleClass="fs14 noPrint" value="plus" />
+						</c:when>
+					</c:choose>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

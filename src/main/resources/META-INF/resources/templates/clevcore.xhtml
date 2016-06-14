@@ -8,15 +8,16 @@
     <h:head>
         <h:outputStylesheet name="vendor/css/bootstrap.min.css" />
         <h:outputStylesheet name="common/css/reset.css" />
-    
+
         <h:outputStylesheet name="vendor/css/bootstrap-datetimepicker.min.css" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" />
         <h:outputStylesheet name="vendor/css/font-awesome.min.css" />
-    
+        <h:outputStylesheet name="vendor/css/material-icons.min.css" />
+
         <h:outputStylesheet name="common/css/animate.css" />
         <h:outputStylesheet name="components/css/components.css" />
         <h:outputStylesheet name="common/css/common.css" />
-    
+
         <h:outputScript name="vendor/js/jquery.min.js" />
         <h:outputScript name="vendor/js/bootstrap.min.js" />
         <h:outputScript name="vendor/js/moment.min.js" />
@@ -27,12 +28,12 @@
         <h:outputScript name="common/js/reset.js" />
         <h:outputScript name="common/js/common.js" />
         <h:outputScript name="components/js/components.js" />
-    
+
         <o:conditionalComment if="lt IE 9">
             <h:outputScript name="vendor/js/html5shiv.min.js" />;
             <h:outputScript name="vendor/js/respond.min.js" />;
         </o:conditionalComment>
-    
+
         <script>
 			$(document).ready(function() {
 				path = "#{bbClevcore.path}";
@@ -44,13 +45,13 @@
     </h:head>
     <h:body>
         <ui:insert name="body" />
-    
+
         <cc:messages id="#{bbClevcore.idMessages}" />
-    
+
         <h:panelGroup id="#{bbClevcore.idScript}">
             <script>#{bbClevcore.script}</script>
         </h:panelGroup>
-    
+
         <o:onloadScript>
 			var facesContext = {
 				maximumSeverity : "#{facesContext.maximumSeverity}",
