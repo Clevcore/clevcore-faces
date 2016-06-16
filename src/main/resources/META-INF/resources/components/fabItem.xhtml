@@ -5,7 +5,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.FAB_ITEM}">
+	<composite:interface componentType="#{bbClevcore.FAB_ITEM}">
 		<composite:attribute name="styleClass" />
 		<composite:attribute name="value" />
 		<composite:attribute name="rendered" type="java.lang.Boolean" />
@@ -13,23 +13,21 @@
 
 	<composite:implementation>
 		<h:panelGroup layout="block"
-			styleClass="#{cc.attrs.styleClass} #{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft' ? 'tLeft' : 'tRight'}"
+			styleClass="fabItem #{cc.attrs.styleClass} #{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft' ? 'tLeft' : 'tRight'}"
 			rendered="#{cc.attrs.rendered}">
 			<h:outputText
 				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
 				value="#{cc.attrs.value}"
-				rendered="#{cc.parent.attrs.position != 'topLeft' and cc.parent.attrs.position !=  'bottomLeft'}" />
+				rendered="#{cc.attrs.value != null and cc.parent.attrs.position != 'topLeft' and cc.parent.attrs.position !=  'bottomLeft'}" />
 
-			<h:panelGroup layout="block"
-				styleClass="dInlineBlock mLarge pEventsVisible"
-				onclick="fab('#{cc.parent.clientId}')">
+			<h:panelGroup layout="block" styleClass="dInlineBlock pEventsVisible">
 				<composite:insertChildren />
 			</h:panelGroup>
 
 			<h:outputText
 				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
 				value="#{cc.attrs.value}"
-				rendered="#{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft'}" />
+				rendered="#{cc.attrs.value != null and cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft'}" />
 		</h:panelGroup>
 	</composite:implementation>
 </ui:composition>

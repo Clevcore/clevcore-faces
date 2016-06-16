@@ -1,56 +1,68 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.FAB}">
-        <composite:attribute name="styleClass" default="primary" />
-        <composite:attribute name="animateIn"
-            default="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight' ? 'fadeInUpSmall' : 'fadeInDownSmall'}" />
-        <composite:attribute name="animateOut"
-            default="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight' ? 'fadeOutUpSmall' : 'fadeOutDownSmall'}" />
-        <composite:attribute name="position" default="bottomRight"
-            shortDescription="Position indication of the component on screen. Valid values are: topLeft, topRight, bottomLeft and bottomRight. The default value is 'bottomRight'." />
-        <composite:attribute name="modal" default="true"
-            type="java.lang.Boolean" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.FAB}">
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="icon" default="plus" />
+		<composite:attribute name="iconType" default="fa"
+			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="iconClass" />
+		<composite:attribute name="iconStyle" />
+		<composite:attribute name="animateIn"
+			default="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight' ? 'fadeInUpSmall' : 'fadeInDownSmall'}" />
+		<composite:attribute name="animateOut"
+			default="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight' ? 'fadeOutUpSmall' : 'fadeOutDownSmall'}" />
+		<composite:attribute name="position" default="bottomRight"
+			shortDescription="Position indication of the component on screen. Valid values are: topLeft, topRight, bottomLeft and bottomRight. The default value is 'bottomRight'." />
+		<composite:attribute name="modal" default="true"
+			type="java.lang.Boolean" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup layout="block"
-            styleClass="dNone modal animate animate-fadeIn"
-            onclick="fab('#{cc.clientId}')" rendered="#{cc.attrs.modal}" />
+	<composite:implementation>
+		<h:panelGroup layout="block"
+			styleClass="dNone modal animate animate-fadeIn"
+			rendered="#{cc.attrs.modal}" />
 
-        <h:panelGroup layout="block"
-            styleClass="pEventsNone pFixed zModal #{cc.attrs.position == 'topLeft' ? 'aTop aLeft' : cc.attrs.position == 'topRight' ? 'aTop aRight' : cc.attrs.position == 'bottomLeft' ? 'aBottom aLeft' : 'aBottom aRight'}">
-            <f:passThroughAttribute name="id" value="#{cc.clientId}" />
-            <f:passThroughAttribute name="data-position"
-                value="#{cc.attrs.position}" />
-            <f:passThroughAttribute name="data-animatein"
-                value="#{cc.attrs.animateIn}" />
-            <f:passThroughAttribute name="data-animateout"
-                value="#{cc.attrs.animateOut}" />
-            <f:passThroughAttribute name="data-modal" value="#{cc.attrs.modal}" />
+		<h:panelGroup layout="block"
+			styleClass="fab #{cc.attrs.position == 'topLeft' ? 'aTop aLeft' : cc.attrs.position == 'topRight' ? 'aTop aRight' : cc.attrs.position == 'bottomLeft' ? 'aBottom aLeft' : 'aBottom aRight'}">
+			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
+			<f:passThroughAttribute name="data-position"
+				value="#{cc.attrs.position}" />
+			<f:passThroughAttribute name="data-animatein"
+				value="#{cc.attrs.animateIn}" />
+			<f:passThroughAttribute name="data-animateout"
+				value="#{cc.attrs.animateOut}" />
+			<f:passThroughAttribute name="data-modal" value="#{cc.attrs.modal}" />
 
-            <cc:fabItem
-                rendered="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight'}">
-                <cc:commandButton
-                    styleClass="primary btn-circle bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
-                    icon="plus" />
-            </cc:fabItem>
+			<cc:fabItem styleClass="trigger"
+				rendered="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight'}">
+				<cc:commandButton
+					styleClass="primary bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
+					iconType="#{cc.attrs.iconType}"
+					iconClass="tTransform #{cc.attrs.iconClass}"
+					iconStyle="#{cc.attrs.iconStyle}" onclick="fab('#{cc.clientId}');" />
+			</cc:fabItem>
 
-            <h:panelGroup layout="block"
-                styleClass="dNone animate animate-#{cc.attrs.animateIn}">
-                <composite:insertChildren />
-            </h:panelGroup>
+			<h:panelGroup layout="block"
+				styleClass="fabItems dNone animate animate-#{cc.attrs.animateIn}">
+				<composite:insertChildren />
+			</h:panelGroup>
 
-            <cc:fabItem
-                rendered="#{cc.attrs.position != 'topLeft' and cc.attrs.position !=  'topRight'}">
-                <cc:commandButton
-                    styleClass="btn-circle bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
-                    icon="plus" />
-            </cc:fabItem>
-        </h:panelGroup>
-    </composite:implementation>
+			<cc:fabItem styleClass="trigger"
+				rendered="#{cc.attrs.position != 'topLeft' and cc.attrs.position !=  'topRight'}">
+				<cc:commandButton
+					styleClass="primary bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
+					iconType="#{cc.attrs.iconType}"
+					iconClass="tTransform #{cc.attrs.iconClass}"
+					iconStyle="#{cc.attrs.iconStyle}" onclick="fab('#{cc.clientId}');" />
+			</cc:fabItem>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

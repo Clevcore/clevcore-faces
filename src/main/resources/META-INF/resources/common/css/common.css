@@ -1914,6 +1914,14 @@
 	z-index: 1;
 }
 
+.zPremodal {
+	z-index: 1000;
+}
+
+.zPremodalChildren {
+	z-index: 1500;
+}
+
 .zModal {
 	z-index: 2000;
 }

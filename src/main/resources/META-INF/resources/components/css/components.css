@@ -161,12 +161,6 @@ textarea:disabled,
 	padding-top: 23px;
 }
 
-.btn-circle {
-	border-radius: 50%;
-	height: 60px;
-	width: 60px;
-}
-
 .default-outline {
 	background-color: transparent;
 	border-color: #424242; /* grey-800 */
@@ -356,6 +350,38 @@ table.table  {
 	.tableResponsive > table > tfoot > tr > td {
 		white-space: nowrap;
 	}
+}
+
+
+/* fab */
+.fab {
+	padding: 20px;
+	pointer-events: none;
+	position: fixed;
+	z-index: 2000;
+}
+
+.fabItem.trigger button {
+	border-radius: 50%;
+	height: 56px;
+	min-width: 56px;
+	width: 56px;
+}
+
+.fabItems {
+	padding: 12px 0;
+}
+
+.fabItems .fabItem, .fabItems .fabItem > span {
+	padding: 8px;
+}
+
+.fabItems .fabItem button {
+	border-radius: 50%;
+	height: 40px;
+	min-width: 40px;
+	padding: 0;
+	width: 40px;
 }
 
 

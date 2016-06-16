@@ -90,7 +90,7 @@ var HandleAjax = {
 /* accordion */
 function initAccordion(id) {
 	var panel = getElement(id + ":id");
-	var panelBody = panel.childNodes[1];
+	var panelBody = panel.children[1];
 	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 	if (opened) {
@@ -107,9 +107,9 @@ function initAccordion(id) {
 
 function accordion(id, titleCompress, titleExpand) {
 	var panel = getElement(id + ":id");
-	var panelHead = panel.childNodes[0];
-	var panelBody = panel.childNodes[1];
-	var panelFoot = panel.childNodes[2];
+	var panelHead = panel.children[0];
+	var panelBody = panel.children[1];
+	var panelFoot = panel.children[2];
 	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 	if (opened) {
@@ -172,19 +172,19 @@ var CommandButton = {
 	loadingOn : function(element) {
 		setDisabledElement(element, true);
 		addClassElement(element, "vTop");
-		replaceClassElement(element.childNodes[0], "dNone", "dBlock");
-		replaceClassElement(element.childNodes[1], "vVisible", "vHidden");
-		addClassElement(element.childNodes[1], "h0");
-		addClassElement(element.childNodes[1], "oHidden");
+		replaceClassElement(element.children[0], "dNone", "dBlock");
+		replaceClassElement(element.children[1], "vVisible", "vHidden");
+		addClassElement(element.children[1], "h0");
+		addClassElement(element.children[1], "oHidden");
 	},
 
 	loadingOff : function(element) {
 		setDisabledElement(element, false);
 		removeClassElement(element, "vTop");
-		replaceClassElement(element.childNodes[0], "dBlock", "dNone");
-		replaceClassElement(element.childNodes[1], "vHidden", "vVisible");
-		removeClassElement(element.childNodes[1], "h0");
-		removeClassElement(element.childNodes[1], "oHidden");
+		replaceClassElement(element.children[0], "dBlock", "dNone");
+		replaceClassElement(element.children[1], "vHidden", "vVisible");
+		removeClassElement(element.children[1], "h0");
+		removeClassElement(element.children[1], "oHidden");
 	}
 
 };
@@ -333,61 +333,48 @@ function searchDataTable(id, value) {
 
 /* fab */
 var idFab = null;
-var fabClick;
 
 function fab(id) {
-	id = id;
+	event.stopPropagation();
 
-	var position = getAttributeElement(getElement(id), "data-position");
-	var animateIn = getAttributeElement(getElement(id), "data-animatein");
-	var animateOut = getAttributeElement(getElement(id), "data-animateout");
+	if (id != null) {
+		idFab = id;
+	}
+
+	var position = getAttributeElement(getElement(idFab), "data-position");
+	var animateIn = getAttributeElement(getElement(idFab), "data-animatein");
+	var animateOut = getAttributeElement(getElement(idFab), "data-animateout");
+
+	var items = getElement("#" + idFab + " .fabItems");
+	var trigger = getElement("#" + idFab + " .trigger button");
+	var icon = getElement("#" + idFab + " .trigger i.tTransform");
 
 	var modal;
-	if (eval(getAttributeElement(getElement(id), "data-modal"))) {
-		modal = getElement(id).previousSibling;
+	if (eval(getAttributeElement(getElement(idFab), "data-modal"))) {
+		modal = getElement(idFab).previousSibling;
 	} else {
 		modal = null;
 	}
 
-	var panel;
-	var trigger;
-
-	if (position == "topLeft") {
-		panel = getElement(id).childNodes[1];
-		trigger = getElement(id).childNodes[0].childNodes[0].childNodes[0];
-	} else if (position == "topRight") {
-		panel = getElement(id).childNodes[1];
-		trigger = getElement(id).childNodes[0].childNodes[1].childNodes[0];
-	} else if (position == "bottomLeft") {
-		panel = getElement(id).childNodes[0];
-		trigger = getElement(id).childNodes[1].childNodes[0].childNodes[0];
-	} else {
-		panel = getElement(id).childNodes[0];
-		trigger = getElement(id).childNodes[1].childNodes[1].childNodes[0];
-	}
-
-	addClassElement(trigger.childNodes[1].childNodes[0], "tTransform");
-
-	if (getClassElement(panel).indexOf("dNone") != -1) {
+	if (getClassElement(items).indexOf("dNone") != -1) {
 		if (modal != null) {
 			replaceClassElement(modal, "dNone", "dBlock");
 		}
 
-		replaceClassElement(panel, "dNone", "dBlock");
-		addClassElement(trigger.childNodes[1].childNodes[0], "trz225");
+		replaceClassElement(items, "dNone", "dBlock");
+		addClassElement(icon, "trz225");
 
-		idFab = id;
-		fabClick = false;
-
-		window.addEventListener("click", fabHandler, false);
-		window.addEventListener("keydown", fabHandler, false);
+		window.addEventListener("click", fabCloseableClick, false);
+		window.addEventListener("keydown", fabCloseableKey, false);
 	} else {
+		idFab = null;
+
 		if (modal != null) {
 			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
 		}
 
-		replaceClassElement(panel, "animate-" + animateIn, "animate-" + animateOut);
-		removeClassElement(trigger.childNodes[1].childNodes[0], "trz225");
+		replaceClassElement(items, "animate-" + animateIn, "animate-" + animateOut);
+		removeClassElement(icon, "trz225");
 
 		setTimeout(function() {
 			if (modal != null) {
@@ -395,28 +382,21 @@ function fab(id) {
 				replaceClassElement(modal, "animate-fadeOut", "animate-fadeIn");
 			}
 
-			replaceClassElement(panel, "dBlock", "dNone");
-			replaceClassElement(panel, "animate-" + animateOut, "animate-" + animateIn);
+			replaceClassElement(items, "dBlock", "dNone");
+			replaceClassElement(items, "animate-" + animateOut, "animate-" + animateIn);
 		}, ANIMATION_TIME);
 
-		idFab = null;
-		fabClick = null;
-
-		window.removeEventListener("click", fabHandler, false);
-		window.removeEventListener("keydown", fabHandler, false);
+		window.removeEventListener("click", fabCloseableClick, false);
+		window.removeEventListener("keydown", fabCloseableKey, false);
 	}
 }
 
-function fabHandler(e) {
-	var key = e.which ? e.which : event.keyCode;
+function fabCloseableClick() {
+	fab();
+}
 
-	if (fabClick && (key == 1 || key == 27)) {
-		fab(idFab);
-	}
-
-	if (!fabClick) {
-		fabClick = true;
-	}
+function fabCloseableKey() {
+	actionToEscKey(fab);
 }
 
 /* graphicImage */
