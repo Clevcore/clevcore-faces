@@ -960,13 +960,14 @@ var FloatIfNotVisible = function() {
 	};
 
 	var getElementArray = function() {
-		return getSelectors(".js-float-top-if-not-visible, .js-float-left-if-not-visible, .js-float-bottom-if-not-visible, .js-right-top-if-not-visible");
+		return getSelectors("[class*='js-float-']");
 	};
 
 	return {
 		init : function() {
 			var elementArray = getElementArray();
 			for (var i = 0; i < elementArray.length; i++) {
+				addStyleElement(elementArray[i], "z-index: " + (elementArray.length - i) + ";");
 				if (hasClassElement(elementArray[i], "js-float-top-if-not-visible")
 						|| hasClassElement(elementArray[i], "js-float-bottom-if-not-visible")) {
 					addStyleElement(elementArray[i], "height: " + getHeightElement(elementArray[i]) + "px;");

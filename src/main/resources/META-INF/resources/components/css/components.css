@@ -358,7 +358,6 @@ table.table  {
 	padding: 20px;
 	pointer-events: none;
 	position: fixed;
-	z-index: 2000;
 }
 
 .fabItem.trigger button {
@@ -372,8 +371,13 @@ table.table  {
 	padding: 12px 0;
 }
 
-.fabItems .fabItem, .fabItems .fabItem > span {
+.fabItems .fabItem {
 	padding: 8px;
+}
+
+.fabItems .fabItem > span {
+	margin: 8px;
+	padding: 4px 8px;
 }
 
 .fabItems .fabItem button {
@@ -382,6 +386,11 @@ table.table  {
 	min-width: 40px;
 	padding: 0;
 	width: 40px;
+}
+
+.fabItems .fabItem i.material-icons {
+	font-size: 18px;
+	line-height: 1;
 }
 
 
