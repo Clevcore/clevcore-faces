@@ -626,7 +626,7 @@ table.table  {
 .items a  {
 	color: #424242 !important; /* grey-800 */
 	display: block;
-	padding: 15px;
+	padding: 15px 30px 15px 15px;
 	text-align: left !important;
 	white-space: nowrap;
 
