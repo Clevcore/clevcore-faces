@@ -650,28 +650,36 @@ function getTopWindowScroll() {
 	return getTopScrollElement(getBody());
 }
 
-function isVisibleVertical(id) {
-	return isVisibleVerticalElement(getElement(id));
+function isVisibleVertical(id, completely) {
+	return isVisibleVerticalElement(getElement(id), completely);
 }
 
-function isVisibleVerticalElement(element) {
-	return getBottomElement(element) > getTopWindowScroll() && getTopElement(element) < getBottomWindowScroll();
+function isVisibleVerticalElement(element, completely) {
+	if (completely === undefined || !completely) {
+		return getBottomElement(element) > getTopWindowScroll() && getTopElement(element) < getBottomWindowScroll();
+	} else {
+		return getTopElement(element) >= getTopWindowScroll() && getBottomElement(element) <= getBottomWindowScroll();
+	}
 }
 
-function isVisibleHorizontal(id) {
-	return isVisibleHorizontalElement(getElement(id));
+function isVisibleHorizontal(id, completely) {
+	return isVisibleHorizontalElement(getElement(id), completely);
 }
 
-function isVisibleHorizontalElement(element) {
-	return getRightElement(element) > getLeftWindowScroll() && getLeftElement(element) < getRightWindowScroll();
+function isVisibleHorizontalElement(element, completely) {
+	if (completely === undefined || !completely) {
+		return getRightElement(element) > getLeftWindowScroll() && getLeftElement(element) < getRightWindowScroll();
+	} else {
+		return getLeftElement(element) >= getLeftWindowScroll() && getRightElement(element) <= getRightWindowScroll();
+	}
 }
 
-function isVisible(id) {
-	return isVisibleElement(getElement(id));
+function isVisible(id, completely) {
+	return isVisibleElement(getElement(id), completely);
 }
 
-function isVisibleElement(element) {
-	return isVisibleVerticalElement(element) && isVisibleHorizontalElement(element);
+function isVisibleElement(element, completely) {
+	return isVisibleVerticalElement(element, completely) && isVisibleHorizontalElement(element, completely);
 }
 
 Array.get = function(array, key, value) {
@@ -927,31 +935,32 @@ var HandleMove = {
 var FloatIfNotVisible = function() {
 	var verify = function(element) {
 		var style = "pFixed w100 " + (getAttributeElement(element, "data-floatClass") || "");
+		var completely = hasClassElement(element, "-completely");
 
 		if (hasClassElement(element, "js-float-top-if-not-visible")) {
 			style += " aTop aLeft";
-			if (!isVisibleVerticalElement(element)) {
+			if (!isVisibleVerticalElement(element, completely)) {
 				addClassElement(element.firstElementChild, style);
 			} else {
 				removeClassElement(element.firstElementChild, style);
 			}
 		} else if (hasClassElement(element, "js-float-left-if-not-visible")) {
 			style += " aTop aLeft";
-			if (!isVisibleHorizontalElement(element)) {
+			if (!isVisibleHorizontalElement(element, completely)) {
 				addClassElement(element.firstElementChild, style);
 			} else {
 				removeClassElement(element.firstElementChild, style);
 			}
 		} else if (hasClassElement(element, "js-float-bottom-if-not-visible")) {
 			style += " aBottom aLeft";
-			if (!isVisibleVerticalElement(element)) {
+			if (!isVisibleVerticalElement(element, completely)) {
 				addClassElement(element.firstElementChild, style);
 			} else {
 				removeClassElement(element.firstElementChild, style);
 			}
 		} else {
 			style += " aTop aRight";
-			if (!isVisibleHorizontalElement(element)) {
+			if (!isVisibleHorizontalElement(element, completely)) {
 				addClassElement(element.firstElementChild, style);
 			} else {
 				removeClassElement(element.firstElementChild, style);
@@ -977,6 +986,7 @@ var FloatIfNotVisible = function() {
 			}
 
 			FloatIfNotVisible.process();
+
 			window.addEventListener("scroll", FloatIfNotVisible.process);
 			window.addEventListener("resize", FloatIfNotVisible.process);
 
