@@ -1,3 +1,11 @@
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
 	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
@@ -75,7 +83,7 @@ label:hover {
 	cursor: pointer;
 }
 
-ol,ul {
+ol, ul {
 	list-style: none;
 }
 
@@ -111,7 +119,7 @@ textarea[data-height] {
 	line-height: 1.4;
 }
 
-:-moz-placeholder{
+:-moz-placeholder {
 	color: #9E9E9E; /* grey-500 */
 	font-weight: 300 !important;
 	line-height: 1.4;

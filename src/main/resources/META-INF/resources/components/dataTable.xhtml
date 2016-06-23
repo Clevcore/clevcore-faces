@@ -1,174 +1,159 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.DATA_TABLE}">
-        <composite:attribute name="id" targets="id" />
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="columnClasses" />
-        <composite:attribute name="var" />
-        <composite:attribute name="rows" />
-        <composite:attribute name="value" />
-        <composite:attribute name="propertyFile" />
-        <composite:attribute name="excelBy" />
-        <composite:attribute name="searchBy" />
-        <composite:attribute name="simplified" default="false"
-            type="java.lang.Boolean" />
-        <composite:attribute name="pagination" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="responsive" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="showFile" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="showInfo" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="showSearch" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="showPaginator" default="true"
-            type="java.lang.Boolean" />
-        <composite:attribute name="onRender" />
-        <composite:attribute name="onRow" />
-        <composite:attribute name="rowlistener"
-            method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
-        <composite:attribute name="rowRender" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.DATA_TABLE}">
+		<composite:attribute name="id" targets="id" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="columnClasses" />
+		<composite:attribute name="var" />
+		<composite:attribute name="rows" />
+		<composite:attribute name="value" />
+		<composite:attribute name="propertyFile" />
+		<composite:attribute name="excelBy" />
+		<composite:attribute name="searchBy" />
+		<composite:attribute name="simplified" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="pagination" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="responsive" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="showFile" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="showInfo" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="showSearch" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="showPaginator" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="onRender" />
+		<composite:attribute name="onRow" />
+		<composite:attribute name="rowlistener"
+			method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
+		<composite:attribute name="rowRender" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup id="id" layout="block">
-            <h:panelGroup layout="block" styleClass="lhNone fs0 pBottomNormal"
-                rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch and cc.attrs.showFile and cc.data.value.size() gt 0)}">
-                <h:panelGroup layout="block"
-                    styleClass="dInlineBlock pRightNormal w50">
-                    <h:panelGrid columns="2" styleClass="w100"
-                        columnClasses="w100," rendered="#{cc.attrs.showSearch}">
-                        <h:inputText id="searchInputText"
-                            styleClass="bwRightNone lh1 vMiddle"
-                            value="#{cc.search}">
-                            <f:validateLength maximum="20" />
-                            <f:passThroughAttribute name="placeholder"
-                                value="#{clevcoreMsg.enter_search}" />
-                            <f:passThroughAttribute name="autocomplete"
-                                value="off" />
-                            <f:passThroughAttribute name="autofocus"
-                                value="autofocus" />
-                        </h:inputText>
-                        <cc:commandButton id="searchCommandButton"
-                            styleClass="primary wAuto" icon="search"
-                            title="#{clevcoreMsg.search}"
-                            action="#{cc.onSearch}"
-                            execute="#{cc.clientId}:searchInputText"
-                            render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-                    </h:panelGrid>
-                </h:panelGroup>
+	<composite:implementation>
+		<h:panelGroup id="id" layout="block">
+			<h:panelGroup layout="block" styleClass="lhNone fs0 pBottomNormal"
+				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch and cc.attrs.showFile and cc.data.value.size() gt 0)}">
+				<h:panelGroup layout="block" styleClass="dInlineBlock w50">
+					<h:panelGrid columns="2" styleClass="w100" columnClasses="w100,"
+						rendered="#{cc.attrs.showSearch}">
+						<h:inputText id="searchInputText"
+							styleClass="bwRightNone lh1 vMiddle" value="#{cc.search}">
+							<f:validateLength maximum="20" />
+							<f:passThroughAttribute name="placeholder"
+								value="#{clevcoreMsg.enter_search}" />
+							<f:passThroughAttribute name="autocomplete" value="off" />
+							<f:passThroughAttribute name="autofocus" value="autofocus" />
+						</h:inputText>
+						<cc:commandButton id="searchCommandButton"
+							styleClass="primary wAuto" icon="search"
+							title="#{clevcoreMsg.search}" action="#{cc.onSearch}"
+							execute="#{cc.clientId}:searchInputText"
+							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+					</h:panelGrid>
+				</h:panelGroup>
 
-                <h:panelGroup id="file" layout="block"
-                    styleClass="dInlineBlock tRight vTop w50">
-                    <h:panelGroup
-                        rendered="#{cc.attrs.showFile and cc.data.value.size() gt 0}">
-                        <cc:commandButton styleClass="primary wAuto"
-                            icon="file-excel-o"
-                            title="#{clevcoreMsg.export_excel_format}"
-                            action="#{cc.onExcel}" render="@none" />
-                        <h:panelGroup rendered="false">
-                            <cc:commandButton styleClass="primary wAuto"
-                                icon="file-pdf-o"
-                                title="#{clevcoreMsg.export_pdf_format}"
-                                action="#{cc.onPdf}" render="@none" />
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </h:panelGroup>
+				<h:panelGroup id="file" layout="block"
+					styleClass="dInlineBlock tRight vTop w50">
+					<h:panelGroup
+						rendered="#{cc.attrs.showFile and cc.data.value.size() gt 0}">
+						<cc:commandButton styleClass="primary wAuto" icon="file-excel-o"
+							title="#{clevcoreMsg.export_excel_format}" action="#{cc.onExcel}"
+							render="@none" />
+						<h:panelGroup rendered="false">
+							<cc:commandButton styleClass="primary wAuto" icon="file-pdf-o"
+								title="#{clevcoreMsg.export_pdf_format}" action="#{cc.onPdf}"
+								render="@none" />
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
 
-            <h:inputText id="rowIndex" styleClass="dNone" value="#{cc.rowIndex}">
-                <f:ajax event="change" listener="#{cc.rowlistener}"
-                    render="#{cc.attrs.rowRender}" />
-            </h:inputText>
+			<h:inputText id="rowIndex" styleClass="dNone" value="#{cc.rowIndex}">
+				<f:ajax event="change" listener="#{cc.rowlistener}"
+					render="#{cc.attrs.rowRender}" />
+			</h:inputText>
 
-            <h:panelGroup layout="block"
-                styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
-                <h:dataTable id="dataTable"
-                    styleClass="table table-striped table-bordered #{cc.attrs.rowlistener != null ? 'table-hover' : ''} mNone #{cc.attrs.styleClass}"
-                    style="#{cc.attrs.style}" rowStatePreserved="true"
-                    columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
-                    binding="#{cc.data}">
-                    <h:column rendered="#{cc.attrs.rowlistener != null}">
-                        <f:passThroughAttribute name="id"
-                            value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
-                        <script>
-    						dataTableRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}", "#{cc.attrs.onRow}");
-    					</script>
-                    </h:column>
-                    <composite:insertChildren />
-                </h:dataTable>
-            </h:panelGroup>
+			<h:panelGroup layout="block"
+				styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
+				<h:dataTable id="dataTable"
+					styleClass="table #{cc.attrs.rowlistener != null ? 'tableHover' : ''} #{cc.attrs.styleClass}"
+					style="#{cc.attrs.style}" rowStatePreserved="true"
+					columnClasses="#{cc.attrs.rowlistener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
+					binding="#{cc.data}">
+					<h:column rendered="#{cc.attrs.rowlistener != null}">
+						<f:passThroughAttribute name="id"
+							value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
+						<script>
+							dataTableRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}",
+									"#{cc.attrs.onRow}");
+						</script>
+					</h:column>
+					<composite:insertChildren />
+				</h:dataTable>
+			</h:panelGroup>
 
-            <h:panelGroup layout="block" id="paginator">
-                <h:panelGroup layout="block"
-                    styleClass="mTopNormal mBottomNormal"
-                    rendered="#{!cc.attrs.simplified and (cc.data.value.size() gt 5 and cc.attrs.pagination)}">
-                    <h:panelGroup layout="block" styleClass="dInlineBlock w10">
-                        <h:panelGroup layout="block" styleClass="dInlineBlock">
-                            <cc:selectOneMenu id="rows" style="width: 85px;"
-                                value="#{cc.attrs.rows}">
-                                <f:ajax event="change"
-                                    listener="#{cc.rowslistener}"
-                                    execute="@this"
-                                    render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-                                <f:selectItem itemLabel="5" itemValue="5" />
-                                <f:selectItem itemLabel="10" itemValue="10" />
-                                <f:selectItem itemLabel="25" itemValue="25" />
-                                <f:selectItem itemLabel="50" itemValue="50" />
-                            </cc:selectOneMenu>
-                        </h:panelGroup>
-                    </h:panelGroup>
+			<h:panelGroup layout="block" id="paginator">
+				<h:panelGroup layout="block" styleClass="mTopNormal mBottomNormal"
+					rendered="#{!cc.attrs.simplified and (cc.data.value.size() gt 5 and cc.attrs.pagination)}">
+					<h:panelGroup layout="block" styleClass="dInlineBlock w10">
+						<h:panelGroup layout="block" styleClass="dInlineBlock">
+							<cc:selectOneMenu id="rows" style="width: 85px;"
+								value="#{cc.attrs.rows}">
+								<f:ajax event="change" listener="#{cc.rowslistener}"
+									execute="@this"
+									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+								<f:selectItem itemLabel="5" itemValue="5" />
+								<f:selectItem itemLabel="10" itemValue="10" />
+								<f:selectItem itemLabel="25" itemValue="25" />
+								<f:selectItem itemLabel="50" itemValue="50" />
+							</cc:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGroup>
 
-                    <h:panelGroup layout="block"
-                        styleClass="dInlineBlock tRight w90"
-                        rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
-                        <h:panelGroup layout="block"
-                            styleClass="dInlineBlock bShadow2dp">
-                            <cc:commandButton
-                                styleClass="primary bwRightNone wAuto bShadow0dp"
-                                icon="chevron-left"
-                                title="#{clevcoreMsg.previous_page}"
-                                disabled="#{cc.page == 1}"
-                                action="#{cc.onPaginatorPrevious}"
-                                render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90"
+						rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
+						<h:panelGroup layout="block" styleClass="dInlineBlock bShadow2dp">
+							<cc:commandButton
+								styleClass="primary bwRightNone wAuto bShadow0dp"
+								icon="chevron-left" title="#{clevcoreMsg.previous_page}"
+								disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
 
-                            <ui:repeat var="page" value="#{cc.pageList}">
-                                <cc:commandButton
-                                    styleClass="#{page == cc.page ? 'default' : 'primary'} bwRightNone wAuto bShadow0dp"
-                                    value="#{page == -1 ? '...' : page}"
-                                    disabled="#{page == -1 || page == cc.page}"
-                                    action="#{cc.onPaginatorManager(page)}"
-                                    render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-                            </ui:repeat>
+							<ui:repeat var="page" value="#{cc.pageList}">
+								<cc:commandButton
+									styleClass="#{page == cc.page ? 'default' : 'primary'} bwRightNone wAuto bShadow0dp"
+									value="#{page == -1 ? '...' : page}"
+									disabled="#{page == -1 || page == cc.page}"
+									action="#{cc.onPaginatorManager(page)}"
+									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+							</ui:repeat>
 
-                            <cc:commandButton
-                                styleClass="primary wAuto bShadow0dp"
-                                icon="chevron-right"
-                                title="#{clevcoreMsg.next_page}"
-                                disabled="#{cc.page == cc.pages}"
-                                action="#{cc.onPaginatorNext}"
-                                render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-                        </h:panelGroup>
-                    </h:panelGroup>
+							<cc:commandButton styleClass="primary wAuto bShadow0dp"
+								icon="chevron-right" title="#{clevcoreMsg.next_page}"
+								disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+						</h:panelGroup>
+					</h:panelGroup>
 
-                    <h:panelGroup rendered="#{cc.attrs.showInfo}">
-                        <h:outputFormat styleClass="fs10"
-                            value="#{clevcoreMsg.showing_records}">
-                            <f:param value="#{cc.data.first + 1}" />
-                            <f:param
-                                value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
-                            <f:param value="#{cc.data.value.size()}" />
-                        </h:outputFormat>
-                    </h:panelGroup>
-                </h:panelGroup>
-            </h:panelGroup>
-        </h:panelGroup>
-    </composite:implementation>
+					<h:panelGroup rendered="#{cc.attrs.showInfo}">
+						<h:outputFormat styleClass="fs10"
+							value="#{clevcoreMsg.showing_records}">
+							<f:param value="#{cc.data.first + 1}" />
+							<f:param
+								value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
+							<f:param value="#{cc.data.value.size()}" />
+						</h:outputFormat>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

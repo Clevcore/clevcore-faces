@@ -330,9 +330,29 @@ input[type=submit].transparent:focus {
 
 
 /* dataTable */
-table.table  {
+.table  {
 	background-color: #FFFFFF; /* white */
 	border: 1px solid #E0E0E0; /* grey-300 */
+	max-width: 100%;
+	width: 100%;
+}
+
+.table th, .table td {
+	border: 1px solid #E0E0E0; /* grey-300 */
+	padding: 10px;
+}
+
+.table th {
+	border-bottom: 2px solid #E0E0E0; /* grey-300 */
+	text-align: left;
+}
+
+.table > tbody > tr:nth-child(odd) {
+	background-color: #F5F5F5; /* grey-100 */
+}
+
+.tableHover > tbody > tr:hover {
+	background-color: #EEEEEE !important; /* grey-200 */
 }
 
 @media screen {
@@ -342,12 +362,8 @@ table.table  {
 		width: 100%;
 	}
 
-	.tableResponsive > table > thead > tr > th,
-	.tableResponsive > table > tbody > tr > th,
-	.tableResponsive > table > tfoot > tr > th,
-	.tableResponsive > table > thead > tr > td,
-	.tableResponsive > table > tbody > tr > td,
-	.tableResponsive > table > tfoot > tr > td {
+	.tableResponsive th,
+	.tableResponsive td {
 		white-space: nowrap;
 	}
 }
@@ -850,14 +866,14 @@ nav ul a:hover,nav .iconSide:hover {
 	overflow: auto;
 }
 
+
 /* section */
-section.section {
+.section {
 	border: 1px solid #E0E0E0; /* grey-300 */
 	text-align: justify;
-	width: 100%;
 }
 
-section.section .title {
+.section .title {
 	border-bottom: 1px solid #E0E0E0; /* grey-300 */
 	color: #757575; /* grey-600 */
 	font-size: 18px;

@@ -27,17 +27,6 @@ function reset() {
 		}
 	});
 
-	$(".datetimepicker").datetimepicker({
-		pickTime : false,
-		language : "es",
-		icons : {
-			time : "fa fa-clock-o",
-			date : "fa fa-calendar",
-			up : "fa fa-arrow-up",
-			down : "fa fa-arrow-down"
-		}
-	});
-
 	$("button, input, select, textarea").off("keyup");
 	$("button, input, select, textarea").on("keyup", function(e) {
 		var key = e.keyCode || e.which;
