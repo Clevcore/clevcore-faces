@@ -7,14 +7,18 @@
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface componentType="#{bbClevcore.FLOAT_IF_NOT_VISIBLE}">
 		<composite:attribute name="id" targets="id" />
-		<composite:attribute name="styleClass" default="bLight bShadow6dp" />
+		<composite:attribute name="styleClass" default="bLight" />
 		<composite:attribute name="animate" default="false"
 			type="java.lang.Boolean" />
 		<composite:attribute name="position" default="bottom"
 			shortDescription="Position indication of the component on screen. Valid values are: top, left, right and bottom. The default value is 'bottom'." /> />
 		<composite:attribute name="completely" default="true"
+			type="java.lang.Boolean"
 			shortDescription="Indication if the element must float when is visible completely. The default value is 'true'." />
-		<composite:attribute name="rendered" type="java.lang.Boolean" />
+		<composite:attribute name="shadow" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="rendered" type="java.lang.Boolean"
+			shortDescription="Indication if the element must have shadow. The default value is 'true'." />
 	</composite:interface>
 
 	<composite:implementation>
@@ -22,9 +26,9 @@
 			styleClass="pRelative js-float-#{cc.attrs.position}-if-not-visible#{cc.attrs.completely ? '-completely' : ''}"
 			rendered="#{cc.attrs.rendered}">
 			<f:passThroughAttribute name="data-floatClass"
-				value="#{cc.attrs.styleClass}" />
+				value="#{cc.attrs.shadow ? 'bShadow6dp' : ''} #{cc.attrs.styleClass}" />
 			<h:panelGroup layout="block"
-				styleClass="#{cc.attrs.animate ? 'tAll' : ''}">
+				styleClass="hInherit #{cc.attrs.animate ? 'tAll' : ''}">
 				<composite:insertChildren />
 			</h:panelGroup>
 		</h:panelGroup>
