@@ -7,8 +7,8 @@ var MAX_WIDTH_PHONE = 480;
 var MIN_WIDTH_TABLET = 640;
 var MAX_WIDTH_TABLET = 800;
 
-var MIN_WIDTH_60_DESKTOP = 960;
-var MAX_WIDTH_70_DESKTOP = 1120;
+var MIN_WIDTH_DESKTOP = 960;
+var MAX_WIDTH_DESKTOP = 1120;
 
 /* init */
 $(document).ready(function() {
