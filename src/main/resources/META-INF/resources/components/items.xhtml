@@ -22,8 +22,6 @@
 			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeIn' : 'zoomFadeIn'}" />
 		<composite:attribute name="animateOut"
 			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeOut' : 'zoomFadeOut'}" />
-		<composite:attribute name="position" default="left"
-			shortDescription="Position indication of the component on screen. Valid values are: left and right. The default value is 'left'." />
 		<composite:attribute name="opened" default="false"
 			type="java.lang.Boolean" />
 		<composite:attribute name="showIconCaret"
@@ -59,7 +57,7 @@
 
 			<h:panelGroup layout="block" styleClass="pRelative zNormal">
 				<h:panelGroup id="items" layout="block"
-					styleClass="items #{cc.attrs.position == 'right' ? 'aRight' : 'aLeft'} #{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'dNone'}">
+					styleClass="items #{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'aLeft aTop dNone'}">
 					<c:if
 						test="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent)}">
 						<f:passThroughAttribute name="data-opened"
@@ -73,7 +71,7 @@
 						value="#{cc.attrs.animateOut}" />
 
 					<ul
-						class="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'bShadow8dp'} animate animate-#{cc.attrs.animateIn} #{!bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) and cc.attrs.position == 'right' ? 'toXrightYtop' : !bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) and  cc.attrs.position == 'left' ? 'toXleftYtop' : ''}">
+						class="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'bShadow8dp'} animate animate-#{cc.attrs.animateIn}">
 						<composite:insertChildren />
 					</ul>
 				</h:panelGroup>

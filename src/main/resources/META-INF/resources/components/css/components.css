@@ -625,7 +625,7 @@ input[type=submit].transparent:focus {
 
 /* items */
 .items {
-	margin: 10px;
+	margin: 10px 0;
 	position: absolute;
 }
 
@@ -633,6 +633,22 @@ input[type=submit].transparent:focus {
 	background-color: #FFFFFF; /* white */
 	overflow-x: hidden;
 	overflow-y: auto;
+}
+
+.items.aLeft.aBottom ul {
+	transform-origin: left bottom 0;
+}
+
+.items.aLeft.aTop ul {
+	transform-origin: left top 0;
+}
+
+.items.aRight.aBottom ul {
+	transform-origin: right bottom 0;
+}
+
+.items.aRight.aTop ul {
+	transform-origin: right top 0;
 }
 
 .items li {
@@ -688,6 +704,7 @@ nav .menu a,nav .main a {
 }
 
 nav .menu .items,nav .main .items {
+	margin: 10px;
 	top: -56px;
 	z-index: 1;
 }

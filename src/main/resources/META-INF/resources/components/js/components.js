@@ -476,17 +476,20 @@ function showItems(id) {
 
 	if (id != idItems) {
 		if (idItems != null) {
-			hideItems()
+			hideItems();
 		}
 		idItems = id;
 
+		addClass(idItems, "vHidden");
 		removeClass(idItems, "dNone");
 
-		itemsScrollable();
+		itemsResize();
+
+		removeClass(idItems, "vHidden");
 
 		window.addEventListener("click", itemsHandler);
 		window.addEventListener("keydown", itemsCloseable);
-		window.addEventListener("resize", itemsScrollable);
+		window.addEventListener("resize", itemsResize);
 	} else {
 		hideItems();
 	}
@@ -508,7 +511,7 @@ function hideItems() {
 
 	window.removeEventListener("click", itemsHandler);
 	window.removeEventListener("keydown", itemsCloseable);
-	window.removeEventListener("resize", itemsScrollable);
+	window.removeEventListener("resize", itemsResize);
 
 	idItems = null;
 }
@@ -521,8 +524,44 @@ function itemsCloseable() {
 	actionToEscKey(hideItems);
 }
 
-function itemsScrollable() {
-	autoscrollHeightElement(getElement(idItems).firstElementChild, 10);
+function itemsResize() {
+	var component = getElement(idItems);
+	var items = component.firstElementChild;
+
+	items.style.height = "";
+
+	var x = getAbsoluteRightElement(component);
+	if (hasClassElement(component, "aRight")) {
+		x += getWidthElement(component, true);
+	}
+
+	var y = getAbsoluteTopElement(component);
+	if (hasClassElement(component, "aBottom")) {
+		y += getHeightElement(component, true);
+	}
+
+	var openRight = x > getWidthWindow();
+	var openBottom = y > getHeightWindow() / 2;
+
+	if (openRight) {
+		replaceClassElement(component, "aLeft", "aRight");
+
+		if (openBottom) {
+			replaceClassElement(component, "aTop", "aBottom");
+		} else {
+			replaceClassElement(component, "aBottom", "aTop");
+		}
+	} else {
+		replaceClassElement(component, "aRight", "aLeft");
+
+		if (openBottom) {
+			replaceClassElement(component, "aTop", "aBottom");
+		} else {
+			replaceClassElement(component, "aBottom", "aTop");
+		}
+	}
+
+	autoscrollHeightElement(items, 10);
 }
 
 /* menu */

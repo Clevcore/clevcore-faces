@@ -362,16 +362,20 @@ function autoscrollHeight() {
 }
 
 function autoscrollHeightElement() {
-	var height = getHeightWindow();
-
-	height -= getAbsoluteTopElement(arguments[0]);
-
+	var height = 0;
 	for (var i = 1; i < arguments.length; i++) {
 		if (!isNaN(arguments[i])) {
 			height -= arguments[i];
 		} else {
 			height -= getHeightElement(arguments[i]);
 		}
+	}
+
+	var top = getAbsoluteTopElement(arguments[0]);
+	if (top > 0) {
+		height += getHeightWindow() - top;
+	} else {
+		height += getHeightElement(arguments[0]) + top;
 	}
 
 	if (height - getHeightScrollElement(arguments[0]) > 0) {
@@ -392,16 +396,20 @@ function autoscrollWidth() {
 }
 
 function autoscrollWidthElement() {
-	var width = getWidthWindow();
-
-	width -= getAbsoluteLeftElement(arguments[0]);
-
+	var width = 0;
 	for (var i = 1; i < arguments.length; i++) {
 		if (!isNaN(arguments[i])) {
 			width -= arguments[i];
 		} else {
 			width -= getWidthElement(arguments[i]);
 		}
+	}
+
+	var left = getAbsoluteLeftElement(arguments[0]);
+	if (left > 0) {
+		width += getWidthWindow() - left;
+	} else {
+		width += getWidthElement(arguments[0]) + left;
 	}
 
 	if (width - getWidthScrollElement(arguments[0]) > 0) {
