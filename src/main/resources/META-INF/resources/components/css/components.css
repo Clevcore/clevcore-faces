@@ -30,7 +30,10 @@ textarea,
 
 select {
 	cursor: pointer;
-	height: 44px !important;
+	
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
 }
 
 button,
@@ -284,7 +287,8 @@ textarea:disabled,
 button.transparent,
 input.transparent,
 input[type=button].transparent,
-input[type=submit].transparent {
+input[type=submit].transparent,
+select.transparent {
 	background-color: transparent;
 	border-color: transparent;
 	color: #424242; /* grey-800 */
@@ -293,14 +297,18 @@ input[type=submit].transparent {
 	line-height: 20px;
 	min-width: 0;
 	padding: 0;
-	text-transform: none;
 	width: auto;
+}
+
+select.transparent {
+	padding: 0 10px;
 }
 
 button.transparent:hover,
 input.transparent:hover,
 input[type=button].transparent:hover,
-input[type=submit].transparent:hover {
+input[type=submit].transparent:hover,
+select.transparent {
 	background-color: transparent;
 	border-color: transparent;
 	color: #212121; /* grey-900 */
@@ -309,7 +317,8 @@ input[type=submit].transparent:hover {
 button.transparent:disabled,
 input.transparent:disabled,
 input[type=button].transparent:disabled,
-input[type=submit].transparent:disabled {
+input[type=submit].transparent:disabled,
+select.transparent {
 	background-color: transparent;
 	border-color: transparent;
 	color: #616161;  /* grey-700 */
@@ -324,7 +333,8 @@ input[type=button].transparent:hover,
 input[type=button].transparent:focus,
 input[type=submit].transparent,
 input[type=submit].transparent:hover,
-input[type=submit].transparent:focus {
+input[type=submit].transparent:focus,
+select.transparent {
 	box-shadow: none;
 }
 
@@ -994,10 +1004,6 @@ nav ul a:hover,nav .iconSide:hover {
 
 
 /* selectOneMenu */
-select {
-	appearance: none;
-}
-
 .select {
 	display: inline-block;
 	position: relative;

@@ -738,7 +738,6 @@
 .row {
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 10px;
 }
 
 .row:after {
@@ -749,7 +748,6 @@
 
 .row .col {
 	float: left;
-	padding: 0 10px;
 }
 
 .row .col[class*="push-"], .row .col[class*="pull-"] {
@@ -2175,6 +2173,18 @@
 	width: auto;
 }
 
+@media only screen and (min-width: 641px) {
+	.m-wAuto {
+		width: auto;
+	}
+}
+
+@media only screen and (min-width: 961px) {
+	.l-wAuto {
+		width: auto;
+	}
+}
+
 .wTransition {
 	transition: width .28s;
 }
@@ -2596,6 +2606,10 @@
 
 .vMiddle {
 	vertical-align: middle;
+}
+
+.vTextTop {
+	vertical-align: text-top;
 }
 
 .vTop {

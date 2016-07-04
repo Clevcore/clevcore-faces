@@ -39,11 +39,12 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block">
-			<h:panelGroup layout="block" styleClass="lhNone fs0 pBottomNormal"
+			<h:panelGroup layout="block"
+				styleClass="row lhNone fs0 pBottomNormal"
 				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch and cc.attrs.showFile and cc.data.value.size() gt 0)}">
-				<h:panelGroup layout="block" styleClass="dInlineBlock w50">
-					<h:panelGrid columns="2" styleClass="w100" columnClasses="w100,"
-						rendered="#{cc.attrs.showSearch}">
+				<h:panelGroup layout="block" styleClass="col s10 m6">
+					<h:panelGrid columns="2" styleClass="mRightNormal"
+						columnClasses="w100," rendered="#{cc.attrs.showSearch}">
 						<h:inputText id="searchInputText"
 							styleClass="bwRightNone lh1 vMiddle" value="#{cc.search}">
 							<f:validateLength maximum="20" />
@@ -61,10 +62,10 @@
 				</h:panelGroup>
 
 				<h:panelGroup id="file" layout="block"
-					styleClass="dInlineBlock tRight vTop w50">
+					styleClass="col s2 m6 tRight vTop">
 					<h:panelGroup
 						rendered="#{cc.attrs.showFile and cc.data.value.size() gt 0}">
-						<cc:commandButton styleClass="primary wAuto" icon="file-excel-o"
+						<cc:commandButton styleClass="primary m-wAuto" icon="file-excel-o"
 							title="#{clevcoreMsg.export_excel_format}" action="#{cc.onExcel}"
 							render="@none" />
 						<h:panelGroup rendered="false">
@@ -101,12 +102,36 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" id="paginator">
-				<h:panelGroup layout="block" styleClass="mTopNormal mBottomNormal"
+				<h:panelGroup
 					rendered="#{!cc.attrs.simplified and (cc.data.value.size() gt 5 and cc.attrs.pagination)}">
-					<h:panelGroup layout="block" styleClass="dInlineBlock w10">
-						<h:panelGroup layout="block" styleClass="dInlineBlock">
-							<cc:selectOneMenu id="rows" style="width: 85px;"
-								value="#{cc.attrs.rows}">
+					<cc:section styleClass="mTopNormal tCenter"
+						rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
+						<cc:commandButton styleClass="transparent mRightNormal"
+							icon="chevron-left" title="#{clevcoreMsg.previous_page}"
+							disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
+							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+
+						<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
+							<cc:commandButton
+								styleClass="transparent mLeftNormal mRightNormal #{page == cc.page ? 'fwBold' : ''}"
+								value="#{page == -1 ? '...' : page}"
+								disabled="#{page == -1 || page == cc.page}"
+								action="#{cc.onPaginatorManager(page)}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+						</ui:repeat>
+
+						<cc:commandButton styleClass="transparent mLeftNormal"
+							icon="chevron-right" title="#{clevcoreMsg.next_page}"
+							disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
+							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+					</cc:section>
+
+					<h:panelGroup layout="block" styleClass="row mTopNormal">
+						<h:panelGroup layout="block" styleClass="col s6">
+							<h:outputFormat styleClass="fs12 vTextTop"
+								value="#{clevcoreMsg.records_for_page}" />
+							<cc:selectOneMenu id="rows" styleClass="transparent"
+								value="#{cc.attrs.rows}" appearanceDefault="true">
 								<f:ajax event="change" listener="#{cc.rowslistener}"
 									execute="@this"
 									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
@@ -116,41 +141,18 @@
 								<f:selectItem itemLabel="50" itemValue="50" />
 							</cc:selectOneMenu>
 						</h:panelGroup>
-					</h:panelGroup>
 
-					<h:panelGroup layout="block" styleClass="dInlineBlock tRight w90"
-						rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
-						<h:panelGroup layout="block" styleClass="dInlineBlock bShadow2dp">
-							<cc:commandButton
-								styleClass="primary bwRightNone wAuto bShadow0dp"
-								icon="chevron-left" title="#{clevcoreMsg.previous_page}"
-								disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
-								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-
-							<ui:repeat var="page" value="#{cc.pageList}">
-								<cc:commandButton
-									styleClass="#{page == cc.page ? 'default' : 'primary'} bwRightNone wAuto bShadow0dp"
-									value="#{page == -1 ? '...' : page}"
-									disabled="#{page == -1 || page == cc.page}"
-									action="#{cc.onPaginatorManager(page)}"
-									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-							</ui:repeat>
-
-							<cc:commandButton styleClass="primary wAuto bShadow0dp"
-								icon="chevron-right" title="#{clevcoreMsg.next_page}"
-								disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
-								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+						<h:panelGroup layout="block"
+							styleClass="col s6 mLeftNormal tRight"
+							rendered="#{cc.attrs.showInfo}">
+							<h:outputFormat styleClass="fs12"
+								value="#{clevcoreMsg.records_info} ">
+								<f:param value="#{cc.data.first + 1}" />
+								<f:param
+									value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
+								<f:param value="#{cc.data.value.size()}" />
+							</h:outputFormat>
 						</h:panelGroup>
-					</h:panelGroup>
-
-					<h:panelGroup rendered="#{cc.attrs.showInfo}">
-						<h:outputFormat styleClass="fs10"
-							value="#{clevcoreMsg.showing_records}">
-							<f:param value="#{cc.data.first + 1}" />
-							<f:param
-								value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
-							<f:param value="#{cc.data.value.size()}" />
-						</h:outputFormat>
 					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGroup>
