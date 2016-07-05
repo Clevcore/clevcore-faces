@@ -101,6 +101,83 @@ function getCaret(input) {
 	}
 }
 
+/* Event */
+(function() {
+	if (typeof window.CustomEvent === "function") {
+		return false;
+	}
+
+	function CustomEvent(name, params) {
+		var defaultParams = {
+			bubbles : false,
+			cancelable : false,
+			detail : undefined
+		};
+
+		if (params === undefined) {
+			params = defaultParams;
+		} else {
+			if (params.bubbles === undefined) {
+				params.bubbles = defaultParams.bubbles;
+			}
+			if (params.cancelable === undefined) {
+				params.cancelable = defaultParams.cancelable;
+			}
+			if (params.detail === undefined) {
+				params.detail = defaultParams.detail;
+			}
+		}
+
+		var event = document.createEvent('CustomEvent');
+		event.initCustomEvent(name, params.bubbles, params.cancelable, params.detail);
+		return event;
+	}
+
+	CustomEvent.prototype = window.Event.prototype;
+
+	window.CustomEvent = CustomEvent;
+})();
+
+/* Math */
+(function() {
+	function decimalAdjust(type, value, exp) {
+		if (typeof exp === 'undefined' || +exp === 0) {
+			return Math[type](value);
+		}
+
+		value = +value;
+		exp = +exp;
+
+		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+			return NaN;
+		}
+
+		value = value.toString().split('e');
+		value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+		value = value.toString().split('e');
+
+		return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+	}
+
+	if (!Math.round10) {
+		Math.round10 = function(value, exp) {
+			return decimalAdjust('round', value, exp);
+		};
+	}
+
+	if (!Math.floor10) {
+		Math.floor10 = function(value, exp) {
+			return decimalAdjust('floor', value, exp);
+		};
+	}
+
+	if (!Math.ceil10) {
+		Math.ceil10 = function(value, exp) {
+			return decimalAdjust('ceil', value, exp);
+		};
+	}
+})();
+
 /* String */
 (function() {
 	String.prototype.replaceAll = function(search, replacement) {
@@ -143,45 +220,5 @@ function getCaret(input) {
 		} while (found < ordinal);
 
 		return index;
-	}
-})();
-
-/* Math */
-(function() {
-	function decimalAdjust(type, value, exp) {
-		if (typeof exp === 'undefined' || +exp === 0) {
-			return Math[type](value);
-		}
-
-		value = +value;
-		exp = +exp;
-
-		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-			return NaN;
-		}
-
-		value = value.toString().split('e');
-		value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-		value = value.toString().split('e');
-
-		return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
-	}
-
-	if (!Math.round10) {
-		Math.round10 = function(value, exp) {
-			return decimalAdjust('round', value, exp);
-		};
-	}
-
-	if (!Math.floor10) {
-		Math.floor10 = function(value, exp) {
-			return decimalAdjust('floor', value, exp);
-		};
-	}
-
-	if (!Math.ceil10) {
-		Math.ceil10 = function(value, exp) {
-			return decimalAdjust('ceil', value, exp);
-		};
 	}
 })();
