@@ -16,7 +16,7 @@
 			styleClass="fabItem #{cc.attrs.styleClass} #{cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft' ? 'tLeft' : 'tRight'}"
 			rendered="#{cc.attrs.rendered}">
 			<h:outputText
-				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
+				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall' : ''}"
 				value="#{cc.attrs.value}"
 				rendered="#{cc.attrs.value != null and cc.parent.attrs.position != 'topLeft' and cc.parent.attrs.position !=  'bottomLeft'}" />
 
@@ -25,7 +25,7 @@
 			</h:panelGroup>
 
 			<h:outputText
-				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall pNormal' : ''}"
+				styleClass="cWhite fs16 vMiddle #{!cc.parent.attrs.modal and cc.attrs.value != null ? 'bDefault bRadius bShadow2dp oSmall' : ''}"
 				value="#{cc.attrs.value}"
 				rendered="#{cc.attrs.value != null and cc.parent.attrs.position == 'topLeft' or cc.parent.attrs.position ==  'bottomLeft'}" />
 		</h:panelGroup>

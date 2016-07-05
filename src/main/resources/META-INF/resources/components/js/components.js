@@ -44,7 +44,7 @@ var HandleAjax = {
 		}
 	},
 
-	listener : function() {
+	listener : function(event) {
 		var data = event.detail.data;
 
 		switch (data.status) {
@@ -218,7 +218,7 @@ var ConfirmNavigation = {
 	},
 
 	listener : function() {
-		window.addEventListener('jsfAjaxEvent', function() {
+		window.addEventListener('jsfAjaxEvent', function(event) {
 			var data = event.detail.data;
 
 			switch (data.status) {
@@ -270,7 +270,7 @@ var ConfirmNavigation = {
 		ConfirmNavigation.enable = false;
 	},
 
-	verify : function() {
+	verify : function(event) {
 		setTimeout(function() {
 			addClass("loadingPage", "dNone");
 		}, 5000);
@@ -282,9 +282,8 @@ var ConfirmNavigation = {
 					removeClass(form.id, "animate animate-no");
 				}, ANIMATION_TIME);
 
-				var e = e || window.event;
-				if (e) {
-					e.returnValue = ConfirmNavigation.message;
+				if (event) {
+					event.returnValue = ConfirmNavigation.message;
 				}
 				return ConfirmNavigation.message;
 			}
@@ -334,8 +333,10 @@ function searchDataTable(id, value) {
 /* fab */
 var idFab = null;
 
-function fab(id) {
-	event.stopPropagation();
+function fab(event, id) {
+	if (event !== undefined) {
+		event.stopPropagation();
+	}
 
 	if (id != null) {
 		idFab = id;
@@ -391,12 +392,12 @@ function fab(id) {
 	}
 }
 
-function fabCloseableClick() {
-	fab();
+function fabCloseableClick(event) {
+	fab(event);
 }
 
-function fabCloseableKey() {
-	actionToEscKey(fab);
+function fabCloseableKey(event) {
+	actionToEscKey(event, fab);
 }
 
 /* graphicImage */
@@ -427,8 +428,8 @@ function initItems(id, isAccordion) {
 		}
 	} else {
 		if (trigger != null) {
-			trigger.addEventListener("click", function() {
-				showItems(items.id);
+			trigger.addEventListener("click", function(event) {
+				showItems(event, items.id);
 			});
 		}
 	}
@@ -471,8 +472,10 @@ function accordionItems(id) {
 	}
 }
 
-function showItems(id) {
-	event.stopPropagation();
+function showItems(event, id) {
+	if (event !== undefined) {
+		event.stopPropagation();
+	}
 
 	if (id != idItems) {
 		if (idItems != null) {
@@ -520,8 +523,8 @@ function itemsHandler() {
 	hideItems();
 }
 
-function itemsCloseable() {
-	actionToEscKey(hideItems);
+function itemsCloseable(event) {
+	actionToEscKey(event, hideItems);
 }
 
 function itemsResize() {
@@ -570,8 +573,8 @@ function initMenu(id) {
 	var trigger = menu.firstElementChild;
 	var items = getElement("#" + id + " .items");
 
-	trigger.addEventListener("click", function() {
-		showItems(items.id);
+	trigger.addEventListener("click", function(event) {
+		showItems(event, items.id);
 	});
 }
 
@@ -674,8 +677,8 @@ var Navbar = {
 			Navbar.side.modal.hide();
 		},
 
-		closeable : function() {
-			actionToEscKey(Navbar.side.hide);
+		closeable : function(event) {
+			actionToEscKey(event, Navbar.side.hide);
 		},
 
 		modal : {
@@ -958,9 +961,9 @@ var Popup = {
 		}
 	},
 
-	closeable : function() {
+	closeable : function(event) {
 		if (Popup.isCloseable) {
-			actionToEscKey(hidePopup);
+			actionToEscKey(event, hidePopup);
 		}
 	},
 
@@ -983,9 +986,9 @@ var Popup = {
 		}
 	},
 
-	movable : function() {
+	movable : function(event) {
 		if (Popup.isMovable) {
-			HandleMove.init(Popup.container, Popup.panel, Popup.panelHead);
+			HandleMove.init(event, Popup.container, Popup.panel, Popup.panelHead);
 		}
 	},
 

@@ -347,7 +347,7 @@ function getBoolean(value) {
 	}
 }
 
-function getKeyCode() {
+function getKeyCode(event) {
 	return event.which || event.keyCode;
 }
 
@@ -708,14 +708,14 @@ Array.indexOf = function(array, key, value) {
 	return -1;
 }
 
-function actionToEscKey(callback) {
-	if (getKeyCode() == 27) {
+function actionToEscKey(event, callback) {
+	if (getKeyCode(event) == 27) {
 		callback.call(this);
 	}
 }
 
-function keyRestriction(keys) {
-	key = getKeyCode();
+function keyRestriction(event, keys) {
+	key = getKeyCode(event);
 	keys = keys.split(",");
 
 	for (var i = 0; i < keys.length; i++) {
@@ -860,7 +860,7 @@ var HandleMove = {
 	startX : undefined,
 	startY : undefined,
 
-	init : function(container, elementToMove, elementToClick) {
+	init : function(event, container, elementToMove, elementToClick) {
 		HandleMove.container = container;
 		HandleMove.elementToMove = elementToMove;
 		HandleMove.elementToClick = elementToClick;

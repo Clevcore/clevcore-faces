@@ -46,7 +46,7 @@
 					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
 					iconType="#{cc.attrs.iconType}"
 					iconClass="tTransform #{cc.attrs.iconClass}"
-					iconStyle="#{cc.attrs.iconStyle}" onclick="fab('#{cc.clientId}');" />
+					iconStyle="#{cc.attrs.iconStyle}" onclick="fab(event, '#{cc.clientId}');" />
 			</cc:fabItem>
 
 			<h:panelGroup layout="block"
@@ -61,7 +61,7 @@
 					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
 					iconType="#{cc.attrs.iconType}"
 					iconClass="tTransform #{cc.attrs.iconClass}"
-					iconStyle="#{cc.attrs.iconStyle}" onclick="fab('#{cc.clientId}');" />
+					iconStyle="#{cc.attrs.iconStyle}" onclick="fab(event, '#{cc.clientId}');" />
 			</cc:fabItem>
 		</h:panelGroup>
 	</composite:implementation>
