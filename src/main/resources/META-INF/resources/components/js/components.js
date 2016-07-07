@@ -641,7 +641,7 @@ var Navbar = {
 			},
 
 			progress : function(x) {
-				Navbar.side.component.style.transform = "translateX(" + x + "px)";
+				Navbar.side.component.style.left = x + "px";
 			},
 
 			end : function() {
@@ -728,14 +728,14 @@ var Navbar = {
 					Navbar.side.touch.realStartPageX = pageX;
 					Navbar.side.touch.startTime = (new Date()).getTime();
 
-					removeClassElement(Navbar.side.component, "tTransform");
+					removeClassElement(Navbar.side.component, "tAll");
 					removeClassElement(Navbar.side.modal.component, "oTransition");
 				} else if (pageX < Navbar.side.SILL) {
 					Navbar.side.touch.startPageX = pageX;
 					Navbar.side.touch.realStartPageX = pageX;
 					Navbar.side.touch.startTime = (new Date()).getTime();
 
-					removeClassElement(Navbar.side.component, "tTransform");
+					removeClassElement(Navbar.side.component, "tAll");
 					removeClassElement(Navbar.side.modal.component, "oTransition");
 					removeClassElement(Navbar.side.modal.component, "dNone");
 				}
@@ -762,7 +762,7 @@ var Navbar = {
 				if (Navbar.side.touch.startPageX != undefined) {
 					var pageX = event.changedTouches[0].pageX;
 
-					addClassElement(Navbar.side.component, "tTransform");
+					addClassElement(Navbar.side.component, "tAll");
 					addClassElement(Navbar.side.modal.component, "oTransition");
 
 					if (Navbar.side.touch.realStartPageX != pageX) {

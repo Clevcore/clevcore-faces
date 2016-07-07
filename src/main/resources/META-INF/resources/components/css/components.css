@@ -722,15 +722,12 @@ nav .menu .items,nav .main .items {
 nav .side {
 	background-color: #FFFFFF; /* white */;
 	height: 100%;
-	left: 0;
+	left: -260px;
 	overflow-y: auto;
 	position: fixed;
 	top: 0;
 	width: 240px;
 	z-index: 2001;
-
-	will-change: transform;
-	transform: translateX(-260px);
 }
 
 nav .side li {
