@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	reset();
 
-	if (browserDetect.browser == "Firefox") {
+	if (browser.name == "Firefox") {
 		setAttribute("html", "moznomarginboxes", "");
 		setAttribute("html", "mozdisallowselectionprint", "");
 	}

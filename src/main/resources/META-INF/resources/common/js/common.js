@@ -1018,116 +1018,66 @@ var FloatIfNotVisible = function() {
 	};
 }();
 
-var browserDetect = {
+var browser = {
+	name : undefined,
+	version : undefined,
+
 	init : function() {
-		this.browser = this.searchString(this.dataBrowser);
-		this.version = this.searchVersion(navigator.userAgent) || this.searchVersion(navigator.appVersion);
-		this.os = this.searchString(this.dataOS);
-	},
-	searchString : function(data) {
-		for (var i = 0; i < data.length; i++) {
-			var dataString = data[i].string;
-			var dataProp = data[i].prop;
-			this.versionSearchString = data[i].versionSearch || data[i].identity;
-			if (dataString) {
-				if (dataString.indexOf(data[i].subString) != -1) {
-					return data[i].identity;
+		var data = [ {
+			order : 1,
+			name : "Opera",
+			string : "OPR",
+			version : "OPR/"
+		}, {
+			order : 2,
+			name : "Chrome",
+			string : "Chrome",
+			version : "Chrome/"
+		}, {
+			order : 3,
+			name : "Safari",
+			string : "Safari",
+			version : "Version/"
+		}, {
+			order : 4,
+			name : "Firefox",
+			string : "Firefox",
+			version : "Firefox/"
+		}, {
+			order : 5,
+			name : "Internet Explorer",
+			string : "MSIE",
+			version : "MSIE "
+		}, {
+			order : 6,
+			name : "Edge",
+			string : "Trident",
+			version : "rv:"
+		} ];
+
+		if (navigator.userAgent) {
+			for (var i = 0; i < data.length; i++) {
+				if (navigator.userAgent.indexOf(data[i].string) != -1) {
+					this.name = data[i].name;
+
+					this.version = "";
+					var index = navigator.userAgent.indexOf(data[i].version);
+					var result = navigator.userAgent.substring(index + data[i].version.length);
+					for (var j = 0; j < result.length; j++) {
+						if (!isNaN(result.charAt(j)) || result.charAt(j) == ".") {
+							this.version += result.charAt(j);
+						} else {
+							break;
+						}
+					}
+
+					break;
 				}
-			} else if (dataProp)
-				return data[i].identity;
+			}
 		}
-	},
-	searchVersion : function(dataString) {
-		var index = dataString.indexOf(this.versionSearchString);
-		if (index == -1)
-			return;
-		return parseFloat(dataString.substring(index + this.versionSearchString.length + 1));
-	},
-	dataBrowser : [ {
-		string : navigator.vendor,
-		subString : "Apple",
-		identity : "Safari",
-		versionSearch : "Version"
-	}, {
-		string : navigator.vendor,
-		subString : "Camino",
-		identity : "Camino"
-	}, {
-		string : navigator.userAgent,
-		subString : "Chrome",
-		identity : "Chrome"
-	}, {
-		string : navigator.userAgent,
-		subString : "Firefox",
-		identity : "Firefox"
-	}, {
-		string : navigator.userAgent,
-		subString : "Gecko",
-		identity : "Mozilla",
-		versionSearch : "rv"
-	}, {
-		string : navigator.vendor,
-		subString : "iCab",
-		identity : "iCab"
-	}, {
-		string : navigator.vendor,
-		subString : "KDE",
-		identity : "Konqueror"
-	}, {
-		string : navigator.userAgent,
-		subString : "MSIE",
-		identity : "IE",
-		versionSearch : "MSIE"
-	}, {
-		string : navigator.userAgent,
-		subString : "Mozilla",
-		identity : "Netscape",
-		versionSearch : "Mozilla"
-	}, {
-		string : navigator.userAgent,
-		subString : "Netscape",
-		identity : "Netscape"
-	}, {
-		string : navigator.userAgent,
-		subString : "OmniWeb",
-		versionSearch : "OmniWeb/",
-		identity : "OmniWeb"
-	}, {
-		prop : window.opera,
-		identity : "Opera",
-		versionSearch : "Version"
-	} ],
-	dataOS : [ {
-		string : navigator.platform,
-		subString : "Android",
-		identity : "Android"
-	}, {
-		string : navigator.userAgent,
-		subString : "iPad",
-		identity : "iOS"
-	}, {
-		string : navigator.userAgent,
-		subString : "iPhone",
-		identity : "iOS"
-	}, {
-		string : navigator.userAgent,
-		subString : "iPod",
-		identity : "iOS"
-	}, {
-		string : navigator.platform,
-		subString : "Linux",
-		identity : "Linux"
-	}, {
-		string : navigator.platform,
-		subString : "Mac",
-		identity : "Mac"
-	}, {
-		string : navigator.platform,
-		subString : "Win",
-		identity : "Windows"
-	} ]
+	}
 };
-browserDetect.init();
+browser.init();
 
 var Geolocation = {
 	supported : navigator.geolocation !== undefined,
