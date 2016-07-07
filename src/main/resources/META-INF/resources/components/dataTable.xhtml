@@ -113,7 +113,7 @@
 
 						<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
 							<cc:commandButton
-								styleClass="transparent mLeftNormal mRightNormal #{page == cc.page ? 'fwBold' : ''}"
+								styleClass="transparent mLeftNormal mRightNormal #{page == -1 ? 'fs12' : ''} #{page == cc.page ? 'fwBold' : ''}"
 								value="#{page == -1 ? '...' : page}"
 								disabled="#{page == -1 || page == cc.page}"
 								action="#{cc.onPaginatorManager(page)}"
@@ -128,9 +128,9 @@
 
 					<h:panelGroup layout="block" styleClass="row mTopNormal">
 						<h:panelGroup layout="block" styleClass="col s6">
-							<h:outputFormat styleClass="fs12 vTextTop"
+							<h:outputFormat styleClass="fs12"
 								value="#{clevcoreMsg.records_for_page}" />
-							<cc:selectOneMenu id="rows" styleClass="transparent"
+							<cc:selectOneMenu id="rows" styleClass="fs12 transparent"
 								value="#{cc.attrs.rows}" appearanceDefault="true">
 								<f:ajax event="change" listener="#{cc.rowslistener}"
 									execute="@this"
