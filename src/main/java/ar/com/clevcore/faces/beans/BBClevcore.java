@@ -203,6 +203,10 @@ public class BBClevcore implements Serializable {
         return Constant.SECTION;
     }
 
+    public String getSELECT_BOOLEAN_CHECKBOX() {
+        return Constant.SELECT_BOOLEAN_CHECKBOX;
+    }
+
     public String getSELECT_MANY_CHECKBOX() {
         return Constant.SELECT_MANY_CHECKBOX;
     }

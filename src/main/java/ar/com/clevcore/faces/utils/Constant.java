@@ -30,10 +30,13 @@ public final class Constant {
     public static final String PANEL_HEAD = COMPONENT_PATH + "PanelHead";
     public static final String POPUP = COMPONENT_PATH + "Popup";
     public static final String SECTION = COMPONENT_PATH + "Section";
+    public static final String SELECT_BOOLEAN_CHECKBOX = COMPONENT_PATH + "SelectBooleanCheckbox";
     public static final String SELECT_MANY_CHECKBOX = COMPONENT_PATH + "SelectManyCheckbox";
     public static final String SELECT_ONE_MENU = COMPONENT_PATH + "SelectOneMenu";
     public static final String SEPARATOR = COMPONENT_PATH + "Separator";
     public static final String TITLE = COMPONENT_PATH + "Title";
     public static final String WAIT = COMPONENT_PATH + "Wait";
+
+    public static final String NOT_REMEMBER_BROWSER_UNSUPPORTED_COOKIE = "notRememberBrowserUnsupported";
 
 }
