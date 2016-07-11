@@ -1,11 +1,23 @@
-$(document).ready(function() {
-	reset();
+$(document).ready(
+		function() {
+			reset();
 
-	if (browser.name == "Firefox") {
-		setAttribute("html", "moznomarginboxes", "");
-		setAttribute("html", "mozdisallowselectionprint", "");
-	}
-});
+			if (browser.name == "Firefox") {
+				setAttribute("html", "moznomarginboxes", "");
+				setAttribute("html", "mozdisallowselectionprint", "");
+			}
+
+			if (!notRememberBrowserUnsupported) {
+				if (browser.name == undefined || browser.version == undefined
+						|| (browser.name == "Opera" && parseFloat(browser.version) < 11.60)
+						|| (browser.name == "Chrome" && parseFloat(browser.version) < 15.0)
+						|| (browser.name == "Safari" && parseFloat(browser.version) < 5.1)
+						|| (browser.name == "Firefox" && parseFloat(browser.version) < 11.0)
+						|| (browser.name == "Internet Explorer" && parseFloat(browser.version) < 10.0)) {
+					showPopup("clevcore-browserUnsupportedPopup");
+				}
+			}
+		});
 
 function reset() {
 	$('textarea[data-height]').each(function() {

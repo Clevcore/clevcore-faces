@@ -47,6 +47,14 @@ input[type=submit] {
 	text-transform: uppercase;
 }
 
+
+input[type=checkbox] {
+	background-color: transparent;
+	height: auto;
+	padding: 0;
+	width: auto;
+}
+
 input[type=text]:hover,
 input[type=password]:hover,
 input[type=date]:hover,
