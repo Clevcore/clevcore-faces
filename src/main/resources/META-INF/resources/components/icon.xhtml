@@ -20,14 +20,17 @@
 	<composite:implementation>
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
 			<h:panelGroup rendered="#{cc.attrs.type == 'fa'}">
-				<i id="#{cc.clientId}" class="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
+				<i id="#{cc.clientId}"
+					class="fa fa-#{cc.attrs.value} #{cc.attrs.styleClass}"
 					style="#{cc.attrs.style}" onclick="#{cc.attrs.onclick}"
 					data-title="#{cc.attrs.title}" data-type="#{cc.attrs.type}"></i>
 			</h:panelGroup>
 			<h:panelGroup rendered="#{cc.attrs.type == 'md'}">
 				<i id="#{cc.clientId}" class="material-icons #{cc.attrs.styleClass}"
 					style="#{cc.attrs.style}" onclick="#{cc.attrs.onclick}"
-					data-title="#{cc.attrs.title}" data-type="#{cc.attrs.type}">#{cc.attrs.value}</i>
+					data-title="#{cc.attrs.title}" data-type="#{cc.attrs.type}">
+					<h:outputText escape="false" value="#{cc.attrs.value}" />
+				</i>
 			</h:panelGroup>
 		</h:panelGroup>
 	</composite:implementation>
