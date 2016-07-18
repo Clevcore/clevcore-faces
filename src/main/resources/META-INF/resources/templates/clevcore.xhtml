@@ -23,34 +23,34 @@
         <h:outputScript name="components/js/components.js" />
 
         <o:conditionalComment if="lt IE 9">
-            <h:outputScript name="vendor/js/html5shiv.min.js" />;
-            <h:outputScript name="vendor/js/respond.min.js" />;
+            <h:outputScript name="vendor/js/html5shiv.min.js" />
+            <h:outputScript name="vendor/js/respond.min.js" />
         </o:conditionalComment>
 
         <ui:insert name="head" />
     </h:head>
     <h:body>
 		<ui:insert name="body" />
-
-		<cc:popup id="clevcore-browserUnsupportedPopup">
+	
+		<cc:popup id="clevcore-versionBrowserUnsupportedPopup">
 			<h:form>
 				<cc:panel styleClass="mwNormal">
 					<cc:panelHead icon="exclamation">
-						<h:outputText value="#{clevcoreMsg.browser_unsupported}" />
+						<h:outputText value="#{clevcoreMsg.version_browser_unsupported}" />
 					</cc:panelHead>
 					<cc:panelBody>
 						<h:panelGroup layout="block" styleClass="pBottomNormal">
 							<h:outputText styleClass="tJustify"
-								value="#{clevcoreMsg.browser_unsupported_info}" />
+								value="#{clevcoreMsg.version_browser_unsupported_info}" />
 						</h:panelGroup>
 	
 						<h:panelGroup layout="block">
-							<h:selectBooleanCheckbox id="notRememberBrowserUnsupported">
+							<h:selectBooleanCheckbox id="notRemember">
 								<f:ajax execute="@this"
-									listener="#{bbClevcore.notRememberBrowserUnsupported}" />
+									listener="#{bbClevcore.notRememberVersionBrowserUnsupported}" />
 							</h:selectBooleanCheckbox>
-							<h:outputLabel for="notRememberBrowserUnsupported"
-								styleClass="mLeftNormal" value="#{clevcoreMsg.not_remember}" />
+							<h:outputLabel for="notRemember" styleClass="mLeftNormal"
+								value="#{clevcoreMsg.not_remember}" />
 						</h:panelGroup>
 					</cc:panelBody>
 					<cc:panelFoot>
@@ -76,7 +76,7 @@
 			});
 			
 			var path = "#{bbClevcore.path}";
-			var notRememberBrowserUnsupported = #{bbClevcore.getNotRememberBrowserUnsupported()};
+			var notRememberVersionBrowserUnsupported = #{bbClevcore.getNotRememberVersionBrowserUnsupported()};
 		</script>
 
         <o:onloadScript>

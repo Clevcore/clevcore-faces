@@ -77,15 +77,15 @@ public class BBClevcore implements Serializable {
         }
     }
 
-    public void notRememberBrowserUnsupported(AjaxBehaviorEvent event) {
+    public void notRememberVersionBrowserUnsupported(AjaxBehaviorEvent event) {
         Boolean value = (boolean) ((UIOutput) event.getSource()).getValue();
-        FacesUtils.setCookie(Constant.NOT_REMEMBER_BROWSER_UNSUPPORTED_COOKIE, value.toString());
+        FacesUtils.setCookie(Constant.NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE, value.toString());
     }
 
-    public Boolean getNotRememberBrowserUnsupported() {
+    public Boolean getNotRememberVersionBrowserUnsupported() {
         if (FacesUtils.getCookie() != null) {
             for (Cookie cookie : FacesUtils.getCookie()) {
-                if (Constant.NOT_REMEMBER_BROWSER_UNSUPPORTED_COOKIE.equals(cookie.getName())) {
+                if (Constant.NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE.equals(cookie.getName())) {
                     return new Boolean(cookie.getValue());
                 }
             }

@@ -37,6 +37,6 @@ public final class Constant {
     public static final String TITLE = COMPONENT_PATH + "Title";
     public static final String WAIT = COMPONENT_PATH + "Wait";
 
-    public static final String NOT_REMEMBER_BROWSER_UNSUPPORTED_COOKIE = "notRememberBrowserUnsupported";
+    public static final String NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE = "notRememberVersionBrowserUnsupported";
 
 }
