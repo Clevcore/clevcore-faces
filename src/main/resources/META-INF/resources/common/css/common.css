@@ -2173,18 +2173,6 @@
 	width: auto;
 }
 
-@media only screen and (min-width: 641px) {
-	.m-wAuto {
-		width: auto;
-	}
-}
-
-@media only screen and (min-width: 961px) {
-	.l-wAuto {
-		width: auto;
-	}
-}
-
 .wTransition {
 	transition: width .28s;
 }
@@ -2662,5 +2650,158 @@
 
 	.noPrint {
 		display: none;
+	}
+}
+
+/* Media generix */
+@media only screen and (min-width: 641px) {
+	/* Margin */
+	.m-mCenter {
+		margin: auto;
+	}
+	.m-mNone {
+		margin: 0 !important;
+	}
+	.m-mNormal {
+		margin: 10px;
+	}
+	.m-mBottomNormal {
+		margin-bottom: 10px;
+	}
+	.m-mLeftNormal {
+		margin-left: 10px;
+	}
+	.m-mRightNormal {
+		margin-right: 10px;
+	}
+	.m-mTopNormal {
+		margin-top: 10px;
+	}
+
+	/* Padding */
+	.m-pNone {
+		padding: 0 !important;
+	}
+	.m-pNormal {
+		padding: 10px;
+	}
+	.m-pBottomNormal {
+		padding-bottom: 10px;
+	}
+	.m-pLeftNormal {
+		padding-left: 10px;
+	}
+	.m-pRightNormal {
+		padding-right: 10px;
+	}
+	.m-pTopNormal {
+		padding-top: 10px;
+	}
+
+	/* Size */
+	.m-h0 {
+		height: 0;
+	}
+	.m-h100 {
+		height: 100%;
+	}
+	.m-hAuto {
+		height: auto;
+	}
+	.m-w0 {
+		width: 0;
+	}
+	.m-w100 {
+		width: 100$;
+	}
+	.m-wAuto {
+		width: auto;
+	}
+
+	/* Text align */
+	.m-tCenter {
+		text-align: center !important;
+	}
+	.m-tLeft {
+		text-align: left;
+	}
+	.m-tRight {
+		text-align: right;
+	}
+}
+
+@media only screen and (min-width: 961px) {
+	/* Margin */
+	.l-mCenter {
+		margin: auto;
+	}
+	.l-mNone {
+		margin: 0 !important;
+	}
+	.l-mNormal {
+		margin: 10px;
+	}
+	.l-mBottomNormal {
+		margin-bottom: 10px;
+	}
+	.l-mLeftNormal {
+		margin-left: 10px;
+	}
+	.l-mRightNormal {
+		margin-right: 10px;
+	}
+	.l-mTopNormal {
+		margin-top: 10px;
+	}
+
+	/* Padding */
+	.l-pNone {
+		padding: 0 !important;
+	}
+	.l-pNormal {
+		padding: 10px;
+	}
+	.l-pBottomNormal {
+		padding-bottom: 10px;
+	}
+	.l-pLeftNormal {
+		padding-left: 10px;
+	}
+	.l-pRightNormal {
+		padding-right: 10px;
+	}
+	.l-pTopNormal {
+		padding-top: 10px;
+	}
+
+	/* Size */
+	.l-h0 {
+		height: 0;
+	}
+	.l-h100 {
+		height: 100%;
+	}
+	.l-hAuto {
+		height: auto;
+	}
+	.l-w0 {
+		width: 0;
+	}
+	.l-w100 {
+		width: 100$;
+	}
+	.l-wAuto {
+		width: auto;
+	}
+
+	/* Text align */
+	.l-tCenter {
+		text-align: center !important;
+	}
+	.l-tLeft {
+		text-align: left;
+	}
+	.l-tRight {
+		text-align: right;
 	}
 }
