@@ -32,6 +32,47 @@
     <h:body>
 		<ui:insert name="body" />
 	
+		<cc:popup id="clevcore-sessionAboutTimeout" closeable="false">
+			<h:form>
+				<cc:panel styleClass="mwNormal">
+					<cc:panelHead icon="exclamation">
+						<h:outputText value="#{clevcoreMsg.session_about_timeout}" />
+					</cc:panelHead>
+					<cc:panelBody>
+						<h:panelGroup layout="block" styleClass="pBottomNormal">
+							<h:outputText styleClass="tJustify"
+								value="#{clevcoreMsg.session_about_timeout_info}" />
+						</h:panelGroup>
+					</cc:panelBody>
+					<cc:panelFoot>
+						<cc:commandButton styleClass="primary wAuto"
+							value="#{clevcoreMsg._continue}" render="@this"
+							oncomplete="hidePopup();" />
+					</cc:panelFoot>
+				</cc:panel>
+			</h:form>
+		</cc:popup>
+	
+		<cc:popup id="clevcore-sessionTimeout" closeable="false">
+			<h:form>
+				<cc:panel styleClass="mwNormal">
+					<cc:panelHead icon="exclamation">
+						<h:outputText value="#{clevcoreMsg.session_timeout}" />
+					</cc:panelHead>
+					<cc:panelBody>
+						<h:panelGroup layout="block" styleClass="pBottomNormal">
+							<h:outputText styleClass="tJustify"
+								value="#{clevcoreMsg.session_timeout_info}" />
+						</h:panelGroup>
+					</cc:panelBody>
+					<cc:panelFoot>
+						<cc:commandButton styleClass="primary wAuto" icon="refresh"
+							value="#{clevcoreMsg.restart}" onclick="redirect(path);" />
+					</cc:panelFoot>
+				</cc:panel>
+			</h:form>
+		</cc:popup>
+	
 		<cc:popup id="clevcore-versionBrowserUnsupportedPopup">
 			<h:form>
 				<cc:panel styleClass="mwNormal">
@@ -73,8 +114,11 @@
         <script>
 			$(document).ready(function() {
 				ConfirmNavigation.message = "#{clevcoreMsg.confirm_navigation_info}";
+
+				HandleSessionTimeout.maxInactiveInterval = #{request.session.maxInactiveInterval};
+				HandleSessionTimeout.start();
 			});
-			
+
 			var path = "#{bbClevcore.path}";
 			var notRememberVersionBrowserUnsupported = #{bbClevcore.getNotRememberVersionBrowserUnsupported()};
 		</script>

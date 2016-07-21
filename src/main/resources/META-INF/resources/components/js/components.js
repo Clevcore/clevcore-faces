@@ -20,6 +20,33 @@ $(document).ready(function() {
 	ConfirmNavigation.init();
 });
 
+var HandleSessionTimeout = {
+	maxInactiveInterval : undefined,
+
+	timeout1 : undefined,
+	timeout2 : undefined,
+
+	start : function() {
+		HandleSessionTimeout.timeout1 = setTimeout(function() {
+			showPopup("clevcore-sessionAboutTimeout");
+		}, (HandleSessionTimeout.maxInactiveInterval - 60) * 1000);
+
+		HandleSessionTimeout.timeout2 = setTimeout(function() {
+			showPopup("clevcore-sessionTimeout");
+		}, HandleSessionTimeout.maxInactiveInterval * 1000);
+	},
+
+	stop : function() {
+		clearTimeout(HandleSessionTimeout.timeout1);
+		clearTimeout(HandleSessionTimeout.timeout2);
+	},
+
+	reset : function() {
+		HandleSessionTimeout.stop();
+		HandleSessionTimeout.start();
+	}
+};
+
 /* ajax */
 var HandleAjax = {
 	init : {
@@ -57,6 +84,8 @@ var HandleAjax = {
 				CommandButton.loadingOn(data.source);
 				waitDisable();
 			}
+
+			HandleSessionTimeout.reset();
 
 			break;
 		case "complete":
