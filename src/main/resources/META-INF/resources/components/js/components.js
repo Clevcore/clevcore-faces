@@ -844,7 +844,6 @@ var Navbar = {
 };
 
 /* popup */
-var idPopup = null;
 var Popup = {
 	id : undefined,
 	component : undefined,
@@ -929,6 +928,11 @@ var Popup = {
 	},
 
 	show : function(id) {
+		if (Popup.id !== undefined) {
+			Popup.hide();
+			Popup.dest();
+		}
+
 		Popup.init(id);
 		Popup.event.add();
 
