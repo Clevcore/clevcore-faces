@@ -171,7 +171,32 @@
 }
 
 /* zoomIn */
-@-webkit-keyframes zoomIn {
+@-webkit-keyframes zoomInNormal {
+	0% {
+		-webkit-transform: scale(.5);
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes zoomInNormal {
+	0% {
+		transform: scale(.5);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.animate-zoomInNormal {
+	-webkit-animation-name: zoomInNormal;
+	        animation-name: zoomInNormal;
+}
+
+@-webkit-keyframes zoomInLarge {
 	0% {
 		-webkit-transform: scale(0);
 	}
@@ -181,7 +206,7 @@
 	}
 }
 
-@keyframes zoomIn {
+@keyframes zoomInLarge {
 	0% {
 		transform: scale(0);
 	}
@@ -191,13 +216,63 @@
 	}
 }
 
-.animate-zoomIn {
-	-webkit-animation-name: zoomIn;
-	        animation-name: zoomIn;
+.animate-zoomInLarge {
+	-webkit-animation-name: zoomInLarge;
+	        animation-name: zoomInLarge;
+}
+
+@-webkit-keyframes zoomInSmall {
+	0% {
+		-webkit-transform: scale(.75);
+	}
+
+	100% {
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes zoomInSmall {
+	0% {
+		transform: scale(.75);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.animate-zoomInSmall {
+	-webkit-animation-name: zoomInSmall;
+	        animation-name: zoomInSmall;
 }
 
 /* zoomOut */
-@-webkit-keyframes zoomOut {
+@-webkit-keyframes zoomOutNormal {
+	0% {
+		-webkit-transform: scale(1);
+	}
+
+	100% {
+		-webkit-transform: scale(.5);
+	}
+}
+
+@keyframes zoomOutNormal {
+	0% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(.5);
+	}
+}
+
+.animate-zoomOutNormal {
+	-webkit-animation-name: zoomOutNormal;
+	        animation-name: zoomOutNormal;
+}
+
+@-webkit-keyframes zoomOutLarge {
 	0% {
 		-webkit-transform: scale(1);
 	}
@@ -207,7 +282,7 @@
 	}
 }
 
-@keyframes zoomOut {
+@keyframes zoomOutLarge {
 	0% {
 		transform: scale(1);
 	}
@@ -217,13 +292,67 @@
 	}
 }
 
-.animate-zoomOut {
-	-webkit-animation-name: zoomOut;
-	        animation-name: zoomOut;
+.animate-zoomOutLarge {
+	-webkit-animation-name: zoomOutLarge;
+	        animation-name: zoomOutLarge;
+}
+
+@-webkit-keyframes zoomOutSmall {
+	0% {
+		-webkit-transform: scale(1);
+	}
+
+	100% {
+		-webkit-transform: scale(.75);
+	}
+}
+
+@keyframes zoomOutSmall {
+	0% {
+		transform: scale(1);
+	}
+
+	100% {
+		transform: scale(.75);
+	}
+}
+
+.animate-zoomOutSmall {
+	-webkit-animation-name: zoomOutSmall;
+	        animation-name: zoomOutSmall;
 }
 
 /* zoomFadeIn */
-@-webkit-keyframes zoomFadeIn {
+@-webkit-keyframes zoomFadeInNormal {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(.5);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes zoomFadeInNormal {
+	0% {
+		opacity: 0;
+		transform: scale(.5);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-zoomFadeInNormal {
+	-webkit-animation-name: zoomFadeInNormal;
+	        animation-name: zoomFadeInNormal;
+}
+
+@-webkit-keyframes zoomFadeInLarge {
 	0% {
 		opacity: 0;
 		-webkit-transform: scale(0);
@@ -235,7 +364,7 @@
 	}
 }
 
-@keyframes zoomFadeIn {
+@keyframes zoomFadeInLarge {
 	0% {
 		opacity: 0;
 		transform: scale(0);
@@ -247,13 +376,71 @@
 	}
 }
 
-.animate-zoomFadeIn {
-	-webkit-animation-name: zoomFadeIn;
-	        animation-name: zoomFadeIn;
+.animate-zoomFadeInLarge {
+	-webkit-animation-name: zoomFadeInLarge;
+	        animation-name: zoomFadeInLarge;
+}
+
+@-webkit-keyframes zoomFadeInSmall {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(.75);
+	}
+
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+}
+
+@keyframes zoomFadeInSmall {
+	0% {
+		opacity: 0;
+		transform: scale(.75);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-zoomFadeInSmall {
+	-webkit-animation-name: zoomFadeInSmall;
+	        animation-name: zoomFadeInSmall;
 }
 
 /* zoomFadeOut */
-@-webkit-keyframes zoomFadeOut {
+@-webkit-keyframes zoomFadeOutNormal {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(.5);
+	}
+}
+
+@keyframes zoomFadeOutNormal {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(.5);
+	}
+}
+
+.animate-zoomFadeOutNormal {
+	-webkit-animation-name: zoomFadeOutNormal;
+	        animation-name: zoomFadeOutNormal;
+}
+
+@-webkit-keyframes zoomFadeOutLarge {
 	0% {
 		opacity: 1;
 		-webkit-transform: scale(1);
@@ -265,7 +452,7 @@
 	}
 }
 
-@keyframes zoomFadeOut {
+@keyframes zoomFadeOutLarge {
 	0% {
 		opacity: 1;
 		transform: scale(1);
@@ -277,9 +464,38 @@
 	}
 }
 
-.animate-zoomFadeOut {
-	-webkit-animation-name: zoomFadeOut;
-	        animation-name: zoomFadeOut;
+.animate-zoomFadeOutLarge {
+	-webkit-animation-name: zoomFadeOutLarge;
+	        animation-name: zoomFadeOutLarge;
+}
+
+@-webkit-keyframes zoomFadeOutSmall {
+	0% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		-webkit-transform: scale(.75);
+	}
+}
+
+@keyframes zoomFadeOutSmall {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(.75);
+	}
+}
+
+.animate-zoomFadeOutSmall {
+	-webkit-animation-name: zoomFadeOutSmall;
+	        animation-name: zoomFadeOutSmall;
 }
 
 /* bounceInDown */
