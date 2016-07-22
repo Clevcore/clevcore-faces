@@ -2653,8 +2653,25 @@
 	}
 }
 
-/* Media generix */
+/* Media generic */
 @media only screen and (min-width: 641px) {
+	/* Display */
+	.m-dInline {
+		display: inline;
+	}
+	
+	.m-dInlineBlock {
+		display: inline-block;
+	}
+	
+	.m-dBlock {
+		display: block;
+	}
+
+	.m-dNone {
+		display: none;
+	}
+
 	/* Margin */
 	.m-mCenter {
 		margin: auto;
@@ -2731,6 +2748,23 @@
 }
 
 @media only screen and (min-width: 961px) {
+	/* Display */
+	.l-dInline {
+		display: inline;
+	}
+	
+	.l-dInlineBlock {
+		display: inline-block;
+	}
+	
+	.l-dBlock {
+		display: block;
+	}
+
+	.l-dNone {
+		display: none;
+	}
+	
 	/* Margin */
 	.l-mCenter {
 		margin: auto;
