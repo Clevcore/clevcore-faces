@@ -20,7 +20,7 @@ textarea,
     box-sizing: border-box;
 	font-weight: 400;
 	font-size: 15px;
-	height: 44px;
+	height: 48px;
 	padding: 10px;
 	transition-property: background, border, box-shadow, color;
     transition-duration: .28s;
@@ -787,11 +787,13 @@ nav ul a:hover,nav .iconSide:hover {
     border-radius: 0;
 }
 
-.panel > .head {
+.panel > .head  {
 	background-color: #90A4AE; /* blue-grey-300 */
 	border-bottom: 1px solid #90A4AE; /* blue-grey-300 */
-	font-weight: 300;
 	font-size: 22px;
+	font-weight: 300;
+	height: 56px;
+	line-height: 1.6;
 	text-transform: uppercase;
 	width: 100%;
 }
