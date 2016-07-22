@@ -37,6 +37,12 @@
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
 				<c:choose>
+					<c:when test="#{cc.parent.parent.attrs.closeable}">
+						<cc:icon
+							styleClass="m-dNone fs24 pRightNormal noPrint cPointer cWhiteHover"
+							value="arrow-left" title="#{clevcoreMsg._return}"
+							onclick="hidePopup();" />
+					</c:when>
 					<c:when
 						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
 						<cc:icon styleClass="fs14 pRightNormal noPrint"
@@ -51,19 +57,21 @@
 
 				<c:if test="#{cc.attrs.icon ne null}">
 					<cc:icon type="#{cc.attrs.iconType}"
-						styleClass="head pRightNormal #{cc.attrs.iconClass}"
+						styleClass="dNone m-dInlineBlock head pRightNormal #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}" />
 				</c:if>
 
-				<h:panelGroup styleClass="fInherit ">
+				<h:panelGroup styleClass="fInherit vMiddle">
 					<composite:insertChildren />
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" styleClass="accordionIcon">
 					<c:choose>
 						<c:when test="#{cc.parent.parent.attrs.closeable}">
-							<cc:icon styleClass="cWhiteHover cPointer fs24" value="times"
-								title="#{clevcoreMsg.close}" onclick="hidePopup();" />
+							<cc:icon
+								styleClass="dNone m-dInlineBlock fs24 noPrint cWhiteHover cPointer "
+								value="times" title="#{clevcoreMsg.close}"
+								onclick="hidePopup();" />
 						</c:when>
 						<c:when
 							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
