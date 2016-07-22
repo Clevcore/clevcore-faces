@@ -19,9 +19,9 @@
 		<composite:attribute name="title" />
 		<composite:attribute name="rendered" />
 		<composite:attribute name="animateIn"
-			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeIn' : 'zoomFadeIn'}" />
+			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeInNormal' : 'zoomFadeInNormal'}" />
 		<composite:attribute name="animateOut"
-			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeOut' : 'zoomFadeOut'}" />
+			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeOutNormal' : 'zoomFadeOutNormal'}" />
 		<composite:attribute name="opened" default="false"
 			type="java.lang.Boolean" />
 		<composite:attribute name="showIconCaret"
