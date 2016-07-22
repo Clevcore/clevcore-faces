@@ -1005,7 +1005,7 @@ var Popup = {
 			var height = getHeightWindow();
 			var width = getWidthWindow();
 
-			if (width <= MAX_WIDTH_PHONE) {
+			if (width <= MIN_WIDTH_TABLET) {
 				Popup.container.style.top = "";
 				Popup.container.style.left = "";
 
