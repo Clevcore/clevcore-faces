@@ -386,6 +386,12 @@ select.transparent {
 	}
 }
 
+@media print {
+	.table > tbody > tr:nth-child(odd) {
+		background-color: transparent;
+	}
+}
+
 
 /* fab */
 .fab {
@@ -870,7 +876,17 @@ nav ul a:hover,nav .iconSide:hover {
 
 @media print {
 	.panel {
-		border: 1px solid #E0E0E0; /* grey-300*/
+		background: transparent;
+		box-shadow: none !important;
+	}
+	
+	.panel > .head {
+		background: transparent !important;
+		border-bottom: 1px solid #E0E0E0 !important; /* grey-300*/
+	}
+	
+	.panel > .head * {
+		color: #757575; /* grey-600 */
 	}
 }
 
