@@ -448,83 +448,83 @@
 }
 
 .cDefault, .cDefaultHover {
-	color: #424242; /* grey-800 */
+	color: #424242 !important; /* grey-800 */
 }
 
 .cDefaultHover:hover {
-	color: #212121; /* grey-900 */
+	color: #212121 !important; /* grey-900 */
 }
 
 .cDefault2, .cDefault2Hover {
-	color: #FFFFFF; /* white */
+	color: #FFFFFF !important; /* white */
 }
 
 .cDefault2Hover:hover {
-	color: #F5F5F5; /* grey-100 */
+	color: #F5F5F5 !important; /* grey-100 */
 }
 
 .cPrimary, .cPrimaryHover {
-	color: #428bca;
+	color: #428bca !important;
 }
 
 .cPrimaryHover:hover {
-	color: #357ebd;
+	color: #357ebd !important;
 }
 
 .cSecondary, .cSecondaryHover {
-	color: #ca4242;
+	color: #ca4242 !important;
 }
 
 .cSecondaryHover:hover {
-	color: #bd3535;
+	color: #bd3535 !important;
 }
 
 .cTertiary, .cTertiaryHover {
-	color: #60c451;
+	color: #60c451 !important;
 }
 
 .cTertiaryHover:hover {
-	color: #4bbd35;
+	color: #4bbd35 !important;
 }
 
 .cBlack, .cBlackHover {
-	color: #000000; /* black */
+	color: #000000 !important; /* black */
 }
 
 .cBlackHover:hover {
-	color: #212121; /* grey-900 */
+	color: #212121 !important; /* grey-900 */
 }
 
 .cDark, .cDarkHover {
-	color: #212121; /* grey-900 */
+	color: #212121 !important; /* grey-900 */
 }
 
 .cDarkHover:hover {
-	color: #000000; /* black */
+	color: #000000 !important; /* black */
 }
 
 .cInfo, .cInfoHover {
-	color: #9E9E9E; /* grey-500 */
+	color: #9E9E9E !important; /* grey-500 */
 }
 
 .cInfoHover:hover {
-	color: #757575; /* grey-600 */
+	color: #757575 !important; /* grey-600 */
 }
 
 .cLight, .cLightHover {
-	color: #F5F5F5; /* grey-100 */
+	color: #F5F5F5 !important; /* grey-100 */
 }
 
 .cLightHover:hover {
-	color: #E0E0E0; /* grey-300 */
+	color: #E0E0E0 !important; /* grey-300 */
 }
 
 .cWhite, .cWhiteHover {
-	color: #FFFFFF; /* white */
+	color: #FFFFFF !important; /* white */
 }
 
 .cWhiteHover:hover {
-	color: #F5F5F5; /* grey-100 */
+	color: #F5F5F5 !important; /* grey-100 */
 }
 
 .cTransition {
@@ -1850,7 +1850,7 @@
 }
 
 .pEventsVisible {
-	pointer-events: visible ;
+	pointer-events: visible;
 }
 
 /* Position */
@@ -2158,7 +2158,7 @@
 }
 
 .w100 {
-	width: 100%;
+	width: 100% !important;
 }
 
 .w105 {
