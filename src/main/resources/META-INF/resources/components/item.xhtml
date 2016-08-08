@@ -27,9 +27,9 @@
 
 	<composite:implementation>
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
-			<li>
+			<li id="#{cc.clientId}" class="#{cc.attrs.styleClass}">
 				<h:outputLink
-					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
+					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
 					style="#{cc.attrs.style}" value="#{cc.attrs.redirect}"
 					rendered="#{cc.attrs.action == null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">

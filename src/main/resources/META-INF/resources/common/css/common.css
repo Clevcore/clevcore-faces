@@ -574,7 +574,7 @@
 }
 
 .dNone {
-	display: none;
+	display: none !important;
 }
 
 /* Font */

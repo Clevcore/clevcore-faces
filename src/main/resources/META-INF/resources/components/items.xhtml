@@ -70,7 +70,7 @@
 					<f:passThroughAttribute name="data-animateout"
 						value="#{cc.attrs.animateOut}" />
 
-					<ul
+					<ul id="#{cc.clientId}"
 						class="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'bShadow8dp'} animate animate-#{cc.attrs.animateIn}">
 						<composite:insertChildren />
 					</ul>
