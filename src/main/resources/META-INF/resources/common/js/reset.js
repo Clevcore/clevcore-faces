@@ -1,6 +1,8 @@
 $(document).ready(
 		function() {
-			reset();
+			Reset.init();
+			Reset.init();
+			Reset.init();
 
 			if (browser.name == "Firefox") {
 				setAttribute("html", "moznomarginboxes", "");
@@ -18,99 +20,208 @@ $(document).ready(
 			}
 		});
 
-function reset() {
-	$('textarea[data-height]').each(function() {
-		var heightValue = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight);
-		if (heightValue == 0) {
-			heightValue = 80;
+var Reset = {
+	init : function() {
+		if (Reset.autoheight.enable) {
+			Reset.autoheight.on();
 		}
-		this.style.height = heightValue + "px";
-	}).on('input', function() {
-		this.style.height = 'auto';
-		this.style.height = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight) + 'px';
-	});
 
-	$("[data-only=number]").on("keyup keypress", function(e) {
-		var value = this.value + String.fromCharCode(e.keyCode || e.which);
-		if (isNaN(value)) {
-			e.preventDefault();
-			return false;
+		if (Reset.stopEnterSubmit.enable) {
+			Reset.stopEnterSubmit.on();
 		}
-	});
 
-	$("button, input, select, textarea").off("keyup");
-	$("button, input, select, textarea").on("keyup", function(e) {
-		var key = e.keyCode || e.which;
-		if (key == 13) {
-			var elementArray = $("button, input, select, textarea");
-			var index = elementArray.index(this);
-
-			handleNextElement(index, elementArray, e);
-
-			e.preventDefault();
-			return false;
+		if (Reset.nextElement.enable) {
+			Reset.nextElement.on();
 		}
-	});
 
-	$("form").on("keyup keypress", function(e) {
-		var key = e.keyCode || e.which;
-		if (key == 13) {
-			if (!$(e.target).is("textarea") || e.shiftKey) {
-				e.preventDefault();
+		if (Reset.onlyNumber.enable) {
+			Reset.onlyNumber.on();
+		}
+
+		ConfirmNavigation.action();
+		FloatIfNotVisible.init();
+	},
+
+	autoheight : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("textarea[data-height]");
+		},
+
+		on : function() {
+			Reset.autoheight.query().forEach(function(element) {
+				var heightValue = Math.max(getAttributeElement(element, "data-height"), element.scrollHeight);
+				element.style.height = (heightValue == 0 ? 80 : heightValue) + "px";
+
+				element.addEventListener("keyup", Reset.autoheight.process);
+				element.addEventListener("keypress", Reset.autoheight.process);
+			});
+
+			Reset.autoheight.enable = true;
+		},
+
+		off : function() {
+			Reset.autoheight.query().forEach(function(element) {
+				element.style.height = "";
+
+				element.removeEventListener("keyup", Reset.autoheight.process);
+				element.removeEventListener("keypress", Reset.autoheight.process);
+			});
+
+			Reset.autoheight.enable = false;
+		},
+
+		process : function(event) {
+			this.style.height = "auto";
+			this.style.height = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight) + "px";
+		}
+	},
+
+	stopEnterSubmit : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("form");
+		},
+
+		on : function() {
+			Reset.stopEnterSubmit.query().forEach(function(element) {
+				element.addEventListener("keypress", Reset.stopEnterSubmit.process);
+			});
+
+			Reset.stopEnterSubmit.enable = true;
+		},
+
+		off : function() {
+			Reset.stopEnterSubmit.query().forEach(function(element) {
+				element.removeEventListener("keypress", Reset.stopEnterSubmit.process);
+			});
+
+			Reset.stopEnterSubmit.enable = false;
+		},
+
+		process : function(event) {
+			var key = event.keyCode || event.which;
+			if (key == 13) {
+				if (event.target.nodeName != "TEXTAREA" || event.shiftKey) {
+					event.preventDefault();
+					return false;
+				}
+			}
+		},
+	},
+
+	nextElement : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("button, input, select, textarea");
+		},
+
+		on : function() {
+			Reset.nextElement.query().forEach(function(element) {
+				element.addEventListener("keyup", Reset.nextElement.process);
+			});
+
+			Reset.nextElement.enable = true;
+		},
+
+		off : function() {
+			Reset.nextElement.query().forEach(function(element) {
+				element.removeEventListener("keyup", Reset.nextElement.process);
+			});
+
+			Reset.nextElement.enable = false;
+		},
+
+		process : function(event) {
+			var key = event.keyCode || event.which;
+
+			if (key == 13) {
+				var elementArray = Reset.nextElement.query();
+
+				var index;
+				for (index = 0; index < elementArray.length; index++) {
+					if (elementArray[index] === this) {
+						break;
+					}
+				}
+
+				Reset.nextElement.search(index, elementArray, event);
+
+				event.preventDefault();
+				return false;
+			}
+		},
+
+		search : function(index, elementArray, event) {
+			var currentIndex = index;
+
+			do {
+				index++;
+			} while (elementArray[index].classList.contains("dNone")
+					|| elementArray[index].getAttribute("type") == "hidden");
+
+			if (elementArray[currentIndex].nodeName != "TEXTAREA") {
+				Reset.nextElement.verify(index, elementArray, event);
+			}
+		},
+
+		verify : function(index, elementArray, event) {
+			if (elementArray[index] != null) {
+				if (elementArray[index].getAttribute("type") == "submit") {
+					elementArray[index].click();
+				} else if (elementArray[index].getAttribute("type") == "button") {
+					if (elementArray[index].getAttribute("onclick") != null
+							&& elementArray[index].getAttribute("onclick") != "") {
+						elementArray[index].click();
+					} else {
+						Reset.nextElement.search(index, elementArray, event);
+					}
+				} else {
+					elementArray[index].focus();
+				}
+			} else {
+				elementArray[0].focus();
+			}
+		}
+	},
+
+	onlyNumber : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("[data-only=number]");
+		},
+
+		on : function() {
+			Reset.onlyNumber.query().forEach(function(element) {
+				element.addEventListener("keyup", Reset.onlyNumber.process);
+				element.addEventListener("keypress", Reset.onlyNumber.process);
+			});
+
+			Reset.onlyNumber.enable = true;
+		},
+
+		off : function() {
+			Reset.onlyNumber.query().forEach(function(element) {
+				element.removeEventListener("keyup", Reset.onlyNumber.process);
+				element.removeEventListener("keypress", Reset.onlyNumber.process);
+			});
+
+			Reset.onlyNumber.enable = false;
+		},
+
+		process : function(event) {
+			var value = this.value + String.fromCharCode(event.keyCode || event.which);
+			if (isNaN(value)) {
+				event.preventDefault();
 				return false;
 			}
 		}
-	});
-
-	ConfirmNavigation.action();
-
-	FloatIfNotVisible.init();
-}
-
-function handleNextElement(index, elementArray, event) {
-	var currentIndex = index;
-
-	do {
-		index++;
-	} while (elementArray[index].classList.contains("dNone") || $(elementArray[index]).is("[disabled='disabled']")
-			|| $(elementArray[index]).is("input[type='hidden']"));
-
-	if (!$(elementArray[currentIndex]).is("textarea")) {
-		helperNextElement(index, elementArray, event);
 	}
-}
-
-function helperNextElement(index, elementArray, event) {
-	if (elementArray[index] != null) {
-		if ($(elementArray[index]).is("[type='submit']")) {
-			elementArray[index].click();
-		} else if ($(elementArray[index]).is("[type='button']")) {
-			if ($(elementArray[index]).attr("onclick") != null && $(elementArray[index]).attr("onclick") != "") {
-				elementArray[index].click();
-			} else {
-				handleNextElement(index, elementArray, event);
-			}
-		} else {
-			elementArray[index].focus();
-		}
-	} else {
-		elementArray[0].focus();
-	}
-}
-
-function getCaret(input) {
-	if ('selectionStart' in input) {
-		// Standard-compliant browsers
-		return input.selectionStart;
-	} else if (document.selection) {
-		// IE
-		input.focus();
-		var sel = document.selection.createRange();
-		var selLen = document.selection.createRange().text.length;
-		sel.moveStart('character', -input.value.length);
-		return sel.text.length - selLen;
-	}
-}
+};
 
 /* Event */
 (function() {
@@ -191,6 +302,14 @@ function getCaret(input) {
 
 /* String */
 (function() {
+	String.prototype.trimAll = function() {
+		var target = this;
+		if (target !== undefined) {
+			return target.replace(/\s/g, ' ');
+		}
+		return target;
+	};
+
 	String.prototype.replaceAll = function(search, replacement) {
 		var target = this;
 		return target.split(search).join(replacement);
