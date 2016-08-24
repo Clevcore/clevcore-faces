@@ -108,7 +108,7 @@ var HandleAjax = {
 				eval(getAttributeElement(data.source, "data-onvalidation"));
 			}
 
-			reset();
+			Reset.init();
 			break;
 		}
 
