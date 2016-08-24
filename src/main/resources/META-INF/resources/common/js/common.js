@@ -317,6 +317,16 @@ function removeElement(element) {
 	element.parentNode.removeChild(element);
 }
 
+function removeAllChild(id) {
+	removeAllChildElement(getElement(id));
+}
+
+function removeAllChildElement(element) {
+	while (element.firstChild) {
+		element.removeChild(element.firstChild);
+	}
+}
+
 function contain(idParent, idChild) {
 	return containElement(getElement(idParent), getElement(idChild));
 }
