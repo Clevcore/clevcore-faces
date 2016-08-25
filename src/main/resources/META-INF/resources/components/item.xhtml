@@ -27,10 +27,10 @@
 
 	<composite:implementation>
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
-			<li id="#{cc.clientId}" class="#{cc.attrs.styleClass}">
+			<li id="#{cc.clientId}" class="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
 				<h:outputLink
 					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
-					style="#{cc.attrs.style}" value="#{cc.attrs.redirect}"
+					value="#{cc.attrs.redirect}"
 					rendered="#{cc.attrs.action == null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
 					<cc:icon type="#{cc.attrs.iconType}"
@@ -41,9 +41,8 @@
 						rendered="#{cc.attrs.value != null}" />
 				</h:outputLink>
 				<h:commandLink
-					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.styleClass}"
-					style="#{cc.attrs.style}" action="#{cc.attrs.action}"
-					rendered="#{cc.attrs.action != null}"
+					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
+					action="#{cc.attrs.action}" rendered="#{cc.attrs.action != null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
 					<cc:icon type="#{cc.attrs.iconType}"
 						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
