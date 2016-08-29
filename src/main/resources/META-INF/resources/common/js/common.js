@@ -336,11 +336,27 @@ function containElement(parent, child) {
 }
 
 // utils
+function getValiedCharactersRegExp() {
+	return new RegExp(/[^a-zA-Z0-9 ]/g);
+}
+
+function prepareToSearch(value) {
+	return removeSpecialCharacters(value).toUpperCase();
+}
+
+function removeSpecialCharacters(value) {
+	return value.replace(getValiedCharactersRegExp(), "");
+}
+
+function isSpecialCharacters(value) {
+	return getValiedCharactersRegExp().test(value);
+}
+
 function sortByKey(array, key) {
 	return array.sort(function(a, b) {
 		var x = a[key];
 		var y = b[key];
-		
+
 		return x < y ? -1 : (x > y ? 1 : 0);
 	});
 }
