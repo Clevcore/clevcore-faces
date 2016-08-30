@@ -341,7 +341,51 @@ function getValiedCharactersRegExp() {
 }
 
 function prepareToSearch(value) {
-	return removeSpecialCharacters(value).toUpperCase();
+	value = value.toUpperCase();
+	value = removeAccentedCharacters(value);
+	value = removeSpecialCharacters(value);
+
+	return value;
+}
+
+function removeAccentedCharacters(value) {
+	var characters = [ {
+		'base' : 'a',
+		'letters' : /[á]/g
+	}, {
+		'base' : 'A',
+		'letters' : /[Á]/g
+	}, {
+		'base' : 'e',
+		'letters' : /[é]/g
+	}, {
+		'base' : 'E',
+		'letters' : /[É]/g
+	}, {
+		'base' : 'i',
+		'letters' : /[í]/g
+	}, {
+		'base' : 'I',
+		'letters' : /[Í]/g
+	}, {
+		'base' : 'o',
+		'letters' : /[ó]/g
+	}, {
+		'base' : 'O',
+		'letters' : /[Ó]/g
+	}, {
+		'base' : 'u',
+		'letters' : /[ú]/g
+	}, {
+		'base' : 'U',
+		'letters' : /[Ú]/g
+	} ];
+
+	for (var i = 0; i < characters.length; i++) {
+		value = value.replace(characters[i].letters, characters[i].base);
+	}
+
+	return value;
 }
 
 function removeSpecialCharacters(value) {
