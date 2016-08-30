@@ -1,3 +1,180 @@
+# v1.4.0
+- New Release 1.4.0
+- Add removeAccentedCharacters function
+- Function for special characters
+- Add function for sort by key
+- Reorder the style attribute in item componenet
+- Remove important attribute in dNone
+- Use new Reset Object
+- Reorganize reset function by Reset Object
+- Add removeAllChild function
+- Items and Item component
+- Add important attribute in css cColor and w100
+- Optimeze media print styles
+- Remove Bootstrap css library
+- Change icon close by arrow left when size screen are tablet and phone
+- Change threshold of expandable "popup" element to MIN_WIDTH_TABLET
+- Use new zoom property animate
+- Change height of panelHead and input element
+- Add "media generic" for display properties
+- Add intensity different zoom in animate.css
+- Close old popup before opening the new popup
+- Add function for session timeout handler
+- The message of browser unsupported not seen
+- Add padding to button
+- Standard media screen for generix property
+- Show browser unsupported popup when the version is old
+- Add SelectBooleanCheckbox component
+- Material icons doesn't work with IE9
+- Show popup when browser is not supported
+- Optimize footer of dataTable component
+- Replace translate by left property in side component
+- Delete browserDetect and create new browser detect function
+- Add "CustomEvent" function for IE
+- Add local variable to manage event in Firefox, as there isn't globals
+- Add responsive design in "dataTable" component
+- Use grid system in dataTable
+- Standard media screen for min-width property
+- The "items" component is automatically positioned
+- Variables declared are wrong
+- "Fab" component is floating over "Items" component
+- Add grid system
+- Add shadow attribute in floatIfNotVisible
+- Remove bootstrap, dateFormat and moment of project
+- Add "completely", indication if must float when is visible completely
+- Remove tCenter class of panelFoot componenet and add in components.css
+- Add padding in items panel
+- Change z-index property in components
+- Optimize Fab component
+- Add Material icons
+- Add getDirectory(), getPage(), getPath() function in common.js
+- When touch event is fast add inertia in component "Navbar Side"
+- Add rendered attribute in navbarMain and navbarMenu component
+- Remove styles of .fa in common.css
+- Move ClevcoreException to Backend project
+- Add removeWhitespace converter
+- widen mwLarge, mwNormal, mwSmall css
+- Optimize messages component
+- Add the behavior "touch" to "NavbarSide" componenet
+- Migrate old js of the componenet navbar to new Navbar Object
+- Change "media querie" the navbar  componenet to MIN WIDTH TABLET
+- Migrate old js of the componenet popup to new Popup Object
+- Tooltip and accordionIcon optimizate
+- Popup always scrollable
+- Optimize shadow in navbar and popup component
+- Add autoscroll height in "item" Component
+- Unify "navbarItems" and "menuItems" in "items" component
+- Create navBar component
+- Optimize Font
+- Optimize section and separator component
+- Optimize wait component
+- Don't work popup when is movable
+- Don't work the component GraphicImage
+- Add new componenet called LoadingPage
+- Optimize CSS
+- Optimize CSS using best practices Google Material Design
+- Optimize component JS
+- In clevcore.xhtml "<!--[if lt IE 9]>" don't work
+- Enhance CSS for printing
+- Add attribute isLoader
+- Add function window.open with "_blank" attribute
+- Update maven version
+- Add attribute excelBy
+- Wrong pagination in "Datatable"
+- Add constant to all the components
+- Add  inline display to fa
+- Optimize panelFoot
+- Optimize menu
+- Optimize graphicImage
+- zIndex normal to menu
+- Do not print closed panels
+- It don't work geolocation with 2 and 3 attribute
+- Add attribute id and separe to title in section
+- Add rendered attribute
+- Create commandButton object with method loadingOn and loadingOff
+- Remove shadow of commandButton outline
+- Add decimalAdjust to round, floor and ceil number
+- Add Geolocation function
+- Add bShadowNoneHover
+- Remove required="true" of value attribute
+- Add styleClass and style attribute in column componenet
+- Add white space styles
+- Add tableResponsive a dataTable componenet
+- Modified icon of panel head with accordion
+- Add bShadow4dpFocus in commandButton
+- function popupAutocenter with attribute
+- Update JSF to 2.13 v
+- DataTable do not work with pagination equal true
+- The selector "checkbox input[type=checkbox]" make invisible
+- Add style attribute and rename title to value in component section
+- Add styleClass and style attribute in separator componenet
+- Do not show closed panels in print
+- Rename fNone to fs0
+- Optimize datatable, adding simplified and pagination attribute
+- The last element without pBottomNormal
+- Add style and disabled attribute
+- It modified the description of position "y" to "and"
+- Add "contain" function for verify if a element is child
+- Optimize reset.css
+- Optimize selectManyCheckbox
+- Create componenet Menu (dropdown)
+- selectManyCheckboxChange and selectManyCheckboxClick do not work
+- Remove focus and focusElement function
+- Datatable don't show pagination when size is lower to 5
+- Accept "orderBy" attribute equal to null
+- Remove validation attribute
+- Modify way to add attribute onclick to addEventListener
+- Add method setCheckboxInput, to set values to true/false in checkbox
+- Update getBoolean to accept the values String "true", "yes" and "on"
+- Update setAttribute to accept value attribute undefined
+- Update getElement to accept selector
+- Order converter attribute in selectOneMenu
+- Add new componenet selectManyCheckbox
+- Don't work the autoclose in panel with "info" state messege
+- Add onvalidation, work same that onsuccessful whitout validation failed
+- Add new style for shadow with focus event and add view height and width in 100
+- Update FontAwersome to 4.5
+- Don't works FacesUtils with message
+- Don't work the autoclose in panel with "info" state messege
+- Rename "shortcut" component to "fab"
+- Add the ability disable the animation of the floatIfNotVisible
+- Remove shadow of panel component when is accordion
+- Optimize shortcut component
+- Reorganize common.css, background and opacity section
+- Add shadow 6dp to floatIfNotVisible component
+- Create floatIfNotVisible component
+- The function animateScrollBottom() don't work
+- Make floating panelFoot when it is not visible in the viewPort
+- The getHeightWindow and getWidthWindow function don't work
+- Add isVisible function
+- Add bottom, left, right and top functions for window element
+- Add bottom and right function
+- Modify height and width functions for window element
+- Add function "has" for Attribute, class, style and classStyle
+- Style functions don't work
+- Add js function camelcaseToHyphens and hyphensToCamelcase
+- Get height and width with the margin
+- Replace "remplace" to "replace" and "delete" for "removeAll" .js
+- Add autocenter class in commons.css
+- Materialize the components (depth shadow only)
+- The background is not visible
+- Remove maxLenght on search input
+- Add tooltip as title in icon and command Button component
+- Add outline style for button component
+- Remove body style from reset.css
+- Modify shadow of the panel component
+- The popup component leaves the window with the second click in "elementToMove"
+- Clean Reset CSS
+- Add style for placeholder in reset
+- Add responsive data table
+- BBClevcore is empty
+- Create cc.jsf.ajax.addOn_x simulating jsf.ajax.addOn_x
+- Create event called jsfAjaxEvent and jsfAjaxError and replace
+- Move BBClevcore to "faces" folder
+- Optimize js and css of the popup component and modify the move() The component must not leave the screen
+- Add style cursor=default as cDefault in common.css
+- Optimize getHeight and getWidth and add functions common in common.js getHead, getBody, getKeyCode, autoscrollHeight, autoscrollWidth, autocenterHeight, autocenterWidth, getLeft, getLeftScroll, getTop, getTopScroll, actionToEscKey, HandleMove
+
 # v1.3.0
 - New Release 1.3.0
 - US-141: Move unused styles in Clevcore engine
