@@ -55,6 +55,10 @@ public final class ServletUtils {
         return ServletUtils.getHttpServletRequest().getServletPath();
     }
 
+    public static String getRealPath() {
+        return ServletUtils.getHttpServletRequest().getServletContext().getRealPath("/");
+    }
+
     public static String getUrl() {
         int index = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
 
