@@ -336,6 +336,19 @@ function containElement(parent, child) {
 }
 
 // utils
+var delay = (function() {
+	var timeout = 0;
+	return function(callback, ms, arguments) {
+		clearTimeout(timeout);
+		timeout = setTimeout(callback, ms, arguments);
+		return timeout;
+	};
+})();
+
+function clearDelay(timeout) {
+	clearTimeout(timeout);
+}
+
 function getValiedCharactersRegExp() {
 	return new RegExp(/[^a-zA-Z0-9 ]/g);
 }
