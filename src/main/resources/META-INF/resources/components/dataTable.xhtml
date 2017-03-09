@@ -113,8 +113,8 @@
 
 						<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
 							<cc:commandButton
-								styleClass="transparent mLeftNormal mRightNormal #{page == -1 ? 'fs12' : ''} #{page == cc.page ? 'fwBold' : ''}"
-								value="#{page == -1 ? '...' : page}"
+								styleClass="transparent mLeftNormal mRightNormal #{page == -1 ? 'fs12' : ''} #{page == cc.page ? 'cPrimaryHover fwBold' : ''}"
+								value="#{page == -1 ? '...' : page}" valueLoading=""
 								disabled="#{page == -1 || page == cc.page}"
 								action="#{cc.onPaginatorManager(page)}"
 								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
