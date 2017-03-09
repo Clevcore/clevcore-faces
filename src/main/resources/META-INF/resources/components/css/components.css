@@ -30,7 +30,7 @@ textarea,
 
 select {
 	cursor: pointer;
-	
+
 	-webkit-appearance: none;
 	   -moz-appearance: none;
 	        appearance: none;
@@ -373,19 +373,6 @@ select.transparent {
 	background-color: #EEEEEE !important; /* grey-200 */
 }
 
-@media screen {
-	.tableResponsive {
-		overflow-x: auto;
-		overflow-y: hidden;
-		width: 100%;
-	}
-
-	.tableResponsive th,
-	.tableResponsive td {
-		white-space: nowrap;
-	}
-}
-
 @media print {
 	.table > tbody > tr:nth-child(odd) {
 		background-color: transparent;
@@ -398,6 +385,7 @@ select.transparent {
 	padding: 20px;
 	pointer-events: none;
 	position: fixed;
+	z-index: 1;
 }
 
 .fabItem.trigger button {
@@ -472,6 +460,67 @@ select.transparent {
 
 .material-icons.title {
 	font-size: 28px;
+}
+
+
+/* input */
+.input-md-effect {
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #E0E0E0 !important; /* grey-300 */
+	padding-left: 0;
+
+	transition: all 0.28s ease-in-out;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #00b0ec 4%);
+	background-position: -100vw 0;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+
+}
+
+.input-md-effect:focus {
+	background-position: 0 0;
+	border-bottom-color: transparent;
+}
+
+.input-placeholder-effect::-webkit-input-placeholder {
+	transition: all 0.28s ease-in-out;
+}
+
+.input-placeholder-effect:focus::-webkit-input-placeholder {
+	font-size: 11px;
+	transform: translateY(-20px);
+	visibility: visible !important;
+}
+
+.input-placeholder-effect::-moz-placeholder {
+	transition: all 0.28s ease-in-out;
+}
+
+.input-placeholder-effect:focus::-moz-placeholder {
+	font-size: 11px;
+	transform: translateY(-20px);
+	visibility: visible !important;
+}
+
+.input-placeholder-effect:-moz-placeholder {
+	transition: all 0.28s ease-in-out;
+}
+
+.input-placeholder-effect:focus:-moz-placeholder {
+	font-size: 11px;
+	transform: translateY(-20px);
+	visibility: visible !important;
+}
+
+.input-placeholder-effect:-ms-input-placeholder {
+	transition: all 0.28s ease-in-out;
+}
+
+.input-placeholder-effect:focus:-ms-input-placeholder {
+	font-size: 11px;
+	transform: translateY(-20px);
+	visibility: visible !important;
 }
 
 
@@ -879,12 +928,12 @@ nav ul a:hover,nav .iconSide:hover {
 		background: transparent;
 		box-shadow: none !important;
 	}
-	
+
 	.panel > .head {
 		background: transparent !important;
 		border-bottom: 1px solid #E0E0E0 !important; /* grey-300*/
 	}
-	
+
 	.panel > .head * {
 		color: #757575; /* grey-600 */
 	}
