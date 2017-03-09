@@ -217,7 +217,7 @@ public final class FacesUtils {
 		}
 	}
 
-	public static void addMessage(Severity severity, String message) {
+    public static void addMessage(Severity severity, String message) {
 		addMessage(null, severity, null, message);
 	}
 
