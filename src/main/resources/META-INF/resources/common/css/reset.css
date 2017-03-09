@@ -90,7 +90,6 @@ ol, ul {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	margin-bottom: 0;
 }
 
 textarea {
@@ -144,12 +143,12 @@ textarea[data-height] {
 		background: transparent;
 		font-size: 12px;
 	}
-	
+
 	input {
 		height: auto !important;
 		padding: 10px !important;
 	}
-	
+
 	html, body {
 		height: auto !important;
 	    padding: 2mm;
