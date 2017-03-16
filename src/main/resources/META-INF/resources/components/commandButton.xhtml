@@ -19,6 +19,8 @@
 		<composite:attribute name="title" />
 		<composite:attribute name="valueLoading"
 			default="#{clevcoreMsg.loading}" />
+		<composite:attribute name="disabledLoading" default="false"
+			type="java.lang.Boolean" />
 		<composite:attribute name="rendered" />
 		<composite:attribute name="disabled" />
 		<composite:attribute name="redirect" />
@@ -39,7 +41,7 @@
 
 	<composite:implementation>
 		<button jsf:binding="#{cc.commandButton}" jsf:id="id"
-			jsf:styleClass="bShadow2dp bShadow8dpHover bShadow8dpFocus #{cc.attrs.styleClass} #{cc.attrs.value ne null ? 'pLeftLarge pRightLarge' : ''}"
+			jsf:styleClass="bShadow2dp bShadow8dpHover bShadow8dpFocus #{cc.attrs.styleClass} #{cc.attrs.value ne null ? 'pLeftLarge pRightLarge' : ''} #{cc.attrs.disabledLoading ? 'disabled-loading' : ''}"
 			jsf:style="#{cc.attrs.style}" jsf:disabled="#{cc.attrs.disabled}"
 			jsf:immediate="#{cc.attrs.immediate}"
 			jsf:rendered="#{cc.attrs.rendered}"

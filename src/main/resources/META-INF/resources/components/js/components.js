@@ -81,8 +81,12 @@ var HandleAjax = {
 			}
 
 			if (data.source.tagName == "BUTTON") {
-				CommandButton.loadingOn(data.source);
-				waitDisable();
+				if (hasClassElement(data.source, "disabled-loading")) {
+					setDisabledElement(data.source, true);
+				} else {
+					CommandButton.loadingOn(data.source);
+					waitDisable();
+				}
 			}
 
 			HandleSessionTimeout.reset();
@@ -94,8 +98,12 @@ var HandleAjax = {
 			}
 
 			if (data.source.tagName == "BUTTON") {
-				CommandButton.loadingOff(data.source);
-				waitEnable();
+				if (hasClassElement(data.source, "disabled-loading")) {
+					setDisabledElement(data.source, false);
+				} else {
+					CommandButton.loadingOff(data.source);
+					waitEnable();
+				}
 			}
 
 			break;
