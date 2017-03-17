@@ -1080,15 +1080,25 @@ function selectManyCheckboxClick(id, index) {
 }
 
 /* loadingPage */
-function initLoadingpage() {
-	window.addEventListener("load", function(event) {
-		addClass("loadingPage", "dNone");
-	});
+var LoadingPage = {
+	init : function() {
+		window.addEventListener("load", function(event) {
+			LoadingPage.off();
+		});
 
-	window.addEventListener("beforeunload", function(event) {
+		window.addEventListener("beforeunload", function(event) {
+			LoadingPage.on();
+		});
+	},
+
+	on : function() {
 		removeClass("loadingPage", "dNone");
-	});
-}
+	},
+
+	off : function() {
+		addClass("loadingPage", "dNone");
+	}
+};
 
 /* wait */
 var isWaitEnable = false;
