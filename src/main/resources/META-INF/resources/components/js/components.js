@@ -85,7 +85,7 @@ var HandleAjax = {
 					setDisabledElement(data.source, true);
 				} else {
 					CommandButton.loadingOn(data.source);
-					waitDisable();
+					Wait.disable();
 				}
 			}
 
@@ -102,7 +102,7 @@ var HandleAjax = {
 					setDisabledElement(data.source, false);
 				} else {
 					CommandButton.loadingOff(data.source);
-					waitEnable();
+					Wait.enable();
 				}
 			}
 
@@ -120,7 +120,7 @@ var HandleAjax = {
 			break;
 		}
 
-		wait(data.status);
+		Wait.status(data.status);
 	}
 };
 
@@ -1101,22 +1101,60 @@ var LoadingPage = {
 };
 
 /* wait */
-var isWaitEnable = false;
+var Wait = {
+	element : undefined,
+	isEnable : undefined,
 
-function wait(status) {
-	if (isWaitEnable && getElement("wait") !== undefined) {
-		if (status == "begin") {
-			removeClass("wait", "dNone");
-		} else {
-			addClass("wait", "dNone");
+	init : function() {
+		Wait.element = getElement("wait");
+		Wait.element.innerHTML = '<svg class="wait-spinner" width="60px" height="60px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="wait-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
+		Wait.enable();
+	},
+
+	status : function(status) {
+		if (Wait.isEnable && Wait.element !== undefined) {
+			if (status == "begin") {
+				Wait.on();
+			} else {
+				Wait.off();
+			}
 		}
-	}
+	},
+
+	on : function() {
+		removeClass("wait", "dNone");
+	},
+
+	off : function() {
+		addClass("wait", "dNone");
+	},
+
+	enable : function() {
+		Wait.isEnable = true;
+	},
+
+	disable : function() {
+		Wait.isEnable = false;
+	},
 }
 
+/**
+ * @deprecated Since version 1.4. Use Popup.hide() instead.
+ */
+function wait(status) {
+	Wait.status(status);
+}
+
+/**
+ * @deprecated Since version 1.4. Use Popup.hide() instead.
+ */
 function waitEnable() {
-	isWaitEnable = true;
+	Wait.enable();
 }
 
+/**
+ * @deprecated Since version 1.4. Use Popup.hide() instead.
+ */
 function waitDisable() {
-	isWaitEnable = false;
+	Wait.disabled();
 }

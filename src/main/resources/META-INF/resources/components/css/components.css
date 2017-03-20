@@ -1111,16 +1111,135 @@ nav ul a:hover,nav .iconSide:hover {
 
 
 /* wait */
-.wait {
-	background: #000 url("../img/wait.gif") no-repeat 50% 50%;
-	border-radius: 25px;
-    box-shadow: 0 0 10px #000000; /* black */
-	display: block;
-	height: 50px;
-	opacity: .4;
-	position: absolute;
-	width: 50px;
+.wait-box  {
+	cursor: wait;
+	padding: 20px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 1;
 }
+
+.wait-spinner {
+	-webkit-animation: wait-rotator 1.4s linear infinite;
+			animation: wait-rotator 1.4s linear infinite;
+}
+
+@-webkit-keyframes wait-rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(270deg);
+				transform: rotate(270deg);
+	}
+}
+
+@keyframes wait-rotator {
+	0% {
+		-webkit-transform: rotate(0deg);
+				transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(270deg);
+				transform: rotate(270deg);
+	}
+}
+
+.wait-path {
+	stroke-dasharray: 187;
+	stroke-dashoffset: 0;
+	-webkit-transform-origin: center;
+			transform-origin: center;
+	-webkit-animation: wait-colors 5.6s ease-in-out infinite, wait-dash 1.4s ease-in-out infinite;
+			animation: wait-colors 5.6s ease-in-out infinite, wait-dash 1.4s ease-in-out infinite;
+}
+
+@-webkit-keyframes wait-colors {
+	0% {
+		stroke:  #428bca;
+	}
+
+	25% {
+		stroke: #E0E0E0; /* grey-300 */
+	}
+
+	50% {
+		stroke: #ca4242;
+	}
+
+	75% {
+		stroke: #E0E0E0; /* grey-300 */
+	}
+
+	100% {
+		stroke: #428bca;
+	}
+}
+
+@keyframes wait-colors {
+	0% {
+		stroke:  #428bca;
+	}
+
+	25% {
+		stroke: #E0E0E0; /* grey-300 */
+	}
+
+	50% {
+		stroke: #ca4242;
+	}
+
+	75% {
+		stroke: #E0E0E0; /* grey-300 */
+	}
+
+	100% {
+		stroke: #428bca;
+	}
+}
+
+@-webkit-keyframes wait-dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+				transform: rotate(135deg);
+	}
+
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+				transform: rotate(450deg);
+	}
+}
+
+@keyframes wait-dash {
+	0% {
+		stroke-dashoffset: 187;
+	}
+
+	50% {
+		stroke-dashoffset: 46.75;
+		-webkit-transform: rotate(135deg);
+				transform: rotate(135deg);
+	}
+
+	100% {
+		stroke-dashoffset: 187;
+		-webkit-transform: rotate(450deg);
+				transform: rotate(450deg);
+	}
+}
+
 
 /* others */
 datetimepicker {

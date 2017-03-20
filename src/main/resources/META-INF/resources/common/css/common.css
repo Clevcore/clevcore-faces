@@ -35,6 +35,35 @@
   transform: translate(-50%, -50%);
 }
 
+.box-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.box-topLeft {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.box-topRight {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+}
+
+.box-bottomLeft {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-start;
+}
+
+.box-bottomRight {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
 
 /* Background */
 .bDefault, .bDefaultHover {
