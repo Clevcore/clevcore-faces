@@ -206,24 +206,46 @@ function accordion(id, titleCompress, titleExpand) {
 
 /* commandButton */
 var CommandButton = {
+	init : function(id) {
+		var element = getElement(id + ":id");
+
+		var waitBox = element.children[0];
+		var waitIcon = waitBox.firstElementChild;
+
+		var valueBox = element.children[1];
+		var valueBoxHeight = Math.round(getHeightElement(valueBox));
+
+		waitIcon.innerHTML = Wait.getSvg(16);
+		remove(id + ":script");
+	},
+
 	loadingOn : function(element) {
+		var waitBox = element.children[0];
+		var textBox = element.children[1];
+
 		setDisabledElement(element, true);
-		addClassElement(element, "vTop");
-		replaceClassElement(element.children[0], "dNone", "dBlock");
-		replaceClassElement(element.children[1], "vVisible", "vHidden");
-		addClassElement(element.children[1], "h0");
-		addClassElement(element.children[1], "oHidden");
+		addClassElement(element, "cWait vTop");
+
+		replaceClassElement(waitBox, "dNone", "dBlock");
+
+		replaceClassElement(textBox, "vVisible", "vHidden");
+		addClassElement(textBox, "h0");
+		addClassElement(textBox, "oHidden");
 	},
 
 	loadingOff : function(element) {
-		setDisabledElement(element, false);
-		removeClassElement(element, "vTop");
-		replaceClassElement(element.children[0], "dBlock", "dNone");
-		replaceClassElement(element.children[1], "vHidden", "vVisible");
-		removeClassElement(element.children[1], "h0");
-		removeClassElement(element.children[1], "oHidden");
-	}
+		var waitBox = element.children[0];
+		var textBox = element.children[1];
 
+		setDisabledElement(element, false);
+		removeClassElement(element, "cWait vTop");
+
+		replaceClassElement(waitBox, "dBlock", "dNone");
+
+		replaceClassElement(textBox, "vHidden", "vVisible");
+		removeClassElement(textBox, "h0");
+		removeClassElement(textBox, "oHidden");
+	}
 };
 
 /* confirmNavigation */
@@ -1107,7 +1129,7 @@ var Wait = {
 
 	init : function() {
 		Wait.element = getElement("wait");
-		Wait.element.innerHTML = '<svg class="wait-spinner" width="60px" height="60px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="wait-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
+		Wait.element.innerHTML = Wait.getSvg(50);
 		Wait.enable();
 	},
 
@@ -1136,6 +1158,16 @@ var Wait = {
 	disable : function() {
 		Wait.isEnable = false;
 	},
+
+	getSvg : function(size) {
+		var svg = '';
+
+		svg += '<svg class="wait-spinner" width="' + size + '" height="' + size + '" viewBox="0 0 44 44">';
+		svg += '  <circle class="wait-path" cx="22" cy="22" r="20" fill="none" stroke-width="4"></circle>';
+		svg += '</svg>';
+
+		return svg
+	}
 }
 
 /**

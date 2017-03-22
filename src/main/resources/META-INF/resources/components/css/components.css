@@ -168,6 +168,10 @@ textarea:disabled,
 
 
 /* commandButton */
+button:disabled.cWait {
+	cursor: wait;
+}
+
 .input {
 	padding-top: 23px;
 }
@@ -303,7 +307,7 @@ select.transparent {
 	font-size: 16px;
 	height: 100%;
 	line-height: 1;
-	min-width: 0;
+	min-width: 18px;
 	padding: 0;
 	width: auto;
 }
@@ -344,6 +348,50 @@ input[type=submit].transparent:hover,
 input[type=submit].transparent:focus,
 select.transparent {
 	box-shadow: none;
+}
+
+.btn-text-box, .btn-wait-box {
+	color: inherit;
+	font: inherit;
+	line-height: 0;
+}
+
+.btn-text-icon, .btn-wait-icon {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.btn-text-value, .btn-wait-value {
+	color: inherit;
+	display: inline-block;
+	font: inherit;
+	line-height: 16px;
+	vertical-align: middle;
+}
+
+button.default .wait-path,
+button.primary .wait-path,
+button.secondary .wait-path,
+button.tertiary .wait-path {
+	stroke: #FFFFFF; /* white */;
+}
+
+button.default-outline .wait-path  {
+	stroke: #424242; /* grey-800 */
+}
+
+button.default2 .wait-path,
+button.transparent .wait-path,
+button.primary-outline .wait-path {
+	stroke: #428bca;
+}
+
+button.secondary-outline .wait-path {
+	stroke: #ca4242;
+}
+
+button.tertiary-outline .wait-path {
+	stroke: #60c451;
 }
 
 
@@ -1123,8 +1171,8 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 .wait-spinner {
-	-webkit-animation: wait-rotator 1.4s linear infinite;
-			animation: wait-rotator 1.4s linear infinite;
+	-webkit-animation: wait-rotator 1.6s linear infinite;
+			animation: wait-rotator 1.6s linear infinite;
 }
 
 @-webkit-keyframes wait-rotator {
@@ -1152,56 +1200,13 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 .wait-path {
+	stroke: #428bca;
 	stroke-dasharray: 187;
 	stroke-dashoffset: 0;
 	-webkit-transform-origin: center;
 			transform-origin: center;
-	-webkit-animation: wait-colors 5.6s ease-in-out infinite, wait-dash 1.4s ease-in-out infinite;
-			animation: wait-colors 5.6s ease-in-out infinite, wait-dash 1.4s ease-in-out infinite;
-}
-
-@-webkit-keyframes wait-colors {
-	0% {
-		stroke:  #428bca;
-	}
-
-	25% {
-		stroke: #E0E0E0; /* grey-300 */
-	}
-
-	50% {
-		stroke: #ca4242;
-	}
-
-	75% {
-		stroke: #E0E0E0; /* grey-300 */
-	}
-
-	100% {
-		stroke: #428bca;
-	}
-}
-
-@keyframes wait-colors {
-	0% {
-		stroke:  #428bca;
-	}
-
-	25% {
-		stroke: #E0E0E0; /* grey-300 */
-	}
-
-	50% {
-		stroke: #ca4242;
-	}
-
-	75% {
-		stroke: #E0E0E0; /* grey-300 */
-	}
-
-	100% {
-		stroke: #428bca;
-	}
+	-webkit-animation: wait-dash 1.6s ease-in-out infinite;
+			animation: wait-dash 1.6s ease-in-out infinite;
 }
 
 @-webkit-keyframes wait-dash {
