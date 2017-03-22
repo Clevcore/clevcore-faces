@@ -31,7 +31,7 @@
     </h:head>
     <h:body>
 		<ui:insert name="body" />
-	
+
 		<cc:popup id="clevcore-sessionAboutTimeout" closeable="false">
 			<h:form>
 				<cc:panel styleClass="mwNormal">
@@ -52,7 +52,7 @@
 				</cc:panel>
 			</h:form>
 		</cc:popup>
-	
+
 		<cc:popup id="clevcore-sessionTimeout" closeable="false">
 			<h:form>
 				<cc:panel styleClass="mwNormal">
@@ -72,7 +72,7 @@
 				</cc:panel>
 			</h:form>
 		</cc:popup>
-	
+
 		<cc:popup id="clevcore-versionBrowserUnsupportedPopup">
 			<h:form>
 				<cc:panel styleClass="mwNormal">
@@ -84,7 +84,7 @@
 							<h:outputText styleClass="tJustify"
 								value="#{clevcoreMsg.version_browser_unsupported_info}" />
 						</h:panelGroup>
-	
+
 						<h:panelGroup layout="block">
 							<h:selectBooleanCheckbox id="notRemember">
 								<f:ajax execute="@this"
@@ -104,7 +104,7 @@
 				</cc:panel>
 			</h:form>
 		</cc:popup>
-	
+
 		<cc:messages id="#{bbClevcore.idMessages}" />
 
         <h:panelGroup id="#{bbClevcore.idScript}">
@@ -121,6 +121,7 @@
 
 			var path = "#{bbClevcore.path}";
 			var notRememberVersionBrowserUnsupported = #{bbClevcore.getNotRememberVersionBrowserUnsupported()};
+			var projectStage = "#{facesContext.application.projectStage}";
 		</script>
 
         <o:onloadScript>
