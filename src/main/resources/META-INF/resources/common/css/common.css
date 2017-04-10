@@ -2733,9 +2733,28 @@
 	.print {
 		display: block;
 	}
-
 	.noPrint {
 		display: none;
+	}
+
+	/* Size */
+	.p-h0 {
+		height: 0;
+	}
+	.p-h100 {
+		height: 100%;
+	}
+	.p-hAuto {
+		height: auto;
+	}
+	.p-w0 {
+		width: 0;
+	}
+	.p-w100 {
+		width: 100%;
+	}
+	.p-wAuto {
+		width: auto;
 	}
 }
 
