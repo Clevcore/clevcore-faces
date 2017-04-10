@@ -8,8 +8,12 @@
 	<composite:interface componentType="#{bbClevcore.SECTION}">
 		<composite:attribute name="styleClass" />
 		<composite:attribute name="style" />
-		<composite:attribute name="value" />
 		<composite:attribute name="icon" />
+		<composite:attribute name="iconType" default="fa"
+			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="iconClass" />
+		<composite:attribute name="iconStyle" />
+		<composite:attribute name="value" />
 		<composite:attribute name="rendered" />
 	</composite:interface>
 
@@ -17,7 +21,9 @@
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
 			<section id="#{cc.clientId}"
 				class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-				<cc:icon styleClass="fs20 pRightNormal" value="#{cc.attrs.icon}"
+				<cc:icon type="#{cc.attrs.iconType}"
+					styleClass="fs20 pRightNormal #{cc.attrs.iconClass}"
+					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
 					rendered="#{cc.attrs.icon ne null}" />
 
 				<h:outputText styleClass="fwLight fs18 tUppercase"
