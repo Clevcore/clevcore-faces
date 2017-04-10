@@ -1,33 +1,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.SECTION}">
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="value" />
-        <composite:attribute name="icon" />
-        <composite:attribute name="rendered" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.SECTION}">
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="value" />
+		<composite:attribute name="icon" />
+		<composite:attribute name="rendered" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup rendered="#{cc.attrs.rendered}">
-            <section id="#{cc.clientId}"
-                class="section pNormal #{cc.attrs.styleClass}" style="">
-                <cc:icon styleClass="fs20 pRightNormal" value="#{cc.attrs.icon}"
-                    rendered="#{cc.attrs.icon ne null}" />
+	<composite:implementation>
+		<h:panelGroup rendered="#{cc.attrs.rendered}">
+			<section id="#{cc.clientId}"
+				class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
+				<cc:icon styleClass="fs20 pRightNormal" value="#{cc.attrs.icon}"
+					rendered="#{cc.attrs.icon ne null}" />
 
-                <h:outputText styleClass="fwLight fs18 tUppercase"
-                    value="#{cc.attrs.value}"
-                    rendered="#{cc.attrs.value != null}" />
+				<h:outputText styleClass="fwLight fs18 tUppercase"
+					value="#{cc.attrs.value}" rendered="#{cc.attrs.value != null}" />
 
-                <cc:separator styleClass="mTopNormal mBottomNormal"
-                    rendered="#{cc.attrs.icon ne null or cc.attrs.value != null}" />
-                <composite:insertChildren />
-            </section>
-        </h:panelGroup>
-    </composite:implementation>
+				<cc:separator styleClass="mTopNormal mBottomNormal"
+					rendered="#{cc.attrs.icon ne null or cc.attrs.value != null}" />
+				<composite:insertChildren />
+			</section>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>
