@@ -167,6 +167,44 @@ textarea:disabled,
 }
 
 
+/* alert */
+.alert {
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 24px;
+	padding: 10px;
+	text-align: center;
+}
+
+.alert-title {
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.alert-info {
+	background-color: #BBDEFB; /* Blue-100 */
+	border: 1px solid #2196F3; /* Blue-500 */
+	color: #0D47A1; /* Blue-900 */
+}
+
+.alert-success {
+	background-color: #C8E6C9; /* green-100 */
+	border: 1px solid #4CAF50; /* green-500 */
+	color: #1B5E20; /* green-900 */
+}
+
+.alert-warning {
+	background-color: #FFF9C4; /* yellow-100 */
+	border: 1px solid #FFEB3B; /* yellow-500 */
+	color: #F57F17; /* yellow-900 */
+}
+
+.alert-danger {
+	background-color: #FFCDD2; /* red-100 */
+	border: 1px solid #F44336; /* red-500 */
+	color: #B71C1C; /* red-900 */
+}
+
 /* commandButton */
 button:disabled.cWait {
 	cursor: wait;

@@ -4,6 +4,7 @@ public final class Constant {
 
     public static final String COMPONENT_PATH = "ar.com.clevcore.faces.components.";
 
+    public static final String ALERT = COMPONENT_PATH + "Alert";
     public static final String COLUMN = COMPONENT_PATH + "Column";
     public static final String COMMAND_BUTTON = COMPONENT_PATH + "CommandButton";
     public static final String DATA_TABLE = COMPONENT_PATH + "DataTable";

@@ -95,6 +95,10 @@ public class BBClevcore implements Serializable {
     }
 
     // CONSTANT
+    public String getALERT() {
+        return Constant.ALERT;
+    }
+
     public String getCOLUMN() {
         return Constant.COLUMN;
     }
