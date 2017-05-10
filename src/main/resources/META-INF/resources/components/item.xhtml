@@ -17,12 +17,19 @@
 		<composite:attribute name="iconStyle" />
 		<composite:attribute name="value" />
 		<composite:attribute name="title" />
-		<composite:attribute name="redirect" default="#" />
 		<composite:attribute name="rendered" />
 		<composite:attribute name="disabled" />
-		<composite:attribute name="onclick" />
+		<composite:attribute name="redirect" default="#" />
+		<composite:attribute name="immediate" />
 		<composite:attribute name="action"
 			method-signature="java.lang.String action()" />
+		<composite:attribute name="execute" />
+		<composite:attribute name="render" />
+		<composite:attribute name="onclick" />
+		<composite:attribute name="onbegin" />
+		<composite:attribute name="oncomplete" />
+		<composite:attribute name="onsuccess" />
+		<composite:attribute name="onvalidation" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -30,7 +37,7 @@
 			<li id="#{cc.clientId}" class="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
 				<h:outputLink
 					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
-					value="#{cc.attrs.redirect}"
+					value="#{cc.attrs.redirect != '#' ? bbClevcore.path : ''}#{cc.attrs.redirect}"
 					rendered="#{cc.attrs.action == null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
 					<cc:icon type="#{cc.attrs.iconType}"
@@ -48,8 +55,33 @@
 						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
 						rendered="#{cc.attrs.icon != null}" />
+
 					<h:outputText value="#{cc.attrs.value}"
 						rendered="#{cc.attrs.value != null}" />
+
+					<c:if test="#{cc.attrs.onbegin ne null}">
+						<f:passThroughAttribute name="data-onbegin"
+							value="#{cc.attrs.onbegin}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.oncomplete ne null}">
+						<f:passThroughAttribute name="data-oncomplete"
+							value="#{cc.attrs.oncomplete}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onsuccess ne null}">
+						<f:passThroughAttribute name="data-onsuccess"
+							value="#{cc.attrs.onsuccess}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onvalidation ne null}">
+						<f:passThroughAttribute name="data-onvalidation"
+							value="#{cc.attrs.onvalidation}" />
+					</c:if>
+
+					<f:ajax immediate="#{cc.attrs.immediate}"
+						execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
+						disabled="#{cc.attrs.execute eq null and cc.attrs.render eq null}" />
 				</h:commandLink>
 				<composite:insertChildren />
 			</li>
