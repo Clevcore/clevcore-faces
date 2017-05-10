@@ -75,11 +75,11 @@
 }
 
 .bDefault2, .bDefault2Hover {
-	background-color: #E0E0E0; /* grey-300 */
+	background-color: #F5F5F5; /* grey-100 */
 }
 
 .bDefault2Hover:hover {
-	background-color: #BDBDBD; /* grey-400 */
+	background-color: #EEEEEE; /* grey-200 */
 }
 
 .bPrimary, .bPrimaryHover {
@@ -488,11 +488,11 @@
 }
 
 .cDefault2, .cDefault2Hover {
-	color: #FFFFFF !important; /* white */
+	color: #757575 !important; /* grey-600 */
 }
 
 .cDefault2Hover:hover {
-	color: #F5F5F5 !important; /* grey-100 */
+	color: #616161 !important; /* grey-700 */
 }
 
 .cPrimary, .cPrimaryHover {
