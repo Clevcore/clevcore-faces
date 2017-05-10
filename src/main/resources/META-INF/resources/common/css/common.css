@@ -699,7 +699,6 @@
 	font-size: 46px;
 }
 
-
 .fs48 {
 	font-size: 48px;
 }
@@ -2737,6 +2736,95 @@
 		display: none;
 	}
 
+	/* Font size */
+	.p-fs0 {
+		font-size: 0;
+	}
+	.p-fs10 {
+		font-size: 10px;
+	}
+	.p-fs12 {
+		font-size: 12px !important;
+	}
+	.p-fs14 {
+		font-size: 14px;
+	}
+	.p-fs16 {
+		font-size: 16px;
+	}
+	.p-fs18 {
+		font-size: 18px;
+	}
+	.p-fs20 {
+		font-size: 20px;
+	}
+	.p-fs22 {
+		font-size: 22px;
+	}
+	.p-fs24 {
+		font-size: 24px;
+	}
+	.p-fs26 {
+		font-size: 26px;
+	}
+	.p-fs28 {
+		font-size: 28px;
+	}
+	.p-fs30 {
+		font-size: 30px;
+	}
+	.p-fs32 {
+		font-size: 32px;
+	}
+	.p-fs34 {
+		font-size: 34px;
+	}
+	.p-fs36 {
+		font-size: 36px;
+	}
+	.p-fs38 {
+		font-size: 38px;
+	}
+	.p-fs40 {
+		font-size: 40px;
+	}
+	.p-fs42 {
+		font-size: 42px;
+	}
+	.p-fs44 {
+		font-size: 44px;
+	}
+	.p-fs46 {
+		font-size: 46px;
+	}
+	.p-fs48 {
+		font-size: 48px;
+	}
+	.p-fs50 {
+		font-size: 50px;
+	}
+	.p-fs52 {
+		font-size: 52px;
+	}
+	.p-fs54 {
+		font-size: 54px;
+	}
+	.p-fs56 {
+		font-size: 56px;
+	}
+	.p-fs58 {
+		font-size: 58px;
+	}
+	.p-fs60 {
+		font-size: 60px;
+	}
+	.p-fs200 {
+		font-size: 200px;
+	}
+	.p-fs400 {
+		font-size: 400px;
+	}
+
 	/* Size */
 	.p-h0 {
 		height: 0;
@@ -2978,7 +3066,7 @@
 		width: 0;
 	}
 	.l-w100 {
-		width: 100$;
+		width: 100%;
 	}
 	.l-wAuto {
 		width: auto;
