@@ -821,12 +821,10 @@ button.tertiary-outline .wait-path {
 	padding: 15px 30px 15px 15px;
 	text-align: left !important;
 	white-space: nowrap;
-
-	transition: background-color .28s;
 }
 
 .items a:hover {
-	background-color: rgba(0,0,0,.05);
+	background-color: rgba(0,0,0,.07);
 }
 
 /* navbar */
