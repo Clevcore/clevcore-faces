@@ -827,6 +827,10 @@ button.tertiary-outline .wait-path {
 	background-color: rgba(0,0,0,.07);
 }
 
+.items li .fa {
+	min-width: 34px;
+}
+
 /* navbar */
 nav {
 	background-color: #428bca;
