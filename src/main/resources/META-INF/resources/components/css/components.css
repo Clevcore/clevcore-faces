@@ -496,6 +496,7 @@ button.tertiary-outline .wait-path {
 
 .fabItems .fabItem button {
 	border-radius: 50%;
+	border-width: 0;
 	height: 40px;
 	min-width: 40px;
 	padding: 0;
