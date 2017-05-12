@@ -1841,14 +1841,6 @@
  	overflow-y: visible;
 }
 
-@media screen {
-	.scrollingResponsive {
-		overflow-x: auto;
-		overflow-y: hidden;
-		white-space: nowrap;
-		width: 100%;
-	}
-}
 
 /* Padding */
 .pNone {
@@ -2041,6 +2033,30 @@
 	right: 0;
 	position: absolute;
 	top: 0;
+}
+
+
+/* Scroll */
+.scrollbar::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.08);
+}
+
+@media screen {
+	.scrollingResponsive {
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+		width: 100%;
+	}
 }
 
 
