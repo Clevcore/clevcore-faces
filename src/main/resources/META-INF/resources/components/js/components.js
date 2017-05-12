@@ -459,6 +459,85 @@ function fabCloseableKey(event) {
 	actionToEscKey(event, fab);
 }
 
+/* floatIfNotVisible */
+var FloatIfNotVisible = function() {
+	var verify = function(element) {
+		var style = "pFixed w100 " + (getAttributeElement(element, "data-floatClass") || "");
+		var completely = hasClassElement(element, "-completely");
+
+		if (hasClassElement(element, "js-float-top-if-not-visible")) {
+			style += " aTop aLeft";
+			if (!isVisibleVerticalElement(element, completely)) {
+				addClassElement(element.firstElementChild, style);
+			} else {
+				removeClassElement(element.firstElementChild, style);
+			}
+		} else if (hasClassElement(element, "js-float-left-if-not-visible")) {
+			style += " aTop aLeft";
+			if (!isVisibleHorizontalElement(element, completely)) {
+				addClassElement(element.firstElementChild, style);
+			} else {
+				removeClassElement(element.firstElementChild, style);
+			}
+		} else if (hasClassElement(element, "js-float-bottom-if-not-visible")) {
+			style += " aBottom aLeft";
+			if (!isVisibleVerticalElement(element, completely)) {
+				addClassElement(element.firstElementChild, style);
+			} else {
+				removeClassElement(element.firstElementChild, style);
+			}
+		} else {
+			style += " aTop aRight";
+			if (!isVisibleHorizontalElement(element, completely)) {
+				addClassElement(element.firstElementChild, style);
+			} else {
+				removeClassElement(element.firstElementChild, style);
+			}
+		}
+	};
+
+	var getElementArray = function() {
+		return getSelectors("[class*='js-float-']");
+	};
+
+	return {
+		init : function() {
+			var elementArray = getElementArray();
+			for (var i = 0; i < elementArray.length; i++) {
+				addStyleElement(elementArray[i], "z-index: " + (elementArray.length - i) + ";");
+				if (hasClassElement(elementArray[i], "js-float-top-if-not-visible")
+						|| hasClassElement(elementArray[i], "js-float-bottom-if-not-visible")) {
+					addStyleElement(elementArray[i], "height: " + getHeightElement(elementArray[i]) + "px;");
+				} else {
+					addStyleElement(elementArray[i], "width: " + getWidthElement(elementArray[i]) + "px;");
+				}
+			}
+
+			FloatIfNotVisible.process();
+
+			window.addEventListener("scroll", FloatIfNotVisible.process);
+			window.addEventListener("resize", FloatIfNotVisible.process);
+
+			// We don't find a event for change of height or width scroll by
+			// this we use click event more a setTimeout
+			window.addEventListener("click", FloatIfNotVisible.helper);
+		},
+
+		process : function() {
+			var elementArray = getElementArray();
+			for (var i = 0; i < elementArray.length; i++) {
+				verify(elementArray[i]);
+			}
+		},
+
+		helper : function() {
+			setTimeout(function() {
+				FloatIfNotVisible.process();
+			}, ANIMATION_TIME || 200);
+		}
+	};
+}();
+
 /* graphicImage */
 function lazyload() {
 	$("img.lazy").lazyload();

@@ -26,7 +26,7 @@
 			styleClass="pRelative js-float-#{cc.attrs.position}-if-not-visible#{cc.attrs.completely ? '-completely' : ''}"
 			rendered="#{cc.attrs.rendered}">
 			<f:passThroughAttribute name="data-floatClass"
-				value="#{cc.attrs.shadow ? 'bShadow6dp' : ''} #{cc.attrs.styleClass}" />
+				value="#{cc.attrs.shadow ? (cc.attrs.position == 'bottom' ? 'bShadow6dpNe' : 'bShadow6dp') : ''} #{cc.attrs.styleClass}" />
 			<h:panelGroup layout="block"
 				styleClass="hInherit #{cc.attrs.animate ? 'tAll' : ''}">
 				<composite:insertChildren />
