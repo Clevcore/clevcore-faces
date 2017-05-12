@@ -463,6 +463,101 @@
 	box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, .2), 0px 24px 38px 3px rgba(0, 0, 0, .14), 0px 9px 46px 8px rgba(0, 0, 0, .12);
 }
 
+.bShadow1dpNe, .bShadowZ1Ne, .bShadow1dpNeHover:hover, .bShadowZ1NeHover:hover, .bShadow1dpNeFocus:focus, .bShadowZ1NeFocus:focus {
+	box-shadow: 0px -1px 3px 0px rgba(0, 0, 0, .2), 0px -1px 1px 0px rgba(0, 0, 0, .14), 0px -2px 1px -1px rgba(0, 0, 0, .12);
+}
+
+.bShadow2dpNe, .bShadow2dpNeHover:hover, .bShadow2dpNeFocus:focus {
+	box-shadow: 0px -1px 5px 0px rgba(0, 0, 0, .2), 0px -2px 2px 0px rgba(0, 0, 0, .14), 0px -3px 1px -2px rgba(0, 0, 0, .12);
+}
+
+.bShadow3dpNe, .bShadow3dpNeHover:hover, .bShadow3dpNeFocus:focus {
+	box-shadow: 0px -1px 8px 0px rgba(0, 0, 0, .2), 0px -3px 4px 0px rgba(0, 0, 0, .14), 0px -3px 3px -2px rgba(0, 0, 0, .12);
+}
+
+.bShadow4dpNe, .bShadowZ2Ne, .bShadow4dpNeHover:hover, .bShadowZ2NeHover:hover, .bShadow4dpNeFocus:focus, .bShadowZ2NeFocus:focus {
+	box-shadow: 0px -2px 4px -1px rgba(0, 0, 0, .2), 0px -4px 5px 0px rgba(0, 0, 0, .14), 0px -1px 10px 0px rgba(0, 0, 0, .12);
+}
+
+.bShadow5dpNe, .bShadow5dpNeHover:hover, .bShadow5dpNeFocus:focus {
+	box-shadow: 0px -3px 5px -1px rgba(0, 0, 0, .2), 0px -5px 8px 0px rgba(0, 0, 0, .14), 0px -1px 14px 0px rgba(0, 0, 0, .12);
+}
+
+.bShadow6dpNe, .bShadow6dpNeHover:hover, .bShadow6dpNeFocus:focus {
+	box-shadow: 0px -3px 5px -1px rgba(0, 0, 0, .2), 0px -6px 10px 0px rgba(0, 0, 0, .14), 0px -1px 18px 0px rgba(0, 0, 0, .12);
+}
+
+.bShadow7dpNe, .bShadowZ3Ne, .bShadow7dpNeHover:hover, .bShadowZ3NeHover:hover, .bShadow7dpNeFocus:focus, .bShadowZ3NeFocus:focus {
+	box-shadow: 0px -4px 5px -2px rgba(0, 0, 0, .2), 0px -7px 10px 1px rgba(0, 0, 0, .14), 0px -2px 16px 1px rgba(0, 0, 0, .12);
+}
+
+.bShadow8dpNe, .bShadow8dpNeHover:hover, .bShadow8dpNeFocus:focus {
+	box-shadow: 0px -5px 5px -3px rgba(0, 0, 0, .2), 0px -8px 10px 1px rgba(0, 0, 0, .14), 0px -3px 14px 2px rgba(0, 0, 0, .12);
+}
+.bShadow9dpNe, .bShadow9dpNeHover:hover, .bShadow9dpNeFocus:focus {
+	box-shadow: 0px -5px 6px -3px rgba(0, 0, 0, .2), 0px -9px 12px 1px rgba(0, 0, 0, .14), 0px -3px 16px 2px rgba(0, 0, 0, .12);
+}
+
+.bShadow10dpNe, .bShadowZ4Ne, .bShadow10dpNeHover:hover, .bShadowZ4NeHover:hover, .bShadow10dpNeFocus:focus, .bShadowZ4NeFocus:focus {
+	box-shadow: 0px -6px 6px -3px rgba(0, 0, 0, .2), 0px -10px 14px 1px rgba(0, 0, 0, .14), 0px -4px 18px 3px rgba(0, 0, 0, .12);
+}
+
+.bShadow11dpNe, .bShadow11dpNeHover:hover, .bShadow11dpNeFocus:focus {
+	box-shadow: 0px -6px 7px -4px rgba(0, 0, 0, .2), 0px -11px 15px 1px rgba(0, 0, 0, .14), 0px -4px 20px 3px rgba(0, 0, 0, .12);
+}
+
+.bShadow12dpNe, .bShadow12dpNeHover:hover, .bShadow12dpNeFocus:focus {
+	box-shadow: 0px -7px 8px -4px rgba(0, 0, 0, .2), 0px -12px 17px 2px rgba(0, 0, 0, .14), 0px -5px 22px 4px rgba(0, 0, 0, .12);
+}
+
+.bShadow13dpNe, .bShadowZ5Ne, .bShadow13dpNeHover:hover, .bShadowZ5NeHover:hover, .bShadow13dpNeFocus:focus, .bShadowZ5NeFocus:focus {
+	box-shadow: 0px -7px 8px -4px rgba(0, 0, 0, .2), 0px -13px 19px 2px rgba(0, 0, 0, .14), 0px -5px 24px 4px rgba(0, 0, 0, .12);
+}
+
+.bShadow14dpNe, .bShadow14dpNeHover:hover, .bShadow14dpNeFocus:focus {
+	box-shadow: 0px -7px 9px -4px rgba(0, 0, 0, .2), 0px -14px 21px 2px rgba(0, 0, 0, .14), 0px -5px 26px 4px rgba(0, 0, 0, .12);
+}
+
+.bShadow15dpNe, .bShadow15dpNeHover:hover, .bShadow15dpNeFocus:focus {
+	box-shadow: 0px -8px 9px -5px rgba(0, 0, 0, .2), 0px -15px 22px 2px rgba(0, 0, 0, .14), 0px -6px 28px 5px rgba(0, 0, 0, .12);
+}
+
+.bShadow16dpNe, .bShadow16dpNeHover:hover, .bShadow16dpNeFocus:focus {
+	box-shadow: 0px -8px 10px -5px rgba(0, 0, 0, .2), 0px -16px 24px 2px rgba(0, 0, 0, .14), 0px -6px 30px 5px rgba(0, 0, 0, .12);
+}
+
+.bShadow17dpNe, .bShadow17dpNeHover:hover, .bShadow17dpNeFocus:focus {
+	box-shadow: 0px -8px 11px -5px rgba(0, 0, 0, .2), 0px -17px 26px 2px rgba(0, 0, 0, .14), 0px -6px 32px 5px rgba(0, 0, 0, .12);
+}
+
+.bShadow18dpNe, .bShadow18dpNeHover:hover, .bShadow18dpNeFocus:focus {
+	box-shadow: 0px -9px 11px -5px rgba(0, 0, 0, .2), 0px -18px 28px 2px rgba(0, 0, 0, .14), 0px -7px 34px 6px rgba(0, 0, 0, .12);
+}
+
+.bShadow19dpNe, .bShadow19dpNeHover:hover, .bShadow19dpNeFocus:focus {
+	box-shadow: 0px -9px 12px -6px rgba(0, 0, 0, .2), 0px -19px 29px 2px rgba(0, 0, 0, .14), 0px -7px 36px 6px rgba(0, 0, 0, .12);
+}
+
+.bShadow20dpNe, .bShadow20dpNeHover:hover, .bShadow20dpNeFocus:focus {
+	box-shadow: 0px -10px 13px -6px rgba(0, 0, 0, .2), 0px -20px 31px 3px rgba(0, 0, 0, .14), 0px -8px 38px 7px rgba(0, 0, 0, .12);
+}
+
+.bShadow21dpNe, .bShadow21dpNeHover:hover, .bShadow21dpNeFocus:focus {
+	box-shadow: 0px -10px 13px -6px rgba(0, 0, 0, .2), 0px -21px 33px 3px rgba(0, 0, 0, .14), 0px -8px 40px 7px rgba(0, 0, 0, .12);
+}
+
+.bShadow22dpNe, .bShadow22dpNeHover:hover, .bShadow22dpNeFocus:focus {
+	box-shadow: 0px -10px 14px -6px rgba(0, 0, 0, .2), 0px -22px 35px 3px rgba(0, 0, 0, .14), 0px -8px 42px 7px rgba(0, 0, 0, .12);
+}
+
+.bShadow23dpNe, .bShadow23dpNeHover:hover, .bShadow23dpNeFocus:focus {
+	box-shadow: 0px -11px 14px -7px rgba(0, 0, 0, .2), 0px -23px 36px 3px rgba(0, 0, 0, .14), 0px -9px 44px 8px rgba(0, 0, 0, .12);
+}
+
+.bShadow24dpNe, .bShadow24dpNeHover:hover, .bShadow24dpNeFocus:focus {
+	box-shadow: 0px -11px 15px -7px rgba(0, 0, 0, .2), 0px -24px 38px 3px rgba(0, 0, 0, .14), 0px -9px 46px 8px rgba(0, 0, 0, .12);
+}
+
 .bShadowNone, .bShadow0dp, .bShadowZ0, .bShadowNoneHover:hover, .bShadow0dpHover:hover, .bShadowZ0Hover:hover, .bShadowNoneHover:disabled, .bShadowZ0Hover:disabled, .bShadowZ1Hover:disabled, .bShadowZ2Hover:disabled, .bShadowZ3Hover:disabled, .bShadowZ4Hover:disabled, .bShadowZ5Hover:disabled, .bShadow0dpHover:disabled, .bShadow1dpHover:disabled, .bShadow2dpHover:disabled, .bShadow3dpHover:disabled, .bShadow4dpHover:disabled, .bShadow5dpHover:disabled, .bShadow6dpHover:disabled, .bShadow7dpHover:disabled, .bShadow8dpHover:disabled, .bShadow9dpHover:disabled, .bShadow10dpHover:disabled, .bShadow11dpHover:disabled, .bShadow12dpHover:disabled, .bShadow13dpHover:disabled, .bShadow14dpHover:disabled, .bShadow15dpHover:disabled, .bShadow16dpHover:disabled, .bShadow17dpHover:disabled, .bShadow18dpHover:disabled, .bShadow19dpHover:disabled, .bShadow20dpHover:disabled, .bShadow21dpHover:disabled, .bShadow22dpHover:disabled, .bShadow23dpHover:disabled, .bShadow24dpHover:disabled, .bShadowNone:focus {
 	box-shadow: none;
 }
