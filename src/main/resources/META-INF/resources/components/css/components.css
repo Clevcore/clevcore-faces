@@ -1307,6 +1307,7 @@ input[data-only='number'] {
 	margin-top: 10px;
 	opacity: 0;
 	padding: 10px;
+	pointer-events: none;
 	position: absolute;
 	text-transform: none;
 	transition: opacity .28s;
