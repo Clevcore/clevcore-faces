@@ -427,16 +427,41 @@ function setInputCheckbox(selectors, value) {
 }
 
 function getBoolean(value) {
-	if (value === undefined || value == null) {
+	if (value == undefined) {
 		return value;
-	} else {
-		value = value.toLowerCase();
-		if (value == "true" || value == "yes" || value == "on") {
-			return true;
-		} else {
-			return false;
-		}
 	}
+
+	if (typeof value === "boolean" || (typeof value === "object" && typeof value.valueOf() === "boolean")) {
+		return value;
+	}
+
+	value = value.toLowerCase();
+	if (value === "true" || value === "yes" || value === "on") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function parseBoolean(value) {
+	if (value == undefined) {
+		return value;
+	}
+
+	if (typeof value === "boolean" || (typeof value === "object" && typeof value.valueOf() === "boolean")) {
+		return value;
+	}
+
+	return value.toLowerCase() === "true";
+}
+
+function isBoolean(value) {
+	return typeof value === "boolean" || (typeof value === "object" && typeof value.valueOf() === "boolean")
+			|| (typeof value === "string" && (value.toLowerCase() === "true" || value.toLowerCase() === "false"));
+}
+
+function isNumeric(value) {
+	return Number(parseFloat(value)) == value;
 }
 
 function getKeyCode(event) {
@@ -875,6 +900,35 @@ function animateScrollBottom(time) {
 	}, time | 1500);
 }
 
+function parameterToObject() {
+	var result = {};
+
+	var parameters = window.location.search.substring(1).split("&");
+	parameters.forEach(function(parameter) {
+		parameter = parameter.split("=");
+
+		if (isNumeric(parameter[1])) {
+			result[parameter[0]] = parseFloat(decodeURIComponent(parameter[1]));
+		} else if (isBoolean(parameter[1])) {
+			result[parameter[0]] = parseBoolean(decodeURIComponent(parameter[1]));
+		} else {
+			result[parameter[0]] = decodeURIComponent(parameter[1]);
+		}
+	});
+
+	return result;
+}
+
+function objectToParameter(parameters) {
+	var result;
+
+	result = Object.keys(parameters).map(function(key) {
+		return encodeURIComponent(key) + "=" + encodeURIComponent(parameters[key]);
+	}).join("&");
+
+	return result;
+}
+
 function getDirectory() {
 	var beginIndex = getUrlFull().ordinalIndexOf("/", 4);
 	var endIndex = getUrlFull().lastIndexOf("/");
@@ -928,7 +982,7 @@ function redirect(url) {
 }
 
 function windowOpen(url) {
-	window.open(url);
+	return window.open(url);
 }
 
 function windowOpenNew(url) {
@@ -936,7 +990,7 @@ function windowOpenNew(url) {
 		url = "http://" + url;
 	}
 
-	window.open(url, "_blank");
+	return window.open(url, "_blank");
 }
 
 var HandleMove = {
