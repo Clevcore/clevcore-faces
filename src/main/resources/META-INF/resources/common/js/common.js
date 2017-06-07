@@ -933,7 +933,7 @@ function getDirectory() {
 	var beginIndex = getUrlFull().ordinalIndexOf("/", 4);
 	var endIndex = getUrlFull().lastIndexOf("/");
 
-	if (beginIndex != endIndex) {
+	if (beginIndex !== endIndex) {
 		return getUrlFull().substring(beginIndex, endIndex + 1);
 	} else {
 		return "";
@@ -941,9 +941,21 @@ function getDirectory() {
 }
 
 function getPage() {
+	var page = getPageFull();
+
+	if (page.indexOf("?") !== -1) {
+		return page.substring(0, page.indexOf("?"));
+	} else if (page.indexOf("#") !== -1) {
+		return page.substring(0, page.indexOf("#"));
+	} else {
+		return page;
+	}
+}
+
+function getPageFull() {
 	var index = getUrlFull().lastIndexOf("/");
 
-	if (index != -1) {
+	if (index !== -1) {
 		return getUrlFull().substring(index + 1);
 	} else {
 		return "";
@@ -951,9 +963,21 @@ function getPage() {
 }
 
 function getPath() {
+	var path = getPathFull();
+
+	if (path.indexOf("?") !== -1) {
+		return path.substring(0, path.indexOf("?"));
+	} else if (path.indexOf("#") !== -1) {
+		return path.substring(0, path.indexOf("#"));
+	} else {
+		return path;
+	}
+}
+
+function getPathFull() {
 	var index = getUrlFull().ordinalIndexOf("/", 4);
 
-	if (index != -1) {
+	if (index !== -1) {
 		return getUrlFull().substring(index);
 	} else {
 		return "";
@@ -963,7 +987,7 @@ function getPath() {
 function getUrl() {
 	var index = getUrlFull().ordinalIndexOf("/", 4);
 
-	if (index != -1) {
+	if (index !== -1) {
 		return getUrlFull().substring(0, index);
 	} else {
 		return "";
