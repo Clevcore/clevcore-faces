@@ -48,6 +48,8 @@ public final class ServletUtils {
             return page.substring(0, page.indexOf("?"));
         } else if (page.indexOf("#") != -1) {
             return page.substring(0, page.indexOf("#"));
+        } else if (page.indexOf(";") != -1) {
+            return page.substring(0, page.indexOf(";"));
         } else {
             return page;
         }
@@ -70,6 +72,8 @@ public final class ServletUtils {
             return path.substring(0, path.indexOf("?"));
         } else if (path.indexOf("#") != -1) {
             return path.substring(0, path.indexOf("#"));
+        } else if (path.indexOf(";") != -1) {
+            return path.substring(0, path.indexOf(";"));
         } else {
             return path;
         }

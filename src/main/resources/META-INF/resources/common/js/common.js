@@ -923,7 +923,8 @@ function objectToParameter(parameters) {
 	var result;
 
 	result = Object.keys(parameters).map(function(key) {
-		return encodeURIComponent(key) + "=" + encodeURIComponent(parameters[key]);
+		var value = parameters[key];
+		return encodeURIComponent(key) + (value !== undefined && value !== "" ? "=" + encodeURIComponent(value) : "");
 	}).join("&");
 
 	return result;
@@ -947,6 +948,8 @@ function getPage() {
 		return page.substring(0, page.indexOf("?"));
 	} else if (page.indexOf("#") !== -1) {
 		return page.substring(0, page.indexOf("#"));
+	} else if (page.indexOf(";") !== -1) {
+		return page.substring(0, page.indexOf(";"));
 	} else {
 		return page;
 	}
@@ -969,6 +972,8 @@ function getPath() {
 		return path.substring(0, path.indexOf("?"));
 	} else if (path.indexOf("#") !== -1) {
 		return path.substring(0, path.indexOf("#"));
+	} else if (path.indexOf(";") !== -1) {
+		return path.substring(0, path.indexOf(";"));
 	} else {
 		return path;
 	}
