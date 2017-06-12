@@ -944,12 +944,12 @@ function getDirectory() {
 function getPage() {
 	var page = getPageFull();
 
-	if (page.indexOf("?") !== -1) {
+	if (page.indexOf(";") !== -1) {
+		return page.substring(0, page.indexOf(";"));
+	} else if (page.indexOf("?") !== -1) {
 		return page.substring(0, page.indexOf("?"));
 	} else if (page.indexOf("#") !== -1) {
 		return page.substring(0, page.indexOf("#"));
-	} else if (page.indexOf(";") !== -1) {
-		return page.substring(0, page.indexOf(";"));
 	} else {
 		return page;
 	}
@@ -968,12 +968,12 @@ function getPageFull() {
 function getPath() {
 	var path = getPathFull();
 
-	if (path.indexOf("?") !== -1) {
+	if (path.indexOf(";") !== -1) {
+		return path.substring(0, path.indexOf(";"));
+	} else if (path.indexOf("?") !== -1) {
 		return path.substring(0, path.indexOf("?"));
 	} else if (path.indexOf("#") !== -1) {
 		return path.substring(0, path.indexOf("#"));
-	} else if (path.indexOf(";") !== -1) {
-		return path.substring(0, path.indexOf(";"));
 	} else {
 		return path;
 	}
