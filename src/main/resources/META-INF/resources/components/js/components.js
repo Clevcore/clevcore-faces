@@ -1182,22 +1182,40 @@ function selectManyCheckboxClick(id, index) {
 
 /* loadingPage */
 var LoadingPage = {
+	element : undefined,
+	isEnable : undefined,
+
 	init : function() {
+		LoadingPage.element = getElement("loadingPage");
+		LoadingPage.enable();
+
 		window.addEventListener("load", function(event) {
-			LoadingPage.off();
+			if (LoadingPage.isEnable) {
+				LoadingPage.off();
+			}
 		});
 
 		window.addEventListener("beforeunload", function(event) {
-			LoadingPage.on();
+			if (LoadingPage.isEnable) {
+				LoadingPage.on();
+			}
 		});
 	},
 
 	on : function() {
-		removeClass("loadingPage", "dNone");
+		removeClassElement(LoadingPage.element, "dNone");
 	},
 
 	off : function() {
-		addClass("loadingPage", "dNone");
+		addClassElement(LoadingPage.element, "dNone");
+	},
+
+	enable : function() {
+		LoadingPage.isEnable = true;
+	},
+
+	disable : function() {
+		LoadingPage.isEnable = false;
 	}
 };
 
@@ -1223,11 +1241,11 @@ var Wait = {
 	},
 
 	on : function() {
-		removeClass("wait", "dNone");
+		removeClassElement(Wait.element, "dNone");
 	},
 
 	off : function() {
-		addClass("wait", "dNone");
+		addClassElement(Wait.element, "dNone");
 	},
 
 	enable : function() {
@@ -1250,21 +1268,21 @@ var Wait = {
 }
 
 /**
- * @deprecated Since version 1.4. Use Popup.hide() instead.
+ * @deprecated Since version 1.4. Use Wait.status(status) instead.
  */
 function wait(status) {
 	Wait.status(status);
 }
 
 /**
- * @deprecated Since version 1.4. Use Popup.hide() instead.
+ * @deprecated Since version 1.4. Use Wait.enable() instead.
  */
 function waitEnable() {
 	Wait.enable();
 }
 
 /**
- * @deprecated Since version 1.4. Use Popup.hide() instead.
+ * @deprecated Since version 1.4. Use Wait.disable() instead.
  */
 function waitDisable() {
 	Wait.disabled();
