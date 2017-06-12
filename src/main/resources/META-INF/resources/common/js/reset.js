@@ -1,24 +1,25 @@
-$(document).ready(
-		function() {
-			Reset.init();
-			Reset.init();
-			Reset.init();
+$(document)
+		.ready(
+				function() {
+					Reset.init();
+					Reset.init();
+					Reset.init();
 
-			if (browser.name == "Firefox") {
-				setAttribute("html", "moznomarginboxes", "");
-				setAttribute("html", "mozdisallowselectionprint", "");
-			}
+					if (System.browser.name === System.CONSTANT.BROWSER.FIREFOX) {
+						setAttribute("html", "moznomarginboxes", "");
+						setAttribute("html", "mozdisallowselectionprint", "");
+					}
 
-			if (!notRememberVersionBrowserUnsupported) {
-				if ((browser.name == "Opera" && parseFloat(browser.version) < 11.60)
-						|| (browser.name == "Chrome" && parseFloat(browser.version) < 15.0)
-						|| (browser.name == "Safari" && parseFloat(browser.version) < 5.1)
-						|| (browser.name == "Firefox" && parseFloat(browser.version) < 11.0)
-						|| (browser.name == "Internet Explorer" && parseFloat(browser.version) < 10.0)) {
-					showPopup("clevcore-versionBrowserUnsupportedPopup");
-				}
-			}
-		});
+					if (!notRememberVersionBrowserUnsupported) {
+						if ((System.browser.name === System.CONSTANT.BROWSER.OPERA && parseFloat(System.browser.version) < 11.60)
+								|| (System.browser.name === System.CONSTANT.BROWSER.CHROME && parseFloat(System.browser.version) < 15.0)
+								|| (System.browser.name === System.CONSTANT.BROWSER.SAFARI && parseFloat(System.browser.version) < 5.1)
+								|| (System.browser.name === System.CONSTANT.BROWSER.FIREFOX && parseFloat(System.browser.version) < 11.0)
+								|| (System.browser.name === System.CONSTANT.BROWSER.INTERNET_EXPLORER && parseFloat(System.browser.version) < 10.0)) {
+							showPopup("clevcore-versionBrowserUnsupportedPopup");
+						}
+					}
+				});
 
 var Reset = {
 	init : function() {
@@ -52,7 +53,7 @@ var Reset = {
 		on : function() {
 			Reset.autoheight.query().forEach(function(element) {
 				var heightValue = Math.max(getAttributeElement(element, "data-height"), element.scrollHeight);
-				element.style.height = (heightValue == 0 ? 80 : heightValue) + "px";
+				element.style.height = (heightValue === 0 ? 80 : heightValue) + "px";
 
 				element.addEventListener("keyup", Reset.autoheight.process);
 				element.addEventListener("keypress", Reset.autoheight.process);
@@ -103,7 +104,7 @@ var Reset = {
 
 		process : function(event) {
 			var key = event.keyCode || event.which;
-			if (key == 13) {
+			if (key === 13) {
 				if (event.target.nodeName != "TEXTAREA" || event.shiftKey) {
 					event.preventDefault();
 					return false;
@@ -138,7 +139,7 @@ var Reset = {
 		process : function(event) {
 			var key = event.keyCode || event.which;
 
-			if (key == 13) {
+			if (key === 13) {
 				var elementArray = Reset.nextElement.query();
 
 				var index;
@@ -161,7 +162,7 @@ var Reset = {
 			do {
 				index++;
 			} while (elementArray[index].classList.contains("dNone")
-					|| elementArray[index].getAttribute("type") == "hidden");
+					|| elementArray[index].getAttribute("type") === "hidden");
 
 			if (elementArray[currentIndex].nodeName != "TEXTAREA") {
 				Reset.nextElement.verify(index, elementArray, event);
@@ -170,9 +171,9 @@ var Reset = {
 
 		verify : function(index, elementArray, event) {
 			if (elementArray[index] != null) {
-				if (elementArray[index].getAttribute("type") == "submit") {
+				if (elementArray[index].getAttribute("type") === "submit") {
 					elementArray[index].click();
-				} else if (elementArray[index].getAttribute("type") == "button") {
+				} else if (elementArray[index].getAttribute("type") === "button") {
 					if (elementArray[index].getAttribute("onclick") != null
 							&& elementArray[index].getAttribute("onclick") != "") {
 						elementArray[index].click();
@@ -250,7 +251,7 @@ var Reset = {
 			}
 		}
 
-		var event = document.createEvent('CustomEvent');
+		var event = document.createEvent("CustomEvent");
 		event.initCustomEvent(name, params.bubbles, params.cancelable, params.detail);
 		return event;
 	}
@@ -263,39 +264,39 @@ var Reset = {
 /* Math */
 (function() {
 	function decimalAdjust(type, value, exp) {
-		if (typeof exp === 'undefined' || +exp === 0) {
+		if (typeof exp === "undefined" || +exp === 0) {
 			return Math[type](value);
 		}
 
 		value = +value;
 		exp = +exp;
 
-		if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+		if (isNaN(value) || !(typeof exp === "number" && exp % 1 === 0)) {
 			return NaN;
 		}
 
-		value = value.toString().split('e');
-		value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-		value = value.toString().split('e');
+		value = value.toString().split("e");
+		value = Math[type](+(value[0] + "e" + (value[1] ? (+value[1] - exp) : -exp)));
+		value = value.toString().split("e");
 
-		return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+		return +(value[0] + "e" + (value[1] ? (+value[1] + exp) : exp));
 	}
 
 	if (!Math.round10) {
 		Math.round10 = function(value, exp) {
-			return decimalAdjust('round', value, exp);
+			return decimalAdjust("round", value, exp);
 		};
 	}
 
 	if (!Math.floor10) {
 		Math.floor10 = function(value, exp) {
-			return decimalAdjust('floor', value, exp);
+			return decimalAdjust("floor", value, exp);
 		};
 	}
 
 	if (!Math.ceil10) {
 		Math.ceil10 = function(value, exp) {
-			return decimalAdjust('ceil', value, exp);
+			return decimalAdjust("ceil", value, exp);
 		};
 	}
 })();
@@ -305,7 +306,7 @@ var Reset = {
 	String.prototype.trimAll = function() {
 		var target = this;
 		if (target !== undefined) {
-			return target.replace(/\s/g, ' ');
+			return target.replace(/\s/g, " ");
 		}
 		return target;
 	};
@@ -326,11 +327,11 @@ var Reset = {
 	};
 
 	function ordinalIndexOf(value, searchValue, ordinal, lastIndex) {
-		if (value == null || searchValue == null || ordinal <= 0) {
+		if (value === undefined || searchValue === undefined || ordinal <= 0) {
 			return -1;
 		}
 
-		if (searchValue.length == 0) {
+		if (searchValue.length === 0) {
 			return lastIndex ? value.length : 0;
 		}
 

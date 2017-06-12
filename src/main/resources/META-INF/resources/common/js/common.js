@@ -1115,66 +1115,106 @@ var HandleMove = {
 	}
 };
 
-var browser = {
-	name : undefined,
-	version : undefined,
+var System = {
+	CONSTANT : {
+		BROWSER : {
+			CHROME : "Chrome",
+			EDGE : "Edge",
+			FIREFOX : "Firefox",
+			INTERNET_EXPLORER : "Internet Explorer",
+			OPERA : "Opera",
+			SAFARI : "Safari",
+			WEB_OS : "webOS"
+		},
+
+		DEVICE : {
+			DESTOCK : "Destock",
+			MOBILE : "Mobile",
+			TABLET : "Tablet"
+		},
+
+		OPERATING_SYSTEM : {
+			ANDROID : "Android",
+			BLACKBERRY : "BlackBerry",
+			LINUX : "Linux",
+			LUMIA : "Lumia",
+			NIX : "Nix",
+			WINDOWS_MOBILE : "Windows Mobile",
+			WINDOWS : "Windows",
+			IOS : "iOS",
+			MACOS : "macOS"
+		}
+	},
+
+	browser : {
+		name : undefined,
+		version : undefined
+	},
+
+	operatingSystem : {
+		name : undefined,
+		version : undefined
+	},
+
+	device : undefined,
+	touch : undefined,
 
 	init : function() {
-		var data = [ {
-			order : 1,
-			name : "Opera",
-			string : "OPR",
-			version : "OPR/"
-		}, {
-			order : 2,
-			name : "Chrome",
-			string : "Chrome",
-			version : "Chrome/"
-		}, {
-			order : 3,
-			name : "Safari",
-			string : "Safari",
-			version : "Version/"
-		}, {
-			order : 4,
-			name : "Firefox",
-			string : "Firefox",
-			version : "Firefox/"
-		}, {
-			order : 5,
-			name : "Internet Explorer",
-			string : "MSIE",
-			version : "MSIE "
-		}, {
-			order : 6,
-			name : "Edge",
-			string : "Trident",
-			version : "rv:"
-		} ];
+		var ua = navigator.userAgent;
 
-		if (navigator.userAgent) {
-			for (var i = 0; i < data.length; i++) {
-				if (navigator.userAgent.indexOf(data[i].string) != -1) {
-					this.name = data[i].name;
-
-					this.version = "";
-					var index = navigator.userAgent.indexOf(data[i].version);
-					var result = navigator.userAgent.substring(index + data[i].version.length);
-					for (var j = 0; j < result.length; j++) {
-						if (!isNaN(result.charAt(j)) || result.charAt(j) == ".") {
-							this.version += result.charAt(j);
-						} else {
-							break;
-						}
-					}
-
-					break;
-				}
-			}
+		this.browser.name = /Opera|OPR/.test(ua) ? System.CONSTANT.BROWSER.OPERA
+				: /Edge/.test(ua) ? System.CONSTANT.BROWSER.EDGE
+						: /MSIE|rv:11|IEMobile/.test(ua) ? System.CONSTANT.BROWSER.INTERNET_EXPLORER : /Firefox/
+								.test(ua) ? System.CONSTANT.BROWSER.FIREFOX
+								: /Chrom(e|ium)/.test(ua) ? System.CONSTANT.BROWSER.CHROME
+										: /Safari/.test(ua) ? System.CONSTANT.BROWSER.SAFARI
+												: /webOS/.test(ui) ? System.CONSTANT.BROWSER.WEB_OS : undefined;
+		var indexOf = -1;
+		switch (this.browser.name) {
+		case System.CONSTANT.BROWSER.CHROME:
+			indexOf = ua.indexOf("Chrome/");
+			break;
+		case System.CONSTANT.BROWSER.EDGE:
+			indexOf = ua.indexOf("Edge/");
+			break;
+		case System.CONSTANT.BROWSER.FIREFOX:
+			indexOf = ua.indexOf("Firefox/");
+			break;
+		case System.CONSTANT.BROWSER.INTERNET_EXPLORER:
+			indexOf = ua.indexOf("MSIE ") !== -1 ? ua.indexOf("MSIE ") : ua.indexOf("rv:");
+			break;
+		case System.CONSTANT.BROWSER.OPERA:
+			var indexOf = ua.indexOf("OPR/");
+			break;
+		case System.CONSTANT.BROWSER.SAFARI:
+			indexOf = ua.indexOf("Version/");
+			break;
 		}
+		this.browser.version = indexOf !== -1 ? ua.substring(indexOf).split(/\s|\)/)[0].replace(/^\D+/g, "")
+				: undefined;
+
+		this.operatingSystem.name = /Windows/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS
+				: /Mac/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.MACOS
+						: /Linux/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LINUX
+								: /X11/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.NIX
+										: /IEMobile|Windows Phone/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS_MOBILE
+												: /Lumia/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LUMIA
+														: (/iPhone|iP[oa]d/.test(ua) || /Mobile Safari/.test(ua)) ? System.CONSTANT.OPERATING_SYSTEM.IOS
+																: /Android/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.ANDROID
+																		: /BlackBerry|PlayBook|BB10/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.BLACKBERRY
+																				: undefined;
+
+		this.operatingSystem.version = /Windows NT 10/.test(ua) ? "10" : /Windows NT 6.0/.test(ua) ? "6"
+				: /Windows NT 6.1/.test(ua) ? "7" : /Windows NT 6.\d/.test(ua) ? "8" : /Windows NT 5.1/.test(ua) ? "5"
+						: /Windows NT [1-5]/.test(ua) ? "4" : undefined;
+
+		this.device = /Android|BB10|BlackBerry|iPod|Lumia|Mobile|Opera Mini|Opera Mobi|Phone|PlayBook|webOS/.test(ua) ? System.MOBILE
+				: /ipad|tablet/i.test(ua) ? System.TABLET : System.DESTOCK;
+
+		this.touch = "ontouchstart" in document.documentElement;
 	}
 };
-browser.init();
+System.init();
 
 var Geolocation = {
 	supported : navigator.geolocation !== undefined,
