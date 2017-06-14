@@ -37,8 +37,7 @@
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
 				<c:if test="#{cc.parent.parent.attrs.closeable}">
-					<cc:icon
-						styleClass="m-dNone fs24 pRightNormal noPrint cPointer cWhiteHover"
+					<cc:icon styleClass="m-dNone fs24 pRightNormal noPrint cPointer"
 						value="#{clevcoreIcon.back}" type="md" title="#{clevcoreMsg.back}"
 						onclick="hidePopup();" />
 				</c:if>
@@ -66,8 +65,7 @@
 
 				<h:panelGroup layout="block" styleClass="accordionIcon">
 					<c:if test="#{cc.parent.parent.attrs.closeable}">
-						<cc:icon
-							styleClass="dNone m-dInlineBlock fs24 noPrint cWhiteHover cPointer "
+						<cc:icon styleClass="dNone m-dInlineBlock fs24 noPrint cPointer "
 							value="#{clevcoreIcon.close}" type="md"
 							title="#{clevcoreMsg.close}" onclick="hidePopup();" />
 					</c:if>

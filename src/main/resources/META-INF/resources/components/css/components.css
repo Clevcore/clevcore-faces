@@ -1005,7 +1005,7 @@ nav ul a:hover,nav .iconSide:hover {
 
 }
 
-.panel .foot {
+.panel > .foot {
 	background-color: #EEEEEE; /* grey-200*/
 	border-top: 1px solid #E0E0E0; /* grey-300*/
 	text-align: center;
@@ -1049,8 +1049,45 @@ nav ul a:hover,nav .iconSide:hover {
 	z-index: 2001;
 }
 
+.popup .panel {
+	background-color: #FFFFFF; /* white */
+}
+
+.popup .panel > .head  {
+	background-color: #F5F5F5; /* grey-100 */
+	border-bottom: 1px solid #F5F5F5; /* grey-100 */
+}
+
+.popup .panel > .head * {
+	color: #616161; /* grey-700 */
+}
+
 .popup .panel > .body {
 	overflow: auto;
+}
+
+.popup .panel > .body span {
+    font-size: 18px !important;
+    text-align: left;
+}
+
+.popup .panel > .foot {
+	background-color: transparent;
+	border-top: 1px solid #E0E0E0; /* grey-300*/
+	text-align: right;
+}
+
+.popup button,
+.popup button:hover,
+.popup button:focus,
+.popup input:focus,
+.popup input[type=button],
+.popup input[type=button]:hover,
+.popup input[type=button]:focus,
+.popup input[type=submit],
+.popup input[type=submit]:hover,
+.popup input[type=submit]:focus {
+	box-shadow: none;
 }
 
 
