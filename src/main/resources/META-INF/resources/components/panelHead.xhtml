@@ -36,29 +36,28 @@
 			</c:if>
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
-				<c:choose>
-					<c:when test="#{cc.parent.parent.attrs.closeable}">
-						<cc:icon
-							styleClass="m-dNone fs24 pRightNormal noPrint cPointer cWhiteHover"
-							value="arrow-left" title="#{clevcoreMsg._return}"
-							onclick="hidePopup();" />
-					</c:when>
-					<c:when
-						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-						<cc:icon styleClass="fs14 pRightNormal noPrint"
-							value="chevron-down" />
-					</c:when>
-					<c:when
-						test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-						<cc:icon styleClass="fs14 pRightNormal noPrint"
-							value="chevron-right" />
-					</c:when>
-				</c:choose>
+				<c:if test="#{cc.parent.parent.attrs.closeable}">
+					<cc:icon
+						styleClass="m-dNone fs24 pRightNormal noPrint cPointer cWhiteHover"
+						value="#{clevcoreIcon.back}" type="md" title="#{clevcoreMsg.back}"
+						onclick="hidePopup();" />
+				</c:if>
+
+				<c:if
+					test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
+					<cc:icon
+						styleClass="panel-head-open pRightNormal noPrint #{cc.parent.attrs.accordionOpened ? '' : 'dNone'}"
+						value="#{clevcoreIcon.down}" type="md" />
+					<cc:icon
+						styleClass="panel-head-close pRightNormal noPrint #{cc.parent.attrs.accordionOpened ? 'dNone' : ''}"
+						value="#{clevcoreIcon.right}" type="md" />
+				</c:if>
 
 				<c:if test="#{cc.attrs.icon ne null}">
-					<cc:icon type="#{cc.attrs.iconType}"
+					<cc:icon
 						styleClass="dNone m-dInlineBlock head pRightNormal #{cc.attrs.iconClass}"
-						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}" />
+						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
+						type="#{cc.attrs.iconType}" />
 				</c:if>
 
 				<h:panelGroup styleClass="fInherit vMiddle">
@@ -66,22 +65,22 @@
 				</h:panelGroup>
 
 				<h:panelGroup layout="block" styleClass="accordionIcon">
-					<c:choose>
-						<c:when test="#{cc.parent.parent.attrs.closeable}">
-							<cc:icon
-								styleClass="dNone m-dInlineBlock fs24 noPrint cWhiteHover cPointer "
-								value="times" title="#{clevcoreMsg.close}"
-								onclick="hidePopup();" />
-						</c:when>
-						<c:when
-							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == true}">
-							<cc:icon styleClass="fs14 noPrint" value="minus" />
-						</c:when>
-						<c:when
-							test="#{cc.parent.attrs.accordion and cc.parent.attrs.accordionOpened == false}">
-							<cc:icon styleClass="fs14 noPrint" value="plus" />
-						</c:when>
-					</c:choose>
+					<c:if test="#{cc.parent.parent.attrs.closeable}">
+						<cc:icon
+							styleClass="dNone m-dInlineBlock fs24 noPrint cWhiteHover cPointer "
+							value="#{clevcoreIcon.close}" type="md"
+							title="#{clevcoreMsg.close}" onclick="hidePopup();" />
+					</c:if>
+
+					<c:if
+						test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
+						<cc:icon
+							styleClass="panel-head-minimize noPrint #{cc.parent.attrs.accordionOpened ? '' : 'dNone'}"
+							value="#{clevcoreIcon.minimize}" type="md" />
+						<cc:icon
+							styleClass="panel-head-maximize noPrint #{cc.parent.attrs.accordionOpened ? 'dNone' : ''}"
+							value="#{clevcoreIcon.maximize}" type="md" />
+					</c:if>
 				</h:panelGroup>
 			</h:panelGroup>
 		</h:panelGroup>

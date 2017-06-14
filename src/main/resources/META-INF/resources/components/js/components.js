@@ -157,8 +157,10 @@ function accordion(id, titleCompress, titleExpand) {
 		}
 
 		setAttributeElement(panelHead, "title", titleExpand);
-		replaceClassElement($(panelHead).find(".fa-chevron-down")[0], "fa-chevron-down", "fa-chevron-right");
-		replaceClassElement($(panelHead).find(".fa-minus")[0], "fa-minus", "fa-plus");
+		addClass("#" + id + ":id .panel-head-open", "dNone");
+		removeClass("#" + id + ":id .panel-head-close", "dNone");
+		addClass("#" + id + ":id .panel-head-minimize", "dNone");
+		removeClass("#" + id + ":id .panel-head-maximize", "dNone");
 
 		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
 		panelBody.style.height = getHeightElement(panelBody) + "px";
@@ -183,8 +185,10 @@ function accordion(id, titleCompress, titleExpand) {
 		}
 
 		setAttributeElement(panelHead, "title", titleCompress);
-		replaceClassElement($(panelHead).find(".fa-chevron-right")[0], "fa-chevron-right", "fa-chevron-down");
-		replaceClassElement($(panelHead).find(".fa-plus")[0], "fa-plus", "fa-minus");
+		removeClass("#" + id + ":id .panel-head-open", "dNone");
+		addClass("#" + id + ":id .panel-head-close", "dNone");
+		removeClass("#" + id + ":id .panel-head-minimize", "dNone");
+		addClass("#" + id + ":id .panel-head-maximize", "dNone");
 
 		panelBody.style.height = "0px";
 		replaceClassElement(panelBody, "dNone", "dBlock");

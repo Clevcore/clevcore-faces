@@ -1,32 +1,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.NAVBAR}">
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="value" />
-        <composite:attribute name="autoHide" default="true"
-            type="java.lang.Boolean" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.NAVBAR}">
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="value" />
+		<composite:attribute name="autoHide" default="true"
+			type="java.lang.Boolean" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup layout="block" styleClass="pRelative zNormal">
-            <nav id="navbar" class="bShadow4dp #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-                data-autoHide="#{cc.attrs.autoHide}">
+	<composite:implementation>
+		<h:panelGroup layout="block" styleClass="pRelative zNormal">
+			<nav id="navbar" class="bShadow4dp #{cc.attrs.styleClass}"
+				style="#{cc.attrs.stylde}" data-autoHide="#{cc.attrs.autoHide}">
 
-                <cc:icon styleClass="iconSide" type="md" value="&#xE5D2;"
-                    onclick="Navbar.side.show();" />
+				<cc:icon styleClass="iconSide" value="#{clevcoreIcon.menu}"
+					type="md" onclick="Navbar.side.show();" />
 
-                <h:outputLink styleClass="logo" value="#{bbClevcore.path}">
-                    <h:outputText value="#{cc.attrs.value}" />
-                </h:outputLink>
+				<h:outputLink styleClass="logo" value="#{bbClevcore.path}">
+					<h:outputText value="#{cc.attrs.value}" />
+				</h:outputLink>
 
-                <composite:insertChildren />
-            </nav>
-        </h:panelGroup>
-    </composite:implementation>
+				<composite:insertChildren />
+			</nav>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>

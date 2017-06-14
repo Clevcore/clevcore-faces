@@ -40,10 +40,10 @@
 					value="#{cc.attrs.redirect != '#' ? bbClevcore.path : ''}#{cc.attrs.redirect}"
 					rendered="#{cc.attrs.action == null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
-					<cc:icon type="#{cc.attrs.iconType}"
+					<cc:icon
 						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-						rendered="#{cc.attrs.icon != null}" />
+						type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon != null}" />
 					<h:outputText value="#{cc.attrs.value}"
 						rendered="#{cc.attrs.value != null}" />
 				</h:outputLink>
@@ -51,10 +51,10 @@
 					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
 					action="#{cc.attrs.action}" rendered="#{cc.attrs.action != null}"
 					disabled="#{cc.attrs.disabled}" onclick="#{cc.attrs.onclick}">
-					<cc:icon type="#{cc.attrs.iconType}"
+					<cc:icon
 						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-						rendered="#{cc.attrs.icon != null}" />
+						type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon != null}" />
 
 					<h:outputText value="#{cc.attrs.value}"
 						rendered="#{cc.attrs.value != null}" />

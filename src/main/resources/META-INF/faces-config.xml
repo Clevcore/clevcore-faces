@@ -12,8 +12,14 @@
 		</locale-config>
 
 		<resource-bundle>
-			<base-name>ar.com.clevcore.resources.clevcore</base-name>
+			<base-name>ar.com.clevcore.resources.clevcoreMessages</base-name>
 			<var>clevcoreMsg</var>
+		</resource-bundle>
+
+
+		<resource-bundle>
+			<base-name>ar.com.clevcore.resources.clevcoreIcons</base-name>
+			<var>clevcoreIcon</var>
 		</resource-bundle>
 
 		<resource-handler>org.omnifaces.resourcehandler.UnmappedResourceHandler</resource-handler>

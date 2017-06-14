@@ -28,7 +28,8 @@
 			<h:outputLink value="#">
 				<h:panelGroup rendered="#{cc.parent.orderBy == cc.attrs.orderBy}">
 					<cc:icon styleClass="cPointer pRightSmall"
-						value="#{cc.parent.ascendingOrder ? 'sort-alpha-asc' : 'sort-alpha-desc'}" />
+						value="#{cc.parent.ascendingOrder ? clevcoreIcon.up : clevcoreIcon.down}"
+						type="md" />
 				</h:panelGroup>
 				<h:outputText value="#{cc.attrs.header}">
 					<c:if test="#{cc.attrs.titleHeader ne null}">

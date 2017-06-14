@@ -21,10 +21,9 @@
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
 			<section id="#{cc.clientId}"
 				class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-				<cc:icon type="#{cc.attrs.iconType}"
-					styleClass="fs20 pRightNormal #{cc.attrs.iconClass}"
+				<cc:icon styleClass="fs20 pRightNormal #{cc.attrs.iconClass}"
 					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-					rendered="#{cc.attrs.icon ne null}" />
+					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
 
 				<h:outputText styleClass="fwLight fs18 tUppercase"
 					value="#{cc.attrs.value}" rendered="#{cc.attrs.value != null}" />

@@ -22,10 +22,9 @@
 			styleclass="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
 			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
 			<h:panelGroup layout="block" styleClass="pBottomNormal ">
-				<cc:icon type="#{cc.attrs.iconType}"
-					styleClass="title pRightNormal #{cc.attrs.iconClass}"
+				<cc:icon styleClass="title pRightNormal #{cc.attrs.iconClass}"
 					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-					rendered="#{cc.attrs.icon ne null}" />
+					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
 				<h:panelGroup styleClass="fwLight fs16 tUppercase">
 					<h:outputText value="#{cc.attrs.value}" />
 					<composite:insertChildren />

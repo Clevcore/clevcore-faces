@@ -54,9 +54,9 @@
 							<f:passThroughAttribute name="autofocus" value="autofocus" />
 						</h:inputText>
 						<cc:commandButton id="searchCommandButton"
-							styleClass="primary wAuto" icon="search"
-							title="#{clevcoreMsg.search}" action="#{cc.onSearch}"
-							execute="#{cc.clientId}:searchInputText"
+							styleClass="primary wAuto" icon="#{clevcoreIcon.search}"
+							iconType="md" title="#{clevcoreMsg.search}"
+							action="#{cc.onSearch}" execute="#{cc.clientId}:searchInputText"
 							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
 					</h:panelGrid>
 				</h:panelGroup>
@@ -65,11 +65,13 @@
 					styleClass="col s2 m6 tRight vTop">
 					<h:panelGroup
 						rendered="#{cc.attrs.showFile and cc.data.value.size() gt 0}">
-						<cc:commandButton styleClass="primary m-wAuto" icon="file-excel-o"
+						<cc:commandButton styleClass="primary m-wAuto"
+							icon="#{clevcoreIcon.excel}"
 							title="#{clevcoreMsg.export_excel_format}" action="#{cc.onExcel}"
 							render="@none" />
 						<h:panelGroup rendered="false">
-							<cc:commandButton styleClass="primary wAuto" icon="file-pdf-o"
+							<cc:commandButton styleClass="primary wAuto"
+								icon="#{clevcoreIcon.pdf}"
 								title="#{clevcoreMsg.export_pdf_format}" action="#{cc.onPdf}"
 								render="@none" />
 						</h:panelGroup>
@@ -107,8 +109,9 @@
 					<cc:section styleClass="mTopNormal tCenter"
 						rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
 						<cc:commandButton styleClass="transparent mRightNormal"
-							icon="chevron-left" title="#{clevcoreMsg.previous_page}"
-							disabled="#{cc.page == 1}" action="#{cc.onPaginatorPrevious}"
+							icon="#{clevcoreIcon.before}" iconType="md"
+							title="#{clevcoreMsg.previous_page}" disabled="#{cc.page == 1}"
+							action="#{cc.onPaginatorPrevious}"
 							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
 
 						<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
@@ -121,7 +124,8 @@
 						</ui:repeat>
 
 						<cc:commandButton styleClass="transparent mLeftNormal"
-							icon="chevron-right" title="#{clevcoreMsg.next_page}"
+							icon="#{clevcoreIcon.next}" iconType="md"
+							title="#{clevcoreMsg.next_page}"
 							disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
 							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
 					</cc:section>

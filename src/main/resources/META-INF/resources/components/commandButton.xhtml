@@ -56,10 +56,10 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="btn-text-box vVisible">
-				<cc:icon id="icon" type="#{cc.attrs.iconType}"
+				<cc:icon id="icon"
 					styleClass="#{cc.attrs.value ne null ? 'btn-text-icon mRightNormal' : ''} #{cc.attrs.iconClass}"
 					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-					rendered="#{cc.attrs.icon ne null}" />
+					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
 
 				<h:outputText id="value" styleClass="btn-text-value"
 					value="#{cc.attrs.value}" rendered="#{cc.attrs.value ne null}" />

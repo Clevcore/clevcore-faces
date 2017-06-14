@@ -44,13 +44,14 @@
 						<f:passThroughAttribute name="data-title"
 							value="#{cc.attrs.title}" />
 					</c:if>
-					<cc:icon type="#{cc.attrs.iconType}"
+					<cc:icon
 						styleClass="#{cc.attrs.value != null ? 'pRightNormal' : ''}  #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-						rendered="#{cc.attrs.icon != null}" />
+						type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon != null}" />
 					<h:outputText value="#{cc.attrs.value}"
 						rendered="#{cc.attrs.value != null}" />
-					<cc:icon styleClass="pLeftNormal fs12" value="caret-down"
+					<cc:icon styleClass="pLeftNormal fs12"
+						value="#{clevcoreIcon.caret}" type="md"
 						rendered="#{cc.attrs.showIconCaret}" />
 				</h:outputLink>
 			</h:panelGroup>
