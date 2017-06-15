@@ -214,14 +214,16 @@ button:disabled.cWait {
 	padding-top: 23px;
 }
 
-.default-outline {
+.default-outline,
+.default-simple {
 	background-color: transparent;
 	border-color: #424242; /* grey-800 */
 	color: #424242; /* grey-800 */
 	box-shadow: none !important;
 }
 
-.default,.default-outline:hover {
+.default,
+.default-outline:hover {
 	background-color: #424242; /* grey-800 */
 	border-color: #424242; /* grey-800 */
 	color: #FFFFFF; /* white */
@@ -238,20 +240,23 @@ button:disabled.cWait {
 	color: #EEEEEE; /* grey-200*/
 }
 
-.default-outline:disabled {
+.default-outline:disabled,
+.default-simple:disabled {
 	background-color: transparent;
 	border-color: #616161;  /* grey-700 */
 	color: #616161; /* grey-700 */
 }
 
-.primary-outline {
+.primary-outline,
+.primary-simple {
 	background-color: transparent;
 	border-color: #428bca;
 	color: #428bca;
 	box-shadow: none !important;
 }
 
-.primary, .primary-outline:hover  {
+.primary,
+.primary-outline:hover  {
 	background-color: #428bca;
 	border-color: #428bca;
 	color: #FFFFFF; /* white */
@@ -268,13 +273,15 @@ button:disabled.cWait {
 	color: #EEEEEE; /* grey-200*/
 }
 
-.primary-outline:disabled {
+.primary-outline:disabled,
+.primary-simple:disabled {
 	background-color: transparent;
 	border-color: #7fa7c9;
 	color: #7fa7c9;
 }
 
-.secondary-outline {
+.secondary-outline,
+.secondary-simple {
 	background-color: transparent;
 	border-color: #ca4242;
 	color: #ca4242;
@@ -287,7 +294,8 @@ button:disabled.cWait {
 	color: #FFFFFF; /* white */
 }
 
-.secondary:hover, .secondary-outline:hover {
+.secondary:hover,
+.secondary-outline:hover {
 	background-color: #bd3535;
 	border-color: #bd3535;
 }
@@ -298,13 +306,15 @@ button:disabled.cWait {
 	color: #EEEEEE; /* grey-200*/
 }
 
-.secondary-outline:disabled {
+.secondary-outline:disabled,
+.secondary-simple:disabled {
 	background-color: transparent;
 	border-color: #c97f7f;
 	color: #c97f7f;
 }
 
-.tertiary-outline {
+.tertiary-outline,
+.tertiary-simple {
 	background-color: transparent;
 	border-color: #60c451;
 	color: #60c451;
@@ -317,7 +327,8 @@ button:disabled.cWait {
 	color: #FFFFFF; /* white */
 }
 
-.tertiary:hover,.tertiary-outline:hover {
+.tertiary:hover,
+.tertiary-outline:hover {
 	background-color: #4bbd35;
 	border-color: #4bbd35;
 }
@@ -328,10 +339,32 @@ button:disabled.cWait {
 	color: #EEEEEE; /* grey-200*/
 }
 
-.tertiary-outline:disabled {
+.tertiary-outline:disabled,
+.tertiary-simple:disabled {
 	background-color: transparent;
 	border-color: #89c97f;
 	color: #89c97f;
+}
+
+.default-simple,
+.primary-simple,
+.secondary-simple,
+.tertiary-simple {
+	border-color: transparent !important;
+}
+
+.default-simple:hover,
+.primary-simple:hover,
+.secondary-simple:hover,
+.tertiary-simple:hover {
+	font-weight: 500;
+}
+
+.default-simple:focus,
+.primary-simple:focus,
+.secondary-simple:focus,
+.tertiary-simple:focus {
+	font-weight: 900;
 }
 
 button.transparent,
@@ -1028,7 +1061,7 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 
-/* popup*/
+/* popup */
 .modal {
 	background-color: rgba(10, 10, 10, .6);
 	height: 100%;
@@ -1077,7 +1110,6 @@ nav ul a:hover,nav .iconSide:hover {
 	background-color: transparent;
 	border-top: 1px solid #E0E0E0; /* grey-300*/
 	position: relative;
-	text-align: right;
 	z-index: 1;
 }
 
