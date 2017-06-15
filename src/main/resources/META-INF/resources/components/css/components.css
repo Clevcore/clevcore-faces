@@ -1271,6 +1271,21 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 
+/* separator */
+.separator-horizontal,
+.separator-vertical  {
+	border: 0 solid #E0E0E0 !important; /* grey-300 */
+}
+
+.separator-horizontal {
+	border-top-width: 1px !important;
+}
+
+.separator-vertical {
+	border-right-width: 1px !important;
+}
+
+
 /* wait */
 .wait-box  {
 	cursor: wait;

@@ -1,27 +1,29 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.SEPARATOR}">
-        <composite:attribute name="styleClass" />
-        <composite:attribute name="style" />
-        <composite:attribute name="rendered" />
-    </composite:interface>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.SEPARATOR}">
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="orientation" default="horizontal"
+			shortDescription="Orientation of the component on screen. Valid values are: horizontal and vertical. The default value is 'horizontal'." />
+		<composite:attribute name="rendered" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:outputText
-            rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
-            value="&lt;li&gt;" escape="false" />
+	<composite:implementation>
+		<h:outputText
+			rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
+			value="&lt;li&gt;" escape="false" />
 
-        <h:panelGroup layout="block"
-            styleClass="bcDefault2 bsSolid bwNone bwTopNormal #{cc.attrs.styleClass}"
-            style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}" />
+		<h:panelGroup layout="block"
+			styleClass="separator-#{cc.attrs.orientation} #{cc.attrs.styleClass}"
+			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}" />
 
-        <h:outputText
-            rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
-            value="&lt;li&gt;" escape="false" />
-    </composite:implementation>
+		<h:outputText
+			rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
+			value="&lt;li&gt;" escape="false" />
+	</composite:implementation>
 </ui:composition>
