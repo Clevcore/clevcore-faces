@@ -237,7 +237,7 @@ button:disabled.cWait {
 .default:disabled {
 	background-color: #616161;  /* grey-700 */
 	border-color: #616161;  /* grey-700 */
-	color: #EEEEEE; /* grey-200*/
+	color: #EEEEEE; /* grey-200 */
 }
 
 .default-outline:disabled,
@@ -270,7 +270,7 @@ button:disabled.cWait {
 .primary:disabled {
 	background-color: #7fa7c9;
 	border-color: #7fa7c9;
-	color: #EEEEEE; /* grey-200*/
+	color: #EEEEEE; /* grey-200 */
 }
 
 .primary-outline:disabled,
@@ -303,7 +303,7 @@ button:disabled.cWait {
 .secondary:disabled {
 	background-color: #c97f7f;
 	border-color: #c97f7f;
-	color: #EEEEEE; /* grey-200*/
+	color: #EEEEEE; /* grey-200 */
 }
 
 .secondary-outline:disabled,
@@ -336,7 +336,7 @@ button:disabled.cWait {
 .tertiary:disabled {
 	background-color: #89c97f;
 	border-color: #89c97f;
-	color: #EEEEEE; /* grey-200*/
+	color: #EEEEEE; /* grey-200 */
 }
 
 .tertiary-outline:disabled,
@@ -700,7 +700,7 @@ button.tertiary-outline .wait-path {
 }
 
 .message span.error {
-	color: #C62828; /* red-800*/
+	color: #C62828; /* red-800 */
 }
 
 .message div.error {
@@ -716,7 +716,7 @@ button.tertiary-outline .wait-path {
 }
 
 .message span.info {
-	color: #558B2F; /* green-800*/
+	color: #558B2F; /* green-800 */
 }
 
 .message div.info {
@@ -724,7 +724,7 @@ button.tertiary-outline .wait-path {
 }
 
 .message span.warn {
-	color: #F9A825; /* yellow-800*/
+	color: #F9A825; /* yellow-800 */
 }
 
 .message div.warn {
@@ -732,19 +732,19 @@ button.tertiary-outline .wait-path {
 }
 
 *[data-message$='error'] {
-	border-color: #C62828; /* red-800*/
+	border-color: #C62828; /* red-800 */
 }
 
 *[data-message$='fatal'] {
-	border-color: #B71C1C; /* red-900*/
+	border-color: #B71C1C; /* red-900 */
 }
 
 *[data-message$='info'] {
-	border-color: #558B2F; /* green-800*/
+	border-color: #558B2F; /* green-800 */
 }
 
 *[data-message$='warn'] {
-	border-color: #F9A825; /* yellow-800*/
+	border-color: #F9A825; /* yellow-800 */
 }
 
 
@@ -1039,9 +1039,9 @@ nav ul a:hover,nav .iconSide:hover {
 
 }
 
-.panel > .foot {
-	background-color: #EEEEEE; /* grey-200*/
-	border-top: 1px solid #E0E0E0; /* grey-300*/
+.panel .foot {
+	background-color: #EEEEEE; /* grey-200 */
+	border-top: 1px solid #E0E0E0; /* grey-300 */
 }
 
 @media print {
@@ -1052,7 +1052,7 @@ nav ul a:hover,nav .iconSide:hover {
 
 	.panel > .head {
 		background: transparent !important;
-		border-bottom: 1px solid #E0E0E0 !important; /* grey-300*/
+		border-bottom: 1px solid #E0E0E0 !important; /* grey-300 */
 	}
 
 	.panel > .head * {
@@ -1101,14 +1101,20 @@ nav ul a:hover,nav .iconSide:hover {
 	overflow: auto;
 }
 
-.popup .panel > .body span {
+.popup .panel > .body span,
+.popup .panel > .body div {
     font-size: 18px !important;
     text-align: left;
 }
 
+.popup .panel > .body table *,
+.popup .panel > .body .message span {
+    font-size: 14px !important;
+}
+
 .popup .panel > .foot {
 	background-color: transparent;
-	border-top: 1px solid #E0E0E0; /* grey-300*/
+	border-top: 1px solid #E0E0E0; /* grey-300 */
 	position: relative;
 	z-index: 1;
 }
