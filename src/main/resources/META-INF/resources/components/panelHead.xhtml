@@ -8,6 +8,7 @@
 	<composite:interface componentType="#{bbClevcore.PANEL_HEAD}">
 		<composite:attribute name="id" targets="id" />
 		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
 		<composite:attribute name="icon" />
 		<composite:attribute name="iconType" default="fa"
 			shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
@@ -19,7 +20,7 @@
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
 			styleClass="head unselectable #{cc.parent.attrs.accordion ? 'cPointer' : ''} #{cc.attrs.styleClass}"
-			rendered="#{cc.attrs.rendered}">
+			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}">
 
 			<c:if test="#{cc.parent.attrs.accordion}">
 				<f:passThroughAttribute name="onclick"

@@ -8,13 +8,14 @@
 	<composite:interface componentType="#{bbClevcore.PANEL_FOOT}">
 		<composite:attribute name="id" targets="id" />
 		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
 		<composite:attribute name="rendered" />
 	</composite:interface>
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
-			styleClass="foot pNormal #{cc.parent.attrs.accordion == true ? (cc.parent.attrs.accordionOpened ? 'dBlock' : 'dNone') : ''} #{cc.attrs.styleClass}"
-			rendered="#{cc.attrs.rendered}">
+			styleClass="foot pNormal tCenter #{cc.parent.attrs.accordion == true ? (cc.parent.attrs.accordionOpened ? 'dBlock' : 'dNone') : ''} #{cc.attrs.styleClass}"
+			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}">
 			<composite:insertChildren />
 		</h:panelGroup>
 	</composite:implementation>
