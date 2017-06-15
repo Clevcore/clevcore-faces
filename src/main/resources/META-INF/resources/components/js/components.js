@@ -1141,7 +1141,7 @@ var Popup = {
 	scrollable : function() {
 		autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
 
-		if (Popup.panelBody.style.height !== "") {
+		if (getHeightElement(Popup.panelBody) - getHeightScrollElement(Popup.panelBody) < 0) {
 			addClassElement(Popup.panelHead, "bShadow4dp");
 			addClassElement(Popup.panelFoot, "bShadow4dpNe");
 		} else {
