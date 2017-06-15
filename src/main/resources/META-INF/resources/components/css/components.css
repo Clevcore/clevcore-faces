@@ -1041,7 +1041,6 @@ nav ul a:hover,nav .iconSide:hover {
 .panel > .foot {
 	background-color: #EEEEEE; /* grey-200*/
 	border-top: 1px solid #E0E0E0; /* grey-300*/
-	text-align: center;
 }
 
 @media print {
