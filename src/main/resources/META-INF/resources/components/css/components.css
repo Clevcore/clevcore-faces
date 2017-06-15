@@ -1056,6 +1056,8 @@ nav ul a:hover,nav .iconSide:hover {
 .popup .panel > .head  {
 	background-color: #F5F5F5; /* grey-100 */
 	border-bottom: 1px solid #F5F5F5; /* grey-100 */
+	position: relative;
+	z-index: 1;
 }
 
 .popup .panel > .head * {
@@ -1074,7 +1076,9 @@ nav ul a:hover,nav .iconSide:hover {
 .popup .panel > .foot {
 	background-color: transparent;
 	border-top: 1px solid #E0E0E0; /* grey-300*/
+	position: relative;
 	text-align: right;
+	z-index: 1;
 }
 
 .popup button,

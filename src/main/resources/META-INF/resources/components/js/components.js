@@ -1140,6 +1140,14 @@ var Popup = {
 
 	scrollable : function() {
 		autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
+
+		if (Popup.panelBody.style.height !== "") {
+			addClassElement(Popup.panelHead, "bShadow4dp");
+			addClassElement(Popup.panelFoot, "bShadow4dpNe");
+		} else {
+			removeClassElement(Popup.panelHead, "bShadow4dp");
+			removeClassElement(Popup.panelFoot, "bShadow4dpNe");
+		}
 	}
 };
 
