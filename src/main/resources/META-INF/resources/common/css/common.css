@@ -2362,7 +2362,7 @@
 
 /* Text align */
 .tCenter {
-	text-align: center !important;
+	text-align: center;
 }
 
 .tJustify {
