@@ -351,6 +351,7 @@ button:disabled.cWait {
 .secondary-simple,
 .tertiary-simple {
 	border-color: transparent !important;
+	padding: 0 !important;
 }
 
 .default-simple:hover,
