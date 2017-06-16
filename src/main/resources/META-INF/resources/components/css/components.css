@@ -1141,6 +1141,7 @@ nav ul a:hover,nav .iconSide:hover {
 
 .checkbox label {
 	height: 20px;
+	width: 100%;
 }
 
 .checkbox input {

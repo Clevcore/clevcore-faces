@@ -41,9 +41,9 @@
 					required="#{cc.attrs.required}"
 					requiredMessage="#{cc.attrs.requiredMessage}" />
 				<h:panelGroup styleClass="checkbox-material">
-					<h:panelGroup styleClass="check" />
+					<h:panelGroup styleClass="" />
+					<h:outputText styleClass="" value="#{cc.attrs.label}" />
 				</h:panelGroup>
-				<h:outputText styleClass="mLeftNormal" value="#{cc.attrs.label}" />
 			</h:outputLabel>
 		</h:panelGroup>
 	</composite:implementation>
