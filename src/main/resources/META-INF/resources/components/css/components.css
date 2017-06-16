@@ -97,6 +97,18 @@ textarea:focus,
 	color: #424242;  /* grey-800 */
 }
 
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover {
+	opacity: .9;
+}
+
+button:focus,
+input[type=button]:focus,
+input[type=submit]:focus {
+	opacity: .8;
+}
+
 button:disabled,
 input[type=button]:disabled,
 input[type=submit]:disabled {
@@ -351,21 +363,20 @@ button:disabled.cWait {
 .secondary-simple,
 .tertiary-simple {
 	border-color: transparent !important;
-	padding: 0 !important;
 }
 
 .default-simple:hover,
 .primary-simple:hover,
 .secondary-simple:hover,
 .tertiary-simple:hover {
-	font-weight: 500;
+	background-color: rgba(0,0,0,.1);
 }
 
 .default-simple:focus,
 .primary-simple:focus,
 .secondary-simple:focus,
 .tertiary-simple:focus {
-	font-weight: 900;
+	background-color: rgba(0,0,0,.2);
 }
 
 button.transparent,
