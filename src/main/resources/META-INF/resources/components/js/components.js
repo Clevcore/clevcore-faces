@@ -1166,31 +1166,33 @@ function hidePopup() {
 }
 
 /* selectManyCheckbox */
-function initSelectManyCheckbox(id) {
-	var checkbox = getSelectors("[name='" + id + ":selectManyCheckbox']");
+var SelectManyCheckbox = {
+	init : function(id) {
+		var checkbox = getSelectors("[name='" + id + ":selectManyCheckbox']");
 
-	for (var i = 0; checkbox[i]; i++) {
-		getElement(id + ':' + i).checked = checkbox[i].checked;
+		for (var i = 0; checkbox[i]; i++) {
+			getElement(id + ":" + i).checked = checkbox[i].checked;
+		}
+	},
+
+	onchange : function(id, index, checked) {
+		var element = getElement(id + ":selectManyCheckbox:" + index);
+
+		element.checked = checked;
+
+		if (element.onchange != null) {
+			element.onchange();
+		}
+	},
+
+	onclick : function(id, index) {
+		var element = getElement(id + ":selectManyCheckbox:" + index);
+
+		if (element.onclick != null) {
+			element.onclick();
+		}
 	}
-}
-
-function selectManyCheckboxChange(id, index, element) {
-	var selectManyCheckbox = getElement(id + ':selectManyCheckbox:' + index);
-
-	selectManyCheckbox.checked = element.checked;
-
-	if (selectManyCheckbox.onchange != null) {
-		getElement(id + ':selectManyCheckbox:' + index).onchange();
-	}
-}
-
-function selectManyCheckboxClick(id, index) {
-	var selectManyCheckbox = getElement(id + ':selectManyCheckbox:' + index);
-
-	if (selectManyCheckbox.onclick != null) {
-		getElement(id + ':selectManyCheckbox:' + index).onclick();
-	}
-}
+};
 
 /* loadingPage */
 var LoadingPage = {

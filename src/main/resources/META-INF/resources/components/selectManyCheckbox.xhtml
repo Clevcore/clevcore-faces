@@ -1,84 +1,78 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:composite="http://xmlns.jcp.org/jsf/composite"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <composite:interface componentType="#{bbClevcore.SELECT_MANY_CHECKBOX}">
-        <composite:attribute name="style" type="java.lang.String" />
-        <composite:attribute name="styleClass" type="java.lang.String" />
-        <composite:attribute name="value" required="true" />
-        <composite:attribute name="disabled" default="false"
-            type="java.lang.Boolean" />
-        <composite:attribute name="immediate" default="false"
-            type="java.lang.Boolean" />
-        <composite:attribute name="converter" />
-        <composite:attribute name="required" default="false"
-            type="java.lang.Boolean" />
-        <composite:attribute name="requiredMessage"
-            required="#{cc.attrs.required}" type="java.lang.String" />
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.SELECT_MANY_CHECKBOX}">
+		<composite:attribute name="style" type="java.lang.String" />
+		<composite:attribute name="styleClass" type="java.lang.String" />
+		<composite:attribute name="value" required="true" />
+		<composite:attribute name="disabled" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="immediate" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="converter" />
+		<composite:attribute name="required" default="false"
+			type="java.lang.Boolean" />
+		<composite:attribute name="requiredMessage"
+			required="#{cc.attrs.required}" type="java.lang.String" />
 
-        <composite:attribute name="onchange" type="java.lang.String" />
-        <composite:attribute name="onclick" type="java.lang.String" />
+		<composite:attribute name="onchange" type="java.lang.String" />
+		<composite:attribute name="onclick" type="java.lang.String" />
 
-        <composite:clientBehavior name="change" event="change"
-            targets="selectManyCheckbox" />
-        <composite:clientBehavior name="click" event="click"
-            targets="selectManyCheckbox" />
-    </composite:interface>
+		<composite:clientBehavior name="change" event="change"
+			targets="selectManyCheckbox" />
+		<composite:clientBehavior name="click" event="click"
+			targets="selectManyCheckbox" />
+	</composite:interface>
 
-    <composite:implementation>
-        <h:panelGroup layout="block" styleClass="#{cc.attrs.styleClass}"
-            style="#{cc.attrs.style}">
-            <f:passThroughAttribute name="id" value="#{cc.clientId}" />
+	<composite:implementation>
+		<h:panelGroup layout="block" styleClass="#{cc.attrs.styleClass}"
+			style="#{cc.attrs.style}">
+			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
 
-            <h:selectManyCheckbox binding="#{cc.component}"
-                id="selectManyCheckbox" styleClass="dNone"
-                value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
-                immediate="#{cc.attrs.immediate}"
-                converter="#{cc.attrs.converter}"
-                required="#{cc.attrs.required}"
-                requiredMessage="#{cc.attrs.requiredMessage}">
-                <composite:insertChildren />
-            </h:selectManyCheckbox>
+			<h:selectManyCheckbox binding="#{cc.component}"
+				id="selectManyCheckbox" styleClass="dNone" value="#{cc.attrs.value}"
+				disabled="#{cc.attrs.disabled}" immediate="#{cc.attrs.immediate}"
+				converter="#{cc.attrs.converter}" required="#{cc.attrs.required}"
+				requiredMessage="#{cc.attrs.requiredMessage}">
+				<composite:insertChildren />
+			</h:selectManyCheckbox>
 
-            <ui:repeat var="item" value="#{cc.itemList}" varStatus="status">
-                <h:panelGroup layout="block"
-                    styleClass="checkbox #{!status.last ? 'pBottomNormal' : ''}">
-                    <h:outputLabel>
-                        <input id="#{cc.clientId}:#{status.index}"
-                            type="checkbox"
-                            onchange="selectManyCheckboxChange('#{cc.clientId}', '#{status.index}', this); #{cc.attrs.onchange}"
-                            onclick="selectManyCheckboxClick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}">
-                        <c:if test="#{cc.attrs.disabled}">
-                            <f:passThroughAttribute name="disabled"
-                                value="disabled" />
-                        </c:if>
-                        </input>
+			<ui:repeat var="item" value="#{cc.itemList}" varStatus="status">
+				<h:panelGroup layout="block"
+					styleClass="checkbox #{!status.last ? 'pBottomNormal' : ''}">
+					<h:outputLabel>
+						<input id="#{cc.clientId}:#{status.index}" type="checkbox"
+							onchange="SelectManyCheckbox.onchange('#{cc.clientId}', '#{status.index}', this.checked); #{cc.attrs.onchange}"
+							onclick="SelectManyCheckbox.onclick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}">
+							<c:if test="#{cc.attrs.disabled}">
+								<f:passThroughAttribute name="disabled" value="disabled" />
+							</c:if>
+						</input>
 
-                        <h:panelGroup styleClass="checkbox-material"
-                            rendered="#{item.label == null}">
-                            <h:panelGroup styleClass="check" />
-                        </h:panelGroup>
+						<h:panelGroup styleClass="checkbox-material"
+							rendered="#{item.label == null}">
+							<h:panelGroup styleClass="" />
+						</h:panelGroup>
 
-                        <h:panelGrid columns="2"
-                            styleClass="checkbox-material w100"
-                            columnClasses="pRightNormal,lhNormal tJustify"
-                            rendered="#{item.label != null}">
-                            <h:panelGroup styleClass="check" />
-                            <h:outputText value="#{item.label}" />
-                        </h:panelGrid>
-                    </h:outputLabel>
-                </h:panelGroup>
-            </ui:repeat>
-        </h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkbox-material"
+							rendered="#{item.label != null}">
+							<h:panelGroup styleClass="" />
+							<h:outputText styleClass="" value="#{item.label}" />
+						</h:panelGroup>
+					</h:outputLabel>
+				</h:panelGroup>
+			</ui:repeat>
+		</h:panelGroup>
 
-        <h:panelGroup id="script" layout="block">
-            <script>
-                initSelectManyCheckbox('#{cc.clientId}');
+		<h:panelGroup id="script" layout="block">
+			<script>
+                SelectManyCheckbox.init("#{cc.clientId}");
                 remove("#{cc.clientId}:script");
             </script>
-        </h:panelGroup>
-    </composite:implementation>
+		</h:panelGroup>
+	</composite:implementation>
 </ui:composition>
