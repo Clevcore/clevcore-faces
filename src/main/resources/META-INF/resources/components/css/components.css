@@ -365,18 +365,18 @@ button:disabled.cWait {
 	border-color: transparent !important;
 }
 
+.default-simple:focus,
+.primary-simple:focus,
+.secondary-simple:focus,
+.tertiary-simple:focus {
+	background-color: rgba(0,0,0,.125);
+}
+
 .default-simple:hover,
 .primary-simple:hover,
 .secondary-simple:hover,
 .tertiary-simple:hover {
 	background-color: rgba(0,0,0,.1);
-}
-
-.default-simple:focus,
-.primary-simple:focus,
-.secondary-simple:focus,
-.tertiary-simple:focus {
-	background-color: rgba(0,0,0,.2);
 }
 
 button.transparent,
@@ -456,24 +456,28 @@ button.default .wait-path,
 button.primary .wait-path,
 button.secondary .wait-path,
 button.tertiary .wait-path {
-	stroke: #FFFFFF; /* white */;
+	stroke: #FFFFFF; /* white */
 }
 
-button.default-outline .wait-path  {
+button.default-outline .wait-path,
+.default-simple .wait-path {
 	stroke: #424242; /* grey-800 */
 }
 
 button.default2 .wait-path,
 button.transparent .wait-path,
-button.primary-outline .wait-path {
+button.primary-outline .wait-path,
+.primary-simple .wait-path {
 	stroke: #428bca;
 }
 
-button.secondary-outline .wait-path {
+button.secondary-outline .wait-path,
+.secondary-simple .wait-path {
 	stroke: #ca4242;
 }
 
-button.tertiary-outline .wait-path {
+button.tertiary-outline .wait-path
+.tertiary-simple .wait-path {
 	stroke: #60c451;
 }
 
@@ -916,7 +920,7 @@ nav .menu .items,nav .main .items {
 }
 
 nav .side {
-	background-color: #FFFFFF; /* white */;
+	background-color: #FFFFFF; /* white */
 	height: 100%;
 	left: -260px;
 	overflow-y: auto;
