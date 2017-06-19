@@ -363,6 +363,7 @@ button:disabled.cWait {
 .secondary-simple,
 .tertiary-simple {
 	border-color: transparent !important;
+	padding: 10px;
 }
 
 .default-simple:focus,
@@ -436,7 +437,7 @@ select.transparent {
 .btn-text-box, .btn-wait-box {
 	color: inherit;
 	font: inherit;
-	line-height: 0;
+	line-height: 16px;
 }
 
 .btn-text-icon, .btn-wait-icon {
