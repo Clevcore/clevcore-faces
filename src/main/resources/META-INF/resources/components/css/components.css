@@ -1291,7 +1291,13 @@ nav ul a:hover,nav .iconSide:hover {
 
 /* separator */
 .separator-horizontal,
-.separator-vertical  {
+.separator-vertical,
+.s-separator-horizontal,
+.s-separator-vertical,
+.m-separator-horizontal,
+.m-separator-vertical,
+.l-separator-horizontal,
+.l-separator-vertical {
 	border: 0 solid #E0E0E0 !important; /* grey-300 */
 }
 
@@ -1301,6 +1307,36 @@ nav ul a:hover,nav .iconSide:hover {
 
 .separator-vertical {
 	border-right-width: 1px !important;
+}
+
+@media only screen and (max-width: 640px) {
+	.s-separator-horizontal {
+		border-top-width: 1px !important;
+	}
+
+	.s-separator-vertical {
+		border-right-width: 1px !important;
+	}
+}
+
+@media only screen and (min-width: 641px) {
+	.m-separator-horizontal {
+		border-top-width: 1px !important;
+	}
+
+	.m-separator-vertical {
+		border-right-width: 1px !important;
+	}
+}
+
+@media only screen and (min-width: 961px) {
+	.l-separator-horizontal {
+		border-top-width: 1px !important;
+	}
+
+	.l-separator-vertical {
+		border-right-width: 1px !important;
+	}
 }
 
 
