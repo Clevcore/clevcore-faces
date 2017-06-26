@@ -574,10 +574,6 @@ button.tertiary-outline .wait-path
 	vertical-align: middle;
 }
 
-.material-icons {
-	line-height: 0;
-}
-
 .fa, .material-icons {
 	color: inherit;
 }
@@ -864,7 +860,7 @@ button.tertiary-outline .wait-path
 	display: block;
 }
 
-.items a  {
+.items a {
 	color: #424242 !important; /* grey-800 */
 	display: block;
 	padding: 15px 30px 15px 15px;
@@ -1122,9 +1118,13 @@ nav ul a:hover,nav .iconSide:hover {
     font-size: 18px;
 }
 
+.popup .section span,
+.popup .section div {
+    font-size: 16px;
+}
+
 .popup .panel > .body table *,
-.popup .panel > .body .message span,
-.popup .panel > .body .checkbox-material * {
+.popup .panel > .body .message span {
     font-size: 14px !important;
 }
 
@@ -1189,6 +1189,10 @@ nav ul a:hover,nav .iconSide:hover {
 	font-weight: 400;
 	line-height: 21px;
 	width: calc(100% - 30px);
+}
+
+.items .checkbox label span:last-child {
+	padding-right: 10px;
 }
 
 .checkbox label:hover span:last-child {
@@ -1350,7 +1354,7 @@ nav ul a:hover,nav .iconSide:hover {
 	top: 0;
 	height: 100vh;
 	width: 100vw;
-	z-index: 1;
+	z-index: 2002;
 }
 
 .wait-spinner {

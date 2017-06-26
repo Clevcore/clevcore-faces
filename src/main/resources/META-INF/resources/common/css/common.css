@@ -822,6 +822,10 @@
 	font-size: 60px;
 }
 
+.fs100 {
+	font-size: 100px;
+}
+
 .fs200 {
 	font-size: 200px;
 }
@@ -2928,6 +2932,9 @@
 	}
 	.p-fs60 {
 		font-size: 60px;
+	}
+	.p-fs100 {
+		font-size: 100px;
 	}
 	.p-fs200 {
 		font-size: 200px;

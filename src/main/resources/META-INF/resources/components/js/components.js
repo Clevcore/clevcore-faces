@@ -369,29 +369,32 @@ var ConfirmNavigation = {
 };
 
 /* dataTable */
-function dataTableRow(id, size, rowIndex, onRowClick) {
-	var trElement = getElement(id + ":dataTable:td:" + rowIndex).parentNode;
-	setAttributeElement(trElement, "id", id + ":dataTable:tr:" + rowIndex);
+var DataTable = {
+	init : function(id, size, rowIndex, onclick) {
+		var row = getElement(id + ":dataTable:td:" + rowIndex).parentNode;
+		setAttributeElement(row, "id", id + ":dataTable:tr:" + rowIndex);
 
-	trElement.addEventListener('click', function() {
-		getElement(id + ':rowIndex').value = rowIndex;
-		getElement(id + ':rowIndex').onchange();
-		eval(onRowClick);
-	}, false);
+		row.addEventListener("click", function() {
+			getElement(id + ":rowIndex").value = rowIndex;
+			getElement(id + ":rowIndex").onchange();
+			eval(onclick);
+		}, false);
 
-	setClassElement(trElement, "cPointer");
-	remove(id + ":dataTable:td:" + rowIndex);
-	try {
-		remove(id + ":dataTable:td:-1");
-		setAttribute(id + ":dataTable", "data-size", size);
-	} catch (e) {
+		setClassElement(row, "cPointer");
+		remove(id + ":dataTable:td:" + rowIndex);
+		try {
+			remove(id + ":dataTable:td:-1");
+			setAttribute(id + ":dataTable", "data-size", size);
+		} catch (e) {
+		}
+	},
+
+	search : function(id, value) {
+		getElement(id + ":searchInputText").value = value;
+		getElement(id + ":searchCommandButton:id").click();
 	}
-}
 
-function searchDataTable(id, value) {
-	getElement(id + ":searchInputText").value = value;
-	getElement(id + ":searchCommandButton:id").click();
-}
+};
 
 /* fab */
 var idFab = null;

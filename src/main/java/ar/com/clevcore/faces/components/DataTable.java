@@ -107,8 +107,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         if (objectList != null && !objectList.isEmpty()) {
             String path = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
                     + File.separator;
-            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")),
-                    path, true, FacesUtils.getClevcoreResource("pattern_date"));
+            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")), path,
+                    true, FacesUtils.getClevcoreResource("pattern_date"));
 
             FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
         }
@@ -135,16 +135,17 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         order();
     }
 
-    public void rowlistener(AjaxBehaviorEvent event) {
-        MethodExpression methodExpression = (MethodExpression) getAttributes().get("rowlistener");
+    public void listener(AjaxBehaviorEvent event) {
+        MethodExpression methodExpression = (MethodExpression) getAttributes().get("listener");
 
         if (methodExpression != null) {
             methodExpression.invoke(FacesUtils.getELContext(),
                     new Object[] { ((List<Object>) data.getValue()).get(getRowIndex()) });
+            executeOnRender();
         }
     }
 
-    public void rowslistener(AjaxBehaviorEvent event) {
+    public void recordsForPageListener(AjaxBehaviorEvent event) {
         data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
 
         initPages();
@@ -190,9 +191,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         String search = getSearch();
 
         if (objectList != null && !objectList.isEmpty() && search != null && !search.isEmpty()) {
-            objectList = Utils.searchObject(search, objectList,
-                    getProperties((String) getAttributes().get("searchBy")), false,
-                    FacesUtils.getClevcoreResource("pattern_date"));
+            objectList = Utils.searchObject(search, objectList, getProperties((String) getAttributes().get("searchBy")),
+                    false, FacesUtils.getClevcoreResource("pattern_date"));
 
             setValueSearch(objectList);
             data.setValue(objectList);
@@ -241,8 +241,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
     }
 
     private void executeOnRender() {
-        if (getAttributes().get("onRender") != null) {
-            FacesUtils.executeScript(getAttributes().get("onRender").toString());
+        if (getAttributes().get("onrender") != null) {
+            FacesUtils.executeScript(getAttributes().get("onrender").toString());
         }
     }
 
