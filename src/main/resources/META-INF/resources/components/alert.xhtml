@@ -13,6 +13,7 @@
 		<composite:attribute name="title" />
 		<composite:attribute name="message" />
 		<composite:attribute name="rendered" />
+		<composite:attribute name="showTitle" default="true" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -20,33 +21,35 @@
 			styleClass="alert alert-#{cc.attrs.severity} #{cc.attrs.styleClass}"
 			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}">
 			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
-			<c:choose>
-				<c:when test="#{cc.attrs.title != null}">
-					<h:panelGroup layout="block" styleClass="alert-title">
-						<h:outputText value="#{cc.attrs.title}" />
-					</h:panelGroup>
-				</c:when>
-				<c:when test="#{cc.attrs.severity == 'info'}">
-					<h:panelGroup layout="block" styleClass="alert-title">
-						<h:outputText value="#{clevcoreMsg.info}" />
-					</h:panelGroup>
-				</c:when>
-				<c:when test="#{cc.attrs.severity == 'success'}">
-					<h:panelGroup layout="block" styleClass="alert-title">
-						<h:outputText value="#{clevcoreMsg.success}" />
-					</h:panelGroup>
-				</c:when>
-				<c:when test="#{cc.attrs.severity == 'warning'}">
-					<h:panelGroup layout="block" styleClass="alert-title">
-						<h:outputText value="#{clevcoreMsg.warning}" />
-					</h:panelGroup>
-				</c:when>
-				<c:when test="#{cc.attrs.severity == 'danger'}">
-					<h:panelGroup layout="block" styleClass="alert-title">
-						<h:outputText value="#{clevcoreMsg.danger}" />
-					</h:panelGroup>
-				</c:when>
-			</c:choose>
+			<c:if test="#{cc.attrs.showTitle}">
+				<c:choose>
+					<c:when test="#{cc.attrs.title != null}">
+						<h:panelGroup layout="block" styleClass="alert-title">
+							<h:outputText value="#{cc.attrs.title}" />
+						</h:panelGroup>
+					</c:when>
+					<c:when test="#{cc.attrs.severity == 'info'}">
+						<h:panelGroup layout="block" styleClass="alert-title">
+							<h:outputText value="#{clevcoreMsg.info}" />
+						</h:panelGroup>
+					</c:when>
+					<c:when test="#{cc.attrs.severity == 'success'}">
+						<h:panelGroup layout="block" styleClass="alert-title">
+							<h:outputText value="#{clevcoreMsg.success}" />
+						</h:panelGroup>
+					</c:when>
+					<c:when test="#{cc.attrs.severity == 'warning'}">
+						<h:panelGroup layout="block" styleClass="alert-title">
+							<h:outputText value="#{clevcoreMsg.warning}" />
+						</h:panelGroup>
+					</c:when>
+					<c:when test="#{cc.attrs.severity == 'danger'}">
+						<h:panelGroup layout="block" styleClass="alert-title">
+							<h:outputText value="#{clevcoreMsg.danger}" />
+						</h:panelGroup>
+					</c:when>
+				</c:choose>
+			</c:if>
 
 			<h:outputText value="#{cc.attrs.message}" />
 			<composite:insertChildren />
