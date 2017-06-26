@@ -46,6 +46,8 @@
 						type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon != null}" />
 					<h:outputText value="#{cc.attrs.value}"
 						rendered="#{cc.attrs.value != null}" />
+					<composite:insertChildren />
+				<composite:insertChildren />
 				</h:outputLink>
 				<h:commandLink
 					styleClass="#{cc.attrs.value == null ? 'pLeftLarge pRightLarge' : ''}"
@@ -83,7 +85,6 @@
 						execute="#{cc.attrs.execute}" render="#{cc.attrs.render}"
 						disabled="#{cc.attrs.execute eq null and cc.attrs.render eq null}" />
 				</h:commandLink>
-				<composite:insertChildren />
 			</li>
 		</h:panelGroup>
 	</composite:implementation>
