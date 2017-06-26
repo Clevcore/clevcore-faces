@@ -6,8 +6,10 @@
 	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface componentType="#{bbClevcore.SELECT_MANY_CHECKBOX}">
-		<composite:attribute name="style" type="java.lang.String" />
 		<composite:attribute name="styleClass" type="java.lang.String" />
+		<composite:attribute name="style" type="java.lang.String" />
+		<composite:attribute name="labelClass" type="java.lang.String" />
+		<composite:attribute name="labelStyle" type="java.lang.String" />
 		<composite:attribute name="value" required="true" />
 		<composite:attribute name="disabled" default="false"
 			type="java.lang.Boolean" />
@@ -48,9 +50,9 @@
 						<input id="#{cc.clientId}:#{status.index}" type="checkbox"
 							onchange="SelectManyCheckbox.onchange('#{cc.clientId}', '#{status.index}', this.checked); #{cc.attrs.onchange}"
 							onclick="SelectManyCheckbox.onclick('#{cc.clientId}', '#{status.index}'); #{cc.attrs.onclick}">
-							<c:if test="#{cc.attrs.disabled}">
-								<f:passThroughAttribute name="disabled" value="disabled" />
-							</c:if>
+						<c:if test="#{cc.attrs.disabled}">
+							<f:passThroughAttribute name="disabled" value="disabled" />
+						</c:if>
 						</input>
 
 						<h:panelGroup styleClass="checkbox-material"
@@ -61,7 +63,8 @@
 						<h:panelGroup layout="block" styleClass="checkbox-material"
 							rendered="#{item.label != null}">
 							<h:panelGroup styleClass="" />
-							<h:outputText styleClass="" value="#{item.label}" />
+							<h:outputText styleClass="#{cc.attrs.labelClass}"
+								style="#{cc.attrs.labelStyle}" value="#{item.label}" />
 						</h:panelGroup>
 					</h:outputLabel>
 				</h:panelGroup>
