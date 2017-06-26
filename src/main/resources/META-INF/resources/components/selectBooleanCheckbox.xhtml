@@ -7,8 +7,10 @@
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface
 		componentType="#{bbClevcore.SELECT_BOOLEAN_CHECKBOX}">
-		<composite:attribute name="style" type="java.lang.String" />
 		<composite:attribute name="styleClass" type="java.lang.String" />
+		<composite:attribute name="style" type="java.lang.String" />
+		<composite:attribute name="labelClass" type="java.lang.String" />
+		<composite:attribute name="labelStyle" type="java.lang.String" />
 		<composite:attribute name="value" />
 		<composite:attribute name="label" />
 		<composite:attribute name="disabled" default="false"
@@ -31,18 +33,20 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGroup layout="block" styleClass="checkbox">
+		<h:panelGroup layout="block"
+			styleClass="checkbox #{cc.attrs.styleClass}"
+			style="#{cc.attrs.style}">
 			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
 			<h:outputLabel>
 				<h:selectBooleanCheckbox id="selectBooleanCheckbox"
-					styleClass="#{cc.attrs.styleClass}" style="#{cc.attrs.style}"
 					value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
 					immediate="#{cc.attrs.immediate}" converter="#{cc.attrs.converter}"
 					required="#{cc.attrs.required}"
 					requiredMessage="#{cc.attrs.requiredMessage}" />
 				<h:panelGroup styleClass="checkbox-material">
 					<h:panelGroup styleClass="" />
-					<h:outputText styleClass="" value="#{cc.attrs.label}" />
+					<h:outputText styleClass="#{cc.attrs.labelClass}"
+						style="#{cc.attrs.labelStyle}" value="#{cc.attrs.label}" />
 				</h:panelGroup>
 			</h:outputLabel>
 		</h:panelGroup>
