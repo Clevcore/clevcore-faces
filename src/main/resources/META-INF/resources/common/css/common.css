@@ -208,6 +208,10 @@
 	border-right-width: 0;
 }
 
+.bwTopNone {
+	border-top-width: 0;
+}
+
 .bwNormal {
 	border-width: 1px;
 }
