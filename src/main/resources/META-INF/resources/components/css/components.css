@@ -1135,6 +1135,10 @@ nav ul a:hover,nav .iconSide:hover {
 	z-index: 1;
 }
 
+.popup .panel > .foot.bShadow2dpNe {
+	border-top: none;
+}
+
 
 /* section */
 .section {

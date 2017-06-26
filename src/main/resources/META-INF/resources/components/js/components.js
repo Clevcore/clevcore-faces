@@ -1145,11 +1145,11 @@ var Popup = {
 		autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
 
 		if (getHeightElement(Popup.panelBody) - getHeightScrollElement(Popup.panelBody) < 0) {
-			addClassElement(Popup.panelHead, "bShadow4dp");
-			addClassElement(Popup.panelFoot, "bShadow4dpNe");
+			addClassElement(Popup.panelHead, "bShadow3dp");
+			addClassElement(Popup.panelFoot, "bShadow2dpNe");
 		} else {
-			removeClassElement(Popup.panelHead, "bShadow4dp");
-			removeClassElement(Popup.panelFoot, "bShadow4dpNe");
+			removeClassElement(Popup.panelHead, "bShadow3dp");
+			removeClassElement(Popup.panelFoot, "bShadow2dpNe");
 		}
 	}
 };
