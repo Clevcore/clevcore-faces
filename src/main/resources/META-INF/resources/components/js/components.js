@@ -11,11 +11,11 @@ var MIN_WIDTH_DESKTOP = 960;
 var MAX_WIDTH_DESKTOP = 1120;
 
 /* init */
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
 	jsf.ajax.addOnEvent(HandleAjax.init.onEvent);
 	jsf.ajax.addOnError(HandleAjax.init.onError);
 
-	window.addEventListener('jsfAjaxEvent', HandleAjax.listener);
+	window.addEventListener("jsfAjaxEvent", HandleAjax.listener);
 
 	ConfirmNavigation.init();
 });
@@ -254,9 +254,9 @@ var CommandButton = {
 
 /* confirmNavigation */
 var ConfirmNavigation = {
-	form : [],
-	enable : false,
-	message : "",
+	form : undefined,
+	enable : undefined,
+	message : undefined,
 
 	init : function() {
 		ConfirmNavigation.initAttributes();
@@ -267,39 +267,43 @@ var ConfirmNavigation = {
 			ConfirmNavigation.listener();
 			ConfirmNavigation.action();
 
-			$(window).on("beforeunload", ConfirmNavigation.verify);
+			window.addEventListener("beforeunload", ConfirmNavigation.verify);
 		}
 	},
 
 	initAttributes : function() {
-		$("form[data-confirm-navigation]").each(function() {
+		ConfirmNavigation.form = [];
+		ConfirmNavigation.enable = false;
+		ConfirmNavigation.message = "",
+
+		document.querySelectorAll("form[data-confirm-navigation]").forEach(function(form) {
 			ConfirmNavigation.form.push({
-				id : this.id,
-				serialize : $(this).serialize()
+				id : form.id,
+				serialize : getElement(form.id).serialize()
 			});
 		});
 	},
 
 	listener : function() {
-		window.addEventListener('jsfAjaxEvent', function(event) {
+		window.addEventListener("jsfAjaxEvent", function(event) {
 			var data = event.detail.data;
 
 			switch (data.status) {
 			case "complete":
-				var formElement = (data.source).closest('form');
+				var formElement = (data.source).closest("form");
 
 				if (formElement != null) {
 					var form = Array.get(ConfirmNavigation.form, "id", formElement.id);
 
 					if (form != null) {
 						form.oldSerialize = form.serialize;
-						form.serialize = $("#" + form.id).serialize();
+						form.serialize = getElement(form.id).serialize();
 					}
 				}
 
 				break;
 			case "success":
-				var formElement = (data.source).closest('form');
+				var formElement = (data.source).closest("form");
 
 				if (formElement != null) {
 					var form = Array.get(ConfirmNavigation.form, "id", formElement.id);
@@ -319,27 +323,21 @@ var ConfirmNavigation = {
 	},
 
 	action : function() {
-		$("form[data-confirm-navigation]").submit(function() {
-			var form = Array.get(ConfirmNavigation.form, "id", this.id);
-			form.serialize = $("#" + form.id).serialize();
+		document.querySelectorAll("form[data-confirm-navigation]").forEach(function(formElement) {
+			formElement.addEventListener("submit", function(event) {
+				var form = Array.get(ConfirmNavigation.form, "id", this.id);
+				form.serialize = this.serialize();
+			});
 		});
-	},
-
-	enable : function(id) {
-		ConfirmNavigation.enable = true;
-	},
-
-	disable : function(id) {
-		ConfirmNavigation.enable = false;
 	},
 
 	verify : function(event) {
 		setTimeout(function() {
-			addClass("loadingPage", "dNone");
+			LoadingPage.off();
 		}, 5000);
 
 		ConfirmNavigation.form.forEach(function(form) {
-			if (ConfirmNavigation.enable && form.serialize != $("#" + form.id).serialize()) {
+			if (ConfirmNavigation.enable && ConfirmNavigation.modifiedForm(form)) {
 				addClass(form.id, "animate animate-no");
 				setTimeout(function() {
 					removeClass(form.id, "animate animate-no");
@@ -348,22 +346,36 @@ var ConfirmNavigation = {
 				if (event) {
 					event.returnValue = ConfirmNavigation.message;
 				}
+
 				return ConfirmNavigation.message;
 			}
 		});
 	},
 
-	modifiedForms : function() {
-		var modifiedForms = false;
+	modifiedForm : function(form) {
+		if (form.serialize != getElement(form.id).serialize()) {
+			return true;
+		}
 
+		return false;
+	},
+
+	modifiedForms : function() {
 		ConfirmNavigation.form.forEach(function(form) {
-			if (ConfirmNavigation.enable && form.serialize != $("#" + form.id).serialize()) {
-				modifiedForms = true;
-				return;
+			if (ConfirmNavigation.modifiedForm(form)) {
+				return true;
 			}
 		});
 
-		return modifiedForms;
+		return false;
+	},
+
+	on : function(id) {
+		ConfirmNavigation.enable = true;
+	},
+
+	off : function(id) {
+		ConfirmNavigation.enable = false;
 	}
 
 };
@@ -544,11 +556,6 @@ var FloatIfNotVisible = function() {
 		}
 	};
 }();
-
-/* graphicImage */
-function lazyload() {
-	$("img.lazy").lazyload();
-}
 
 /* items */
 var idItems = null;

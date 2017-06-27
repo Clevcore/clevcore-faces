@@ -16,8 +16,6 @@
         <h:outputStylesheet name="common/css/animate.css" />
         <h:outputStylesheet name="common/css/common.css" />
 
-        <h:outputScript name="vendor/js/jquery.min.js" />
-        <h:outputScript name="vendor/js/jquery.lazyload.min.js" />
         <h:outputScript name="common/js/reset.js" />
         <h:outputScript name="common/js/common.js" />
         <h:outputScript name="components/js/components.js" />
@@ -106,7 +104,7 @@
         </h:panelGroup>
 
         <script>
-			$(document).ready(function() {
+        	document.addEventListener("DOMContentLoaded", function() {
 				ConfirmNavigation.message = "#{clevcoreMsg.confirm_navigation_info}";
 
 				HandleSessionTimeout.maxInactiveInterval = #{request.session.maxInactiveInterval};

@@ -882,24 +882,6 @@ function fullScreen() {
 	}
 }
 
-function animateScroll(id, time) {
-	$("html, body").stop().animate({
-		scrollTop : $("#" + id).offset().top
-	}, time | 1500);
-}
-
-function animateScrollTop(time) {
-	$("html, body").stop().animate({
-		scrollTop : 0
-	}, time | 1500);
-}
-
-function animateScrollBottom(time) {
-	$("html, body").stop().animate({
-		scrollTop : getHeightWindow()
-	}, time | 1500);
-}
-
 function parameterToObject() {
 	var result = {};
 

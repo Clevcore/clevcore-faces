@@ -1,25 +1,23 @@
-$(document)
-		.ready(
-				function() {
-					Reset.init();
-					Reset.init();
-					Reset.init();
+document.addEventListener("DOMContentLoaded", function() {
+	Reset.init();
+	Reset.init();
+	Reset.init();
 
-					if (System.browser.name === System.CONSTANT.BROWSER.FIREFOX) {
-						setAttribute("html", "moznomarginboxes", "");
-						setAttribute("html", "mozdisallowselectionprint", "");
-					}
+	if (System.browser.name === System.CONSTANT.BROWSER.FIREFOX) {
+		setAttribute("html", "moznomarginboxes", "");
+		setAttribute("html", "mozdisallowselectionprint", "");
+	}
 
-					if (!notRememberVersionBrowserUnsupported) {
-						if ((System.browser.name === System.CONSTANT.BROWSER.OPERA && parseFloat(System.browser.version) < 11.60)
-								|| (System.browser.name === System.CONSTANT.BROWSER.CHROME && parseFloat(System.browser.version) < 15.0)
-								|| (System.browser.name === System.CONSTANT.BROWSER.SAFARI && parseFloat(System.browser.version) < 5.1)
-								|| (System.browser.name === System.CONSTANT.BROWSER.FIREFOX && parseFloat(System.browser.version) < 11.0)
-								|| (System.browser.name === System.CONSTANT.BROWSER.INTERNET_EXPLORER && parseFloat(System.browser.version) < 10.0)) {
-							showPopup("clevcore-versionBrowserUnsupportedPopup");
-						}
-					}
-				});
+	if (!notRememberVersionBrowserUnsupported) {
+		if ((System.browser.name === System.CONSTANT.BROWSER.OPERA && parseFloat(System.browser.version) < 11.60)
+				|| (System.browser.name === System.CONSTANT.BROWSER.CHROME && parseFloat(System.browser.version) < 15.0)
+				|| (System.browser.name === System.CONSTANT.BROWSER.SAFARI && parseFloat(System.browser.version) < 5.1)
+				|| (System.browser.name === System.CONSTANT.BROWSER.FIREFOX && parseFloat(System.browser.version) < 11.0)
+				|| (System.browser.name === System.CONSTANT.BROWSER.INTERNET_EXPLORER && parseFloat(System.browser.version) < 10.0)) {
+			showPopup("clevcore-versionBrowserUnsupportedPopup");
+		}
+	}
+});
 
 var Reset = {
 	init : function() {
@@ -261,6 +259,17 @@ var Reset = {
 	window.CustomEvent = CustomEvent;
 })();
 
+/* forEach */
+(function() {
+	if (typeof NodeList.prototype.forEach === "undefined") {
+		NodeList.prototype.forEach = Array.prototype.forEach;
+	}
+
+	if (typeof HTMLCollection.prototype.forEach === "undefined") {
+		HTMLCollection.prototype.forEach = Array.prototype.forEach;
+	}
+})();
+
 /* Math */
 (function() {
 	function decimalAdjust(type, value, exp) {
@@ -298,6 +307,25 @@ var Reset = {
 		Math.ceil10 = function(value, exp) {
 			return decimalAdjust("ceil", value, exp);
 		};
+	}
+})();
+
+/* Serialize */
+(function() {
+	HTMLElement.prototype.serialize = function() {
+		var result = {};
+		var elements = this.querySelectorAll("input, select, textarea");
+
+		elements.forEach(function(element) {
+			var name = element.name;
+			var value = element.value;
+
+			if (name) {
+				result[name] = value;
+			}
+		});
+
+		return JSON.stringify(result);
 	}
 })();
 
@@ -351,16 +379,5 @@ var Reset = {
 		} while (found < ordinal);
 
 		return index;
-	}
-})();
-
-/* forEach */
-(function() {
-	if (typeof NodeList.prototype.forEach === "undefined") {
-		NodeList.prototype.forEach = Array.prototype.forEach;
-	}
-
-	if (typeof HTMLCollection.prototype.forEach === "undefined") {
-		HTMLCollection.prototype.forEach = Array.prototype.forEach;
 	}
 })();
