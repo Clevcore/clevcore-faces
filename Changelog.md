@@ -1,3 +1,80 @@
+# v1.5.0
+- New Release 1.5.0
+- Remove jQuery
+- Add style bwTopNone
+- Optimize FloatIfNotVisible component
+- Optimize Popup component
+- Optimize DataTable component
+- Optimize SelectManyCheckbox component
+- Optimize SelectBooleanCheckbox component
+- Optimize Item component
+- Optimize Alert component
+- Optimize size button
+- Add separator style for media screen
+- Add style to simple button with wait-path
+- Use m-wAuto in button of popop foot
+- Add change color in button element
+- Reduce size font icon
+- Optimize selectBooleanCheckbox component
+- Optimize selectManyCheckbox
+- Optiomize component css
+- Use simpple button in clevcore popup and create new icon
+- Add style x-large in medial screen
+- Optimize scrollable function of Popup object
+- Remove padding of simple buttons
+- Remove text center style of foot style
+- Remove importan role in tCenter style
+- Add style attribute
+- Optimize separator component
+- New simple style by button
+- Put shadow in head/foot popup when scrollbar is enabled
+- Clarify the popup component
+- Update font and create clevcoreIcon properties
+- Remove z-index of .fab style
+- Reorganize LoadingPage and Wait componenet
+- Issue in order of indexOf, first ";" and after "#" charter
+- Create System objet with information of client and remove Browser Objet
+- Add Media generic screen
+- Add ";" charter in getPage and getPath function/method
+- Add getPageFull and getPathFull function/method
+- Don't print messages component
+- Add parameterToObject and objectToParameter function
+- Add pointerevents none for data-title
+- Add scrollbar style
+- Optimize floatNotVisible component and use shadow negative
+- Add shadow negative
+- Add font-size in media print
+- The grid system is wrong
+- Optimize item component adding ajax attributes
+- The min-width for icon "fa" in item is 34px
+- Optimize background in item component
+- The border button in fabItems should be 0
+- The color in xDefault2 style is wrong
+- Optimize message in FacesUtils
+- Create "Alert" component
+- Add icon attributes in section component
+- Add style for print medial
+- Add "cc.attrs.style"
+- Add style for media screen
+- Add projectStage in JS environment
+- Change loading effect in CommandButton element by MD wait
+- Remove "resorces/common/img" folder
+- Wait component to material designed
+- Create object LoadingPage
+- Add disabledLoading attribute in CommandButton Element
+- Optimice text of FacesUtils class
+- Set valueLoading emply in dataTable to pagenator section
+- Remove "margin-bottom: 0;" of table
+- Add delay function
+- Add input md effect
+- Organize CSS
+- Add valueLoading attribute
+- Add forEach in the prototype of NodeList and HTMLCollection if not exist
+- Remove @SuppressWarnings("el-syntax")
+- Add title in column
+- Add getRealPath method
+- Optimize pom file
+
 # v1.4.0
 - New Release 1.4.0
 - Add removeAccentedCharacters function
