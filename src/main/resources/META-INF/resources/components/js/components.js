@@ -10,6 +10,13 @@ var MAX_WIDTH_TABLET = 800;
 var MIN_WIDTH_DESKTOP = 960;
 var MAX_WIDTH_DESKTOP = 1120;
 
+var resources = {
+	constant : {},
+	icon : {},
+	msg : {},
+	setting : {}
+};
+
 /* init */
 document.addEventListener("DOMContentLoaded", function() {
 	jsf.ajax.addOnEvent(HandleAjax.init.onEvent);
@@ -124,89 +131,105 @@ var HandleAjax = {
 	}
 };
 
-/* accordion */
-function initAccordion(id) {
-	var panel = getElement(id + ":id");
-	var panelBody = panel.children[1];
-	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
+/* panel */
+var Panel = {
+	accordion : {
+		init : function(id) {
+			var panel = getElement(id + ":id");
+			var panelHead = getSelector("#" + id + ":id .head");
+			var panelBody = getSelector("#" + id + ":id .body");
+			var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
-	if (opened) {
-		addClassElement(panelBody, "dBlock oMax");
-	} else {
-		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
-		addClassElement(panelBody, "dNone oMin");
+			if (opened) {
+				setAttributeElement(panel, "data-opened", "true");
+				setAttributeElement(panelHead, "title", resources.msg.compress);
+				if (print) {
+					removeClassElement(panel, "noPrint");
+				}
+			} else {
+				var iconHead1 = getElement("#" + id + ":id .panel-head-1");
+				var iconHead2 = getElement("#" + id + ":id .panel-head-2");
 
-		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
-			addClassElement(panel, "noPrint");
+				setAttributeElement(panelBody, "data-height", getHeightElement(panelBody));
+				panelBody.style.height = "0";
+
+				addClassElement(iconHead1, "trz90Ne");
+				addClassElement(iconHead2, "trz45Ne");
+
+				setAttributeElement(panel, "data-opened", "false");
+				setAttributeElement(panelHead, "title", resources.msg.expand);
+				if (print) {
+					addClassElement(panel, "noPrint");
+				}
+			}
+
+			remove(id + ":script");
+		},
+
+		onclick : function(id, onclick) {
+			var panel = getElement(id + ":id");
+			var panelHead = getSelector("#" + id + ":id .head");
+			var panelBody = getSelector("#" + id + ":id .body");
+			var opened = getBoolean(getAttributeElement(panel, "data-opened"));
+
+			var print = getBoolean(getAttributeElement(panel, "data-only-print-when-opened"));
+
+			var iconHead1 = getElement("#" + id + ":id .panel-head-1");
+			var iconHead2 = getElement("#" + id + ":id .panel-head-2");
+
+			if (opened) {
+				var animate = getAttributeElement(panel, "data-animateout");
+
+				setAttributeElement(panelBody, "data-height", getHeightElement(panelBody));
+				panelBody.style.height = getAttributeElement(panelBody, "data-height") + "px";
+
+				setTimeout(function() {
+					panelBody.style.height = "0";
+					addClassElement(panelBody, "animate-" + animate);
+				}, 10);
+
+				setTimeout(function() {
+					removeClassElement(panelBody, "animate-" + animate);
+				}, ANIMATION_TIME);
+
+				addClassElement(iconHead1, "trz90Ne");
+				addClassElement(iconHead2, "trz45Ne");
+
+				setAttributeElement(panel, "data-opened", "false");
+				setAttributeElement(panelHead, "title", resources.msg.expand);
+				if (print) {
+					addClassElement(panel, "noPrint");
+				}
+			} else {
+				var animate = getAttributeElement(panel, "data-animatein");
+
+				setTimeout(function() {
+					panelBody.style.height = getAttributeElement(panelBody, "data-height") + "px";
+					addClassElement(panelBody, "animate-" + animate);
+				}, 10);
+
+				setTimeout(function() {
+					panelBody.style.height = "";
+					removeClassElement(panelBody, "animate-" + animate);
+				}, ANIMATION_TIME);
+
+				removeClassElement(iconHead1, "trz90Ne");
+				removeClassElement(iconHead2, "trz45Ne");
+
+				setAttributeElement(panel, "data-opened", "true");
+				setAttributeElement(panelHead, "title", resources.msg.compress);
+				if (print) {
+					removeClassElement(panel, "noPrint");
+				}
+			}
+
+			setTimeout(function() {
+				eval(onclick);
+			}, ANIMATION_TIME + 10);
 		}
 	}
-}
 
-function accordion(id, titleCompress, titleExpand) {
-	var panel = getElement(id + ":id");
-	var panelHead = panel.children[0];
-	var panelBody = panel.children[1];
-	var panelFoot = panel.children[2];
-	var opened = getBoolean(getAttributeElement(panel, "data-opened"));
-
-	if (opened) {
-		setAttributeElement(panel, "data-opened", "false");
-
-		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
-			addClassElement(panel, "noPrint");
-		}
-
-		setAttributeElement(panelHead, "title", titleExpand);
-		addClass("#" + id + ":id .panel-head-open", "dNone");
-		removeClass("#" + id + ":id .panel-head-close", "dNone");
-		addClass("#" + id + ":id .panel-head-minimize", "dNone");
-		removeClass("#" + id + ":id .panel-head-maximize", "dNone");
-
-		setAttributeElement(panelBody, "data-height", getHeightElement(panelBody) + "px");
-		panelBody.style.height = getHeightElement(panelBody) + "px";
-
-		setTimeout(function() {
-			replaceClassElement(panelBody, "oMax", "oMin");
-			panelBody.style.height = "0px";
-		}, 10);
-
-		setTimeout(function() {
-			replaceClassElement(panelBody, "dBlock", "dNone");
-		}, ANIMATION_TIME);
-
-		setTimeout(function() {
-			replaceClassElement(panelFoot, "dBlock", "dNone");
-		}, 20);
-	} else {
-		setAttributeElement(panel, "data-opened", "true");
-
-		if (getBoolean(getAttributeElement(panel, "data-only-print-when-opened"))) {
-			removeClassElement(panel, "noPrint");
-		}
-
-		setAttributeElement(panelHead, "title", titleCompress);
-		removeClass("#" + id + ":id .panel-head-open", "dNone");
-		addClass("#" + id + ":id .panel-head-close", "dNone");
-		removeClass("#" + id + ":id .panel-head-minimize", "dNone");
-		addClass("#" + id + ":id .panel-head-maximize", "dNone");
-
-		panelBody.style.height = "0px";
-		replaceClassElement(panelBody, "dNone", "dBlock");
-
-		setTimeout(function() {
-			replaceClassElement(panelBody, "oMin", "oMax");
-			panelBody.style.height = getAttributeElement(panelBody, "data-height");
-		}, 10);
-
-		setTimeout(function() {
-			panelBody.style.height = "";
-		}, ANIMATION_TIME);
-
-		setTimeout(function() {
-			replaceClassElement(panelFoot, "dNone", "dBlock");
-		}, 20);
-	}
-}
+};
 
 /* commandButton */
 var CommandButton = {
@@ -256,7 +279,6 @@ var CommandButton = {
 var ConfirmNavigation = {
 	form : undefined,
 	enable : undefined,
-	message : undefined,
 
 	init : function() {
 		ConfirmNavigation.initAttributes();
@@ -274,7 +296,6 @@ var ConfirmNavigation = {
 	initAttributes : function() {
 		ConfirmNavigation.form = [];
 		ConfirmNavigation.enable = false;
-		ConfirmNavigation.message = "",
 
 		document.querySelectorAll("form[data-confirm-navigation]").forEach(function(form) {
 			ConfirmNavigation.form.push({
@@ -344,10 +365,10 @@ var ConfirmNavigation = {
 				}, ANIMATION_TIME);
 
 				if (event) {
-					event.returnValue = ConfirmNavigation.message;
+					event.returnValue = resources.msg.confirm_navigation_info;
 				}
 
-				return ConfirmNavigation.message;
+				return resources.msg.confirm_navigation_info;
 			}
 		});
 	},

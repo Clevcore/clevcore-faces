@@ -14,7 +14,7 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
-			styleClass="body #{cc.parent.attrs.accordion ? 'hTransition oTransition' : ''} #{cc.attrs.styleClass}"
+			styleClass="body #{cc.parent.attrs.accordion ? 'animate hTransition oHidden' : ''} #{cc.attrs.styleClass}"
 			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}">
 			<h:panelGroup layout="block" styleClass="pNormal">
 				<composite:insertChildren />

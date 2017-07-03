@@ -14,7 +14,7 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block"
-			styleClass="foot pNormal tCenter #{cc.parent.attrs.accordion == true ? (cc.parent.attrs.accordionOpened ? 'dBlock' : 'dNone') : ''} #{cc.attrs.styleClass}"
+			styleClass="foot pNormal tCenter #{cc.attrs.styleClass}"
 			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}">
 			<composite:insertChildren />
 		</h:panelGroup>

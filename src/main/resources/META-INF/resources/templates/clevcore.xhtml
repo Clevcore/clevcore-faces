@@ -105,7 +105,9 @@
 
         <script>
         	document.addEventListener("DOMContentLoaded", function() {
-				ConfirmNavigation.message = "#{clevcoreMsg.confirm_navigation_info}";
+				resources.msg.confirm_navigation_info = "#{clevcoreMsg.confirm_navigation_info}";
+				resources.msg.compress = "#{clevcoreMsg.compress}";
+				resources.msg.expand = "#{clevcoreMsg.expand}";
 
 				HandleSessionTimeout.maxInactiveInterval = #{request.session.maxInactiveInterval};
 				HandleSessionTimeout.start();

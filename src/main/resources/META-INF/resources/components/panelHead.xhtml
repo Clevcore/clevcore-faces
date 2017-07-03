@@ -24,16 +24,7 @@
 
 			<c:if test="#{cc.parent.attrs.accordion}">
 				<f:passThroughAttribute name="onclick"
-					value="accordion('#{cc.parent.clientId}', '#{clevcoreMsg.compress}', '#{clevcoreMsg.expand}'); #{cc.parent.attrs.onAccordionClick}" />
-				<c:choose>
-					<c:when test="#{cc.parent.attrs.accordionOpened == true}">
-						<f:passThroughAttribute name="title"
-							value="#{clevcoreMsg.compress}" />
-					</c:when>
-					<c:when test="#{cc.parent.attrs.accordionOpened == false}">
-						<f:passThroughAttribute name="title" value="#{clevcoreMsg.expand}" />
-					</c:when>
-				</c:choose>
+					value="Panel.accordion.onclick('#{cc.parent.clientId}', '#{cc.parent.attrs.onAccordionClick}');" />
 			</c:if>
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
@@ -45,12 +36,8 @@
 
 				<c:if
 					test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
-					<cc:icon
-						styleClass="panel-head-open pRightNormal noPrint #{cc.parent.attrs.accordionOpened ? '' : 'dNone'}"
+					<cc:icon styleClass="panel-head-1 noPrint tTransform"
 						value="#{clevcoreIcon.down}" type="md" />
-					<cc:icon
-						styleClass="panel-head-close pRightNormal noPrint #{cc.parent.attrs.accordionOpened ? 'dNone' : ''}"
-						value="#{clevcoreIcon.right}" type="md" />
 				</c:if>
 
 				<c:if test="#{cc.attrs.icon ne null}">
@@ -64,21 +51,17 @@
 					<composite:insertChildren />
 				</h:panelGroup>
 
-				<h:panelGroup layout="block" styleClass="accordionIcon">
+				<h:panelGroup layout="block" styleClass="fRight">
 					<c:if test="#{cc.parent.parent.attrs.closeable}">
-						<cc:icon styleClass="dNone m-dInlineBlock fs24 noPrint cPointer "
+						<cc:icon styleClass="dNone m-dInlineBlock fs24 noPrint cPointer"
 							value="#{clevcoreIcon.close}" type="md"
 							title="#{clevcoreMsg.close}" onclick="hidePopup();" />
 					</c:if>
 
 					<c:if
 						test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
-						<cc:icon
-							styleClass="panel-head-minimize noPrint #{cc.parent.attrs.accordionOpened ? '' : 'dNone'}"
-							value="#{clevcoreIcon.minimize}" type="md" />
-						<cc:icon
-							styleClass="panel-head-maximize noPrint #{cc.parent.attrs.accordionOpened ? 'dNone' : ''}"
-							value="#{clevcoreIcon.maximize}" type="md" />
+						<cc:icon styleClass="panel-head-2 fs20 noPrint tTransform"
+							value="#{clevcoreIcon.close}" type="md" />
 					</c:if>
 				</h:panelGroup>
 			</h:panelGroup>
