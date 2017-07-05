@@ -141,7 +141,6 @@ var Panel = {
 			var opened = getBoolean(getAttributeElement(panel, "data-opened"));
 
 			if (opened) {
-				setAttributeElement(panel, "data-opened", "true");
 				setAttributeElement(panelHead, "title", resources.msg.compress);
 				if (print) {
 					removeClassElement(panel, "noPrint");
@@ -156,7 +155,6 @@ var Panel = {
 				addClassElement(iconHead1, "trz90Ne");
 				addClassElement(iconHead2, "trz45Ne");
 
-				setAttributeElement(panel, "data-opened", "false");
 				setAttributeElement(panelHead, "title", resources.msg.expand);
 				if (print) {
 					addClassElement(panel, "noPrint");
@@ -428,74 +426,85 @@ var DataTable = {
 };
 
 /* fab */
-var idFab = null;
+Fab = {
+	id : undefined,
 
-function fab(event, id) {
-	if (event !== undefined) {
-		event.stopPropagation();
-	}
-
-	if (id != null) {
-		idFab = id;
-	}
-
-	var position = getAttributeElement(getElement(idFab), "data-position");
-	var animateIn = getAttributeElement(getElement(idFab), "data-animatein");
-	var animateOut = getAttributeElement(getElement(idFab), "data-animateout");
-
-	var items = getElement("#" + idFab + " .fabItems");
-	var trigger = getElement("#" + idFab + " .trigger button");
-	var icon = getElement("#" + idFab + " .trigger i.tTransform");
-
-	var modal;
-	if (eval(getAttributeElement(getElement(idFab), "data-modal"))) {
-		modal = getElement(idFab).previousSibling;
-	} else {
-		modal = null;
-	}
-
-	if (getClassElement(items).indexOf("dNone") != -1) {
-		if (modal != null) {
-			replaceClassElement(modal, "dNone", "dBlock");
+	action : function(event, id) {
+		if (event !== undefined) {
+			event.stopPropagation();
 		}
 
-		replaceClassElement(items, "dNone", "dBlock");
-		addClassElement(icon, "trz225");
-
-		window.addEventListener("click", fabCloseableClick, false);
-		window.addEventListener("keydown", fabCloseableKey, false);
-	} else {
-		idFab = null;
-
-		if (modal != null) {
-			replaceClassElement(modal, "animate-fadeIn", "animate-fadeOut");
+		if (id !== undefined) {
+			Fab.id = id;
 		}
 
-		replaceClassElement(items, "animate-" + animateIn, "animate-" + animateOut);
-		removeClassElement(icon, "trz225");
+		var fab = getElement(Fab.id);
 
-		setTimeout(function() {
+		var modal = getBoolean(getAttributeElement(fab, "data-modal")) ? fab.previousSibling : null;
+		var opened = getBoolean(getAttributeElement(fab, "data-opened"));
+
+		var items = getElement("#" + fab.id + " .fabItems");
+		var icon = getElement("#" + fab.id + " .trigger i.tTransform");
+
+		if (opened) {
+			var animate = getAttributeElement(fab, "data-animateout");
+
 			if (modal != null) {
-				replaceClassElement(modal, "dBlock", "dNone");
-				replaceClassElement(modal, "animate-fadeOut", "animate-fadeIn");
+				addClassElement(modal, "animate-fadeOut");
+				setTimeout(function() {
+					removeClassElement(modal, "animate-fadeOut");
+					addClassElement(modal, "dNone");
+				}, ANIMATION_TIME);
 			}
 
-			replaceClassElement(items, "dBlock", "dNone");
-			replaceClassElement(items, "animate-" + animateOut, "animate-" + animateIn);
-		}, ANIMATION_TIME);
+			addClassElement(items, "animate-" + animate);
+			setTimeout(function() {
+				removeClassElement(items, "animate-" + animate);
+				addClassElement(items, "dNone");
+			}, ANIMATION_TIME);
 
-		window.removeEventListener("click", fabCloseableClick, false);
-		window.removeEventListener("keydown", fabCloseableKey, false);
+			removeClassElement(icon, "trz225");
+
+			setAttributeElement(fab, "data-opened", "false");
+
+			window.removeEventListener("click", Fab.closeableClick);
+			window.removeEventListener("keydown", Fab.closeableKey);
+
+			Fab.id = null;
+		} else {
+			var animate = getAttributeElement(fab, "data-animatein");
+
+			if (modal != null) {
+				addClassElement(modal, "animate-fadeIn");
+				removeClassElement(modal, "dNone");
+				setTimeout(function() {
+					removeClassElement(modal, "animate-fadeIn");
+				}, ANIMATION_TIME);
+			}
+
+			addClassElement(items, "animate-" + animate);
+			removeClassElement(items, "dNone");
+			setTimeout(function() {
+				removeClassElement(items, "animate-" + animate);
+			}, ANIMATION_TIME);
+
+			addClassElement(icon, "trz225");
+
+			setAttributeElement(fab, "data-opened", "true");
+
+			window.addEventListener("click", Fab.closeableClick);
+			window.addEventListener("keydown", Fab.closeableKey);
+		}
+	},
+
+	closeableClick : function(event) {
+		Fab.action(event);
+	},
+
+	closeableKey : function(event) {
+		actionToEscKey(event, Fab.action);
 	}
-}
-
-function fabCloseableClick(event) {
-	fab(event);
-}
-
-function fabCloseableKey(event) {
-	actionToEscKey(event, fab);
-}
+};
 
 /* floatIfNotVisible */
 var FloatIfNotVisible = function() {

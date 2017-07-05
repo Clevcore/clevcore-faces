@@ -521,6 +521,7 @@ button.tertiary-outline .wait-path
 	padding: 20px;
 	pointer-events: none;
 	position: fixed;
+	z-index: 2001;
 }
 
 .fabItem.trigger button {

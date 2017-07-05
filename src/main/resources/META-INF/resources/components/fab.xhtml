@@ -31,22 +31,24 @@
 		<h:panelGroup layout="block"
 			styleClass="fab #{cc.attrs.position == 'topLeft' ? 'aTop aLeft' : cc.attrs.position == 'topRight' ? 'aTop aRight' : cc.attrs.position == 'bottomLeft' ? 'aBottom aLeft' : 'aBottom aRight'}">
 			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
+			<f:passThroughAttribute name="data-modal" value="#{cc.attrs.modal}" />
+			<f:passThroughAttribute name="data-opened" value="false" />
 			<f:passThroughAttribute name="data-position"
 				value="#{cc.attrs.position}" />
 			<f:passThroughAttribute name="data-animatein"
 				value="#{cc.attrs.animateIn}" />
 			<f:passThroughAttribute name="data-animateout"
 				value="#{cc.attrs.animateOut}" />
-			<f:passThroughAttribute name="data-modal" value="#{cc.attrs.modal}" />
 
 			<cc:fabItem styleClass="trigger"
 				rendered="#{cc.attrs.position == 'topLeft' or cc.attrs.position ==  'topRight'}">
 				<cc:commandButton
-					styleClass="primary bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
+					styleClass="primary bShadow6dp bShadow12dpHover animate animate-zoomInNormal #{cc.attrs.styleClass}"
 					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
 					iconType="#{cc.attrs.iconType}"
 					iconClass="tTransform #{cc.attrs.iconClass}"
-					iconStyle="#{cc.attrs.iconStyle}" onclick="fab(event, '#{cc.clientId}');" />
+					iconStyle="#{cc.attrs.iconStyle}"
+					onclick="Fab.action(event, '#{cc.clientId}');" />
 			</cc:fabItem>
 
 			<h:panelGroup layout="block"
@@ -57,11 +59,12 @@
 			<cc:fabItem styleClass="trigger"
 				rendered="#{cc.attrs.position != 'topLeft' and cc.attrs.position !=  'topRight'}">
 				<cc:commandButton
-					styleClass="primary bShadow6dp bShadow12dpHover #{cc.attrs.styleClass}"
+					styleClass="primary bShadow6dp bShadow12dpHover animate animate-zoomInNormal #{cc.attrs.styleClass}"
 					style="#{cc.attrs.style}" icon="#{cc.attrs.icon}"
 					iconType="#{cc.attrs.iconType}"
 					iconClass="tTransform #{cc.attrs.iconClass}"
-					iconStyle="#{cc.attrs.iconStyle}" onclick="fab(event, '#{cc.clientId}');" />
+					iconStyle="#{cc.attrs.iconStyle}"
+					onclick="Fab.action(event, '#{cc.clientId}');" />
 			</cc:fabItem>
 		</h:panelGroup>
 	</composite:implementation>
