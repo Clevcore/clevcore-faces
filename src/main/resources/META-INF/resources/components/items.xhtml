@@ -19,9 +19,9 @@
 		<composite:attribute name="title" />
 		<composite:attribute name="rendered" />
 		<composite:attribute name="animateIn"
-			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeInNormal' : 'zoomFadeInNormal'}" />
+			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeIn' : 'zoomFadeInNormal'}" />
 		<composite:attribute name="animateOut"
-			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeOutNormal' : 'zoomFadeOutNormal'}" />
+			default="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? 'fadeOut' : 'zoomFadeOutNormal'}" />
 		<composite:attribute name="opened" default="false"
 			type="java.lang.Boolean" />
 		<composite:attribute name="showIconCaret"
@@ -72,13 +72,15 @@
 						value="#{cc.attrs.animateOut}" />
 
 					<ul id="#{cc.clientId}"
-						class="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'bShadow8dp'} animate animate-#{cc.attrs.animateIn}">
+						class="#{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent) ? '' : 'bShadow8dp'} animate">
 						<composite:insertChildren />
 					</ul>
 				</h:panelGroup>
 			</h:panelGroup>
 
-			<script>initItems("#{cc.clientId}", #{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent)});</script>
+			<script id="#{cc.clientId}:script">
+				Items.init("#{cc.clientId}", #{bbClevcore.isComponent(bbClevcore.NAVBAR_SIDE, cc.parent)});
+			</script>
 
 			<h:outputText
 				rendered="#{bbClevcore.isComponent(bbClevcore.NAVBAR, cc.parent.parent)}"

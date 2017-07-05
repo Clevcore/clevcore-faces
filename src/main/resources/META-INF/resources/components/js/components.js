@@ -203,10 +203,8 @@ var Panel = {
 			} else {
 				var animate = getAttributeElement(panel, "data-animatein");
 
-				setTimeout(function() {
-					panelBody.style.height = getAttributeElement(panelBody, "data-height") + "px";
-					addClassElement(panelBody, "animate-" + animate);
-				}, 10);
+				panelBody.style.height = getAttributeElement(panelBody, "data-height") + "px";
+				addClassElement(panelBody, "animate-" + animate);
 
 				setTimeout(function() {
 					panelBody.style.height = "";
@@ -579,166 +577,168 @@ var FloatIfNotVisible = function() {
 }();
 
 /* items */
-var idItems = null;
+var Items = {
+	id : undefined,
 
-function initItems(id, isAccordion) {
-	var items = getElement(id + ":items");
-	var trigger = getElement(id + ":trigger");
+	init : function(id, accordion) {
+		var items = getElement(id + ":items");
+		var trigger = getElement(id + ":trigger");
 
-	if (isAccordion) {
+		if (accordion) {
+			var opened = getBoolean(getAttributeElement(items, "data-opened"));
+
+			if (!opened) {
+				setAttributeElement(items, "data-height", getHeightElement(items));
+				items.style.height = "0";
+			}
+
+			if (trigger != null) {
+				trigger.addEventListener("click", function() {
+					Items.accordion(items.id);
+				});
+			}
+		} else {
+			if (trigger != null) {
+				trigger.addEventListener("click", function(event) {
+					Items.show(event, items.id);
+				});
+			}
+		}
+
+		remove(id + ":script");
+	},
+
+	accordion : function(id) {
+		var items = getElement(id);
 		var opened = getBoolean(getAttributeElement(items, "data-opened"));
 
-		if (!opened) {
+		if (opened) {
+			var animate = getAttributeElement(items, "data-animateout");
+
 			setAttributeElement(items, "data-height", getHeightElement(items));
-			items.style.height = "0";
-			addClassElement(items, "dNone");
-		}
-
-		if (trigger != null) {
-			trigger.addEventListener("click", function() {
-				accordionItems(items.id);
-			});
-		}
-	} else {
-		if (trigger != null) {
-			trigger.addEventListener("click", function(event) {
-				showItems(event, items.id);
-			});
-		}
-	}
-}
-
-function accordionItems(id) {
-	var items = getElement(id);
-	var opened = getBoolean(getAttributeElement(items, "data-opened"));
-
-	if (opened) {
-		var animatein = getAttributeElement(items, "data-animatein");
-		var animateout = getAttributeElement(items, "data-animateout");
-
-		setAttributeElement(items, "data-height", getHeightElement(items));
-		items.style.height = getAttributeElement(items, "data-height") + "px";
-
-		setTimeout(function() {
-			items.style.height = "0";
-			replaceClassElement(items.firstElementChild, "animate-" + animatein, "animate-" + animateout);
-		}, 10);
-
-		setTimeout(function() {
-			addClassElement(items, "dNone");
-			replaceClassElement(items.firstElementChild, "animate-" + animateout, "animate-" + animatein);
-		}, ANIMATION_TIME);
-
-		setAttributeElement(items, "data-opened", "false");
-	} else {
-		removeClassElement(items, "dNone");
-
-		setTimeout(function() {
 			items.style.height = getAttributeElement(items, "data-height") + "px";
-		}, 10);
+
+			setTimeout(function() {
+				items.style.height = "0";
+				addClassElement(items.firstElementChild, "animate-" + animate);
+			}, 10);
+
+			setTimeout(function() {
+				removeClassElement(items.firstElementChild, "animate-" + animate);
+			}, ANIMATION_TIME);
+
+			setAttributeElement(items, "data-opened", "false");
+		} else {
+			var animate = getAttributeElement(items, "data-animatein");
+
+			items.style.height = getAttributeElement(items, "data-height") + "px";
+			addClassElement(items.firstElementChild, "animate-" + animate);
+
+			setTimeout(function() {
+				items.style.height = "";
+				removeClassElement(items.firstElementChild, "animate-" + animate);
+			}, ANIMATION_TIME);
+
+			setAttributeElement(items, "data-opened", "true");
+		}
+	},
+
+	show : function(event, id) {
+		if (event !== undefined) {
+			event.stopPropagation();
+		}
+
+		if (id != Items.id) {
+			if (Items.id !== undefined) {
+				Items.hide();
+			}
+			Items.id = id;
+
+			var items = getElement(id);
+			var animate = getAttributeElement(items, "data-animatein");
+
+			addClassElement(items.firstElementChild, "animate-" + animate);
+
+			addClassElement(items, "vHidden");
+			removeClassElement(items, "dNone");
+			Items.resize();
+			removeClassElement(items, "vHidden");
+
+			setTimeout(function() {
+				removeClassElement(items.firstElementChild, "animate-" + animate);
+			}, ANIMATION_TIME);
+
+			window.addEventListener("click", Items.hide);
+			window.addEventListener("keydown", Items.closeable);
+			window.addEventListener("resize", Items.resize);
+		} else {
+			Items.hide();
+		}
+	},
+
+	hide : function() {
+		var items = getElement(Items.id);
+		var animate = getAttributeElement(items, "data-animateout");
+
+		addClassElement(items.firstElementChild, "animate-" + animate);
 
 		setTimeout(function() {
-			items.style.height = "";
+			addClassElement(items, "dNone");
+
+			removeClassElement(items.firstElementChild, "animate-" + animate);
 		}, ANIMATION_TIME);
 
-		setAttributeElement(items, "data-opened", "true");
-	}
-}
+		window.removeEventListener("click", Items.hide);
+		window.removeEventListener("keydown", Items.closeable);
+		window.removeEventListener("resize", Items.resize);
 
-function showItems(event, id) {
-	if (event !== undefined) {
-		event.stopPropagation();
-	}
+		Items.id = undefined;
+	},
 
-	if (id != idItems) {
-		if (idItems != null) {
-			hideItems();
+	closeable : function(event) {
+		actionToEscKey(event, Items.hide);
+	},
+
+	resize : function() {
+		var component = getElement(Items.id);
+		var items = component.firstElementChild;
+
+		items.style.height = "";
+
+		var x = getAbsoluteRightElement(component);
+		if (hasClassElement(component, "aRight")) {
+			x += getWidthElement(component, true);
 		}
-		idItems = id;
 
-		addClass(idItems, "vHidden");
-		removeClass(idItems, "dNone");
+		var y = getAbsoluteTopElement(component);
+		if (hasClassElement(component, "aBottom")) {
+			y += getHeightElement(component, true);
+		}
 
-		itemsResize();
+		var openRight = x > getWidthWindow();
+		var openBottom = y > getHeightWindow() / 2;
 
-		removeClass(idItems, "vHidden");
+		if (openRight) {
+			replaceClassElement(component, "aLeft", "aRight");
 
-		window.addEventListener("click", itemsHandler);
-		window.addEventListener("keydown", itemsCloseable);
-		window.addEventListener("resize", itemsResize);
-	} else {
-		hideItems();
-	}
-}
-
-function hideItems() {
-	var items = getElement(idItems);
-
-	var animatein = getAttributeElement(items, "data-animatein");
-	var animateout = getAttributeElement(items, "data-animateout");
-
-	replaceClassElement(items.firstElementChild, "animate-" + animatein, "animate-" + animateout);
-
-	setTimeout(function() {
-		addClassElement(items, "dNone");
-
-		replaceClassElement(items.firstElementChild, "animate-" + animateout, "animate-" + animatein);
-	}, ANIMATION_TIME);
-
-	window.removeEventListener("click", itemsHandler);
-	window.removeEventListener("keydown", itemsCloseable);
-	window.removeEventListener("resize", itemsResize);
-
-	idItems = null;
-}
-
-function itemsHandler() {
-	hideItems();
-}
-
-function itemsCloseable(event) {
-	actionToEscKey(event, hideItems);
-}
-
-function itemsResize() {
-	var component = getElement(idItems);
-	var items = component.firstElementChild;
-
-	items.style.height = "";
-
-	var x = getAbsoluteRightElement(component);
-	if (hasClassElement(component, "aRight")) {
-		x += getWidthElement(component, true);
-	}
-
-	var y = getAbsoluteTopElement(component);
-	if (hasClassElement(component, "aBottom")) {
-		y += getHeightElement(component, true);
-	}
-
-	var openRight = x > getWidthWindow();
-	var openBottom = y > getHeightWindow() / 2;
-
-	if (openRight) {
-		replaceClassElement(component, "aLeft", "aRight");
-
-		if (openBottom) {
-			replaceClassElement(component, "aTop", "aBottom");
+			if (openBottom) {
+				replaceClassElement(component, "aTop", "aBottom");
+			} else {
+				replaceClassElement(component, "aBottom", "aTop");
+			}
 		} else {
-			replaceClassElement(component, "aBottom", "aTop");
-		}
-	} else {
-		replaceClassElement(component, "aRight", "aLeft");
+			replaceClassElement(component, "aRight", "aLeft");
 
-		if (openBottom) {
-			replaceClassElement(component, "aTop", "aBottom");
-		} else {
-			replaceClassElement(component, "aBottom", "aTop");
+			if (openBottom) {
+				replaceClassElement(component, "aTop", "aBottom");
+			} else {
+				replaceClassElement(component, "aBottom", "aTop");
+			}
 		}
+
+		autoscrollHeightElement(items, 10);
 	}
-
-	autoscrollHeightElement(items, 10);
-}
+};
 
 /* menu */
 function initMenu(id) {
@@ -747,7 +747,7 @@ function initMenu(id) {
 	var items = getElement("#" + id + " .items");
 
 	trigger.addEventListener("click", function(event) {
-		showItems(event, items.id);
+		Items.show(event, items.id);
 	});
 }
 
