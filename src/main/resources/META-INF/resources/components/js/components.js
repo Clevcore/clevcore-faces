@@ -765,33 +765,35 @@ var Menu = {
 };
 
 /* messages */
-function initMessages(id, timeHide) {
-	var messages = getElement(id + ":old");
-	addInnerHTMLElement(messages, true, removeInnerHTMLElement(getElement(id + ":new")));
+var Messages = {
+	init : function(id, timeHide) {
+		var messages = getElement(id + ":old");
+		addInnerHTMLElement(messages, true, removeInnerHTMLElement(getElement(id + ":new")));
 
-	var message = messages.firstChild;
-	var height = getHeightElement(message);
-	message.style.height = "0";
+		var message = messages.firstChild;
+		var height = getHeightElement(message);
+		message.style.height = "0";
 
-	setTimeout(function() {
-		message.style.height = height + "px";
-		setClassElement(message, "aRight");
-	}, 10);
-
-	setTimeout(function() {
-		removeClassElement(messages.lastChild, "aRight");
-		messages.lastChild.style.height = "0";
 		setTimeout(function() {
-			removeElement(messages.lastChild);
-		}, ANIMATION_TIME);
-	}, timeHide);
+			message.style.height = height + "px";
+			setClassElement(message, "aRight");
+		}, 10);
 
-	if (hasClassElement(message.firstChild, "info") && Popup.id != null) {
-		hidePopup();
+		setTimeout(function() {
+			removeClassElement(messages.lastChild, "aRight");
+			messages.lastChild.style.height = "0";
+			setTimeout(function() {
+				removeElement(messages.lastChild);
+			}, ANIMATION_TIME);
+		}, timeHide);
+
+		if (hasClassElement(message.firstChild, "info") && Popup.id !== undefined) {
+			hidePopup();
+		}
+
+		remove(id + ":script");
 	}
-
-	remove(id + ":script");
-}
+};
 
 /* navbar */
 var Navbar = {
