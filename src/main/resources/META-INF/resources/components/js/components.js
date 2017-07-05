@@ -741,15 +741,19 @@ var Items = {
 };
 
 /* menu */
-function initMenu(id) {
-	var menu = getElement(id);
-	var trigger = menu.firstElementChild;
-	var items = getElement("#" + id + " .items");
+var Menu = {
+	init : function(id) {
+		var menu = getElement(id);
+		var trigger = menu.firstElementChild;
+		var items = getElement("#" + id + " .items");
 
-	trigger.addEventListener("click", function(event) {
-		Items.show(event, items.id);
-	});
-}
+		trigger.addEventListener("click", function(event) {
+			Items.show(event, items.id);
+		});
+
+		remove(id + ":script");
+	}
+};
 
 /* messages */
 function initMessages(id, timeHide) {
