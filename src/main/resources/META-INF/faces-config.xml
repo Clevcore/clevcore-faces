@@ -13,12 +13,12 @@
 		</locale-config>
 
 		<resource-bundle>
-			<base-name>ar.com.clevcore.resources.clevcoreMessages</base-name>
+			<base-name>ar.com.clevcore.resources.messages</base-name>
 			<var>clevcoreMsg</var>
 		</resource-bundle>
 
 		<resource-bundle>
-			<base-name>ar.com.clevcore.resources.clevcoreIcons</base-name>
+			<base-name>ar.com.clevcore.resources.icons</base-name>
 			<var>clevcoreIcon</var>
 		</resource-bundle>
 
