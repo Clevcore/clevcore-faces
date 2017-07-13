@@ -5,7 +5,7 @@
 	version="2.2">
 	<application>
 		<navigation-handler>ar.com.clevcore.faces.RedirectNavigationHandler</navigation-handler>
-		<resource-handler>org.omnifaces.resourcehandler.UnmappedResourceHandler</resource-handler>
+		<resource-handler>ar.com.clevcore.faces.UnmappedResourceHandler</resource-handler>
 
 		<locale-config>
 			<default-locale>es</default-locale>
