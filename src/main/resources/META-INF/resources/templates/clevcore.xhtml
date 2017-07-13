@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<h:html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="http://omnifaces.org/ui"
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:o="http://omnifaces.org/ui"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
     <h:head>
-        <h:outputStylesheet name="common/css/reset.css" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.css?v=#{clevcoreSetting.version}" />
 
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet" />
-        <h:outputStylesheet name="vendor/css/font-awesome.min.css" />
-        <h:outputStylesheet name="vendor/css/material-icons.min.css" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-roboto.min.css" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-awesome.min.css?v=4.7.0" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/material-icons.min.css" />
 
-        <h:outputStylesheet name="components/css/components.css" />
-        <h:outputStylesheet name="common/css/animate.css" />
-        <h:outputStylesheet name="common/css/common.css" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.css?v=#{clevcoreSetting.version}" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.css?v=#{clevcoreSetting.version}" />
+		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.css?v=#{clevcoreSetting.version}" />
 
-        <h:outputScript name="common/js/reset.js" />
-        <h:outputScript name="common/js/common.js" />
-        <h:outputScript name="components/js/components.js" />
-
-        <o:conditionalComment if="lt IE 9">
-            <h:outputScript name="vendor/js/html5shiv.min.js" />
-            <h:outputScript name="vendor/js/respond.min.js" />
-        </o:conditionalComment>
+		<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.js?v=#{clevcoreSetting.version}"></script>
+		<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.js?v=#{clevcoreSetting.version}"></script>
+		<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.js?v=#{clevcoreSetting.version}"></script>
 
         <ui:insert name="head" />
     </h:head>
@@ -124,5 +120,5 @@
 				validationFailed : #{facesContext.validationFailed}
 			};
 		</o:onloadScript>
-    </h:body>
+  </h:body>
 </h:html>
