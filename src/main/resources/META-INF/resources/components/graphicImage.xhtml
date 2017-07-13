@@ -27,20 +27,20 @@
                 <img id="#{cc.attrs.id}"
                     class="dInlineBlock #{cc.attrs.isLoading ? 'loadingImage' : ''} #{cc.attrs.styleClass}"
                     style="#{cc.attrs.style}"
-                    src="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
+                    src="#{bbClevcore.path}/javax.faces.resource/#{cc.attrs.library}/#{cc.attrs.name}"
                     onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
             </h:panelGroup>
             <h:panelGroup rendered="#{cc.attrs.isLazy eq true}">
                 <img id="#{cc.attrs.id}"
                     class="dInlineBlock lazy #{cc.attrs.styleClass}" style="#{cc.attrs.style}"
-                    data-original="#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}"
+                    data-original="#{bbClevcore.path}/javax.faces.resource/#{cc.attrs.library}/#{cc.attrs.name}"
                     onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}" />
             </h:panelGroup>
         </h:panelGroup>
         <h:panelGroup rendered="#{cc.attrs.isBackground eq true}">
             <div id="#{cc.attrs.id}"
                 class="dInlineBlock #{cc.attrs.isLoading ? 'loadingImage' : ''} bsCover #{cc.attrs.styleClass}"
-                style="#{cc.attrs.style} background-image: url('#{bbClevcore.path}/resources/#{cc.attrs.library}/#{cc.attrs.name}');"
+                style="#{cc.attrs.style} background-image: url('#{bbClevcore.path}/javax.faces.resource/#{cc.attrs.library}/#{cc.attrs.name}');"
                 onclick="#{cc.attrs.onclick}" onload="#{cc.attrs.onload}">
                 <composite:insertChildren />
             </div>
