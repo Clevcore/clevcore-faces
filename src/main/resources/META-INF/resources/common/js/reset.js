@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 	Reset.init();
-	Reset.init();
-	Reset.init();
 
 	if (System.browser.name === System.CONSTANT.BROWSER.FIREFOX) {
 		setAttribute("html", "moznomarginboxes", "");
