@@ -12,15 +12,15 @@
 
 .material-icons {
 	font-family: 'Material Icons';
+	font-feature-settings: 'liga';
+	font-weight: normal;
 	font-style: normal;
 	font-size: 24px;
-	font-weight: normal;
-	direction: ltr;
-	display: inline-block;
-	letter-spacing: normal;
 	line-height: 1;
+	letter-spacing: normal;
 	text-transform: none;
-	vertical-align: middle;
+	display: inline-block;
 	white-space: nowrap;
 	word-wrap: normal;
+	direction: ltr;
 }

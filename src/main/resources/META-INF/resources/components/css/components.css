@@ -572,11 +572,11 @@ button.tertiary-outline .wait-path
 /* icon */
 .fa {
 	font-size: 18px;
-	vertical-align: middle;
 }
 
 .fa, .material-icons {
 	color: inherit;
+	vertical-align: middle;
 }
 
 .fa.head {

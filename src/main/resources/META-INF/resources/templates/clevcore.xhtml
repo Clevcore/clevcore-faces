@@ -9,9 +9,18 @@
     <h:head>
 		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.css?v=#{clevcoreSetting.version}" />
 
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-roboto.min.css" />
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-awesome.min.css?v=4.7.0" />
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/material-icons.min.css" />
+		<c:choose>
+			<c:when test="#{facesContext.application.projectStage == 'Production'}">
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" />
+				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+			</c:when>
+			<c:otherwise>
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-roboto.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-awesome.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/material-icons.css" />
+			</c:otherwise>
+		</c:choose>
 
 		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.css?v=#{clevcoreSetting.version}" />
 		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.css?v=#{clevcoreSetting.version}" />
