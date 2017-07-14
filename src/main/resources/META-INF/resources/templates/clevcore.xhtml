@@ -7,28 +7,38 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
     <h:head>
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.css?v=#{clevcoreSetting.version}" />
-
 		<c:choose>
 			<c:when test="#{facesContext.application.projectStage == 'Production'}">
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.min.css?v=#{clevcoreSetting.version}" />
+
 				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" />
 				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.min.css?v=#{clevcoreSetting.version}" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.min.css?v=#{clevcoreSetting.version}" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.min.css?v=#{clevcoreSetting.version}" />
+
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.min.js?v=#{clevcoreSetting.version}"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.min.js?v=#{clevcoreSetting.version}"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.min.js?v=#{clevcoreSetting.version}"></script>
 			</c:when>
 			<c:otherwise>
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.min.css" />
+
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-roboto.css" />
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-awesome.css" />
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/material-icons.css" />
+
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.css" />
+
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.js"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.js"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.js"></script>
 			</c:otherwise>
 		</c:choose>
-
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.css?v=#{clevcoreSetting.version}" />
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.css?v=#{clevcoreSetting.version}" />
-		<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.css?v=#{clevcoreSetting.version}" />
-
-		<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.js?v=#{clevcoreSetting.version}"></script>
-		<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.js?v=#{clevcoreSetting.version}"></script>
-		<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.js?v=#{clevcoreSetting.version}"></script>
 
         <ui:insert name="head" />
     </h:head>
