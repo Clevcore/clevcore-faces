@@ -207,6 +207,10 @@ public class BBClevcore implements Serializable {
         return Constant.SEPARATOR;
     }
 
+    public String getSESSION_TIMEOUT() {
+        return Constant.SESSION_TIMEOUT;
+    }
+
     public String getTITLE() {
         return Constant.TITLE;
     }

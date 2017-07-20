@@ -36,6 +36,7 @@ public final class Constant {
     public static final String SELECT_MANY_CHECKBOX = COMPONENT_PATH + "SelectManyCheckbox";
     public static final String SELECT_ONE_MENU = COMPONENT_PATH + "SelectOneMenu";
     public static final String SEPARATOR = COMPONENT_PATH + "Separator";
+    public static final String SESSION_TIMEOUT = COMPONENT_PATH + "SessionTimeout";
     public static final String TITLE = COMPONENT_PATH + "Title";
     public static final String WAIT = COMPONENT_PATH + "Wait";
 

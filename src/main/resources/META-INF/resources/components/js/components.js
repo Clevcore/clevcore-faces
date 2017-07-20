@@ -27,33 +27,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	ConfirmNavigation.init();
 });
 
-var HandleSessionTimeout = {
-	maxInactiveInterval : undefined,
-
-	timeout1 : undefined,
-	timeout2 : undefined,
-
-	start : function() {
-		HandleSessionTimeout.timeout1 = setTimeout(function() {
-			showPopup("clevcore-sessionAboutTimeout");
-		}, (HandleSessionTimeout.maxInactiveInterval - 60) * 1000);
-
-		HandleSessionTimeout.timeout2 = setTimeout(function() {
-			showPopup("clevcore-sessionTimeout");
-		}, HandleSessionTimeout.maxInactiveInterval * 1000);
-	},
-
-	stop : function() {
-		clearTimeout(HandleSessionTimeout.timeout1);
-		clearTimeout(HandleSessionTimeout.timeout2);
-	},
-
-	reset : function() {
-		HandleSessionTimeout.stop();
-		HandleSessionTimeout.start();
-	}
-};
-
 /* ajax */
 var HandleAjax = {
 	init : {
@@ -96,7 +69,7 @@ var HandleAjax = {
 				}
 			}
 
-			HandleSessionTimeout.reset();
+			SessionTimeout.reset();
 
 			break;
 		case "complete":
@@ -1301,6 +1274,43 @@ var LoadingPage = {
 
 	disable : function() {
 		LoadingPage.isEnable = false;
+	}
+};
+
+/* sessionTimeout */
+var SessionTimeout = {
+	id : undefined,
+	maxInactiveInterval : undefined,
+
+	timeout1 : undefined,
+	timeout2 : undefined,
+
+	init : function(id, maxInactiveInterval) {
+		document.addEventListener("DOMContentLoaded", function() {
+			SessionTimeout.id = id;
+			SessionTimeout.maxInactiveInterval = maxInactiveInterval;
+			SessionTimeout.start();
+		});
+	},
+
+	start : function() {
+		SessionTimeout.timeout1 = setTimeout(function() {
+			showPopup(SessionTimeout.id + ":sessionAboutTimeout");
+		}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
+
+		SessionTimeout.timeout2 = setTimeout(function() {
+			showPopup(SessionTimeout.id + ":sessionTimeout");
+		}, SessionTimeout.maxInactiveInterval * 1000);
+	},
+
+	stop : function() {
+		clearTimeout(SessionTimeout.timeout1);
+		clearTimeout(SessionTimeout.timeout2);
+	},
+
+	reset : function() {
+		SessionTimeout.stop();
+		SessionTimeout.start();
 	}
 };
 

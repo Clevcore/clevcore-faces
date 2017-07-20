@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.SESSION_TIMEOUT}">
+	</composite:interface>
+
+	<composite:implementation>
+		<cc:popup id="sessionAboutTimeout" closeable="false">
+			<h:form>
+				<cc:panel styleClass="mwNormal">
+					<cc:panelHead icon="#{clevcoreIcon.session_about_timeout}">
+						<h:outputText value="#{clevcoreMsg.session_about_timeout}" />
+					</cc:panelHead>
+					<cc:panelBody>
+						<h:outputText value="#{clevcoreMsg.session_about_timeout_info}" />
+					</cc:panelBody>
+					<cc:panelFoot styleClass="m-tRight">
+						<cc:commandButton styleClass="primary-simple m-wAuto"
+							icon="#{clevcoreIcon.session_timeout_restart}"
+							value="#{clevcoreMsg._continue}" render="@this"
+							oncomplete="hidePopup();" />
+					</cc:panelFoot>
+				</cc:panel>
+			</h:form>
+		</cc:popup>
+
+		<cc:popup id="sessionTimeout" closeable="false">
+			<h:form>
+				<cc:panel styleClass="mwNormal">
+					<cc:panelHead icon="#{clevcoreIcon.session_timeout}">
+						<h:outputText value="#{clevcoreMsg.session_timeout}" />
+					</cc:panelHead>
+					<cc:panelBody>
+						<h:outputText value="#{clevcoreMsg.session_timeout_info}" />
+					</cc:panelBody>
+					<cc:panelFoot styleClass="m-tRight">
+						<cc:commandButton styleClass="primary-simple m-wAuto"
+							icon="#{clevcoreIcon.session_timeout_restart}"
+							value="#{clevcoreMsg.restart}" onclick="redirect(path);" />
+					</cc:panelFoot>
+				</cc:panel>
+			</h:form>
+		</cc:popup>
+
+		<script>
+			SessionTimeout.init("#{cc.clientId}", #{request.session.maxInactiveInterval});
+		</script>
+	</composite:implementation>
+</ui:composition>
