@@ -7,9 +7,6 @@ import java.util.Locale;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIOutput;
-import javax.faces.event.AjaxBehaviorEvent;
-import javax.servlet.http.Cookie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,23 +72,6 @@ public class BBClevcore implements Serializable {
         } else {
             return false;
         }
-    }
-
-    public void notRememberVersionBrowserUnsupported(AjaxBehaviorEvent event) {
-        Boolean value = (boolean) ((UIOutput) event.getSource()).getValue();
-        FacesUtils.setCookie(Constant.NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE, value.toString());
-    }
-
-    public Boolean getNotRememberVersionBrowserUnsupported() {
-        if (FacesUtils.getCookie() != null) {
-            for (Cookie cookie : FacesUtils.getCookie()) {
-                if (Constant.NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE.equals(cookie.getName())) {
-                    return new Boolean(cookie.getValue());
-                }
-            }
-        }
-
-        return false;
     }
 
     // CONSTANT
@@ -181,6 +161,10 @@ public class BBClevcore implements Serializable {
 
     public String getNAVBAR_SIDE() {
         return Constant.NAVBAR_SIDE;
+    }
+
+    public String getOBSOLETE_BROWSER() {
+        return Constant.OBSOLETE_BROWSER;
     }
 
     public String getPANEL() {

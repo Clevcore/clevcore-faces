@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.OBSOLETE_BROWSER}">
+	</composite:interface>
+
+	<composite:implementation>
+		<cc:popup id="obsoleteBrowser">
+			<h:form>
+				<cc:panel styleClass="mwNormal">
+					<cc:panelHead icon="#{clevcoreIcon.obsolete_browser}">
+						<h:outputText value="#{clevcoreMsg.obsolete_browser}" />
+					</cc:panelHead>
+					<cc:panelBody>
+						<h:panelGroup layout="block" styleClass="pBottomNormal">
+							<h:outputText value="#{clevcoreMsg.obsolete_browser_info}" />
+						</h:panelGroup>
+
+						<h:panelGroup layout="block">
+							<h:selectBooleanCheckbox id="notRemember"
+								onchange="ObsoleteBrowser.onchange(this);" />
+							<h:outputLabel for="notRemember" styleClass="mLeftNormal"
+								value="#{clevcoreMsg.not_remember}" />
+						</h:panelGroup>
+					</cc:panelBody>
+					<cc:panelFoot styleClass="row">
+						<cc:commandButton
+							styleClass="col s6 push-s6 m6 m-separator-vertical primary-simple"
+							value="#{clevcoreMsg.update}"
+							onclick="redirect('#{bbClevcore.path}/obsoleteBrowser.html');" />
+						<cc:commandButton
+							styleClass="col s6 pull-s6 m6 s-separator-vertical default-simple"
+							value="#{clevcoreMsg._continue}" onclick="hidePopup();" />
+					</cc:panelFoot>
+				</cc:panel>
+			</h:form>
+		</cc:popup>
+		<script>
+			ObsoleteBrowser.init("#{cc.clientId}:obsoleteBrowser");
+		</script>
+	</composite:implementation>
+</ui:composition>

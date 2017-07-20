@@ -349,6 +349,31 @@ function clearDelay(timeout) {
 	clearTimeout(timeout);
 }
 
+function getCookie(name) {
+	var name = name + "=";
+	var cookieArray = document.cookie.split(";");
+
+	for (var i = 0; i < cookieArray.length; i++) {
+		var cookie = cookieArray[i];
+
+		while (cookie.charAt(0) == " ") {
+			cookie = cookie.substring(1);
+		}
+
+		if (cookie.indexOf(name) == 0) {
+			return cookie.substring(name.length, cookie.length);
+		}
+	}
+
+	return "";
+}
+
+function setCookie(name, value, expiresDays) {
+	var date = new Date();
+	date.setTime(date.getTime() + (expiresDays * 24 * 60 * 60 * 1000));
+	document.cookie = name + "=" + value + ";" + "expires=" + date.toUTCString() + ";path=/";
+}
+
 function getValiedCharactersRegExp() {
 	return new RegExp(/[^a-zA-Z0-9 ]/g);
 }
@@ -1110,9 +1135,12 @@ var System = {
 		},
 
 		DEVICE : {
+			CONSOLE : "Console",
 			DESTOCK : "Destock",
 			MOBILE : "Mobile",
-			TABLET : "Tablet"
+			READER : "Reader",
+			TABLET : "Tablet",
+			TV_BOX : "Tv Box"
 		},
 
 		OPERATING_SYSTEM : {
@@ -1141,18 +1169,22 @@ var System = {
 	device : undefined,
 	touch : undefined,
 
+	localStorage : undefined,
+	sessionStorage : undefined,
+
 	init : function() {
 		var ua = navigator.userAgent;
 
-		this.browser.name = /Opera|OPR/.test(ua) ? System.CONSTANT.BROWSER.OPERA
+		System.browser.name = /Opera|OPR/.test(ua) ? System.CONSTANT.BROWSER.OPERA
 				: /Edge/.test(ua) ? System.CONSTANT.BROWSER.EDGE
 						: /MSIE|rv:11|IEMobile/.test(ua) ? System.CONSTANT.BROWSER.INTERNET_EXPLORER : /Firefox/
 								.test(ua) ? System.CONSTANT.BROWSER.FIREFOX
 								: /Chrom(e|ium)/.test(ua) ? System.CONSTANT.BROWSER.CHROME
 										: /Safari/.test(ua) ? System.CONSTANT.BROWSER.SAFARI
-												: /webOS/.test(ui) ? System.CONSTANT.BROWSER.WEB_OS : undefined;
+												: /webOS/.test(ua) ? System.CONSTANT.BROWSER.WEB_OS : undefined;
+
 		var indexOf = -1;
-		switch (this.browser.name) {
+		switch (System.browser.name) {
 		case System.CONSTANT.BROWSER.CHROME:
 			indexOf = ua.indexOf("Chrome/");
 			break;
@@ -1166,37 +1198,75 @@ var System = {
 			indexOf = ua.indexOf("MSIE ") !== -1 ? ua.indexOf("MSIE ") : ua.indexOf("rv:");
 			break;
 		case System.CONSTANT.BROWSER.OPERA:
-			var indexOf = ua.indexOf("OPR/");
+			indexOf = ua.indexOf("OPR/");
 			break;
 		case System.CONSTANT.BROWSER.SAFARI:
-			indexOf = ua.indexOf("Version/");
+			indexOf = ua.indexOf("Safari/");
 			break;
 		}
-		this.browser.version = indexOf !== -1 ? ua.substring(indexOf).split(/\s|\)/)[0].replace(/^\D+/g, "")
-				: undefined;
+		System.browser.version = System.getVersion(ua, indexOf);
 
-		this.operatingSystem.name = /Windows/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS
-				: /Mac/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.MACOS
-						: /Linux/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LINUX
-								: /X11/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.NIX
-										: /IEMobile|Windows Phone/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS_MOBILE
-												: /Lumia/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LUMIA
-														: (/iPhone|iP[oa]d/.test(ua) || /Mobile Safari/.test(ua)) ? System.CONSTANT.OPERATING_SYSTEM.IOS
-																: /Android/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.ANDROID
+		System.operatingSystem.name = /IEMobile|Windows Phone/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS_MOBILE
+				: /Windows/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.WINDOWS
+						: /Android/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.ANDROID
+								: /Mac/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.MACOS
+										: /Linux/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LINUX
+												: /X11/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.NIX
+														: /Lumia/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.LUMIA
+																: (/iPhone|iP[oa]d/.test(ua) || /Mobile Safari/
+																		.test(ua)) ? System.CONSTANT.OPERATING_SYSTEM.IOS
 																		: /BlackBerry|PlayBook|BB10/.test(ua) ? System.CONSTANT.OPERATING_SYSTEM.BLACKBERRY
 																				: undefined;
 
-		this.operatingSystem.version = /Windows NT 10/.test(ua) ? "10" : /Windows NT 6.0/.test(ua) ? "6"
-				: /Windows NT 6.1/.test(ua) ? "7" : /Windows NT 6.\d/.test(ua) ? "8" : /Windows NT 5.1/.test(ua) ? "5"
-						: /Windows NT [1-5]/.test(ua) ? "4" : undefined;
+		switch (System.operatingSystem.name) {
+		case System.CONSTANT.OPERATING_SYSTEM.WINDOWS:
+			System.operatingSystem.version = /Windows NT 10/.test(ua) ? "10" : /Windows NT 6.0/.test(ua) ? "6"
+					: /Windows NT 6.1/.test(ua) ? "7" : /Windows NT 6.\d/.test(ua) ? "8"
+							: /Windows NT 5.1/.test(ua) ? "5" : /Windows NT [1-5]/.test(ua) ? "4" : /Windows Phone/
+									.test(ua) ? System.getVersion(ua, ua.indexOf("Windows Phone ")) : undefined;
+			break;
+		case System.CONSTANT.OPERATING_SYSTEM.ANDROID:
+			System.operatingSystem.version = /Android/.test(ua) ? System.getVersion(ua, ua.indexOf("Android "))
+					: undefined;
+			break;
+		}
 
-		this.device = /Android|BB10|BlackBerry|iPod|Lumia|Mobile|Opera Mini|Opera Mobi|Phone|PlayBook|webOS/.test(ua) ? System.MOBILE
-				: /ipad|tablet/i.test(ua) ? System.TABLET : System.DESTOCK;
+		System.device = /Nintendo|Xbox|PlayStation/.test(ua) ? System.CONSTANT.DEVICE.CONSOLE
+				: /Kindle/.test(ua) ? System.CONSTANT.DEVICE.READER
+						: /CrKey|NEO|AFTB|Nexus Player|AppleTV/.test(ua) ? System.CONSTANT.DEVICE.TV_BOX
+								: /pixel|ipad|tablet/i.test(ua) ? System.CONSTANT.DEVICE.TABLET
+										: /Android|BB10|BlackBerry|iPod|Lumia|Mobile|Opera Mini|Opera Mobi|Phone|PlayBook|webOS/
+												.test(ua) ? System.CONSTANT.DEVICE.MOBILE
+												: System.CONSTANT.DEVICE.DESTOCK;
 
-		this.touch = "ontouchstart" in document.documentElement;
+		System.touch = "ontouchstart" in document.documentElement;
+
+		System.localStorage = System.storageAvailable("localStorage");
+		System.sessionStorage = System.storageAvailable("sessionStorage");
+	},
+
+	getVersion : function(ua, indexOf) {
+		return indexOf !== -1 ? ua.substring(indexOf).replace(/^\D+/g, "").split(/\s|\)|\;/)[0] : undefined;
+	},
+
+	storageAvailable : function(type) {
+		try {
+			var storage = window[type], x = "__storage_test__";
+
+			storage.setItem(x, x);
+			storage.removeItem(x);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	},
+
+	toString : function() {
+		return "Operating System: " + System.operatingSystem.name + " (" + System.operatingSystem.version
+				+ ") - Browser: " + System.browser.name + " (" + System.browser.version + ") - Device: "
+				+ System.device + " - Touch: " + System.touch;
 	}
 };
-System.init();
 
 var Geolocation = {
 	supported : navigator.geolocation !== undefined,

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:o="http://omnifaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<h:head>
+		<title>#{clevcoreMsg.obsolete_browser}</title>
+
+		<c:choose>
+			<c:when test="#{facesContext.application.projectStage == 'Production'}">
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.min.css?v=#{clevcoreSetting.version}" />
+
+				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" />
+				<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.min.css?v=#{clevcoreSetting.version}" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.min.css?v=#{clevcoreSetting.version}" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.min.css?v=#{clevcoreSetting.version}" />
+			</c:when>
+			<c:otherwise>
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.min.css" />
+
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-roboto.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/font-awesome.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/vendor/css/material-icons.css" />
+
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/components/css/components.css" />
+				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.css" />
+			</c:otherwise>
+		</c:choose>
+	</h:head>
+	<h:body>
+		<h:panelGroup layout="block"
+			styleClass="mwLarge pLarge mCenter tCenter">
+			<h:panelGroup layout="block" styleClass="fwThin fs44 lsSmall mLarge">
+				<h:outputText value="#{clevcoreMsg.obsolete_browser}" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="fwThin fs22">
+				<h:outputText value="#{clevcoreMsg.obsolete_browser_info}" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="mLarge">
+				<cc:icon styleClass="fs200" value="#{clevcoreIcon.obsolete_browser}" />
+			</h:panelGroup>
+
+			<cc:separator />
+
+			<h:panelGroup layout="block" styleClass="fwThin fs44 lsSmall mLarge">
+				<h:outputText value="#{clevcoreMsg.recommended_browsers}" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="fwThin fs22">
+				<h:outputText value="#{clevcoreMsg.recommended_browsers_info}:" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="mLarge">
+				<h:panelGroup layout="block" styleClass="row">
+					<h:panelGroup layout="block" styleClass="col aCenter w20">
+						<h:outputLink value="https://www.google.com/chrome/browser">
+							<h:panelGroup layout="block" styleClass="mNormal">
+								<cc:icon styleClass="fs100" value="#{clevcoreIcon.chrome}" />
+							</h:panelGroup>
+
+							<h:outputText styleClass="fs22" value="#{clevcoreMsg.chrome}" />
+						</h:outputLink>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col aCenter w20">
+						<h:outputLink value="https://www.mozilla.org/firefox">
+							<h:panelGroup layout="block" styleClass="mNormal">
+								<cc:icon styleClass="fs100" value="#{clevcoreIcon.firefox}" />
+							</h:panelGroup>
+
+							<h:outputText styleClass="fs22" value="#{clevcoreMsg.firefox}" />
+						</h:outputLink>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col aCenter w20">
+						<h:outputLink
+							value="https://www.microsoft.com/windows/microsoft-edge">
+							<h:panelGroup layout="block" styleClass="mNormal">
+								<cc:icon styleClass="fs100" value="#{clevcoreIcon.edge}" />
+							</h:panelGroup>
+
+							<h:outputText styleClass="fs22" value="#{clevcoreMsg.edge}" />
+						</h:outputLink>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col aCenter w20">
+						<h:outputLink value="https://www.apple.com/safari">
+							<h:panelGroup layout="block" styleClass="mNormal">
+								<cc:icon styleClass="fs100" value="#{clevcoreIcon.safari}" />
+							</h:panelGroup>
+
+							<h:outputText styleClass="fs22" value="#{clevcoreMsg.safari}" />
+						</h:outputLink>
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="col aCenter w20">
+						<h:outputLink value="https://www.opera.com">
+							<h:panelGroup layout="block" styleClass="mNormal">
+								<cc:icon styleClass="fs100" value="#{clevcoreIcon.opera}" />
+							</h:panelGroup>
+
+							<h:outputText styleClass="fs22" value="#{clevcoreMsg.opera}" />
+						</h:outputLink>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+
+			<cc:separator />
+
+			<h:panelGroup layout="block" styleClass="fwThin fs44 lsSmall mLarge">
+				<h:outputText value="#{clevcoreMsg.learn_more}" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="fwThin fs22">
+				<h:outputText value="#{clevcoreMsg.browser_definition}" />
+			</h:panelGroup>
+
+			<h:outputLink value="https://whatbrowser.org">
+				<button type="button" class="wAuto primary-simple mLarge">
+					<h:outputText value="#{clevcoreMsg.learn_more_info}" />
+				</button>
+			</h:outputLink>
+		</h:panelGroup>
+	</h:body>
+</h:html>

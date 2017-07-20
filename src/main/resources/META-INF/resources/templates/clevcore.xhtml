@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:o="http://omnifaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
-    <h:head>
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<h:head>
+		<h:outputFormat value="#{clevcoreSetting.obsolete_browser}" escape="false">
+			<f:param value="#{bbClevcore.path}" />
+		</h:outputFormat>
+
 		<c:choose>
-			<c:when test="#{facesContext.application.projectStage == 'Production'}">
+			<c:when
+				test="#{facesContext.application.projectStage == 'Production'}">
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/reset.min.css?v=#{clevcoreSetting.version}" />
 
 				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" />
@@ -40,9 +45,9 @@
 			</c:otherwise>
 		</c:choose>
 
-        <ui:insert name="head" />
-    </h:head>
-    <h:body>
+		<ui:insert name="head" />
+	</h:head>
+	<h:body>
 		<ui:insert name="body" />
 
 		<cc:popup id="clevcore-sessionAboutTimeout" closeable="false">
@@ -74,51 +79,21 @@
 					</cc:panelBody>
 					<cc:panelFoot styleClass="m-tRight">
 						<cc:commandButton styleClass="primary-simple m-wAuto"
-							value="#{clevcoreMsg.restart}"
-							onclick="redirect(path);" />
+							value="#{clevcoreMsg.restart}" onclick="redirect(path);" />
 					</cc:panelFoot>
 				</cc:panel>
 			</h:form>
 		</cc:popup>
 
-		<cc:popup id="clevcore-versionBrowserUnsupportedPopup">
-			<h:form>
-				<cc:panel styleClass="mwNormal">
-					<cc:panelHead icon="#{clevcoreIcon.exclamation}">
-						<h:outputText value="#{clevcoreMsg.version_browser_unsupported}" />
-					</cc:panelHead>
-					<cc:panelBody>
-						<h:panelGroup layout="block" styleClass="pBottomNormal">
-							<h:outputText value="#{clevcoreMsg.version_browser_unsupported_info}" />
-						</h:panelGroup>
-
-						<h:panelGroup layout="block">
-							<h:selectBooleanCheckbox id="notRemember">
-								<f:ajax execute="@this"
-									listener="#{bbClevcore.notRememberVersionBrowserUnsupported}" />
-							</h:selectBooleanCheckbox>
-							<h:outputLabel for="notRemember" styleClass="mLeftNormal"
-								value="#{clevcoreMsg.not_remember}" />
-						</h:panelGroup>
-					</cc:panelBody>
-					<cc:panelFoot styleClass="row">
-						<cc:commandButton styleClass="col s6 separator-vertical primary-simple"
-							value="#{clevcoreMsg.accept}"
-							onclick="redirect('https://whatbrowser.org/');" />
-						<cc:commandButton styleClass="col s6 default-simple"
-							value="#{clevcoreMsg.cancel}" onclick="hidePopup();" />
-					</cc:panelFoot>
-				</cc:panel>
-			</h:form>
-		</cc:popup>
+		<cc:obsoleteBrowser />
 
 		<cc:messages id="#{bbClevcore.idMessages}" />
 
-        <h:panelGroup id="#{bbClevcore.idScript}">
-            <script>#{bbClevcore.script}</script>
-        </h:panelGroup>
+		<h:panelGroup id="#{bbClevcore.idScript}">
+			<script>#{bbClevcore.script}</script>
+		</h:panelGroup>
 
-        <script>
+		<script>
         	document.addEventListener("DOMContentLoaded", function() {
 				resources.msg.confirm_navigation_info = "#{clevcoreMsg.confirm_navigation_info}";
 				resources.msg.compress = "#{clevcoreMsg.compress}";
@@ -129,15 +104,14 @@
 			});
 
 			var path = "#{bbClevcore.path}";
-			var notRememberVersionBrowserUnsupported = #{bbClevcore.getNotRememberVersionBrowserUnsupported()};
 			var projectStage = "#{facesContext.application.projectStage}";
 		</script>
 
-        <o:onloadScript>
+		<o:onloadScript>
 			var facesContext = {
 				maximumSeverity : "#{facesContext.maximumSeverity}",
 				validationFailed : #{facesContext.validationFailed}
 			};
 		</o:onloadScript>
-  </h:body>
+	</h:body>
 </h:html>

@@ -25,6 +25,7 @@ public final class Constant {
     public static final String NAVBAR_MAIN = COMPONENT_PATH + "NavbarMain";
     public static final String NAVBAR_MENU = COMPONENT_PATH + "NavbarMenu";
     public static final String NAVBAR_SIDE = COMPONENT_PATH + "NavbarSide";
+    public static final String OBSOLETE_BROWSER = COMPONENT_PATH + "ObsoleteBrowser";
     public static final String PANEL = COMPONENT_PATH + "Panel";
     public static final String PANEL_BODY = COMPONENT_PATH + "PanelBody";
     public static final String PANEL_FOOT = COMPONENT_PATH + "PanelFoot";
@@ -37,7 +38,5 @@ public final class Constant {
     public static final String SEPARATOR = COMPONENT_PATH + "Separator";
     public static final String TITLE = COMPONENT_PATH + "Title";
     public static final String WAIT = COMPONENT_PATH + "Wait";
-
-    public static final String NOT_REMEMBER_VERSION_BROWSER_UNSUPPORTED_COOKIE = "notRememberVersionBrowserUnsupported";
 
 }

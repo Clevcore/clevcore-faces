@@ -1002,6 +1002,31 @@ var Navbar = {
 	}
 };
 
+/* obsoleteBrowser */
+var ObsoleteBrowser = {
+	init : function(id) {
+		document.addEventListener("DOMContentLoaded", function() {
+			ObsoleteBrowser.check(id);
+		});
+	},
+
+	check : function(id) {
+		if (localStorage.getItem("notRememberObsoleteBrowser") !== "true") {
+			if ((System.browser.name === System.CONSTANT.BROWSER.OPERA && parseFloat(System.browser.version) < 11.60)
+					|| (System.browser.name === System.CONSTANT.BROWSER.CHROME && parseFloat(System.browser.version) < 15.0)
+					|| (System.browser.name === System.CONSTANT.BROWSER.SAFARI && parseFloat(System.browser.version) < 5.1)
+					|| (System.browser.name === System.CONSTANT.BROWSER.FIREFOX && parseFloat(System.browser.version) < 11.0)
+					|| (System.browser.name === System.CONSTANT.BROWSER.INTERNET_EXPLORER && parseFloat(System.browser.version) < 10.0)) {
+				showPopup(id);
+			}
+		}
+	},
+
+	onchange : function(check) {
+		localStorage.setItem("notRememberObsoleteBrowser", check.checked);
+	}
+}
+
 /* popup */
 var Popup = {
 	id : undefined,
