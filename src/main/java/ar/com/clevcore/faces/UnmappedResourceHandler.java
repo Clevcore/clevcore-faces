@@ -12,8 +12,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-import org.omnifaces.util.Faces;
-
+import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.IOUtils;
 
 public class UnmappedResourceHandler extends ResourceHandlerWrapper {
@@ -46,9 +45,9 @@ public class UnmappedResourceHandler extends ResourceHandlerWrapper {
             @Override
             public String getRequestPath() {
                 String path = getWrapped().getRequestPath();
-                String mapping = Faces.getMapping();
+                String mapping = FacesUtils.getMapping();
 
-                if (Faces.isPrefixMapping(mapping)) {
+                if (FacesUtils.isPrefixMapping(mapping)) {
                     return path.replaceFirst(mapping, "");
                 } else if (path.contains("?")) {
                     return path.replace(mapping + "?", "?");

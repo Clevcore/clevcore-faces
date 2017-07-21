@@ -117,6 +117,21 @@ public final class FacesUtils {
                 : null;
     }
 
+    public static String getMapping() {
+        ExternalContext externalContext = getExternalContext();
+        String path = externalContext.getRequestServletPath();
+
+        if (externalContext.getRequestPathInfo() == null) {
+            return path.substring(path.lastIndexOf('.'));
+        } else {
+            return path;
+        }
+    }
+
+    public static boolean isPrefixMapping(String mapping) {
+        return (mapping.charAt(0) == '/');
+    }
+
     public static String getRealPath() {
         ExternalContext externalContext = getExternalContext();
         return externalContext != null ? externalContext.getRealPath("/") : null;
