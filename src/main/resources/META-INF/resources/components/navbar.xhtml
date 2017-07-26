@@ -11,12 +11,15 @@
 		<composite:attribute name="value" />
 		<composite:attribute name="autoHide" default="true"
 			type="java.lang.Boolean" />
+		<composite:attribute name="shadow" default="true"
+			type="java.lang.Boolean" />
 	</composite:interface>
 
 	<composite:implementation>
 		<h:panelGroup layout="block" styleClass="pRelative zNormal">
-			<nav id="navbar" class="bShadow4dp #{cc.attrs.styleClass}"
-				style="#{cc.attrs.stylde}" data-autoHide="#{cc.attrs.autoHide}">
+			<nav id="navbar"
+				class="#{cc.attrs.shadow ? 'bShadow4dp' : ''} #{cc.attrs.styleClass}"
+				style="#{cc.attrs.style}" data-autoHide="#{cc.attrs.autoHide}">
 
 				<cc:icon styleClass="iconSide" value="#{clevcoreIcon.menu}"
 					type="md" onclick="Navbar.side.show();" />
