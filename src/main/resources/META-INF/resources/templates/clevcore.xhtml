@@ -2,6 +2,7 @@
 <h:html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:o="http://omnifaces.org/ui"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -24,7 +25,7 @@
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.min.css?v=#{clevcoreSetting.version}" />
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.min.css?v=#{clevcoreSetting.version}" />
 
-				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.min.js?v=#{clevcoreSetting.version}"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/polyfill.min.js?v=#{clevcoreSetting.version}"></script>
 				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.min.js?v=#{clevcoreSetting.version}"></script>
 				<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.min.js?v=#{clevcoreSetting.version}"></script>
 			</c:when>
@@ -39,7 +40,7 @@
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/animate.css" />
 				<link rel="stylesheet" href="#{bbClevcore.path}/javax.faces.resource/common/css/common.css" />
 
-				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/reset.js"></script>
+				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/polyfill.js"></script>
 				<script src="#{bbClevcore.path}/javax.faces.resource/common/js/common.js"></script>
 				<script src="#{bbClevcore.path}/javax.faces.resource/components/js/components.js"></script>
 			</c:otherwise>
@@ -61,16 +62,16 @@
 		</h:panelGroup>
 
 		<script>
+			var path = "#{bbClevcore.path}";
+			var projectStage = "#{facesContext.application.projectStage}";
+
         	document.addEventListener("DOMContentLoaded", function() {
 				resources.msg.confirm_navigation_info = "#{clevcoreMsg.confirm_navigation_info}";
 				resources.msg.compress = "#{clevcoreMsg.compress}";
 				resources.msg.expand = "#{clevcoreMsg.expand}";
 			});
-
-			var path = "#{bbClevcore.path}";
-			var projectStage = "#{facesContext.application.projectStage}";
 		</script>
-
+		
 		<o:onloadScript>
 			var facesContext = {
 				maximumSeverity : "#{facesContext.maximumSeverity}",

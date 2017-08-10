@@ -1,4 +1,3 @@
-/* var */
 var ANIMATION_TIME = 300;
 
 var MIN_WIDTH_PHONE = 320;
@@ -19,36 +18,29 @@ var resources = {
 
 /* init */
 document.addEventListener("DOMContentLoaded", function() {
-	jsf.ajax.addOnEvent(HandleAjax.init.onEvent);
-	jsf.ajax.addOnError(HandleAjax.init.onError);
-
-	window.addEventListener("jsfAjaxEvent", HandleAjax.listener);
-
+	Ajax.init();
 	ConfirmNavigation.init();
+	Reset.init();
+	System.init();
 });
 
 /* ajax */
-var HandleAjax = {
-	init : {
-		onEvent : function onEvent(data) {
-			var event = new CustomEvent("jsfAjaxEvent", {
-				detail : {
-					data : data
-				}
-			});
+var Ajax = {
+	EVENT : "jsfAjax",
 
-			window.dispatchEvent(event);
-		},
+	init : function() {
+		jsf.ajax.addOnEvent(Ajax.onEvent);
+		window.addEventListener(Ajax.EVENT, Ajax.listener);
+	},
 
-		onError : function onError(data) {
-			var event = new CustomEvent("jsfAjaxError", {
-				detail : {
-					data : data
-				}
-			});
+	onEvent : function(data) {
+		var event = new CustomEvent(Ajax.EVENT, {
+			detail : {
+				data : data
+			}
+		});
 
-			window.dispatchEvent(event);
-		}
+		window.dispatchEvent(event);
 	},
 
 	listener : function(event) {
@@ -275,7 +267,7 @@ var ConfirmNavigation = {
 	},
 
 	listener : function() {
-		window.addEventListener("jsfAjaxEvent", function(event) {
+		window.addEventListener(Ajax.EVENT, function(event) {
 			var data = event.detail.data;
 
 			switch (data.status) {
@@ -1071,14 +1063,14 @@ var Popup = {
 	event : {
 		add : function() {
 			window.addEventListener("resize", Popup.resize);
-			window.addEventListener("jsfAjaxEvent", Popup.reset);
+			window.addEventListener(Ajax.EVENT, Popup.reset);
 			window.addEventListener("keydown", Popup.closeable);
 			Popup.panelHead.addEventListener("mousedown", Popup.movable);
 		},
 
 		remove : function() {
 			window.removeEventListener("resize", Popup.resize);
-			window.removeEventListener("jsfAjaxEvent", Popup.reset);
+			window.removeEventListener(Ajax.EVENT, Popup.reset);
 			window.removeEventListener("keydown", Popup.closeable);
 			Popup.panelHead.removeEventListener("mousedown", Popup.movable);
 		}
@@ -1382,3 +1374,207 @@ function waitEnable() {
 function waitDisable() {
 	Wait.disabled();
 }
+
+/* reset */
+var Reset = {
+	init : function() {
+		if (Reset.autoheight.enable) {
+			Reset.autoheight.on();
+		}
+
+		if (Reset.stopEnterSubmit.enable) {
+			Reset.stopEnterSubmit.on();
+		}
+
+		if (Reset.nextElement.enable) {
+			Reset.nextElement.on();
+		}
+
+		if (Reset.onlyNumber.enable) {
+			Reset.onlyNumber.on();
+		}
+
+		ConfirmNavigation.action();
+		FloatIfNotVisible.init();
+	},
+
+	autoheight : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("textarea[data-height]");
+		},
+
+		on : function() {
+			Reset.autoheight.query().forEach(function(element) {
+				var heightValue = Math.max(getAttributeElement(element, "data-height"), element.scrollHeight);
+				element.style.height = (heightValue === 0 ? 80 : heightValue) + "px";
+
+				element.addEventListener("keyup", Reset.autoheight.process);
+				element.addEventListener("keypress", Reset.autoheight.process);
+			});
+
+			Reset.autoheight.enable = true;
+		},
+
+		off : function() {
+			Reset.autoheight.query().forEach(function(element) {
+				element.style.height = "";
+
+				element.removeEventListener("keyup", Reset.autoheight.process);
+				element.removeEventListener("keypress", Reset.autoheight.process);
+			});
+
+			Reset.autoheight.enable = false;
+		},
+
+		process : function(event) {
+			this.style.height = "auto";
+			this.style.height = Math.max(getAttributeElement(this, "data-height"), this.scrollHeight) + "px";
+		}
+	},
+
+	stopEnterSubmit : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("form");
+		},
+
+		on : function() {
+			Reset.stopEnterSubmit.query().forEach(function(element) {
+				element.addEventListener("keypress", Reset.stopEnterSubmit.process);
+			});
+
+			Reset.stopEnterSubmit.enable = true;
+		},
+
+		off : function() {
+			Reset.stopEnterSubmit.query().forEach(function(element) {
+				element.removeEventListener("keypress", Reset.stopEnterSubmit.process);
+			});
+
+			Reset.stopEnterSubmit.enable = false;
+		},
+
+		process : function(event) {
+			var key = event.keyCode || event.which;
+			if (key === 13) {
+				if (event.target.nodeName != "TEXTAREA" || event.shiftKey) {
+					event.preventDefault();
+					return false;
+				}
+			}
+		},
+	},
+
+	nextElement : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("button, input, select, textarea");
+		},
+
+		on : function() {
+			Reset.nextElement.query().forEach(function(element) {
+				element.addEventListener("keyup", Reset.nextElement.process);
+			});
+
+			Reset.nextElement.enable = true;
+		},
+
+		off : function() {
+			Reset.nextElement.query().forEach(function(element) {
+				element.removeEventListener("keyup", Reset.nextElement.process);
+			});
+
+			Reset.nextElement.enable = false;
+		},
+
+		process : function(event) {
+			var key = event.keyCode || event.which;
+
+			if (key === 13) {
+				var elementArray = Reset.nextElement.query();
+
+				var index;
+				for (index = 0; index < elementArray.length; index++) {
+					if (elementArray[index] === this) {
+						break;
+					}
+				}
+
+				Reset.nextElement.search(index, elementArray, event);
+
+				event.preventDefault();
+				return false;
+			}
+		},
+
+		search : function(index, elementArray, event) {
+			var currentIndex = index;
+
+			do {
+				index++;
+			} while (elementArray[index].classList.contains("dNone")
+					|| elementArray[index].getAttribute("type") === "hidden");
+
+			if (elementArray[currentIndex].nodeName != "TEXTAREA") {
+				Reset.nextElement.verify(index, elementArray, event);
+			}
+		},
+
+		verify : function(index, elementArray, event) {
+			if (elementArray[index] != null) {
+				if (elementArray[index].getAttribute("type") === "submit") {
+					elementArray[index].click();
+				} else if (elementArray[index].getAttribute("type") === "button") {
+					if (elementArray[index].getAttribute("onclick") != null
+							&& elementArray[index].getAttribute("onclick") != "") {
+						elementArray[index].click();
+					} else {
+						Reset.nextElement.search(index, elementArray, event);
+					}
+				} else {
+					elementArray[index].focus();
+				}
+			} else {
+				elementArray[0].focus();
+			}
+		}
+	},
+
+	onlyNumber : {
+		enable : true,
+
+		query : function() {
+			return document.querySelectorAll("[data-only=number]");
+		},
+
+		on : function() {
+			Reset.onlyNumber.query().forEach(function(element) {
+				element.addEventListener("keyup", Reset.onlyNumber.process);
+				element.addEventListener("keypress", Reset.onlyNumber.process);
+			});
+
+			Reset.onlyNumber.enable = true;
+		},
+
+		off : function() {
+			Reset.onlyNumber.query().forEach(function(element) {
+				element.removeEventListener("keyup", Reset.onlyNumber.process);
+				element.removeEventListener("keypress", Reset.onlyNumber.process);
+			});
+
+			Reset.onlyNumber.enable = false;
+		},
+
+		process : function(event) {
+			var value = this.value + String.fromCharCode(event.keyCode || event.which);
+			if (isNaN(value)) {
+				event.preventDefault();
+				return false;
+			}
+		}
+	}
+};

@@ -1193,6 +1193,8 @@ var System = {
 			break;
 		case System.CONSTANT.BROWSER.FIREFOX:
 			indexOf = ua.indexOf("Firefox/");
+			setAttribute("html", "moznomarginboxes", "");
+			setAttribute("html", "mozdisallowselectionprint", "");
 			break;
 		case System.CONSTANT.BROWSER.INTERNET_EXPLORER:
 			indexOf = ua.indexOf("MSIE ") !== -1 ? ua.indexOf("MSIE ") : ua.indexOf("rv:");
