@@ -4,8 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
 	<application>
-		<navigation-handler>ar.com.clevcore.faces.RedirectNavigationHandler</navigation-handler>
-		<resource-handler>ar.com.clevcore.faces.UnmappedResourceHandler</resource-handler>
+		<navigation-handler>ar.com.clevcore.faces.handler.RedirectNavigationHandler</navigation-handler>
+		<resource-handler>ar.com.clevcore.faces.handler.UnmappedResourceHandler</resource-handler>
 
 		<locale-config>
 			<default-locale>es</default-locale>

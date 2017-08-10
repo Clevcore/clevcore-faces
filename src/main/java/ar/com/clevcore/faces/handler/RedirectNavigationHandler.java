@@ -1,4 +1,4 @@
-package ar.com.clevcore.faces;
+package ar.com.clevcore.faces.handler;
 
 import java.util.Map;
 import java.util.Set;

@@ -1,5 +1,5 @@
 /* Based on UnmappedResourceHandler of OmniFaces 1.8.1 */
-package ar.com.clevcore.faces;
+package ar.com.clevcore.faces.handler;
 
 import java.io.IOException;
 import java.util.Map.Entry;
