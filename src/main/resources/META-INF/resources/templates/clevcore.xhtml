@@ -49,6 +49,8 @@
 		<ui:insert name="head" />
 	</h:head>
 	<h:body>
+		<f:event type="preRenderView" listener="#{bbClevcore.updateFacesContext}" />
+
 		<ui:insert name="body" />
 
 		<cc:sessionTimeout />
@@ -71,12 +73,5 @@
 				resources.msg.expand = "#{clevcoreMsg.expand}";
 			});
 		</script>
-		
-		<o:onloadScript>
-			var facesContext = {
-				maximumSeverity : "#{facesContext.maximumSeverity}",
-				validationFailed : #{facesContext.validationFailed}
-			};
-		</o:onloadScript>
 	</h:body>
 </h:html>

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 import ar.com.clevcore.faces.utils.Constant;
 import ar.com.clevcore.faces.utils.FacesUtils;
@@ -44,6 +45,18 @@ public class BBClevcore implements Serializable {
         } else {
             return false;
         }
+    }
+
+    public void updateFacesContext() {
+        FacesContext facesContext = FacesUtils.getFacesContext();
+
+        // @formatter:off
+        FacesUtils.executeScript(
+            "var facesContext = {" +
+            "  maximumSeverity : '" + facesContext.getMaximumSeverity() + "'," +
+            "  validationFailed : " + facesContext.isValidationFailed() +
+            "};");
+        // @formatter:on
     }
 
     // CONSTANT
