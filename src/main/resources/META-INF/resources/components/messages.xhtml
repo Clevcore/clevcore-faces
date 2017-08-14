@@ -6,24 +6,19 @@
 	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface componentType="#{bbClevcore.MESSAGES}">
-		<composite:attribute name="id" targets="id" />
 		<composite:attribute name="timeHide" default="5000" />
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGroup id="old" layout="block"
-			styleClass="noPrint messages pEventsNone" />
-		<h:panelGroup id="new" layout="block" styleClass="dNone">
-			<h:messages errorClass="error bShadow6dp"
-				fatalClass="fatal bShadow6dp" infoClass="info bShadow6dp"
-				warnClass="warn bShadow6dp" globalOnly="true" showDetail="true"
-				showSummary="false" />
-			<h:panelGroup id="script" layout="block"
-				rendered="#{not facesContext.validationFailed and not empty facesContext.messageList}">
-				<script id="#{cc.clientId}:script">
-					Messages.init("#{cc.clientId}", #{cc.attrs.timeHide});
-				</script>
-			</h:panelGroup>
+		<h:panelGroup id="messages" layout="block"
+			styleClass="messages noPrint bShadow6dp animate animate-fadeInRightSmall dNone">
+			<h:panelGroup layout="block" styleClass="messages-content" />
+		</h:panelGroup>
+
+		<h:panelGroup id="script" layout="block">
+			<script>
+				Messages.init("#{cc.clientId}", #{cc.attrs.timeHide});
+			</script>
 		</h:panelGroup>
 	</composite:implementation>
 </ui:composition>

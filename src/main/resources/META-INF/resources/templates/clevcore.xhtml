@@ -53,13 +53,7 @@
 
 		<ui:insert name="body" />
 
-		<cc:sessionTimeout />
-
-		<cc:obsoleteBrowser />
-
-		<cc:messages id="#{bbClevcore.idMessages}" />
-
-		<h:panelGroup id="#{bbClevcore.idScript}">
+		<h:panelGroup id="#{bbClevcore.idScript}" layout="block">
 			<script>#{bbClevcore.script}</script>
 		</h:panelGroup>
 

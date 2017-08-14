@@ -291,7 +291,7 @@ var ConfirmNavigation = {
 					var form = Array.get(ConfirmNavigation.form, "id", formElement.id);
 
 					if (form != null) {
-						if (facesContext.maximumSeverity.indexOf("INFO") == -1) {
+						if (facesContext.maximumSeverity.indexOf("INFO") === -1) {
 							form.serialize = form.oldSerialize;
 						}
 
@@ -714,6 +714,122 @@ var Items = {
 	}
 };
 
+/* loadingPage */
+var LoadingPage = {
+	element : undefined,
+	isEnable : undefined,
+
+	init : function() {
+		LoadingPage.element = getElement("loadingPage");
+		LoadingPage.enable();
+
+		window.addEventListener("load", function(event) {
+			if (LoadingPage.isEnable) {
+				LoadingPage.off();
+			}
+		});
+
+		window.addEventListener("beforeunload", function(event) {
+			if (LoadingPage.isEnable) {
+				LoadingPage.on();
+			}
+		});
+	},
+
+	on : function() {
+		removeClassElement(LoadingPage.element, "dNone");
+	},
+
+	off : function() {
+		addClassElement(LoadingPage.element, "dNone");
+	},
+
+	enable : function() {
+		LoadingPage.isEnable = true;
+	},
+
+	disable : function() {
+		LoadingPage.isEnable = false;
+	}
+};
+
+/* messages */
+var Messages = {
+	TIME_HIDE : undefined,
+
+	element : undefined,
+
+	init : function(id, timeHide) {
+		Messages.TIME_HIDE = timeHide;
+
+		Messages.element = getElement(id + ":messages");
+
+		remove(id + ":script");
+	},
+
+	show : function(value) {
+		if (facesContext.maximumSeverity.indexOf("INFO") !== -1 && Popup.id !== undefined) {
+			Popup.hide();
+		}
+
+		setInnerHTMLElement(Messages.element.firstElementChild, value);
+
+		Messages.reposition();
+		Messages.addAnimate(true);
+		removeClassElement(Messages.element, "dNone");
+
+		setTimeout(function() {
+			Messages.removeAnimate(true);
+		}, ANIMATION_TIME);
+
+		setTimeout(function() {
+			Messages.hide();
+		}, Messages.TIME_HIDE);
+
+		window.addEventListener("resize", Messages.reposition);
+	},
+
+	hide : function() {
+		Messages.addAnimate(false);
+
+		setTimeout(function() {
+			removeInnerHTMLElement(Messages.element.firstElementChild);
+			addClassElement(Messages.element, "dNone");
+			Messages.removeAnimate(false);
+		}, ANIMATION_TIME);
+
+		window.removeEventListener("resize", Messages.reposition);
+	},
+
+	reposition : function() {
+		if (getWidthWindow() <= MIN_WIDTH_TABLET) {
+			removeClassElement(Messages.element, "tablet");
+		} else {
+			addClassElement(Messages.element, "tablet");
+		}
+	},
+
+	addAnimate : function(isIn) {
+		var animate = isIn ? "In" : "Out";
+
+		if (getWidthWindow() <= MIN_WIDTH_TABLET) {
+			addClassElement(Messages.element, "animate-fade" + animate + "DownSmall");
+		} else {
+			addClassElement(Messages.element, "animate-fade" + animate + "RightSmall");
+		}
+	},
+
+	removeAnimate : function(isIn) {
+		var animate = isIn ? "In" : "Out";
+
+		if (getWidthWindow() <= MIN_WIDTH_TABLET) {
+			removeClassElement(Messages.element, "animate-fade" + animate + "DownSmall");
+		} else {
+			removeClassElement(Messages.element, "animate-fade" + animate + "RightSmall");
+		}
+	}
+};
+
 /* menu */
 var Menu = {
 	init : function(id) {
@@ -724,37 +840,6 @@ var Menu = {
 		trigger.addEventListener("click", function(event) {
 			Items.show(event, items.id);
 		});
-
-		remove(id + ":script");
-	}
-};
-
-/* messages */
-var Messages = {
-	init : function(id, timeHide) {
-		var messages = getElement(id + ":old");
-		addInnerHTMLElement(messages, true, removeInnerHTMLElement(getElement(id + ":new")));
-
-		var message = messages.firstChild;
-		var height = getHeightElement(message);
-		message.style.height = "0";
-
-		setTimeout(function() {
-			message.style.height = height + "px";
-			setClassElement(message, "aRight");
-		}, 10);
-
-		setTimeout(function() {
-			removeClassElement(messages.lastChild, "aRight");
-			messages.lastChild.style.height = "0";
-			setTimeout(function() {
-				removeElement(messages.lastChild);
-			}, ANIMATION_TIME);
-		}, timeHide);
-
-		if (hasClassElement(message.firstChild, "info") && Popup.id !== undefined) {
-			hidePopup();
-		}
 
 		remove(id + ":script");
 	}
@@ -1227,45 +1312,6 @@ var SelectManyCheckbox = {
 		if (element.onclick != null) {
 			element.onclick();
 		}
-	}
-};
-
-/* loadingPage */
-var LoadingPage = {
-	element : undefined,
-	isEnable : undefined,
-
-	init : function() {
-		LoadingPage.element = getElement("loadingPage");
-		LoadingPage.enable();
-
-		window.addEventListener("load", function(event) {
-			if (LoadingPage.isEnable) {
-				LoadingPage.off();
-			}
-		});
-
-		window.addEventListener("beforeunload", function(event) {
-			if (LoadingPage.isEnable) {
-				LoadingPage.on();
-			}
-		});
-	},
-
-	on : function() {
-		removeClassElement(LoadingPage.element, "dNone");
-	},
-
-	off : function() {
-		addClassElement(LoadingPage.element, "dNone");
-	},
-
-	enable : function() {
-		LoadingPage.isEnable = true;
-	},
-
-	disable : function() {
-		LoadingPage.isEnable = false;
 	}
 };
 

@@ -766,71 +766,33 @@ button.tertiary-outline .wait-path
 
 /* messages */
 .messages {
-	height: 0;
-	right: 0;
+	background-color: #424242; /* grey-800 */
+	bottom: 0;
+	left: 0;
+	padding: 20px;
+	pointer-events: none;
 	position: fixed;
-	top: 0;
+	width: 100%;
 	z-index: 3000;
 }
 
-.messages > ul {
-	margin: 0;
-	position: relative;
-	right: -300px;
-	top: 52px;
-	transition: all .2s;
-	width: 300px;
+.messages.tablet {
+	bottom: auto;
+	left: auto;
+	margin: 10px;
+	max-width: 400px;
+	min-width: 200px;
+	right: 0;
+	top: 56px;
+	width: auto;
 }
 
-.messages > ul > li {
+.messages .messages-content {
 	color: #FFFFFF; /* white */
-	margin-top: 10px;
-	min-height: 72px;
-	padding: 10px 10px 10px 72px;
-	text-align: justify;
+	font-size: 16px;
+	font-weight: 300;
 }
 
-.messages > ul > li:before {
-	display: block;
-	font-family: FontAwesome;
-	font-size: 60px;
-	left: 10px;
-	line-height: 0;
-	position: absolute;
-	top: 36px;
-}
-
-.messages > ul > li.error {
-	background-color: rgba(198, 40, 40, .8); /* red-800 */
-}
-
-.messages > ul > li.error:before {
-	content: "\f057";
-}
-
-.messages > ul > li.fatal {
-	background-color: rgba(183, 28, 28, .8); /* red-900 */
-}
-
-.messages > ul > li.fatal:before {
-	content: "\f05a";
-}
-
-.messages > ul > li.info {
-	background-color: rgba(46, 125, 50, .8); /* green-800 */
-}
-
-.messages > ul > li.info:before {
-	content: "\f058";
-}
-
-.messages > ul > li.warn {
-	background-color: rgba(249, 168, 37, .8); /* yellow-800 */
-}
-
-.messages > ul > li.warn:before {
-	content: "\f06a";
-}
 
 /* items */
 .items {

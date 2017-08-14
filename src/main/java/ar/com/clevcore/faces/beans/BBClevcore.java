@@ -15,12 +15,8 @@ import ar.com.clevcore.faces.utils.FacesUtils;
 public class BBClevcore implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public String getIdMessages() {
-        return FacesUtils.ID_MESSAGES;
-    }
-
     public String getIdScript() {
-        return FacesUtils.ID_SCRIPT;
+        return Constant.ID_SCRIPT;
     }
 
     public Locale getLocale() {

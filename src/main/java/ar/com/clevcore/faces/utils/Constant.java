@@ -2,6 +2,8 @@ package ar.com.clevcore.faces.utils;
 
 public final class Constant {
 
+    public static final String ID_SCRIPT = "clevcore-script";
+
     public static final String COMPONENT_PATH = "ar.com.clevcore.faces.components.";
 
     public static final String ALERT = COMPONENT_PATH + "Alert";
@@ -31,6 +33,7 @@ public final class Constant {
     public static final String PANEL_FOOT = COMPONENT_PATH + "PanelFoot";
     public static final String PANEL_HEAD = COMPONENT_PATH + "PanelHead";
     public static final String POPUP = COMPONENT_PATH + "Popup";
+    public static final String SCRIPT = COMPONENT_PATH + "Script";
     public static final String SECTION = COMPONENT_PATH + "Section";
     public static final String SELECT_BOOLEAN_CHECKBOX = COMPONENT_PATH + "SelectBooleanCheckbox";
     public static final String SELECT_MANY_CHECKBOX = COMPONENT_PATH + "SelectManyCheckbox";

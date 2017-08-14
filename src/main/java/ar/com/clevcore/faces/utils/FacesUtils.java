@@ -31,10 +31,6 @@ public final class FacesUtils {
 
     private static final Logger log = LoggerFactory.getLogger(FacesUtils.class);
 
-    public static final String ID_MESSAGES = "ar-com-clevcore-faces-messages";
-    public static final String ID_SCRIPT = "ar-com-clevcore-faces-script";
-    public static final String SCRIPT_SESSION = "ar.com.clevcore.faces.script";
-
     public static String RESOURCE_BUNDLE_DEFAULT = "msg";
     public static final String RESOURCE_BUNDLE_CLEVCORE = "clevcoreMsg";
 
@@ -170,23 +166,54 @@ public final class FacesUtils {
     }
 
     // MESSAGE
+    public static FacesMessage getFacesMessage(String message) {
+        return getFacesMessage(null, null, message);
+    }
+
     public static FacesMessage getFacesMessage(Severity severity, String message) {
         return getFacesMessage(severity, null, message);
     }
 
     public static FacesMessage getFacesMessage(Severity severity, String summary, String message) {
-        if (summary == null) {
-            if (FacesMessage.SEVERITY_ERROR.equals(severity)) {
-                summary = getClevcoreResource("error");
-            } else if (FacesMessage.SEVERITY_FATAL.equals(severity)) {
-                summary = getClevcoreResource("fatal");
-            } else if (FacesMessage.SEVERITY_INFO.equals(severity)) {
-                summary = getClevcoreResource("info");
-            } else if (FacesMessage.SEVERITY_WARN.equals(severity)) {
-                summary = getClevcoreResource("warn");
+        if (severity == null) {
+            severity = FacesMessage.SEVERITY_INFO;
+        } else {
+            if (summary == null) {
+                if (FacesMessage.SEVERITY_WARN.equals(severity)) {
+                    summary = getClevcoreResource("warn");
+                } else if (FacesMessage.SEVERITY_ERROR.equals(severity)) {
+                    summary = getClevcoreResource("error");
+                } else if (FacesMessage.SEVERITY_FATAL.equals(severity)) {
+                    summary = getClevcoreResource("fatal");
+                }
             }
         }
-        return new FacesMessage(severity, summary + ": ", message);
+
+        return new FacesMessage(severity, summary, message);
+    }
+
+    public static void addMessage(String message) {
+        addMessage(null, getFacesMessage(null, null, message));
+    }
+
+    public static void addMessage(Severity severity, String message) {
+        addMessage(null, getFacesMessage(severity, null, message));
+    }
+
+    public static void addMessage(Severity severity, String summary, String message) {
+        addMessage(null, getFacesMessage(severity, summary, message));
+    }
+
+    public static void addMessage(String id, String message) {
+        addMessage(id, getFacesMessage(null, null, message));
+    }
+
+    public static void addMessage(String id, Severity severity, String message) {
+        addMessage(id, getFacesMessage(severity, null, message));
+    }
+
+    public static void addMessage(String id, Severity severity, String summary, String message) {
+        addMessage(id, getFacesMessage(severity, summary, message));
     }
 
     public static void addMessage(ClevcoreException clevcoreException) {
@@ -196,53 +223,25 @@ public final class FacesUtils {
             severity = FacesMessage.SEVERITY_ERROR;
         } else if (FacesMessage.SEVERITY_FATAL.toString().equals(clevcoreException.getSeverity())) {
             severity = FacesMessage.SEVERITY_FATAL;
-        } else if (FacesMessage.SEVERITY_INFO.toString().equals(clevcoreException.getSeverity())) {
-            severity = FacesMessage.SEVERITY_INFO;
-        } else if (FacesMessage.SEVERITY_WARN.toString().equals(clevcoreException.getSeverity())) {
-            severity = FacesMessage.SEVERITY_WARN;
         }
 
-        FacesContext facesContext = getFacesContext();
-        if (facesContext != null) {
-            facesContext.addMessage(null, getFacesMessage(severity, clevcoreException.getMessage()));
-            render(ID_MESSAGES + ":new");
-        }
+        addMessage(null, getFacesMessage(severity, null, clevcoreException.getMessage()));
     }
 
     public static void addMessage(FacesMessage facesMessage) {
-        FacesContext facesContext = getFacesContext();
-        if (facesContext != null) {
-            facesContext.addMessage(null, facesMessage);
-            render(ID_MESSAGES + ":new");
-        }
+        addMessage(null, facesMessage);
     }
 
     public static void addMessage(String id, FacesMessage facesMessage) {
-        FacesContext facesContext = getFacesContext();
-        if (facesContext != null) {
-            facesContext.addMessage(id, facesMessage);
-            render(ID_MESSAGES + ":new");
+        getFacesContext().addMessage(id, facesMessage);
+
+        String detail = facesMessage.getDetail();
+
+        if (facesMessage.getSummary() != null && !FacesMessage.SEVERITY_INFO.equals(facesMessage.getSummary())) {
+            detail = facesMessage.getSummary().toUpperCase() + ": " + detail;
         }
-    }
 
-    public static void addMessage(String id, Severity severity, String summary, String message) {
-        FacesContext facesContext = getFacesContext();
-        if (facesContext != null) {
-            facesContext.addMessage(id, getFacesMessage(severity, summary, message));
-            render(ID_MESSAGES + ":new");
-        }
-    }
-
-    public static void addMessage(Severity severity, String message) {
-        addMessage(null, severity, null, message);
-    }
-
-    public static void addMessage(Severity severity, String summary, String message) {
-        addMessage(null, severity, summary, message);
-    }
-
-    public static void addMessage(String id, Severity severity, String message) {
-        addMessage(id, severity, null, message);
+        executeScript("Messages.show('" + detail + "');");
     }
 
     public static void keepMessages() {
@@ -312,13 +311,13 @@ public final class FacesUtils {
 
     // SCRIPT
     public static String getScript() {
-        Object script = FacesUtils.removeSessionValue(SCRIPT_SESSION);
-        return script != null ? script.toString() : null;
+        String script = (String) FacesUtils.removeSessionValue(Constant.SCRIPT);
+        return script != null ? script : "";
     }
 
     public static void executeScript(String script) {
-        setSessionValue(SCRIPT_SESSION, script);
-        render(ID_SCRIPT);
+        setSessionValue(Constant.SCRIPT, script + getScript());
+        render(Constant.ID_SCRIPT);
     }
 
     // SESSION
@@ -456,11 +455,11 @@ public final class FacesUtils {
 
     // COMPONENTS
     public static void showPopup(String id) {
-        executeScript("showPopup('" + id + "')");
+        executeScript("showPopup('" + id + "');");
     }
 
     public static void hidePopup(String id) {
-        executeScript("hidePopup('" + id + "')");
+        executeScript("hidePopup('" + id + "');");
     }
 
 }
