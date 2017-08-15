@@ -31,7 +31,7 @@
 				<c:if test="#{cc.parent.parent.attrs.closeable}">
 					<cc:icon styleClass="m-dNone fs24 pRightNormal noPrint cPointer"
 						value="#{clevcoreIcon.back}" type="md" title="#{clevcoreMsg.back}"
-						onclick="hidePopup();" />
+						onclick="Popup.hide();" />
 				</c:if>
 
 				<c:if
@@ -55,7 +55,7 @@
 					<c:if test="#{cc.parent.parent.attrs.closeable}">
 						<cc:icon styleClass="dNone m-dInlineBlock fs24 noPrint cPointer"
 							value="#{clevcoreIcon.close}" type="md"
-							title="#{clevcoreMsg.close}" onclick="hidePopup();" />
+							title="#{clevcoreMsg.close}" onclick="Popup.hide();" />
 					</c:if>
 
 					<c:if

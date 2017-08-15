@@ -453,13 +453,4 @@ public final class FacesUtils {
         return resource;
     }
 
-    // COMPONENTS
-    public static void showPopup(String id) {
-        executeScript("showPopup('" + id + "');");
-    }
-
-    public static void hidePopup(String id) {
-        executeScript("hidePopup('" + id + "');");
-    }
-
 }

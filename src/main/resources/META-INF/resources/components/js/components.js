@@ -1083,7 +1083,7 @@ var ObsoleteBrowser = {
 					|| (System.browser.name === System.CONSTANT.BROWSER.SAFARI && parseFloat(System.browser.version) < 5.1)
 					|| (System.browser.name === System.CONSTANT.BROWSER.FIREFOX && parseFloat(System.browser.version) < 11.0)
 					|| (System.browser.name === System.CONSTANT.BROWSER.INTERNET_EXPLORER && parseFloat(System.browser.version) < 10.0)) {
-				showPopup(id);
+				Popup.show(id);
 			}
 		}
 	},
@@ -1253,7 +1253,7 @@ var Popup = {
 
 	closeable : function(event) {
 		if (Popup.isCloseable) {
-			actionToEscKey(event, hidePopup);
+			actionToEscKey(event, Popup.hide());
 		}
 	},
 
@@ -1294,20 +1294,6 @@ var Popup = {
 		}
 	}
 };
-
-/**
- * @deprecated Since version 1.4. Use Popup.show() instead.
- */
-function showPopup(id) {
-	Popup.show(id);
-}
-
-/**
- * @deprecated Since version 1.4. Use Popup.hide() instead.
- */
-function hidePopup() {
-	Popup.hide();
-}
 
 /* selectManyCheckbox */
 var SelectManyCheckbox = {
@@ -1356,11 +1342,11 @@ var SessionTimeout = {
 
 	start : function() {
 		SessionTimeout.timeout1 = setTimeout(function() {
-			showPopup(SessionTimeout.id + ":sessionAboutTimeout");
+			Popup.show(SessionTimeout.id + ":sessionAboutTimeout");
 		}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
 
 		SessionTimeout.timeout2 = setTimeout(function() {
-			showPopup(SessionTimeout.id + ":sessionTimeout");
+			Popup.show(SessionTimeout.id + ":sessionTimeout");
 		}, SessionTimeout.maxInactiveInterval * 1000);
 	},
 
