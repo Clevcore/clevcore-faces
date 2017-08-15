@@ -1409,27 +1409,6 @@ var Wait = {
 	}
 }
 
-/**
- * @deprecated Since version 1.4. Use Wait.status(status) instead.
- */
-function wait(status) {
-	Wait.status(status);
-}
-
-/**
- * @deprecated Since version 1.4. Use Wait.enable() instead.
- */
-function waitEnable() {
-	Wait.enable();
-}
-
-/**
- * @deprecated Since version 1.4. Use Wait.disable() instead.
- */
-function waitDisable() {
-	Wait.disabled();
-}
-
 /* reset */
 var Reset = {
 	init : function() {

@@ -4,7 +4,7 @@
 
 	<groupId>ar.com.clevcore</groupId>
 	<artifactId>clevcore-faces</artifactId>
-	<version>1.5.5</version>
+	<version>1.5.6</version>
 	<name>Clevcore Faces</name>
 
 	<properties>
