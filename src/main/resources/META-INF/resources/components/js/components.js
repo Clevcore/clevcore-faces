@@ -34,17 +34,11 @@ var Ajax = {
 	},
 
 	onEvent : function(data) {
-		var event = new CustomEvent(Ajax.EVENT, {
-			detail : {
-				data : data
-			}
-		});
-
-		window.dispatchEvent(event);
+		triggerCustomEvent(Ajax.EVENT, data);
 	},
 
 	listener : function(event) {
-		var data = event.detail.data;
+		var data = event.detail;
 
 		switch (data.status) {
 		case "begin":
@@ -268,7 +262,7 @@ var ConfirmNavigation = {
 
 	listener : function() {
 		window.addEventListener(Ajax.EVENT, function(event) {
-			var data = event.detail.data;
+			var data = event.detail;
 
 			switch (data.status) {
 			case "complete":
@@ -552,6 +546,9 @@ var FloatIfNotVisible = function() {
 
 /* items */
 var Items = {
+	SHOW_EVENT : "showItems",
+	HIDE_EVENT : "hideItems",
+
 	id : undefined,
 
 	init : function(id, accordion) {
@@ -645,6 +642,8 @@ var Items = {
 			window.addEventListener("click", Items.hide);
 			window.addEventListener("keydown", Items.closeable);
 			window.addEventListener("resize", Items.resize);
+
+			triggerCustomEvent(Items.SHOW_EVENT);
 		} else {
 			Items.hide();
 		}
@@ -652,6 +651,8 @@ var Items = {
 
 	hide : function() {
 		var items = getElement(Items.id);
+		Items.id = undefined;
+
 		var animate = getAttributeElement(items, "data-animateout");
 
 		addClassElement(items.firstElementChild, "animate-" + animate);
@@ -666,7 +667,7 @@ var Items = {
 		window.removeEventListener("keydown", Items.closeable);
 		window.removeEventListener("resize", Items.resize);
 
-		Items.id = undefined;
+		triggerCustomEvent(Items.HIDE_EVENT);
 	},
 
 	closeable : function(event) {
@@ -755,6 +756,8 @@ var LoadingPage = {
 
 /* messages */
 var Messages = {
+	SHOW_EVENT : "showMessages",
+	HIDE_EVENT : "hideMessages",
 	TIME_HIDE : undefined,
 
 	element : undefined,
@@ -787,6 +790,8 @@ var Messages = {
 		}, Messages.TIME_HIDE);
 
 		window.addEventListener("resize", Messages.reposition);
+
+		triggerCustomEvent(Messages.SHOW_EVENT);
 	},
 
 	hide : function() {
@@ -799,6 +804,8 @@ var Messages = {
 		}, ANIMATION_TIME);
 
 		window.removeEventListener("resize", Messages.reposition);
+
+		triggerCustomEvent(Messages.HIDE_EVENT);
 	},
 
 	reposition : function() {
@@ -847,6 +854,9 @@ var Menu = {
 
 /* navbar */
 var Navbar = {
+	SHOW_EVENT : "showNavbar",
+	HIDE_EVENT : "hideNavbar",
+
 	component : undefined,
 
 	init : function() {
@@ -938,16 +948,22 @@ var Navbar = {
 
 			show : function() {
 				removeClassElement(Navbar.side.modal.component, "dNone");
+
 				setTimeout(function() {
 					Navbar.side.modal.state.start();
 				}, 10);
+
+				triggerCustomEvent(Navbar.SHOW_EVENT);
 			},
 
 			hide : function() {
 				Navbar.side.modal.state.end();
+
 				setTimeout(function() {
 					addClassElement(Navbar.side.modal.component, "dNone");
 				}, ANIMATION_TIME);
+
+				triggerCustomEvent(Navbar.HIDE_EVENT);
 			}
 		},
 
@@ -1079,6 +1095,9 @@ var ObsoleteBrowser = {
 
 /* popup */
 var Popup = {
+	SHOW_EVENT : "showPopup",
+	HIDE_EVENT : "hidePopup",
+
 	id : undefined,
 	component : undefined,
 
@@ -1181,6 +1200,8 @@ var Popup = {
 		if (onshow != null) {
 			eval(onshow);
 		}
+
+		triggerCustomEvent(Popup.SHOW_EVENT);
 	},
 
 	hide : function() {
@@ -1210,6 +1231,8 @@ var Popup = {
 		}, ANIMATION_TIME);
 
 		Popup.dest();
+
+		triggerCustomEvent(Popup.HIDE_EVENT);
 	},
 
 	resize : function() {

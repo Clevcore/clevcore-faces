@@ -907,6 +907,12 @@ function fullScreen() {
 	}
 }
 
+function triggerCustomEvent(event, data) {
+	window.dispatchEvent(new CustomEvent(event, {
+		detail : data
+	}));
+}
+
 function parameterToObject() {
 	var result = {};
 
