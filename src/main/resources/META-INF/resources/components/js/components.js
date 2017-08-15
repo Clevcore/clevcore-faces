@@ -1253,7 +1253,7 @@ var Popup = {
 
 	closeable : function(event) {
 		if (Popup.isCloseable) {
-			actionToEscKey(event, Popup.hide());
+			actionToEscKey(event, Popup.hide);
 		}
 	},
 
