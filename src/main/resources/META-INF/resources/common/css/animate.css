@@ -7,6 +7,16 @@
 		    animation-timing-function: ease;
 }
 
+.animate-slow {
+	-webkit-animation-duration: 900ms;
+	animation-duration: 900ms;
+}
+
+.animate-fast {
+	-webkit-animation-duration: 100ms;
+	animation-duration: 100ms;
+}
+
 
 /* bounce */
 @-webkit-keyframes bounce {
