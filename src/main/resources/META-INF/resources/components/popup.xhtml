@@ -20,8 +20,6 @@
 			type="java.lang.Boolean" />
 		<composite:attribute name="movable" default="true"
 			type="java.lang.Boolean" />
-		<composite:attribute name="onshow" />
-		<composite:attribute name="onhide" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -40,8 +38,6 @@
 				value="#{cc.attrs.expandable}" />
 			<f:passThroughAttribute name="data-movable"
 				value="#{cc.attrs.movable}" />
-			<f:passThroughAttribute name="data-onshow" value="#{cc.attrs.onshow}" />
-			<f:passThroughAttribute name="data-onhide" value="#{cc.attrs.onhide}" />
 			<h:panelGroup layout="block" styleClass="popup">
 				<h:panelGroup id="container" layout="block" styleClass="pRelative">
 					<h:panelGroup layout="block"

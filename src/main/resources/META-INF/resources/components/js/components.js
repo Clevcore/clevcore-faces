@@ -1200,11 +1200,6 @@ var Popup = {
 
 		setAttributeElement(Popup.component, "data-width", getWidthElement(Popup.panel));
 
-		var onshow = getAttributeElement(Popup.component, "data-onshow");
-		if (onshow != null) {
-			eval(onshow);
-		}
-
 		triggerCustomEvent(Popup.SHOW_EVENT);
 	},
 
@@ -1216,11 +1211,6 @@ var Popup = {
 				getAttributeElement(Popup.component, "data-animateout"));
 
 		removeClassElement(getBody(), "oHidden");
-
-		var onhide = getAttributeElement(Popup.component, "data-onhide");
-		if (onhide != null) {
-			eval(onhide);
-		}
 
 		var component = Popup.component;
 		var container = Popup.container;
