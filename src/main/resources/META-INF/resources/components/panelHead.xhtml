@@ -29,20 +29,21 @@
 
 			<h:panelGroup layout="block" styleClass="fInherit pNormal">
 				<c:if test="#{cc.parent.parent.attrs.closeable}">
-					<cc:icon styleClass="m-dNone fs24 pRightNormal noPrint cPointer"
+					<cc:icon
+						styleClass="popup-icon-back fs24 pRightNormal noPrint cPointer"
 						value="#{clevcoreIcon.back}" type="md" title="#{clevcoreMsg.back}"
 						onclick="Popup.hide();" />
 				</c:if>
 
 				<c:if
 					test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
-					<cc:icon styleClass="panel-head-1 noPrint tTransform"
+					<cc:icon styleClass="accordion-icon-1 noPrint tTransform"
 						value="#{clevcoreIcon.down}" type="md" />
 				</c:if>
 
 				<c:if test="#{cc.attrs.icon ne null}">
 					<cc:icon
-						styleClass="dNone m-dInlineBlock head pRightNormal #{cc.attrs.iconClass}"
+						styleClass="panel-icon-head pRightNormal #{cc.attrs.iconClass}"
 						style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
 						type="#{cc.attrs.iconType}" />
 				</c:if>
@@ -53,14 +54,14 @@
 
 				<h:panelGroup layout="block" styleClass="fRight">
 					<c:if test="#{cc.parent.parent.attrs.closeable}">
-						<cc:icon styleClass="dNone m-dInlineBlock fs24 noPrint cPointer"
+						<cc:icon styleClass="popup-icon-close fs24 noPrint cPointer"
 							value="#{clevcoreIcon.close}" type="md"
 							title="#{clevcoreMsg.close}" onclick="Popup.hide();" />
 					</c:if>
 
 					<c:if
 						test="#{cc.parent.attrs.accordion and !cc.parent.parent.attrs.closeable}">
-						<cc:icon styleClass="panel-head-2 fs20 noPrint tTransform"
+						<cc:icon styleClass="accordion-icon-2 fs20 noPrint tTransform"
 							value="#{clevcoreIcon.close}" type="md" />
 					</c:if>
 				</h:panelGroup>

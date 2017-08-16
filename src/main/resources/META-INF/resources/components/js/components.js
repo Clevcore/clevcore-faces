@@ -107,8 +107,8 @@ var Panel = {
 					removeClassElement(panel, "noPrint");
 				}
 			} else {
-				var iconHead1 = getElement("#" + id + ":id .panel-head-1");
-				var iconHead2 = getElement("#" + id + ":id .panel-head-2");
+				var iconHead1 = getElement("#" + id + ":id .accordion-icon-1");
+				var iconHead2 = getElement("#" + id + ":id .accordion-icon-2");
 
 				setAttributeElement(panelBody, "data-height", getHeightElement(panelBody));
 				panelBody.style.height = "0";
@@ -133,8 +133,8 @@ var Panel = {
 
 			var print = getBoolean(getAttributeElement(panel, "data-only-print-when-opened"));
 
-			var iconHead1 = getElement("#" + id + ":id .panel-head-1");
-			var iconHead2 = getElement("#" + id + ":id .panel-head-2");
+			var iconHead1 = getElement("#" + id + ":id .accordion-icon-1");
+			var iconHead2 = getElement("#" + id + ":id .accordion-icon-2");
 
 			if (opened) {
 				var animate = getAttributeElement(panel, "data-animateout");
@@ -1198,6 +1198,8 @@ var Popup = {
 
 		removeClassElement(Popup.component, "vHidden");
 
+		setAttributeElement(Popup.component, "data-width", getWidthElement(Popup.panel));
+
 		var onshow = getAttributeElement(Popup.component, "data-onshow");
 		if (onshow != null) {
 			eval(onshow);
@@ -1264,7 +1266,9 @@ var Popup = {
 			var height = getHeightWindow();
 			var width = getWidthWindow();
 
-			if (width <= MIN_WIDTH_TABLET) {
+			if (width - getAttributeElement(Popup.component, "data-width") <= 20) {
+				addClassElement(Popup.component, "expandable");
+
 				Popup.container.style.top = "";
 				Popup.container.style.left = "";
 
@@ -1272,6 +1276,8 @@ var Popup = {
 				Popup.panelBody.style.height = (height - getHeightElement(Popup.panelHead) - getHeightElement(Popup.panelFoot))
 						+ "px";
 			} else {
+				removeClassElement(Popup.component, "expandable");
+
 				Popup.panel.style.maxWidth = "";
 				Popup.panelBody.style.height = "";
 			}

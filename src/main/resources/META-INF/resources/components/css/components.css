@@ -582,11 +582,11 @@ button.tertiary-outline .wait-path
 	vertical-align: middle;
 }
 
-.fa.head {
+.fa.panel-icon-head {
 	font-size: 24px;
 }
 
-.material-icons.head {
+.material-icons.panel-icon-head {
 	font-size: 28px;
 }
 
@@ -1119,6 +1119,24 @@ nav ul a:hover,nav .iconSide:hover {
 
 .popup .panel > .foot.bShadow2dpNe {
 	border-top: none;
+}
+
+.popup-icon-back  {
+	display: none;
+}
+
+.expandable .popup-icon-back  {
+	display: inline-block;
+}
+
+.panel-icon-head,
+.popup-icon-close  {
+	display: inline-block;
+}
+
+.expandable .panel-icon-head,
+.expandable .popup-icon-close  {
+	display: none;
 }
 
 
