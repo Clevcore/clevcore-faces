@@ -763,6 +763,7 @@ var Messages = {
 	TIME_HIDE : undefined,
 
 	element : undefined,
+	timeout : undefined,
 
 	init : function(id, timeHide) {
 		Messages.TIME_HIDE = timeHide;
@@ -773,6 +774,10 @@ var Messages = {
 	},
 
 	show : function(value) {
+		if (Messages.timeout !== undefined) {
+			clearTimeout(Messages.timeout);
+		}
+
 		if (facesContext.maximumSeverity.indexOf("INFO") !== -1 && Popup.id !== undefined) {
 			Popup.hide();
 		}
@@ -787,7 +792,7 @@ var Messages = {
 			Messages.removeAnimate(true);
 		}, ANIMATION_TIME);
 
-		setTimeout(function() {
+		Messages.timeout = setTimeout(function() {
 			Messages.hide();
 		}, Messages.TIME_HIDE);
 
