@@ -7,10 +7,10 @@
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface
 		componentType="#{bbClevcore.SELECT_BOOLEAN_CHECKBOX}">
-		<composite:attribute name="styleClass" type="java.lang.String" />
-		<composite:attribute name="style" type="java.lang.String" />
-		<composite:attribute name="labelClass" type="java.lang.String" />
-		<composite:attribute name="labelStyle" type="java.lang.String" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="style" />
+		<composite:attribute name="labelClass" />
+		<composite:attribute name="labelStyle" />
 		<composite:attribute name="value" />
 		<composite:attribute name="label" />
 		<composite:attribute name="disabled" default="false"
@@ -21,10 +21,15 @@
 		<composite:attribute name="required" default="false"
 			type="java.lang.Boolean" />
 		<composite:attribute name="requiredMessage"
-			required="#{cc.attrs.required}" type="java.lang.String" />
+			required="#{cc.attrs.required}" />
 
-		<composite:attribute name="onchange" type="java.lang.String" />
-		<composite:attribute name="onclick" type="java.lang.String" />
+		<composite:attribute name="onchange" />
+		<composite:attribute name="onclick" />
+
+		<composite:attribute name="onbegin" />
+		<composite:attribute name="oncomplete" />
+		<composite:attribute name="onsuccess" />
+		<composite:attribute name="onvalidation" />
 
 		<composite:clientBehavior name="change" event="change"
 			targets="selectBooleanCheckbox" />
@@ -42,7 +47,27 @@
 					value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
 					immediate="#{cc.attrs.immediate}" converter="#{cc.attrs.converter}"
 					required="#{cc.attrs.required}"
-					requiredMessage="#{cc.attrs.requiredMessage}" />
+					requiredMessage="#{cc.attrs.requiredMessage}">
+					<c:if test="#{cc.attrs.onbegin ne null}">
+						<f:passThroughAttribute name="data-onbegin"
+							value="#{cc.attrs.onbegin}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.oncomplete ne null}">
+						<f:passThroughAttribute name="data-oncomplete"
+							value="#{cc.attrs.oncomplete}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onsuccess ne null}">
+						<f:passThroughAttribute name="data-onsuccess"
+							value="#{cc.attrs.onsuccess}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onvalidation ne null}">
+						<f:passThroughAttribute name="data-onvalidation"
+							value="#{cc.attrs.onvalidation}" />
+					</c:if>
+				</h:selectBooleanCheckbox>
 				<h:panelGroup styleClass="checkbox-material">
 					<h:panelGroup styleClass="" />
 					<h:outputText styleClass="#{cc.attrs.labelClass}"
