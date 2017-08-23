@@ -25,6 +25,7 @@
 		<composite:attribute name="disabled" />
 		<composite:attribute name="redirect" />
 		<composite:attribute name="immediate" />
+
 		<composite:attribute name="action"
 			method-signature="java.lang.String action()" targets="id" />
 		<composite:attribute name="actionListener"
@@ -32,11 +33,15 @@
 			targets="id" />
 		<composite:attribute name="execute" />
 		<composite:attribute name="render" />
+
 		<composite:attribute name="onclick" />
 		<composite:attribute name="onbegin" />
 		<composite:attribute name="oncomplete" />
 		<composite:attribute name="onsuccess" />
 		<composite:attribute name="onvalidation" />
+
+		<composite:clientBehavior name="change" event="change" targets="id" />
+		<composite:clientBehavior name="click" event="click" targets="id" />
 	</composite:interface>
 
 	<composite:implementation>
