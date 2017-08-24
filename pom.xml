@@ -5,7 +5,38 @@
 	<groupId>ar.com.clevcore</groupId>
 	<artifactId>clevcore-faces</artifactId>
 	<version>1.5.8</version>
+	<packaging>jar</packaging>
+
 	<name>Clevcore Faces</name>
+	<description>Faces Framework</description>
+
+	<developers>
+		<developer>
+			<id>dm</id>
+			<name>Diego Marinelli</name>
+			<email>diegom42@gmail.com</email>
+			<organization>Clevcore</organization>
+			<roles>
+				<role>project-owner</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<id>idvr</id>
+			<name>Ivan Daniel Villegas Rojas</name>
+			<email>daniville7@gmail.com</email>
+			<organization>Clevcore</organization>
+			<roles>
+				<role>project-owner</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+
+	<organization>
+		<name>Clevcore</name>
+		<url>http://www.clevcore.com.ar</url>
+	</organization>
 
 	<properties>
 		<java.version>1.8</java.version>
