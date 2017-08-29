@@ -2204,6 +2204,14 @@
 	transition: height .28s;
 }
 
+.mwExtraExtraLarge {
+	max-width: 1620px;
+}
+
+.mwExtraLarge {
+	max-width: 1300px;
+}
+
 .mwLarge {
 	max-width: 980px;
 }
@@ -2234,6 +2242,14 @@
 
 .wInherit {
 	width: inherit;
+}
+
+.wExtraExtraLarge {
+	width: 1620px;
+}
+
+.wExtraLarge {
+	width: 1300px;
 }
 
 .wLarge {
