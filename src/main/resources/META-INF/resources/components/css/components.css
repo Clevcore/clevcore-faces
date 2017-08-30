@@ -959,11 +959,11 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 .panel .panel .panel .panel > .head {
-	background-color: #9E9E9E; /* grey-500 */
+	background-color: #F5F5F5; /* grey-100 */
 }
 
 .panel .panel .panel .panel .panel > .head {
-	background-color: #757575; /* grey-600 */
+	background-color: #FAFAFA; /* grey-50 */
 }
 
 .panel .panel[data-opened='true'] {
@@ -975,24 +975,21 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 .panel .panel .panel .panel[data-opened='true'] {
-	border: 1px solid #9E9E9E; /* grey-500 */
+	border: 1px solid #BDBDBD; /* grey-400 */
 }
 
 .panel .panel .panel .panel .panel[data-opened='true'] {
-	border: 1px solid #757575; /* grey-600 */
+	border: 1px solid transparent;
 }
 
-.panel > .head * {
+.panel > .head *,
+.panel .panel > .head *,
+.panel .panel .panel .panel > .head *,
+.panel .panel .panel .panel .panel > .head * {
 	color: #616161; /* grey-700 */
 }
 
-.panel .panel > .head * {
-	color: #424242; /* grey-800 */
-}
-
-.panel .panel .panel > .head *,
-.panel .panel .panel .panel  > .head *,
-.panel .panel .panel .panel .panel  > .head * {
+.panel .panel .panel > .head * {
 	color: #FFFFFF; /* while */
 }
 
