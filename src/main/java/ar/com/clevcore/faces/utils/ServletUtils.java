@@ -1,10 +1,12 @@
 package ar.com.clevcore.faces.utils;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ar.com.clevcore.utils.StringUtils;
+import ar.com.clevcore.utils.Utils;
 
 public final class ServletUtils {
 
@@ -14,6 +16,13 @@ public final class ServletUtils {
 
     public static HttpServletRequest getHttpServletRequest() {
         return (HttpServletRequest) FacesUtils.getExternalContext().getRequest();
+    }
+
+    public static String getHttpServletRequestURI() {
+        HttpServletRequest request = getHttpServletRequest();
+
+        return Utils.coalesce((String) request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI),
+                (String) request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI), request.getRequestURI());
     }
 
     public static HttpServletResponse getHttpServletResponse() {
