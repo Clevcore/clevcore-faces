@@ -1,18 +1,19 @@
-/* Based on UnmappedResourceHandler of OmniFaces 1.8.1 */
+/* Based on UnmappedResourceHandler of OmniFaces 2.6.4 */
 package ar.com.clevcore.faces.handler;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map.Entry;
 
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
-import javax.faces.application.ResourceWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.com.clevcore.faces.utils.FacesUtils;
+import ar.com.clevcore.faces.utils.ServletUtils;
 import ar.com.clevcore.utils.IOUtils;
 
 public class UnmappedResourceHandler extends ResourceHandlerWrapper {
@@ -21,6 +22,11 @@ public class UnmappedResourceHandler extends ResourceHandlerWrapper {
 
     public UnmappedResourceHandler(ResourceHandler wrapped) {
         this.wrapped = wrapped;
+    }
+
+    @Override
+    public ResourceHandler getWrapped() {
+        return wrapped;
     }
 
     @Override
@@ -35,52 +41,38 @@ public class UnmappedResourceHandler extends ResourceHandlerWrapper {
 
     @Override
     public Resource createResource(String resourceName, String libraryName, String contentType) {
-        Resource resource = super.createResource(resourceName, libraryName, contentType);
+        Resource resource = getWrapped().createResource(resourceName, libraryName, contentType);
 
         if (resource == null) {
             return null;
         }
 
-        return new ResourceWrapper() {
-            @Override
-            public String getRequestPath() {
-                String path = getWrapped().getRequestPath();
-                String mapping = FacesUtils.getMapping();
+        String path = resource.getRequestPath();
 
-                if (FacesUtils.isPrefixMapping(mapping)) {
-                    return path.replaceFirst(mapping, "");
-                } else if (path.contains("?")) {
-                    return path.replace(mapping + "?", "?");
-                } else {
-                    return path.substring(0, path.length() - mapping.length());
-                }
+        if (isResourceRequest(path)) {
+            String mapping = FacesUtils.getMapping();
+
+            if (mapping.charAt(0) == '/') {
+                path = path.replaceFirst(mapping, "");
+            } else if (path.contains("?")) {
+                path = path.replace(mapping + "?", "?");
+            } else if (path.endsWith(mapping)) {
+                path = path.substring(0, path.length() - mapping.length());
             }
 
-            @Override
-            public String getResourceName() {
-                return resource.getResourceName();
-            }
+            return new SerializableResource(resource, path);
+        }
 
-            @Override
-            public String getLibraryName() {
-                return resource.getLibraryName();
-            }
-
-            @Override
-            public String getContentType() {
-                return resource.getContentType();
-            }
-
-            @Override
-            public Resource getWrapped() {
-                return resource;
-            }
-        };
+        return resource;
     }
 
     @Override
     public boolean isResourceRequest(FacesContext context) {
-        return ResourceHandler.RESOURCE_IDENTIFIER.equals(context.getExternalContext().getRequestServletPath());
+        return isResourceRequest(ServletUtils.getHttpServletRequestURI()) || super.isResourceRequest(context);
+    }
+
+    private static boolean isResourceRequest(String path) {
+        return path.startsWith(FacesUtils.getRequestPath() + RESOURCE_IDENTIFIER);
     }
 
     @Override
@@ -88,16 +80,23 @@ public class UnmappedResourceHandler extends ResourceHandlerWrapper {
         ExternalContext externalContext = context.getExternalContext();
 
         String resourceName = externalContext.getRequestPathInfo();
+        resourceName = (resourceName != null) ? resourceName.substring(1) : "";
+        if (resourceName.isEmpty()) {
+            super.handleResourceRequest(context);
+            return;
+        }
         String libraryName = externalContext.getRequestParameterMap().get("ln");
         Resource resource = context.getApplication().getResourceHandler().createResource(resourceName, libraryName);
 
-        if (resource == null) {
-            getWrapped().handleResourceRequest(context);
+        if (!resource.userAgentNeedsUpdate(context)) {
+            externalContext.setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
             return;
         }
 
-        if (!resource.userAgentNeedsUpdate(context)) {
-            externalContext.setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
+        InputStream inputStream = resource.getInputStream();
+
+        if (inputStream == null) {
+            externalContext.setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
@@ -107,12 +106,7 @@ public class UnmappedResourceHandler extends ResourceHandlerWrapper {
             externalContext.setResponseHeader(header.getKey(), header.getValue());
         }
 
-        IOUtils.stream(resource.getInputStream(), externalContext.getResponseOutputStream());
-    }
-
-    @Override
-    public ResourceHandler getWrapped() {
-        return wrapped;
+        IOUtils.stream(inputStream, externalContext.getResponseOutputStream());
     }
 
 }
