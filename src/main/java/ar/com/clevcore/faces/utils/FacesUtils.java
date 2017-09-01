@@ -124,10 +124,6 @@ public final class FacesUtils {
         }
     }
 
-    public static boolean isPrefixMapping(String mapping) {
-        return (mapping.charAt(0) == '/');
-    }
-
     public static String getRealPath() {
         ExternalContext externalContext = getExternalContext();
         return externalContext != null ? externalContext.getRealPath("/") : null;
