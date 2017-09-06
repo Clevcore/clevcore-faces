@@ -6,6 +6,7 @@
 	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface componentType="#{bbClevcore.SESSION_TIMEOUT}">
+		<composite:attribute name="onrestart" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -40,7 +41,8 @@
 					<cc:panelFoot styleClass="m-tRight">
 						<cc:commandButton styleClass="primary-simple m-wAuto"
 							icon="#{clevcoreIcon.session_timeout_restart}"
-							value="#{clevcoreMsg.restart}" onclick="redirect(path);" />
+							value="#{clevcoreMsg.restart}"
+							onclick="#{cc.attrs.onrestart != null ? cc.attrs.onrestart : 'redirect(path);'}" />
 					</cc:panelFoot>
 				</cc:panel>
 			</h:form>
