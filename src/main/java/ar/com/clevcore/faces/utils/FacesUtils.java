@@ -1,7 +1,12 @@
 package ar.com.clevcore.faces.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -26,6 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ar.com.clevcore.backend.exceptions.ClevcoreException;
+import ar.com.clevcore.utils.IOUtils;
+import ar.com.clevcore.utils.StringUtils;
 
 public final class FacesUtils {
 
@@ -159,6 +166,36 @@ public final class FacesUtils {
         if (partialViewContext != null) {
             partialViewContext.getRenderIds().add(idRender);
         }
+    }
+
+    // FILE
+    public static void downloadFile(File file) throws IOException {
+        downloadFile(new FileInputStream(file), file.getName(), file.length());
+    }
+
+    public static void downloadFile(File file, String fileName) throws IOException {
+        downloadFile(new FileInputStream(file), fileName, file.length());
+    }
+
+    private static void downloadFile(InputStream input, String fileName, Long contentLength) throws IOException {
+        FacesContext context = getFacesContext();
+        ExternalContext externalContext = getExternalContext();
+
+        externalContext.setResponseBufferSize(IOUtils.DEFAULT_STREAM_BUFFER_SIZE);
+        externalContext.setResponseContentType(externalContext.getMimeType(fileName));
+        externalContext.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+
+        if (contentLength != null) {
+            externalContext.setResponseHeader("Content-Length", String.valueOf(contentLength));
+        }
+
+        long size = IOUtils.stream(input, externalContext.getResponseOutputStream());
+
+        if (contentLength == null) {
+            externalContext.setResponseHeader("Content-Length", String.valueOf(size));
+        }
+
+        context.responseComplete();
     }
 
     // MESSAGE
@@ -447,6 +484,26 @@ public final class FacesUtils {
             }
         }
         return resource;
+    }
+
+    public static List<String> keysToResources(List<String> keys) {
+        return keysToResources(keys, true);
+    }
+
+    public static List<String> keysToResources(List<String> keys, boolean camelcaseToUnderscore) {
+        List<String> resources = new ArrayList<String>();
+
+        if (camelcaseToUnderscore) {
+            for (String key : keys) {
+                resources.add(FacesUtils.getResource(StringUtils.camelcaseToUnderscore(key)));
+            }
+        } else {
+            for (String key : keys) {
+                resources.add(FacesUtils.getResource(key));
+            }
+        }
+
+        return resources;
     }
 
 }

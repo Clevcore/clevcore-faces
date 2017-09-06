@@ -4,7 +4,7 @@
 
 	<groupId>ar.com.clevcore</groupId>
 	<artifactId>clevcore-faces</artifactId>
-	<version>1.5.9</version>
+	<version>1.5.10</version>
 	<packaging>jar</packaging>
 
 	<name>Clevcore Faces</name>
@@ -43,7 +43,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Clevcore -->
-		<clevcore-java.version>1.5.1</clevcore-java.version>
+		<clevcore-java.version>1.5.2</clevcore-java.version>
 		<clevcore-backend.version>1.5.0</clevcore-backend.version>
 
 		<!-- Faces -->

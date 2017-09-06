@@ -15,9 +15,11 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ar.com.clevcore.faces.utils.Constant;
 import ar.com.clevcore.faces.utils.FacesUtils;
-import ar.com.clevcore.faces.utils.ServletUtils;
 import ar.com.clevcore.utils.OfficeUtils;
 import ar.com.clevcore.utils.StringUtils;
 import ar.com.clevcore.utils.Utils;
@@ -25,6 +27,8 @@ import ar.com.clevcore.utils.Utils;
 @SuppressWarnings("unchecked")
 @FacesComponent(Constant.DATA_TABLE)
 public class DataTable extends UIComponentBase implements NamingContainer {
+
+    private static final Logger log = LoggerFactory.getLogger(DataTable.class);
 
     private UIData data;
 
@@ -101,30 +105,59 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         onPaginatorManager(1);
     }
 
-    public void onExcel() {
+    public void onPrepareExcel() {
         List<Object> objectList = (List<Object>) data.getValue();
 
         if (objectList != null && !objectList.isEmpty()) {
-            String path = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
-                    + File.separator;
-            String file = OfficeUtils.getExcel(objectList, getProperties((String) getAttributes().get("excelBy")), path,
-                    true, FacesUtils.getClevcoreResource("pattern_date"));
+            try {
+                List<String> propertyList = getProperties((String) getAttributes().get("excelBy"));
+                if (propertyList == null || propertyList.isEmpty()) {
+                    propertyList = Utils.getPropertiesFromObject(objectList.get(0).getClass());
+                }
 
-            FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
+                List<String> headList = getProperties((String) getAttributes().get("excelHeads"));
+                if (headList == null || headList.isEmpty()) {
+                    headList = FacesUtils.keysToResources(propertyList);
+                }
+
+                String title = (String) getAttributes().get("excelTitle");
+                if (title == null || title.isEmpty()) {
+                    title = getTitle();
+                }
+
+                String filePath = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
+                        + File.separator;
+
+                String fileName = title;
+
+                String patternDate = FacesUtils.getResource("pattern_date");
+
+                setExcel(OfficeUtils.getExcel(objectList, propertyList, headList, title, filePath, fileName, true,
+                        patternDate));
+
+                FacesUtils.executeScript("DataTable.onExcel('" + getClientId() + "');");
+            } catch (IOException e) {
+                log.error("[E] ClevcoreException occured in [onPrepareExcel]", e);
+            }
         }
     }
 
-    public void onPdf() {
-        List<Object> objectList = (List<Object>) data.getValue();
+    public void onExcel() {
+        File excel = getExcel();
 
-        if (objectList != null && !objectList.isEmpty()) {
-            String path = FacesUtils.getRealPath() + File.separator + "resources" + File.separator + "temp"
-                    + File.separator;
+        if (excel != null) {
+            try {
+                String title = (String) getAttributes().get("excelTitle");
+                if (title == null || title.isEmpty()) {
+                    title = getTitle();
+                }
 
-            String file = OfficeUtils.getPdf(objectList, getProperties((String) getAttributes().get("pdfBy")), path,
-                    true, FacesUtils.getClevcoreResource("pattern_date"));
-
-            FacesUtils.executeScript("windowOpen('" + ServletUtils.getUrl() + "/resources/temp/" + file + "')");
+                FacesUtils.downloadFile(excel, title + ".xlsx");
+            } catch (IOException e) {
+                log.error("[E] ClevcoreException occured in [onExcel]", e);
+            } finally {
+                setExcel(null);
+            }
         }
     }
 
@@ -184,6 +217,14 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         } else {
             return null;
         }
+    }
+
+    private String getTitle() {
+        List<Object> objectList = (List<Object>) data.getValue();
+
+        String name = objectList.get(0).getClass().getName();
+
+        return FacesUtils.getResource(StringUtils.camelcaseToUnderscore(name.substring(name.lastIndexOf(".") + 1)));
     }
 
     private void search() {
@@ -253,6 +294,14 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
     public void setData(UIData data) {
         this.data = data;
+    }
+
+    public File getExcel() {
+        return (File) getStateHelper().get("excel");
+    }
+
+    public void setExcel(File excel) {
+        getStateHelper().put("excel", excel);
     }
 
     public List<Object> getValueSearch() {

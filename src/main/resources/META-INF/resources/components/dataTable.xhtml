@@ -13,9 +13,12 @@
 		<composite:attribute name="var" />
 		<composite:attribute name="rows" />
 		<composite:attribute name="value" />
-		<composite:attribute name="propertyFile" />
-		<composite:attribute name="excelBy" />
+
 		<composite:attribute name="searchBy" />
+
+		<composite:attribute name="excelTitle" />
+		<composite:attribute name="excelHeads" />
+		<composite:attribute name="excelBy" />
 
 		<composite:attribute name="recordLabel"
 			default="#{clevcoreMsg.records}" />
@@ -78,14 +81,10 @@
 					<h:panelGroup rendered="#{cc.attrs.showFile}">
 						<cc:commandButton styleClass="primary m-wAuto"
 							icon="#{clevcoreIcon.excel}"
-							title="#{clevcoreMsg.export_excel_format}" action="#{cc.onExcel}"
-							render="@none" />
-						<h:panelGroup rendered="false">
-							<cc:commandButton styleClass="primary wAuto"
-								icon="#{clevcoreIcon.pdf}"
-								title="#{clevcoreMsg.export_pdf_format}" action="#{cc.onPdf}"
-								render="@none" />
-						</h:panelGroup>
+							title="#{clevcoreMsg.export_excel_format}"
+							action="#{cc.onPrepareExcel}" render="@none" />
+						<h:commandButton id="excel" styleClass="dNone"
+							action="#{cc.onExcel}" />
 					</h:panelGroup>
 				</h:panelGroup>
 			</h:panelGroup>

@@ -355,7 +355,6 @@ var ConfirmNavigation = {
 	off : function(id) {
 		ConfirmNavigation.enable = false;
 	}
-
 };
 
 /* dataTable */
@@ -382,8 +381,18 @@ var DataTable = {
 	search : function(id, value) {
 		getElement(id + ":searchInputText").value = value;
 		getElement(id + ":searchCommandButton:id").click();
-	}
+	},
 
+	onExcel : function(id) {
+		try {
+			getElement(id + ":excel").click();
+		} catch (e) {
+		}
+
+		setTimeout(function() {
+			LoadingPage.off();
+		}, 1000);
+	}
 };
 
 /* fab */
