@@ -870,13 +870,31 @@ function keyRestriction(event, keys) {
 }
 
 function camelcaseToHyphens(value) {
-	return value.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+	return value.split(/(?=[A-Z])/).join("-").toLowerCase();
+}
+
+function camelcaseToUnderscore(value) {
+	return value.split(/(?=[A-Z])/).join("_").toLowerCase();
 }
 
 function hyphensToCamelcase(value) {
 	return value.toLowerCase().replace(/-(.)/g, function(match, group) {
 		return group.toUpperCase();
 	});
+}
+
+function hyphensToUnderscore(value) {
+	return value.toLowerCase().replace(/-/g, "_");
+}
+
+function underscoreToCamelcase(value) {
+	return value.toLowerCase().replace(/_(.)/g, function(match, group) {
+		return group.toUpperCase();
+	});
+}
+
+function underscoreToHyphens(value) {
+	return value.toLowerCase().replace(/_/g, "-");
 }
 
 function fullTrim(id) {
