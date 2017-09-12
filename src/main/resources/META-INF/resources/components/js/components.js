@@ -1155,7 +1155,9 @@ var Popup = {
 			Popup.panelBody = getSelector("#" + Popup.id + " .body");
 			Popup.panelFoot = getSelector("#" + Popup.id + " .foot");
 
-			Popup.panelHead.addEventListener("mousedown", Popup.movable);
+			if (Popup.panelHead !== null) {
+				Popup.panelHead.addEventListener("mousedown", Popup.movable);
+			}
 
 			Popup.expandable();
 			Popup.scrollable();
@@ -1185,14 +1187,20 @@ var Popup = {
 			window.addEventListener("resize", Popup.resize);
 			window.addEventListener(Ajax.EVENT, Popup.reset);
 			window.addEventListener("keydown", Popup.closeable);
-			Popup.panelHead.addEventListener("mousedown", Popup.movable);
+
+			if (Popup.panelHead !== null) {
+				Popup.panelHead.addEventListener("mousedown", Popup.movable);
+			}
 		},
 
 		remove : function() {
 			window.removeEventListener("resize", Popup.resize);
 			window.removeEventListener(Ajax.EVENT, Popup.reset);
 			window.removeEventListener("keydown", Popup.closeable);
-			Popup.panelHead.removeEventListener("mousedown", Popup.movable);
+
+			if (Popup.panelHead !== null) {
+				Popup.panelHead.removeEventListener("mousedown", Popup.movable);
+			}
 		}
 	},
 
@@ -1277,7 +1285,9 @@ var Popup = {
 				Popup.container.style.left = "";
 
 				Popup.panel.style.maxWidth = width + "px";
-				Popup.panelBody.style.height = (height - getHeightElement(Popup.panelHead) - getHeightElement(Popup.panelFoot))
+				Popup.panelBody.style.height = (height
+						- (Popup.panelHead !== null ? getHeightElement(Popup.panelHead) : 0) - (Popup.panelFoot !== null ? getHeightElement(Popup.panelFoot)
+						: 0))
 						+ "px";
 			} else {
 				removeClassElement(Popup.component, "expandable");
@@ -1295,14 +1305,26 @@ var Popup = {
 	},
 
 	scrollable : function() {
-		autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
+		if (Popup.panelFoot !== null) {
+			autoscrollHeightElement(Popup.panelBody, Popup.panelFoot);
+		} else {
+			autoscrollHeightElement(Popup.panelBody);
+		}
 
 		if (getHeightElement(Popup.panelBody) - getHeightScrollElement(Popup.panelBody) < 0) {
-			addClassElement(Popup.panelHead, "bShadow3dp");
-			addClassElement(Popup.panelFoot, "bShadow2dpNe");
+			if (Popup.panelHead !== null) {
+				addClassElement(Popup.panelHead, "bShadow3dp");
+			}
+			if (Popup.panelFoot !== null) {
+				addClassElement(Popup.panelFoot, "bShadow2dpNe");
+			}
 		} else {
-			removeClassElement(Popup.panelHead, "bShadow3dp");
-			removeClassElement(Popup.panelFoot, "bShadow2dpNe");
+			if (Popup.panelHead !== null) {
+				removeClassElement(Popup.panelHead, "bShadow3dp");
+			}
+			if (Popup.panelFoot !== null) {
+				removeClassElement(Popup.panelFoot, "bShadow2dpNe");
+			}
 		}
 	}
 };

@@ -1054,7 +1054,7 @@ nav ul a:hover,nav .iconSide:hover {
 
 /* popup */
 .modal {
-	background-color: rgba(10, 10, 10, .6);
+	background-color: rgba(10, 10, 10, .4);
 	height: 100%;
 	left: 0;
 	position: fixed;
@@ -1078,7 +1078,7 @@ nav ul a:hover,nav .iconSide:hover {
 }
 
 .popup .panel > .head  {
-	background-color: #F5F5F5; /* grey-100 */
+	background-color: transparent;
 	border-bottom: 1px solid #F5F5F5; /* grey-100 */
 	position: relative;
 	z-index: 1;
