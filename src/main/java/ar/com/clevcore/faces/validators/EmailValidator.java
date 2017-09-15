@@ -17,7 +17,7 @@ public class EmailValidator implements Validator {
 
         if (value.toString().length() > 254) {
             throw new ValidatorException(FacesUtils.getFacesMessage(FacesMessage.SEVERITY_ERROR,
-                    FacesUtils.getClevcoreResource("too_characters_validation")));
+                    FacesUtils.getClevcoreResource("too_characters")));
         }
 
         if (!ValidatorUtils.emailValidator(value.toString())) {
