@@ -57,7 +57,7 @@
 		<h:panelGroup id="id" layout="block">
 			<h:panelGroup layout="block"
 				styleClass="row lhNone fs0 pBottomNormal"
-				rendered="#{!cc.attrs.simplified and cc.attrs.showSearch and cc.attrs.showFile and cc.data.value.size() gt 0}">
+				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch or cc.attrs.showFile)}">
 				<h:panelGroup layout="block" styleClass="col s10 m6">
 					<h:panelGrid columns="2" styleClass="mRightNormal"
 						columnClasses="w100," rendered="#{cc.attrs.showSearch}">
