@@ -47,7 +47,7 @@
 		<clevcore-backend.version>1.5.0</clevcore-backend.version>
 
 		<!-- Faces -->
-		<faces.version>2.2.13</faces.version>
+		<faces.version>2.2.14</faces.version>
 
 		<!-- Expression Language -->
 		<el.version>3.0.1-b08</el.version>
