@@ -130,7 +130,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
                 String fileName = title;
 
-                String patternDate = FacesUtils.getResource("pattern_date");
+                String patternDate = FacesUtils.getClevcoreResource("pattern_date");
 
                 setExcel(OfficeUtils.getExcel(objectList, propertyList, headList, title, filePath, fileName, true,
                         patternDate));
