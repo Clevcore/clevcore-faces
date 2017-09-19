@@ -359,7 +359,12 @@ var ConfirmNavigation = {
 
 /* dataTable */
 var DataTable = {
-	init : function(id, size, rowIndex, onclick) {
+	// INIT
+	init : function(id) {
+		DataTable.search.init(id);
+	},
+
+	initRow : function(id, size, rowIndex, onclick) {
 		var row = getElement(id + ":dataTable:td:" + rowIndex).parentNode;
 		setAttributeElement(row, "id", id + ":dataTable:tr:" + rowIndex);
 
@@ -378,20 +383,161 @@ var DataTable = {
 		}
 	},
 
-	search : function(id, value) {
-		getElement(id + ":searchInputText").value = value;
-		getElement(id + ":searchCommandButton:id").click();
-	},
-
-	onExcel : function(id) {
+	// METHOD
+	onDownload : function(id) {
 		try {
-			getElement(id + ":excel").click();
+			getElement(id + ":download").click();
 		} catch (e) {
 		}
 
 		setTimeout(function() {
 			LoadingPage.off();
 		}, 1000);
+	},
+
+	search : {
+		TIMEOUT : 500,
+
+		element : {
+			input : undefined,
+			search : undefined,
+			clear : undefined,
+		},
+
+		// INIT
+		init : function(id) {
+			DataTable.search.initElement(id);
+			DataTable.search.initService(id);
+			DataTable.search.initEvent();
+			DataTable.search.initAttribute();
+		},
+
+		initElement : function(id) {
+			DataTable.search.element.input = getSelector("#" + id + ":id .input-search");
+			DataTable.search.element.search = getSelector("#" + id + ":id .action-search").firstElementChild;
+			DataTable.search.element.clear = getSelector("#" + id + ":id .action-search").lastElementChild;
+		},
+
+		initService : function(id) {
+			var service = getAttributeElement(DataTable.search.element.input, "onkeyup");
+			service = service.replaceAll("this", "getSelector('#" + id + ":id .input-search')");
+
+			removeAttributeElement(DataTable.search.element.input, "onkeyup");
+			setAttributeElement(DataTable.search.element.input, "data-service", service);
+		},
+
+		initEvent : function() {
+			DataTable.search.element.input.addEventListener("keyup", DataTable.search.onPrepare);
+		},
+
+		initAttribute : function() {
+			DataTable.search.setOldValueInput(DataTable.search.getCurrentValueInput());
+		},
+
+		// METHOD
+		onPrepare : function(event) {
+			var id = event.target.id.substr(0, event.target.id.lastIndexOf(":"));
+			var timeoutDelay = DataTable.search.getTimeoutDelay();
+
+			DataTable.search.initElement(id);
+
+			var currentValueInput = DataTable.search.getCurrentValueInput();
+
+			if (currentValueInput === DataTable.search.getOldValueInput()) {
+				return;
+			}
+
+			DataTable.search.setOldValueInput(currentValueInput);
+
+			if (currentValueInput === "") {
+				clearDelay(timeoutDelay);
+				DataTable.search.element.clear.click();
+				return;
+			}
+
+			timeoutDelay = delay(function() {
+				eval(DataTable.search.getService());
+			}, DataTable.search.TIMEOUT, event);
+
+			DataTable.search.setTimeoutDelay = timeoutDelay;
+		},
+
+		onSearchStart : function(id) {
+			DataTable.search.initElement(id);
+
+			DataTable.search.loadingOn();
+		},
+
+		onSearchEnd : function(id) {
+			DataTable.search.initElement(id);
+
+			if (DataTable.search.getCurrentValueInput() === "") {
+				removeClassElement(DataTable.search.element.search, "dNone");
+				addClassElement(DataTable.search.element.clear, "dNone");
+			} else {
+				addClassElement(DataTable.search.element.search, "dNone");
+				removeClassElement(DataTable.search.element.clear, "dNone");
+			}
+
+			DataTable.search.loadingOff();
+		},
+
+		onClear : function(id) {
+			DataTable.search.initElement(id);
+
+			DataTable.search.setCurrentValueInput("");
+			DataTable.search.setOldValueInput("");
+
+			eval(DataTable.search.getService());
+		},
+
+		onFocus : function(id) {
+			getSelector("#" + id + ":id .input-search").focus();
+		},
+
+		// HELPER
+		loadingOn : function() {
+			Wait.disable();
+
+			CommandButton.loadingOn(DataTable.search.element.search);
+			CommandButton.loadingOn(DataTable.search.element.clear);
+		},
+
+		loadingOff : function() {
+			Wait.enable();
+
+			CommandButton.loadingOff(DataTable.search.element.search);
+			CommandButton.loadingOff(DataTable.search.element.clear);
+		},
+
+		// GETTER & SETTER
+		getCurrentValueInput : function() {
+			return DataTable.search.element.input.value.trim();
+		},
+
+		setCurrentValueInput : function(value) {
+			return DataTable.search.element.input.value = value;
+		},
+
+		getOldValueInput : function() {
+			return getAttributeElement(DataTable.search.element.input, "data-old-value");
+		},
+
+		setOldValueInput : function(oldValue) {
+			setAttributeElement(DataTable.search.element.input, "data-old-value", oldValue);
+		},
+
+		getTimeoutDelay : function() {
+			return getAttributeElement(DataTable.search.element.input, "data-timeout-delay");
+		},
+
+		setTimeoutDelay : function(timeoutDelay) {
+			setAttributeElement(DataTable.search.element.input, "data-timeout-delay", timeoutDelay);
+		},
+
+		getService : function() {
+			return getAttributeElement(DataTable.search.element.input, "data-service");
+		}
 	}
 };
 

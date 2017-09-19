@@ -55,6 +55,8 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         // search
         if (getSearch() != null) {
             search();
+        } else {
+            setSearch("");
         }
 
         // order
@@ -105,22 +107,22 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         onPaginatorManager(1);
     }
 
-    public void onPrepareExcel() {
+    public void onPrepareDownload() {
         List<Object> objectList = (List<Object>) data.getValue();
 
         if (objectList != null && !objectList.isEmpty()) {
             try {
-                List<String> propertyList = getProperties((String) getAttributes().get("excelBy"));
+                List<String> propertyList = getProperties((String) getAttributes().get("downloadBy"));
                 if (propertyList == null || propertyList.isEmpty()) {
                     propertyList = Utils.getPropertiesFromObject(objectList.get(0).getClass());
                 }
 
-                List<String> headList = getProperties((String) getAttributes().get("excelHeads"));
+                List<String> headList = getProperties((String) getAttributes().get("downloadHeads"));
                 if (headList == null || headList.isEmpty()) {
                     headList = FacesUtils.keysToResources(propertyList);
                 }
 
-                String title = (String) getAttributes().get("excelTitle");
+                String title = (String) getAttributes().get("downloadTitle");
                 if (title == null || title.isEmpty()) {
                     title = getTitle();
                 }
@@ -132,31 +134,31 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
                 String patternDate = FacesUtils.getClevcoreResource("pattern_date");
 
-                setExcel(OfficeUtils.getExcel(objectList, propertyList, headList, title, filePath, fileName, true,
+                setDownload(OfficeUtils.getExcel(objectList, propertyList, headList, title, filePath, fileName, true,
                         patternDate));
 
-                FacesUtils.executeScript("DataTable.onExcel('" + getClientId() + "');");
+                FacesUtils.executeScript("DataTable.onDownload('" + getClientId() + "');");
             } catch (IOException e) {
-                log.error("[E] ClevcoreException occured in [onPrepareExcel]", e);
+                log.error("[E] ClevcoreException occured in [onPrepareDownload]", e);
             }
         }
     }
 
-    public void onExcel() {
-        File excel = getExcel();
+    public void onDownload() {
+        File download = getDownload();
 
-        if (excel != null) {
+        if (download != null) {
             try {
-                String title = (String) getAttributes().get("excelTitle");
+                String title = (String) getAttributes().get("downloadTitle");
                 if (title == null || title.isEmpty()) {
                     title = getTitle();
                 }
 
-                FacesUtils.downloadFile(excel, title + ".xlsx");
+                FacesUtils.downloadFile(download, title + ".xlsx");
             } catch (IOException e) {
-                log.error("[E] ClevcoreException occured in [onExcel]", e);
+                log.error("[E] ClevcoreException occured in [onDownload]", e);
             } finally {
-                setExcel(null);
+                setDownload(null);
             }
         }
     }
@@ -229,7 +231,9 @@ public class DataTable extends UIComponentBase implements NamingContainer {
 
     private void search() {
         List<Object> objectList = (List<Object>) getAttributes().get("value");
+
         String search = getSearch();
+        search = search != null ? StringUtils.trimAll(getSearch()) : null;
 
         if (objectList != null && !objectList.isEmpty() && search != null && !search.isEmpty()) {
             objectList = Utils.searchObject(search, objectList, getProperties((String) getAttributes().get("searchBy")),
@@ -296,12 +300,12 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         this.data = data;
     }
 
-    public File getExcel() {
-        return (File) getStateHelper().get("excel");
+    public File getDownload() {
+        return (File) getStateHelper().get("download");
     }
 
-    public void setExcel(File excel) {
-        getStateHelper().put("excel", excel);
+    public void setDownload(File download) {
+        getStateHelper().put("download", download);
     }
 
     public List<Object> getValueSearch() {

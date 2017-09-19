@@ -484,6 +484,67 @@ button.tertiary-outline .wait-path
 
 
 /* dataTable */
+.label-search {
+	height: 48px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+.input-search,
+.action-search,
+.first-menu-search,
+.last-menu-search {
+	height: inherit;
+	position: absolute;
+}
+
+.action-search,
+.first-menu-search,
+.last-menu-search {
+	width: 48px;
+}
+
+.input-search {
+	padding-right: 48px;
+}
+
+.with-first-menu .input-search {
+	padding-left: 58px;
+}
+
+.with-last-menu .input-search {
+	padding-right: 96px;
+}
+
+.action-search {
+	right: 0;
+}
+
+.with-last-menu .action-search {
+	right: 48px;
+}
+
+.first-menu-search,
+.last-menu-search:before {
+	left: 0;
+}
+
+.last-menu-search,
+.first-menu-search:before {
+	right: 0;
+}
+
+.first-menu-search:before,
+.last-menu-search:before {
+	content: '';
+	border-left: 1px solid #E0E0E0; /* grey-300 */
+	height: 28px;
+	position: absolute;
+	top: 10px;
+}
+
+/* -- */
+
 .table  {
 	background-color: #FFFFFF; /* white */
 	border: 1px solid #E0E0E0; /* grey-300 */
@@ -607,7 +668,7 @@ button.tertiary-outline .wait-path
 	padding-left: 0;
 
 	transition: all 0.28s ease-in-out;
-	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #00b0ec 4%);
+	background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #428bca 4%);
 	background-position: -100vw 0;
 	background-size: 100% 100%;
 	background-repeat: no-repeat;

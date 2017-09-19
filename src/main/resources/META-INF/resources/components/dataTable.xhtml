@@ -16,9 +16,9 @@
 
 		<composite:attribute name="searchBy" />
 
-		<composite:attribute name="excelTitle" />
-		<composite:attribute name="excelHeads" />
-		<composite:attribute name="excelBy" />
+		<composite:attribute name="downloadTitle" />
+		<composite:attribute name="downloadHeads" />
+		<composite:attribute name="downloadBy" />
 
 		<composite:attribute name="recordLabel"
 			default="#{clevcoreMsg.records}" />
@@ -30,7 +30,9 @@
 		<composite:attribute name="responsive" default="true"
 			type="java.lang.Boolean" />
 
-		<composite:attribute name="showFile" default="true"
+		<composite:attribute name="showDownload" default="true"
+			type="java.lang.Boolean" />
+		<composite:attribute name="showEmptyMessage" default="true"
 			type="java.lang.Boolean" />
 		<composite:attribute name="showInfo" default="true"
 			type="java.lang.Boolean" />
@@ -56,37 +58,49 @@
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block">
 			<h:panelGroup layout="block"
-				styleClass="row lhNone fs0 pBottomNormal"
-				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch or cc.attrs.showFile)}">
-				<h:panelGroup layout="block" styleClass="col s10 m6">
-					<h:panelGrid columns="2" styleClass="mRightNormal"
-						columnClasses="w100," rendered="#{cc.attrs.showSearch}">
-						<h:inputText id="searchInputText"
-							styleClass="bwRightNone lh1 vMiddle" value="#{cc.search}">
-							<f:validateLength maximum="20" />
-							<f:passThroughAttribute name="placeholder"
-								value="#{clevcoreMsg.enter_search}" />
-							<f:passThroughAttribute name="autocomplete" value="off" />
-						</h:inputText>
-						<cc:commandButton id="searchCommandButton"
-							styleClass="primary wAuto" icon="#{clevcoreIcon.search}"
-							iconType="md" title="#{clevcoreMsg.search}"
-							action="#{cc.onSearch}" execute="#{cc.clientId}:searchInputText"
-							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-					</h:panelGrid>
+				styleClass="label-search #{cc.attrs.showDownload ? 'with-last-menu' : ''}"
+				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch or cc.attrs.showDownload)}">
+				<h:inputText
+					styleClass="input-search input-md-effect input-placeholder-effect"
+					value="#{cc.search}" maxlength="45">
+					<f:passThroughAttribute name="autocomplete" value="off" />
+					<f:passThroughAttribute name="placeholder"
+						value="#{clevcoreMsg.enter_search}" />
+					<f:validateLength maximum="45" />
+					<f:ajax event="keyup"
+						render=":#{cc.clientId}:dataTable :#{cc.clientId}:paginator"
+						listener="#{cc.onSearch}" />
+					<f:passThroughAttribute name="data-onbegin"
+						value="DataTable.search.onSearchStart('#{cc.clientId}');" />
+					<f:passThroughAttribute name="data-onsuccess"
+						value="DataTable.search.onSearchEnd('#{cc.clientId}');" />
+				</h:inputText>
+
+				<h:panelGroup layout="block" styleClass="action-search">
+					<cc:commandButton
+						styleClass="transparent cInfoHover w100  #{cc.search != '' ? 'dNone' : ''}"
+						icon="#{icon.search}" iconType="md" title="#{clevcoreMsg.search}"
+						onclick="DataTable.search.onFocus('#{cc.clientId}');" />
+					<cc:commandButton
+						styleClass="transparent cInfoHover w100 #{cc.search == '' ? 'dNone' : ''}"
+						icon="#{clevcoreIcon.clear_search}" iconType="md" iconClass="fs20"
+						title="#{clevcoreMsg.clear}"
+						onclick="DataTable.search.onClear('#{cc.clientId}');" />
 				</h:panelGroup>
 
-				<h:panelGroup id="file" layout="block"
-					styleClass="col s2 m6 tRight vTop">
-					<h:panelGroup rendered="#{cc.attrs.showFile}">
-						<cc:commandButton styleClass="primary m-wAuto"
-							icon="#{clevcoreIcon.excel}"
-							title="#{clevcoreMsg.export_excel_format}"
-							action="#{cc.onPrepareExcel}" render="@none" />
-						<h:commandButton id="excel" styleClass="dNone"
-							action="#{cc.onExcel}" />
-					</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="last-menu-search"
+					rendered="#{cc.attrs.showDownload}">
+					<cc:commandButton styleClass="transparent cTertiary w100"
+						icon="#{clevcoreIcon.download}" iconType="md"
+						title="#{clevcoreMsg.download}" action="#{cc.onPrepareDownload}"
+						render="@none" />
+					<h:commandButton id="download" styleClass="dNone"
+						action="#{cc.onDownload}" />
 				</h:panelGroup>
+
+				<script>
+					DataTable.init("#{cc.clientId}");
+				</script>
 			</h:panelGroup>
 
 			<h:inputText id="rowIndex" styleClass="dNone" value="#{cc.rowIndex}">
@@ -114,23 +128,36 @@
 					immediate="#{cc.attrs.immediate}" render="#{cc.attrs.render}" />
 			</h:inputText>
 
-			<h:panelGroup layout="block"
+			<h:panelGroup id="dataTable" layout="block"
 				styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
-				<h:dataTable id="dataTable"
+				<h:dataTable
 					styleClass="table #{cc.attrs.listener != null ? 'tableHover' : ''} #{cc.attrs.styleClass}"
 					style="#{cc.attrs.style}" rowStatePreserved="true"
 					columnClasses="#{cc.attrs.listener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
+					rendered="#{!cc.attrs.showEmptyMessage or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0)}"
 					binding="#{cc.data}">
 					<h:column rendered="#{cc.attrs.listener != null}">
 						<f:passThroughAttribute name="id"
 							value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
 						<script>
-							DataTable.init("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}",
+							DataTable.initRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}",
 									"#{cc.attrs.onclick}");
 						</script>
 					</h:column>
 					<composite:insertChildren />
 				</h:dataTable>
+
+				<cc:section styleClass="tCenter"
+					rendered="#{cc.attrs.showEmptyMessage and cc.data.value.size() == 0}">
+					<cc:icon styleClass="fs100" value="#{clevcoreIcon.message}"
+						type="md" />
+
+					<h:outputFormat styleClass="dBlock mBottomNormal fs16"
+						value="#{clevcoreMsg.search_x_result_doesnt_return}">
+						<f:param value="#{cc.search}" />
+						<f:param value="#{cc.attrs.recordLabel}" />
+					</h:outputFormat>
+				</cc:section>
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" id="paginator">
@@ -161,7 +188,7 @@
 					</cc:section>
 
 					<h:panelGroup layout="block" styleClass="row mTopNormal"
-						rendered="#{!cc.attrs.simplified and (cc.attrs.showRows or cc.attrs.showInfo)}">
+						rendered="#{!cc.attrs.simplified and (cc.attrs.showRows or cc.attrs.showInfo) and (!cc.attrs.showEmptyMessage  or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0))}">
 						<h:panelGroup layout="block" styleClass="col s6"
 							rendered="#{cc.attrs.showRows}">
 							<h:outputFormat styleClass="fs12"
