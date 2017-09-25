@@ -335,6 +335,24 @@ function containElement(parent, child) {
 	return parent.contains(child);
 }
 
+function copy(id) {
+	copyElement(getElement(id));
+}
+
+function copyElement(element) {
+	element.select();
+	document.execCommand("copy");
+}
+
+function copyWithMessages(id) {
+	copyWithMessagesElement(getElement(id));
+}
+
+function copyWithMessagesElement(element) {
+	copyElement(element);
+	Messages.show(resources.msg.text_copy);
+}
+
 // utils
 var delay = (function() {
 	var timeout = 0;
