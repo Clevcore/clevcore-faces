@@ -57,167 +57,179 @@
 
 	<composite:implementation>
 		<h:panelGroup id="id" layout="block">
+			<cc:section styleClass="tCenter"
+				rendered="#{cc.attrs.showEmptyMessage and cc.data.value.isEmpty() and cc.search.isEmpty()}">
+				<cc:icon styleClass="fs100" value="#{clevcoreIcon._empty}" type="md" />
+				<h:outputFormat styleClass="dBlock mBottomNormal fs16"
+					value="#{clevcoreMsg.no_x_show}">
+					<f:param value="#{cc.attrs.recordLabel}" />
+				</h:outputFormat>
+			</cc:section>
+
 			<h:panelGroup layout="block"
-				styleClass="label-search #{cc.attrs.showDownload ? 'with-last-menu' : ''}"
-				rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch or cc.attrs.showDownload)}">
-				<h:inputText
-					styleClass="input-search input-md-effect input-placeholder-effect"
-					value="#{cc.search}" maxlength="45">
-					<f:passThroughAttribute name="autocomplete" value="off" />
-					<f:passThroughAttribute name="placeholder"
-						value="#{clevcoreMsg.enter_search}" />
-					<f:validateLength maximum="45" />
-					<f:ajax event="keyup"
-						render=":#{cc.clientId}:dataTable :#{cc.clientId}:paginator"
-						listener="#{cc.onSearch}" />
-					<f:passThroughAttribute name="data-onbegin"
-						value="DataTable.search.onSearchStart('#{cc.clientId}');" />
-					<f:passThroughAttribute name="data-onsuccess"
-						value="DataTable.search.onSearchEnd('#{cc.clientId}');" />
+				rendered="#{!cc.data.value.isEmpty() or (cc.data.value.isEmpty() and !cc.search.isEmpty())}">
+				<h:panelGroup layout="block"
+					styleClass="label-search #{cc.attrs.showDownload ? 'with-last-menu' : ''}"
+					rendered="#{!cc.attrs.simplified and (cc.attrs.showSearch or cc.attrs.showDownload)}">
+					<h:inputText
+						styleClass="input-search input-md-effect input-placeholder-effect"
+						value="#{cc.search}" maxlength="45">
+						<f:passThroughAttribute name="autocomplete" value="off" />
+						<f:passThroughAttribute name="placeholder"
+							value="#{clevcoreMsg.enter_search}" />
+						<f:validateLength maximum="45" />
+						<f:ajax event="keyup"
+							render=":#{cc.clientId}:dataTable :#{cc.clientId}:paginator"
+							listener="#{cc.onSearch}" />
+						<f:passThroughAttribute name="data-onbegin"
+							value="DataTable.search.onSearchStart('#{cc.clientId}');" />
+						<f:passThroughAttribute name="data-onsuccess"
+							value="DataTable.search.onSearchEnd('#{cc.clientId}');" />
+					</h:inputText>
+
+					<h:panelGroup layout="block" styleClass="action-search">
+						<cc:commandButton
+							styleClass="transparent cInfoHover w100  #{cc.search != '' ? 'dNone' : ''}"
+							icon="#{clevcoreIcon.search}" iconType="md"
+							title="#{clevcoreMsg.search}"
+							onclick="DataTable.search.onFocus('#{cc.clientId}');" />
+						<cc:commandButton
+							styleClass="transparent cInfoHover w100 #{cc.search == '' ? 'dNone' : ''}"
+							icon="#{clevcoreIcon.clear_search}" iconType="md"
+							iconClass="fs20" title="#{clevcoreMsg.clear}"
+							onclick="DataTable.search.onClear('#{cc.clientId}');" />
+					</h:panelGroup>
+
+					<h:panelGroup layout="block" styleClass="last-menu-search"
+						rendered="#{cc.attrs.showDownload}">
+						<cc:commandButton styleClass="transparent cTertiary w100"
+							icon="#{clevcoreIcon.download}" iconType="md"
+							title="#{clevcoreMsg.download}" action="#{cc.onPrepareDownload}"
+							render="@none" />
+						<h:commandButton id="download" styleClass="dNone"
+							action="#{cc.onDownload}" />
+					</h:panelGroup>
+
+					<script>
+						DataTable.init("#{cc.clientId}");
+					</script>
+				</h:panelGroup>
+
+				<h:inputText id="rowIndex" styleClass="dNone" value="#{cc.rowIndex}">
+					<c:if test="#{cc.attrs.onbegin ne null}">
+						<f:passThroughAttribute name="data-onbegin"
+							value="#{cc.attrs.onbegin}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.oncomplete ne null}">
+						<f:passThroughAttribute name="data-oncomplete"
+							value="#{cc.attrs.oncomplete}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onsuccess ne null}">
+						<f:passThroughAttribute name="data-onsuccess"
+							value="#{cc.attrs.onsuccess}" />
+					</c:if>
+
+					<c:if test="#{cc.attrs.onvalidation ne null}">
+						<f:passThroughAttribute name="data-onvalidation"
+							value="#{cc.attrs.onvalidation}" />
+					</c:if>
+
+					<f:ajax event="change" listener="#{cc.listener}"
+						immediate="#{cc.attrs.immediate}" render="#{cc.attrs.render}" />
 				</h:inputText>
 
-				<h:panelGroup layout="block" styleClass="action-search">
-					<cc:commandButton
-						styleClass="transparent cInfoHover w100  #{cc.search != '' ? 'dNone' : ''}"
-						icon="#{icon.search}" iconType="md" title="#{clevcoreMsg.search}"
-						onclick="DataTable.search.onFocus('#{cc.clientId}');" />
-					<cc:commandButton
-						styleClass="transparent cInfoHover w100 #{cc.search == '' ? 'dNone' : ''}"
-						icon="#{clevcoreIcon.clear_search}" iconType="md" iconClass="fs20"
-						title="#{clevcoreMsg.clear}"
-						onclick="DataTable.search.onClear('#{cc.clientId}');" />
-				</h:panelGroup>
+				<h:panelGroup id="dataTable" layout="block"
+					styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
+					<h:dataTable
+						styleClass="table #{cc.attrs.listener != null ? 'tableHover' : ''} #{cc.attrs.styleClass}"
+						style="#{cc.attrs.style}" rowStatePreserved="true"
+						columnClasses="#{cc.attrs.listener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
+						rendered="#{!cc.attrs.showEmptyMessage or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0)}"
+						binding="#{cc.data}">
+						<h:column rendered="#{cc.attrs.listener != null}">
+							<f:passThroughAttribute name="id"
+								value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
+							<script>
+								DataTable.initRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}",
+										"#{cc.attrs.onclick}");
+							</script>
+						</h:column>
+						<composite:insertChildren />
+					</h:dataTable>
 
-				<h:panelGroup layout="block" styleClass="last-menu-search"
-					rendered="#{cc.attrs.showDownload}">
-					<cc:commandButton styleClass="transparent cTertiary w100"
-						icon="#{clevcoreIcon.download}" iconType="md"
-						title="#{clevcoreMsg.download}" action="#{cc.onPrepareDownload}"
-						render="@none" />
-					<h:commandButton id="download" styleClass="dNone"
-						action="#{cc.onDownload}" />
-				</h:panelGroup>
-
-				<script>
-					DataTable.init("#{cc.clientId}");
-				</script>
-			</h:panelGroup>
-
-			<h:inputText id="rowIndex" styleClass="dNone" value="#{cc.rowIndex}">
-				<c:if test="#{cc.attrs.onbegin ne null}">
-					<f:passThroughAttribute name="data-onbegin"
-						value="#{cc.attrs.onbegin}" />
-				</c:if>
-
-				<c:if test="#{cc.attrs.oncomplete ne null}">
-					<f:passThroughAttribute name="data-oncomplete"
-						value="#{cc.attrs.oncomplete}" />
-				</c:if>
-
-				<c:if test="#{cc.attrs.onsuccess ne null}">
-					<f:passThroughAttribute name="data-onsuccess"
-						value="#{cc.attrs.onsuccess}" />
-				</c:if>
-
-				<c:if test="#{cc.attrs.onvalidation ne null}">
-					<f:passThroughAttribute name="data-onvalidation"
-						value="#{cc.attrs.onvalidation}" />
-				</c:if>
-
-				<f:ajax event="change" listener="#{cc.listener}"
-					immediate="#{cc.attrs.immediate}" render="#{cc.attrs.render}" />
-			</h:inputText>
-
-			<h:panelGroup id="dataTable" layout="block"
-				styleClass="#{cc.attrs.responsive ? 'tableResponsive' : ''}">
-				<h:dataTable
-					styleClass="table #{cc.attrs.listener != null ? 'tableHover' : ''} #{cc.attrs.styleClass}"
-					style="#{cc.attrs.style}" rowStatePreserved="true"
-					columnClasses="#{cc.attrs.listener != null ? 'w0,' : ''} #{cc.attrs.columnClasses}"
-					rendered="#{!cc.attrs.showEmptyMessage or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0)}"
-					binding="#{cc.data}">
-					<h:column rendered="#{cc.attrs.listener != null}">
-						<f:passThroughAttribute name="id"
-							value="#{cc.clientId}:dataTable:td:#{cc.data.rowIndex}" />
-						<script>
-							DataTable.initRow("#{cc.clientId}", "#{cc.data.value.size()}", "#{cc.data.rowIndex}",
-									"#{cc.attrs.onclick}");
-						</script>
-					</h:column>
-					<composite:insertChildren />
-				</h:dataTable>
-
-				<cc:section styleClass="tCenter"
-					rendered="#{cc.attrs.showEmptyMessage and cc.data.value.size() == 0}">
-					<cc:icon styleClass="fs100" value="#{clevcoreIcon.message}"
-						type="md" />
-
-					<h:outputFormat styleClass="dBlock mBottomNormal fs16"
-						value="#{clevcoreMsg.search_x_result_doesnt_return}">
-						<f:param value="#{cc.search}" />
-						<f:param value="#{cc.attrs.recordLabel}" />
-					</h:outputFormat>
-				</cc:section>
-			</h:panelGroup>
-
-			<h:panelGroup layout="block" id="paginator">
-				<h:panelGroup
-					rendered="#{!cc.attrs.simplified or (cc.attrs.pagination and cc.data.value.size() gt 5)}">
-					<cc:section styleClass="mTopNormal tCenter"
-						rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
-						<cc:commandButton styleClass="transparent mRightNormal"
-							icon="#{clevcoreIcon.before}" iconType="md"
-							title="#{clevcoreMsg.previous_page}" disabled="#{cc.page == 1}"
-							action="#{cc.onPaginatorPrevious}"
-							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-
-						<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
-							<cc:commandButton
-								styleClass="transparent mLeftNormal mRightNormal #{page == -1 ? 'fs12' : ''} #{page == cc.page ? 'cPrimaryHover fwBold' : ''}"
-								value="#{page == -1 ? '...' : page}" valueLoading=""
-								disabled="#{page == -1 || page == cc.page}"
-								action="#{cc.onPaginatorManager(page)}"
-								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-						</ui:repeat>
-
-						<cc:commandButton styleClass="transparent mLeftNormal"
-							icon="#{clevcoreIcon.next}" iconType="md"
-							title="#{clevcoreMsg.next_page}"
-							disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
-							render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+					<cc:section styleClass="tCenter"
+						rendered="#{cc.attrs.showEmptyMessage and cc.data.value.size() == 0 and cc.search != ''}">
+						<cc:icon styleClass="fs100" value="#{clevcoreIcon.message}"
+							type="md" />
+						<h:outputFormat styleClass="dBlock mBottomNormal fs16"
+							value="#{clevcoreMsg.search_x_result_doesnt_return}">
+							<f:param value="#{cc.search}" />
+							<f:param value="#{cc.attrs.recordLabel}" />
+						</h:outputFormat>
 					</cc:section>
+				</h:panelGroup>
 
-					<h:panelGroup layout="block" styleClass="row mTopNormal"
-						rendered="#{!cc.attrs.simplified and (cc.attrs.showRows or cc.attrs.showInfo) and (!cc.attrs.showEmptyMessage  or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0))}">
-						<h:panelGroup layout="block" styleClass="col s6"
-							rendered="#{cc.attrs.showRows}">
-							<h:outputFormat styleClass="fs12"
-								value="#{clevcoreMsg.records_for_page}">
-								<f:param value="#{cc.attrs.recordLabel}" />
-							</h:outputFormat>
-							<cc:selectOneMenu id="rows" styleClass="fs12 transparent"
-								value="#{cc.attrs.rows}" appearanceDefault="true">
-								<f:ajax event="change" listener="#{cc.recordsForPageListener}"
-									execute="@this"
+				<h:panelGroup layout="block" id="paginator">
+					<h:panelGroup
+						rendered="#{!cc.attrs.simplified or (cc.attrs.pagination and cc.data.value.size() gt 5)}">
+						<cc:section styleClass="mTopNormal tCenter"
+							rendered="#{cc.attrs.showPaginator and cc.pages > 1}">
+							<cc:commandButton styleClass="transparent mRightNormal"
+								icon="#{clevcoreIcon.before}" iconType="md"
+								title="#{clevcoreMsg.previous_page}" disabled="#{cc.page == 1}"
+								action="#{cc.onPaginatorPrevious}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+
+							<ui:repeat var="page" varStatus="status" value="#{cc.pageList}">
+								<cc:commandButton
+									styleClass="transparent mLeftNormal mRightNormal #{page == -1 ? 'fs12' : ''} #{page == cc.page ? 'cPrimaryHover fwBold' : ''}"
+									value="#{page == -1 ? '...' : page}" valueLoading=""
+									disabled="#{page == -1 || page == cc.page}"
+									action="#{cc.onPaginatorManager(page)}"
 									render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
-								<f:selectItem itemLabel="5" itemValue="5" />
-								<f:selectItem itemLabel="10" itemValue="10" />
-								<f:selectItem itemLabel="25" itemValue="25" />
-								<f:selectItem itemLabel="50" itemValue="50" />
-							</cc:selectOneMenu>
-						</h:panelGroup>
+							</ui:repeat>
 
-						<h:panelGroup layout="block"
-							styleClass="col s6 #{!cc.attrs.showRows ? 'offset-s6' : ''} mLeftNormal tRight"
-							rendered="#{cc.attrs.showInfo}">
-							<h:outputFormat styleClass="fs12"
-								value="#{clevcoreMsg.records_info} ">
-								<f:param value="#{cc.attrs.recordLabel}" />
-								<f:param value="#{cc.data.first + 1}" />
-								<f:param
-									value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
-								<f:param value="#{cc.data.value.size()}" />
-							</h:outputFormat>
+							<cc:commandButton styleClass="transparent mLeftNormal"
+								icon="#{clevcoreIcon.next}" iconType="md"
+								title="#{clevcoreMsg.next_page}"
+								disabled="#{cc.page == cc.pages}" action="#{cc.onPaginatorNext}"
+								render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+						</cc:section>
+
+						<h:panelGroup layout="block" styleClass="row mTopNormal"
+							rendered="#{!cc.attrs.simplified and (cc.attrs.showRows or cc.attrs.showInfo) and (!cc.attrs.showEmptyMessage or (cc.attrs.showEmptyMessage and cc.data.value.size() gt 0))}">
+							<h:panelGroup layout="block" styleClass="col s6"
+								rendered="#{cc.attrs.showRows}">
+								<h:outputFormat styleClass="fs12"
+									value="#{clevcoreMsg.records_for_page}">
+									<f:param value="#{cc.attrs.recordLabel}" />
+								</h:outputFormat>
+								<cc:selectOneMenu id="rows" styleClass="fs12 transparent"
+									value="#{cc.attrs.rows}" appearanceDefault="true">
+									<f:ajax event="change" listener="#{cc.recordsForPageListener}"
+										execute="@this"
+										render="#{cc.clientId}:dataTable #{cc.clientId}:paginator" />
+									<f:selectItem itemLabel="5" itemValue="5" />
+									<f:selectItem itemLabel="10" itemValue="10" />
+									<f:selectItem itemLabel="25" itemValue="25" />
+									<f:selectItem itemLabel="50" itemValue="50" />
+								</cc:selectOneMenu>
+							</h:panelGroup>
+
+							<h:panelGroup layout="block"
+								styleClass="col s6 #{!cc.attrs.showRows ? 'offset-s6' : ''} mLeftNormal tRight"
+								rendered="#{cc.attrs.showInfo}">
+								<h:outputFormat styleClass="fs12"
+									value="#{clevcoreMsg.records_info} ">
+									<f:param value="#{cc.attrs.recordLabel}" />
+									<f:param value="#{cc.data.first + 1}" />
+									<f:param
+										value="#{cc.page * cc.data.rows > cc.data.value.size() ? cc.data.value.size() : cc.page * cc.data.rows}" />
+									<f:param value="#{cc.data.value.size()}" />
+								</h:outputFormat>
+							</h:panelGroup>
 						</h:panelGroup>
 					</h:panelGroup>
 				</h:panelGroup>
