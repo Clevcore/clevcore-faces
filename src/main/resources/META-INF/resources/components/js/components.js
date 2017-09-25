@@ -112,6 +112,7 @@ var Panel = {
 
 				setAttributeElement(panelBody, "data-height", getHeightElement(panelBody));
 				panelBody.style.height = "0";
+				addClassElement(panelBody, "oHidden");
 
 				addClassElement(iconHead1, "trz90Ne");
 				addClassElement(iconHead2, "trz45Ne");
@@ -144,6 +145,7 @@ var Panel = {
 
 				setTimeout(function() {
 					panelBody.style.height = "0";
+					addClassElement(panelBody, "oHidden");
 					addClassElement(panelBody, "animate-" + animate);
 				}, 10);
 
@@ -167,6 +169,7 @@ var Panel = {
 
 				setTimeout(function() {
 					panelBody.style.height = "";
+					removeClassElement(panelBody, "oHidden");
 					removeClassElement(panelBody, "animate-" + animate);
 				}, ANIMATION_TIME);
 
