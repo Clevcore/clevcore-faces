@@ -6,50 +6,57 @@
 	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
 	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
 	<composite:interface componentType="#{bbClevcore.SESSION_TIMEOUT}">
+		<composite:attribute name="keepActive" default="false" />
 		<composite:attribute name="onrestart" />
 	</composite:interface>
 
 	<composite:implementation>
-		<cc:popup id="sessionAboutTimeout" closeable="false">
-			<h:form>
-				<cc:panel styleClass="mwNormal">
-					<cc:panelHead icon="#{clevcoreIcon.session_about_timeout}">
-						<h:outputText value="#{clevcoreMsg.session_about_timeout}" />
-					</cc:panelHead>
-					<cc:panelBody>
-						<h:outputText value="#{clevcoreMsg.session_about_timeout_info}" />
-					</cc:panelBody>
-					<cc:panelFoot styleClass="m-tRight">
-						<cc:commandButton styleClass="primary-simple m-wAuto"
-							icon="#{clevcoreIcon.session_timeout_restart}"
-							value="#{clevcoreMsg._continue}" render="@this"
-							oncomplete="Popup.hide();" />
-					</cc:panelFoot>
-				</cc:panel>
-			</h:form>
-		</cc:popup>
+		<h:form id="form" styleClass="dNone">
+			<cc:commandButton id="keepActive" render="@this" />
+		</h:form>
 
-		<cc:popup id="sessionTimeout" closeable="false">
-			<h:form>
-				<cc:panel styleClass="mwNormal">
-					<cc:panelHead icon="#{clevcoreIcon.session_timeout}">
-						<h:outputText value="#{clevcoreMsg.session_timeout}" />
-					</cc:panelHead>
-					<cc:panelBody>
-						<h:outputText value="#{clevcoreMsg.session_timeout_info}" />
-					</cc:panelBody>
-					<cc:panelFoot styleClass="m-tRight">
-						<cc:commandButton styleClass="primary-simple m-wAuto"
-							icon="#{clevcoreIcon.session_timeout_restart}"
-							value="#{clevcoreMsg.restart}"
-							onclick="#{cc.attrs.onrestart != null ? cc.attrs.onrestart : 'redirect(path);'}" />
-					</cc:panelFoot>
-				</cc:panel>
-			</h:form>
-		</cc:popup>
+		<h:panelGroup rendered="#{!cc.attrs.keepActive}">
+			<cc:popup id="sessionAboutTimeout" closeable="false">
+				<h:form>
+					<cc:panel styleClass="mwNormal">
+						<cc:panelHead icon="#{clevcoreIcon.session_about_timeout}">
+							<h:outputText value="#{clevcoreMsg.session_about_timeout}" />
+						</cc:panelHead>
+						<cc:panelBody>
+							<h:outputText value="#{clevcoreMsg.session_about_timeout_info}" />
+						</cc:panelBody>
+						<cc:panelFoot styleClass="m-tRight">
+							<cc:commandButton styleClass="primary-simple m-wAuto"
+								icon="#{clevcoreIcon.session_timeout_restart}"
+								value="#{clevcoreMsg._continue}" render="@this"
+								onsuccess="SessionTimeout.onKeepActive();" />
+						</cc:panelFoot>
+					</cc:panel>
+				</h:form>
+			</cc:popup>
+
+			<cc:popup id="sessionTimeout" closeable="false">
+				<h:form>
+					<cc:panel styleClass="mwNormal">
+						<cc:panelHead icon="#{clevcoreIcon.session_timeout}">
+							<h:outputText value="#{clevcoreMsg.session_timeout}" />
+						</cc:panelHead>
+						<cc:panelBody>
+							<h:outputText value="#{clevcoreMsg.session_timeout_info}" />
+						</cc:panelBody>
+						<cc:panelFoot styleClass="m-tRight">
+							<cc:commandButton styleClass="primary-simple m-wAuto"
+								icon="#{clevcoreIcon.session_timeout_restart}"
+								value="#{clevcoreMsg.restart}"
+								onclick="#{cc.attrs.onrestart != null ? cc.attrs.onrestart : 'redirect(path);'}" />
+						</cc:panelFoot>
+					</cc:panel>
+				</h:form>
+			</cc:popup>
+		</h:panelGroup>
 
 		<script>
-			SessionTimeout.init("#{cc.clientId}", #{request.session.maxInactiveInterval});
+			SessionTimeout.init("#{cc.clientId}", #{request.session.maxInactiveInterval}, #{cc.attrs.keepActive});
 		</script>
 	</composite:implementation>
 </ui:composition>

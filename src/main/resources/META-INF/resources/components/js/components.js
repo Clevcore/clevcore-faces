@@ -1511,26 +1511,35 @@ var SelectManyCheckbox = {
 var SessionTimeout = {
 	id : undefined,
 	maxInactiveInterval : undefined,
+	keepActive : undefined,
 
 	timeout1 : undefined,
 	timeout2 : undefined,
 
-	init : function(id, maxInactiveInterval) {
+	init : function(id, maxInactiveInterval, keepActive) {
 		document.addEventListener("DOMContentLoaded", function() {
 			SessionTimeout.id = id;
 			SessionTimeout.maxInactiveInterval = maxInactiveInterval;
+			SessionTimeout.keepActive = keepActive;
+
 			SessionTimeout.start();
 		});
 	},
 
 	start : function() {
-		SessionTimeout.timeout1 = setTimeout(function() {
-			Popup.show(SessionTimeout.id + ":sessionAboutTimeout");
-		}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
+		if (SessionTimeout.keepActive) {
+			SessionTimeout.timeout1 = setTimeout(function() {
+				SessionTimeout.onKeepActive();
+			}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
+		} else {
+			SessionTimeout.timeout1 = setTimeout(function() {
+				Popup.show(SessionTimeout.id + ":sessionAboutTimeout");
+			}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
 
-		SessionTimeout.timeout2 = setTimeout(function() {
-			Popup.show(SessionTimeout.id + ":sessionTimeout");
-		}, SessionTimeout.maxInactiveInterval * 1000);
+			SessionTimeout.timeout2 = setTimeout(function() {
+				Popup.show(SessionTimeout.id + ":sessionTimeout");
+			}, SessionTimeout.maxInactiveInterval * 1000);
+		}
 	},
 
 	stop : function() {
@@ -1541,6 +1550,11 @@ var SessionTimeout = {
 	reset : function() {
 		SessionTimeout.stop();
 		SessionTimeout.start();
+	},
+
+	onKeepActive : function() {
+		getElement(SessionTimeout.id + ":form:keepActive:id").click();
+		SessionTimeout.reset();
 	}
 };
 
