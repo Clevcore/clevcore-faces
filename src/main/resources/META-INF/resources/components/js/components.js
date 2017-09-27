@@ -58,7 +58,6 @@ var Ajax = {
 			}
 
 			SessionTimeout.reset();
-
 			break;
 		case "complete":
 			if (getAttributeElement(data.source, "data-oncomplete") != null) {
@@ -1554,7 +1553,6 @@ var SessionTimeout = {
 
 	onKeepActive : function() {
 		getElement(SessionTimeout.id + ":form:keepActive:id").click();
-		SessionTimeout.reset();
 	}
 };
 
