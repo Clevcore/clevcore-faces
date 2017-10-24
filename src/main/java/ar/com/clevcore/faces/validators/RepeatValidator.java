@@ -9,15 +9,15 @@ import javax.faces.validator.ValidatorException;
 
 import ar.com.clevcore.faces.utils.FacesUtils;
 
-@FacesValidator("RepeatValidator")
+@FacesValidator(value = "RepeatValidator")
 public class RepeatValidator implements Validator {
 
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         if (!value.toString().equals(component.getAttributes().get("repeat").toString())) {
             if (component.getAttributes().get("validatorMessage") != null) {
-                throw new ValidatorException(FacesUtils.getFacesMessage(FacesMessage.SEVERITY_ERROR, component
-                        .getAttributes().get("validatorMessage").toString()));
+                throw new ValidatorException(FacesUtils.getFacesMessage(FacesMessage.SEVERITY_ERROR,
+                        component.getAttributes().get("validatorMessage").toString()));
             } else {
                 throw new ValidatorException(FacesUtils.getFacesMessage(FacesMessage.SEVERITY_ERROR,
                         FacesUtils.getClevcoreResource("repeat_validation")));

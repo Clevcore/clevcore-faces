@@ -10,7 +10,7 @@ import javax.faces.validator.ValidatorException;
 import ar.com.clevcore.faces.utils.FacesUtils;
 import ar.com.clevcore.utils.ValidatorUtils;
 
-@FacesValidator("EmailValidator")
+@FacesValidator(value = "EmailValidator")
 public class EmailValidator implements Validator {
 
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
