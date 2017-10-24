@@ -15,7 +15,6 @@ public final class Constant {
     public static final String FLOAT_IF_NOT_VISIBLE = COMPONENT_PATH + "FloatIfNotVisible";
     public static final String GRAPHIC_IMAGE = COMPONENT_PATH + "GraphicImage";
     public static final String ICON = COMPONENT_PATH + "Icon";
-    public static final String INPUT_CHECKBOX = COMPONENT_PATH + "InputCheckbox";
     public static final String INPUT_DATE = COMPONENT_PATH + "InputDate";
     public static final String INPUT_TEXT = COMPONENT_PATH + "InputText";
     public static final String ITEM = COMPONENT_PATH + "Item";

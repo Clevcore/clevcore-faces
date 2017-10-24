@@ -96,10 +96,6 @@ public class BBClevcore implements Serializable {
         return Constant.ICON;
     }
 
-    public String getINPUT_CHECKBOX() {
-        return Constant.INPUT_CHECKBOX;
-    }
-
     public String getINPUT_DATE() {
         return Constant.INPUT_DATE;
     }
