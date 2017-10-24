@@ -1,13 +1,15 @@
 package ar.com.clevcore.faces.converters;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import ar.com.clevcore.utils.StringUtils;
 
-@FacesConverter("StringTrimAll")
+@ManagedBean(name = "StringTrimAll")
+@RequestScoped
 public class StringTrimAll implements Converter {
 
     @Override

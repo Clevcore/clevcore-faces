@@ -1,13 +1,15 @@
 package ar.com.clevcore.faces.converters;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 import ar.com.clevcore.utils.StringUtils;
 
-@FacesConverter("StringRemoveWhitespace")
+@ManagedBean(name = "StringRemoveWhitespace")
+@RequestScoped
 public class StringRemoveWhitespace implements Converter {
 
     @Override

@@ -1,11 +1,13 @@
 package ar.com.clevcore.faces.converters;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
-@FacesConverter("StringReplaceLineBreak")
+@ManagedBean(name = "StringReplaceLineBreak")
+@RequestScoped
 public class StringReplaceLineBreak implements Converter {
 
     @Override
