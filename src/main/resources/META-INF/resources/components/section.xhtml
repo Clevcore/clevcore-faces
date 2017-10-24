@@ -19,17 +19,12 @@
 
 	<composite:implementation>
 		<h:panelGroup rendered="#{cc.attrs.rendered}">
-			<section id="#{cc.clientId}"
-				class="section pNormal #{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-				<cc:icon styleClass="fs20 pRightNormal #{cc.attrs.iconClass}"
-					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
-					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
+			<section id="#{cc.clientId}" class="section #{cc.attrs.styleClass}"
+				style="#{cc.attrs.style}">
+				<cc:title icon="#{cc.attrs.icon}" iconType="#{cc.attrs.iconType}"
+					iconClass="#{cc.attrs.iconClass}" iconStyle="#{cc.attrs.iconStyle}"
+					value="#{cc.attrs.value}" />
 
-				<h:outputText styleClass="fwLight fs18 tUppercase"
-					value="#{cc.attrs.value}" rendered="#{cc.attrs.value != null}" />
-
-				<cc:separator styleClass="mTopNormal mBottomNormal"
-					rendered="#{cc.attrs.icon ne null or cc.attrs.value != null}" />
 				<composite:insertChildren />
 			</section>
 		</h:panelGroup>
