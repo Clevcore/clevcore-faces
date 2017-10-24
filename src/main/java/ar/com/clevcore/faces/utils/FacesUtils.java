@@ -97,7 +97,7 @@ public final class FacesUtils {
         return elContext != null ? elContext.getELResolver() : null;
     }
 
-    public static Object elResolverValue(String property) {
+    public static Object elResolverValue(Object property) {
         ELResolver elResolver = getELResolver();
         return elResolver != null ? elResolver.getValue(getELContext(), null, property) : null;
     }
@@ -268,13 +268,15 @@ public final class FacesUtils {
     public static void addMessage(String id, FacesMessage facesMessage) {
         getFacesContext().addMessage(id, facesMessage);
 
-        String detail = facesMessage.getDetail();
+        if (id == null) {
+            String detail = facesMessage.getDetail();
 
-        if (facesMessage.getSummary() != null && !FacesMessage.SEVERITY_INFO.equals(facesMessage.getSummary())) {
-            detail = facesMessage.getSummary().toUpperCase() + ": " + detail;
+            if (facesMessage.getSummary() != null && !FacesMessage.SEVERITY_INFO.equals(facesMessage.getSummary())) {
+                detail = facesMessage.getSummary().toUpperCase() + ": " + detail;
+            }
+
+            executeScript("Messages.show('" + detail + "');");
         }
-
-        executeScript("Messages.show('" + detail + "');");
     }
 
     public static void keepMessages() {
