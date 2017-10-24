@@ -1,4 +1,8 @@
 /* generix */
+function getHtml() {
+	return document.documentElement;
+}
+
 function getHead() {
 	return document.head;
 }
@@ -30,11 +34,12 @@ function getValueElement(element) {
 }
 
 function setValue(id, value) {
-	return setValueElement(getElement(id), value);
+	setValueElement(getElement(id), value);
 }
 
 function setValueElement(element, value) {
-	return element.value = value;
+	element.value = value;
+	element.dispatchEvent(new Event("change"));
 }
 
 function addValue(id, value, isTop) {
@@ -648,11 +653,11 @@ function getHeightScrollElement(element) {
 }
 
 function getHeightWindow() {
-	return getHeightElement(getBody());
+	return getHeightElement(getHtml());
 }
 
 function getHeightWindowScroll() {
-	return getHeightScrollElement(getBody());
+	return getHeightScrollElement(getHtml());
 }
 
 function getHeightScreen() {
@@ -681,11 +686,11 @@ function getWidthScrollElement(element) {
 }
 
 function getWidthWindow() {
-	return getWidthElement(getBody());
+	return getWidthElement(getHtml());
 }
 
 function getWidthWindowScroll() {
-	return getWidthScrollElement(getBody());
+	return getWidthScrollElement(getHtml());
 }
 
 function getWidthScreen() {
@@ -755,7 +760,7 @@ function getBottomScrollElement(element) {
 }
 
 function getBottomWindowScroll() {
-	return getBottomScrollElement(getBody());
+	return getBottomScrollElement(getHtml());
 }
 
 function getLeft(id) {
@@ -775,7 +780,7 @@ function getLeftScrollElement(element) {
 }
 
 function getLeftWindowScroll() {
-	return getLeftScrollElement(getBody());
+	return getLeftScrollElement(getHtml());
 }
 
 function getRight(id) {
@@ -795,7 +800,7 @@ function getRightScrollElement(element) {
 }
 
 function getRightWindowScroll() {
-	return getRightScrollElement(getBody());
+	return getRightScrollElement(getHtml());
 }
 
 function getTop(id) {
@@ -815,7 +820,7 @@ function getTopScrollElement(element) {
 }
 
 function getTopWindowScroll() {
-	return getTopScrollElement(getBody());
+	return getTopScrollElement(getHtml());
 }
 
 function isVisibleVertical(id, completely) {
