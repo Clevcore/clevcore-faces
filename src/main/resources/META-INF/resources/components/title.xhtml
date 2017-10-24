@@ -18,18 +18,18 @@
 	</composite:interface>
 
 	<composite:implementation>
-		<h:panelGroup rendered="#{cc.attrs.rendered}"
-			styleclass="#{cc.attrs.styleClass}" style="#{cc.attrs.style}">
-			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
-			<h:panelGroup layout="block" styleClass="pBottomNormal ">
-				<cc:icon styleClass="title pRightNormal #{cc.attrs.iconClass}"
+		<h:panelGroup
+			rendered="#{cc.attrs.rendered and cc.attrs.value ne null}">
+			<h1 id="#{cc.clientId}" class="title #{cc.attrs.styleClass}" style="">
+				<cc:icon styleClass="title-icon pRightNormal #{cc.attrs.iconClass}"
 					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
 					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
-				<h:panelGroup styleClass="fwLight fs16 tUppercase">
-					<h:outputText value="#{cc.attrs.value}" />
-					<composite:insertChildren />
-				</h:panelGroup>
-			</h:panelGroup>
+
+				<h:outputText styleClass="fwLight fs18 tUppercase"
+					value="#{cc.attrs.value}" rendered="#{cc.attrs.value ne null}" />
+
+				<composite:insertChildren />
+			</h1>
 		</h:panelGroup>
 	</composite:implementation>
 </ui:composition>
