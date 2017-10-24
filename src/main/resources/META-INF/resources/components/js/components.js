@@ -1842,7 +1842,7 @@ var Reset = {
 		enable : true,
 
 		query : function() {
-			return document.querySelectorAll("[data-only=number]");
+			return document.querySelectorAll("[type=number]");
 		},
 
 		on : function() {
