@@ -18,6 +18,41 @@
 }
 
 
+/* attention */
+@-webkit-keyframes attention {
+	0%, 100% {
+		-webkit-transform: translate(0, 0);
+	}
+
+	33% {
+		-webkit-transform: translate(-5px, 0);
+	}
+
+	66% {
+		-webkit-transform: translate(5px, 0);
+	}
+}
+
+@keyframes attention {
+	0%, 100% {
+		transform: translate(0, 0);
+	}
+
+	33% {
+		transform: translate(-5px, 0);
+	}
+
+	66% {
+		transform: translate(5px, 0);
+	}
+}
+
+.animate-attention {
+	-webkit-animation-name: attention;
+	        animation-name: attention;
+}
+
+
 /* bounce */
 @-webkit-keyframes bounce {
 	0%, 20%, 60%, 80%, 100% {
