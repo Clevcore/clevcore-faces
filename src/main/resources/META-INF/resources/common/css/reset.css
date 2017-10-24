@@ -32,7 +32,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	text-rendering: optimizeLegibility;
 
 	/* Firefox */
-	-moz-osx-font-smoothing : grayscale;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -103,28 +103,44 @@ textarea[data-height] {
 	text-shadow: none !important;
 }
 
+input::placeholder {
+	color: #757575; /* grey-600 */
+	font-size: 14px;
+	font-weight: normal !important;
+	line-height: 24px;
+	opacity: 1;
+}
+
 ::-webkit-input-placeholder {
-	color: #9E9E9E; /* grey-500 */
-	font-weight: 300 !important;
-	line-height: 1.4;
+	color: #757575; /* grey-600 */
+	font-size: 14px;
+	font-weight: normal !important;
+	line-height: 24px;
+	opacity: 1;
 }
 
 ::-moz-placeholder {
-	color: #9E9E9E; /* grey-500 */
-	font-weight: 300 !important;
-	line-height: 1.4;
+	color: #757575; /* grey-600 */
+	font-size: 14px;
+	font-weight: normal !important;
+	line-height: 24px;
+	opacity: 1;
 }
 
 :-moz-placeholder {
-	color: #9E9E9E; /* grey-500 */
-	font-weight: 300 !important;
-	line-height: 1.4;
+	color: #757575; /* grey-600 */
+	font-size: 14px;
+	font-weight: normal !important;
+	line-height: 24px;
+	opacity: 1;
 }
 
 :-ms-input-placeholder {
-	color: #9E9E9E; /* grey-500 */
-	font-weight: 300 !important;
-	line-height: 1.4;
+	color: #757575; /* grey-600 */
+	font-size: 14px;
+	font-weight: normal !important;
+	line-height: 24px;
+	opacity: 1;
 }
 
 /* print */

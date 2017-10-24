@@ -703,6 +703,71 @@ var FloatIfNotVisible = function() {
 	};
 }();
 
+/* inputText */
+var InputText = {
+
+	init : function(id, type) {
+		var valueElement = getSelector("#" + id + " .input-md-value");
+
+		if (getSelector("#" + id + " .input-md-maxlength") !== null) {
+			InputText.initMaxlength(id);
+			valueElement.addEventListener("keyup", InputText.processMaxlength);
+			valueElement.addEventListener("keypress", InputText.processMaxlength);
+		}
+
+		InputText.initWithValue(id);
+		valueElement.addEventListener("change", InputText.processWithValue);
+
+		remove(id + ":script");
+	},
+
+	// init
+	initMaxlength : function(id) {
+		var valueElement = getSelector("#" + id + " .input-md-value");
+		var maxlengthElement = getSelector("#" + id + " .input-md-maxlength");
+
+		setInnerHTMLElement(maxlengthElement, valueElement.value.length + "/"
+				+ getAttributeElement(valueElement, "maxlength"));
+	},
+
+	initWithValue : function(id) {
+		var valueElement = getSelector("#" + id + " .input-md-value");
+
+		if (valueElement.value === "") {
+			removeClassElement(valueElement, "with-value");
+		} else {
+			addClassElement(valueElement, "with-value");
+		}
+	},
+
+	// method
+	processMaxlength : function() {
+		InputText.initMaxlength(this.parentNode.id);
+	},
+
+	processWithValue : function() {
+		InputText.initWithValue(this.parentNode.id);
+	},
+
+	message : {
+		add : function(id, severity, message) {
+			var containerElement = getElement(id);
+			var severityElement = getSelector("#" + id + " .input-md-severity");
+
+			addClassElement(containerElement, severity);
+			setInnerHTMLElement(severityElement, message);
+		},
+
+		remove : function(id, severity) {
+			var containerElement = getElement(id);
+			var severityElement = getSelector("#" + id + " .input-md-severity");
+
+			removeClassElement(containerElement, severity);
+			setInnerHTMLElement(severityElement, "");
+		}
+	}
+}
+
 /* items */
 var Items = {
 	SHOW_EVENT : "showItems",

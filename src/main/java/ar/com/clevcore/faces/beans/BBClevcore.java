@@ -104,6 +104,10 @@ public class BBClevcore implements Serializable {
         return Constant.INPUT_DATE;
     }
 
+    public String getINPUT_TEXT() {
+        return Constant.INPUT_TEXT;
+    }
+
     public String getITEM() {
         return Constant.ITEM;
     }

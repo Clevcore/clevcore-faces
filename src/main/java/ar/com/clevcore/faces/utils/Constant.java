@@ -17,6 +17,7 @@ public final class Constant {
     public static final String ICON = COMPONENT_PATH + "Icon";
     public static final String INPUT_CHECKBOX = COMPONENT_PATH + "InputCheckbox";
     public static final String INPUT_DATE = COMPONENT_PATH + "InputDate";
+    public static final String INPUT_TEXT = COMPONENT_PATH + "InputText";
     public static final String ITEM = COMPONENT_PATH + "Item";
     public static final String ITEMS = COMPONENT_PATH + "Items";
     public static final String LOADING_PAGE = COMPONENT_PATH + "LoadingPage";

@@ -1,0 +1,193 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+	xmlns:cc="http://xmlns.jcp.org/jsf/composite/components">
+	<composite:interface componentType="#{bbClevcore.INPUT_TEXT}">
+		<composite:attribute name="type" type="java.lang.String" />
+
+		<composite:attribute name="binding" targets="inputText" />
+
+		<composite:attribute name="containerClass" type="java.lang.String" />
+		<composite:attribute name="containerStyle" type="java.lang.String" />
+
+		<composite:attribute name="styleClass" type="java.lang.String" />
+		<composite:attribute name="style" type="java.lang.String" />
+
+		<composite:attribute name="icon" />
+		<composite:attribute name="iconType" default="fa" shortDescription="Type of icons to use. Valid values are: fa (Font Awesome) and md (Material Design). The default value is 'fa'." />
+		<composite:attribute name="iconClass" />
+		<composite:attribute name="iconStyle" />
+
+		<composite:attribute name="label" type="java.lang.String" />
+		<composite:attribute name="title" type="java.lang.String" />
+		<composite:attribute name="placeholder" type="java.lang.String" />
+
+		<composite:attribute name="value" type="java.lang.String" />
+		<composite:editableValueHolder name="value" targets="inputText" />
+
+		<composite:attribute name="autocomplete" type="java.lang.Boolean" />
+		<composite:attribute name="maxlength" type="java.lang.Integer" />
+
+		<composite:attribute name="disabled" type="java.lang.Boolean" />
+		<composite:attribute name="readonly" type="java.lang.Boolean" />
+
+		<composite:attribute name="immediate" type="java.lang.Boolean" />
+
+		<composite:attribute name="converter" type="java.lang.String" />
+		<composite:attribute name="converterMessage" type="java.lang.String" />
+
+		<composite:attribute name="required" type="java.lang.Boolean" />
+		<composite:attribute name="requiredMessage" type="java.lang.String" />
+
+		<composite:attribute name="rendered" type="java.lang.Boolean" />
+
+		<composite:attribute name="showMaxlength" type="java.lang.Boolean" />
+		<composite:attribute name="showRequired" type="java.lang.Boolean" />
+
+		<composite:attribute name="enableCopy" type="java.lang.Boolean" default="false" />
+
+		<composite:attribute name="onblur" type="java.lang.String"  />
+		<composite:attribute name="onchange" type="java.lang.String" />
+		<composite:attribute name="onclick" type="java.lang.String" />
+		<composite:attribute name="ondblclick" type="java.lang.String" />
+		<composite:attribute name="onfocus" type="java.lang.String" />
+		<composite:attribute name="onkeydown" type="java.lang.String" />
+		<composite:attribute name="onkeypress" type="java.lang.String" />
+		<composite:attribute name="onkeyup" type="java.lang.String" />
+		<composite:attribute name="onmousedown" type="java.lang.String" />
+		<composite:attribute name="onmousemove" type="java.lang.String" />
+		<composite:attribute name="onmouseout" type="java.lang.String" />
+		<composite:attribute name="onmouseover" type="java.lang.String" />
+		<composite:attribute name="onmouseup" type="java.lang.String" />
+
+		<composite:attribute name="onbegin" type="java.lang.String" />
+		<composite:attribute name="oncomplete" type="java.lang.String" />
+		<composite:attribute name="onsuccess" type="java.lang.String" />
+		<composite:attribute name="onvalidation" type="java.lang.String" />
+
+		<composite:clientBehavior name="blur" event="blur" targets="inputText" />
+		<composite:clientBehavior name="change" event="change" targets="inputText" />
+		<composite:clientBehavior name="click" event="click" targets="inputText" />
+		<composite:clientBehavior name="dblclick" event="dblclick" targets="inputText" />
+		<composite:clientBehavior name="focus" event="focus" targets="inputText" />
+		<composite:clientBehavior name="keydown" event="keydown" targets="inputText" />
+		<composite:clientBehavior name="keypress" event="keypress" targets="inputText" />
+		<composite:clientBehavior name="keyup" event="keyup" targets="inputText" />
+		<composite:clientBehavior name="mousedown" event="mousedown" targets="inputText" />
+		<composite:clientBehavior name="mousemove" event="mousemove" targets="inputText" />
+		<composite:clientBehavior name="mouseout" event="mouseout" targets="inputText" />
+		<composite:clientBehavior name="mouseover" event="mouseover" targets="inputText" />
+		<composite:clientBehavior name="mouseup" event="mouseup" targets="inputText" />
+	</composite:interface>
+
+	<composite:implementation>
+		<h:panelGroup
+			layout="block"
+			styleClass="input-md-container #{cc.attrs.required and cc.attrs.showRequired ? 'required' : ''} #{cc.attrs.icon ne null ? 'with-icon' : ''} #{cc.severity} #{cc.attrs.containerClass}"
+			style="#{cc.attrs.containerStyle}"
+			rendered="#{cc.attrs.rendered}">
+			<f:passThroughAttribute name="id" value="#{cc.clientId}" />
+			<c:if test="#{cc.attrs.title != null}">
+				<f:passThroughAttribute name="data-title" value="#{cc.attrs.title}" />
+			</c:if>
+
+			<cc:icon
+				styleClass="input-md-icon #{cc.attrs.iconClass}"
+				style="#{cc.attrs.iconStyle}"
+				value="#{cc.attrs.icon}"
+				type="#{cc.attrs.iconType}"
+				rendered="#{cc.attrs.icon ne null}" />
+
+			<h:inputText
+				binding="#{cc.inputText}"
+
+				id="inputText"
+				styleClass="input-md-value #{cc.attrs.styleClass}"
+
+				value="#{cc.attrs.value}"
+
+			    autocomplete="#{cc.attrs.autocomplete}"
+				maxlength="#{cc.attrs.maxlength}"
+
+				disabled="#{cc.attrs.disabled}"
+				readonly="#{cc.attrs.readonly}"
+
+				onblur="#{cc.attrs.onblur}"
+				onchange="#{cc.attrs.onchange}"
+				onclick="#{cc.attrs.onclick}"
+				ondblclick="#{cc.attrs.enableCopy ? 'copyWithMessagesElement(this);' : ''} #{cc.attrs.ondblclick}"
+				onfocus="#{cc.attrs.onfocus}"
+				onkeydown="#{cc.attrs.onkeydown}"
+				onkeypress="#{cc.attrs.onkeypress}"
+				onkeyup="#{cc.attrs.onkeyup}"
+				onmousedown="#{cc.attrs.onmousedown}"
+				onmousemove="#{cc.attrs.onmousemove}"
+				onmouseout="#{cc.attrs.onmouseout}"
+				onmouseover="#{cc.attrs.onmouseover}"
+				onmouseup="#{cc.attrs.onmouseup}"
+				onselect="#{cc.attrs.onselect}">
+				<c:if test="#{cc.attrs.type != null}">
+					<f:passThroughAttribute name="type" value="#{cc.attrs.type}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.style != null}">
+					<f:passThroughAttribute name="style" value="#{cc.attrs.style}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.placeholder != null and cc.attrs.label == null}">
+					<f:passThroughAttribute name="placeholder" value="#{cc.attrs.placeholder}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.maxlength == null}">
+					<f:passThroughAttribute name="maxlength" value="" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.onbegin != null}">
+					<f:passThroughAttribute name="data-onbegin" value="#{cc.attrs.onbegin}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.oncomplete != null}">
+					<f:passThroughAttribute name="data-oncomplete" value="#{cc.attrs.oncomplete}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.onsuccess != null}">
+					<f:passThroughAttribute name="data-onsuccess" value="#{cc.attrs.onsuccess}" />
+				</c:if>
+
+				<c:if test="#{cc.attrs.onvalidation != null}">
+					<f:passThroughAttribute name="data-onvalidation" value="#{cc.attrs.onvalidation}" />
+				</c:if>
+			</h:inputText>
+
+			<h:panelGroup styleClass="input-md-bar" />
+
+			<h:outputLabel
+				styleClass="input-md-label"
+				value="#{cc.attrs.label}"
+				for="inputText"
+				rendered="#{cc.attrs.label != null}" />
+
+			<h:panelGroup layout="block" styleClass="input-md-message">
+				<h:panelGroup styleClass="input-md-severity">
+					<h:message for="inputText" />
+				</h:panelGroup>
+				<h:outputText
+					styleClass="input-md-maxlength"
+					rendered="#{cc.attrs.maxlength != null and cc.attrs.showMaxlength and !cc.attrs.disabled and !cc.attrs.readonly}" />
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="input-md-children">
+				<composite:insertChildren />
+			</h:panelGroup>
+
+			<h:panelGroup id="script" layout="block">
+				<script>
+					InputText.init("#{cc.clientId}");
+				</script>
+			</h:panelGroup>
+		</h:panelGroup>
+	</composite:implementation>
+</ui:composition>
