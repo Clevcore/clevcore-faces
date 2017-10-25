@@ -43,7 +43,7 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         data.setVar(getAttributes().get("var").toString());
 
         // rows
-        if (getAttributes().get("rows") != null && !getAttributes().get("rows").toString().isEmpty()) {
+        if (getAttributes().get("rows") != null) {
             data.setRows(Integer.parseInt(getAttributes().get("rows").toString()));
         } else {
             data.setRows(5);
@@ -67,10 +67,12 @@ public class DataTable extends UIComponentBase implements NamingContainer {
         }
 
         // paginator
-        if (getPage() == null) {
+        initPages();
+        if (getAttributes().get("pageAfterRender") != null) {
+            setPage(Integer.parseInt(getAttributes().get("pageAfterRender").toString()));
+        } else if (getPage() == null || getPage() > getPages()) {
             setPage(1);
         }
-        initPages();
         paginatorRefresh();
 
         // pagination
