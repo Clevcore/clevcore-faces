@@ -984,6 +984,17 @@ function objectToParameter(parameters) {
 	return result;
 }
 
+function jsonConcat(object1, object2) {
+	for ( var key in object2) {
+		object1[key] = object2[key];
+	}
+	return object1;
+}
+
+function jsonEmpty(object) {
+	return Object.keys(object).length === 0 && object.constructor === Object;
+}
+
 function getDirectory() {
 	var beginIndex = getUrlFull().ordinalIndexOf("/", 4);
 	var endIndex = getUrlFull().lastIndexOf("/");
