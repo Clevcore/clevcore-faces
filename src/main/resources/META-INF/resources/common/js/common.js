@@ -1251,14 +1251,22 @@ var System = {
 			break;
 		case System.CONSTANT.BROWSER.FIREFOX:
 			indexOf = ua.indexOf("Firefox/");
+
 			setAttribute("html", "moznomarginboxes", "");
 			setAttribute("html", "mozdisallowselectionprint", "");
+
 			break;
 		case System.CONSTANT.BROWSER.INTERNET_EXPLORER:
 			indexOf = ua.indexOf("MSIE ") !== -1 ? ua.indexOf("MSIE ") : ua.indexOf("rv:");
 			break;
 		case System.CONSTANT.BROWSER.OPERA:
 			indexOf = ua.indexOf("OPR/");
+
+			var array = getSelectors("a[href='#']");
+			for (var i = 0; i < array.length; i++) {
+				removeAttributeElement(array[i], "href");
+			}
+
 			break;
 		case System.CONSTANT.BROWSER.SAFARI:
 			indexOf = ua.indexOf("Safari/");
