@@ -38,8 +38,14 @@ function setValue(id, value) {
 }
 
 function setValueElement(element, value) {
-	element.value = value;
-	element.dispatchEvent(new Event("change"));
+	try {
+		element.value = value;
+		element.dispatchEvent(new Event("change"));
+	} catch (e) {
+		var event = document.createEvent("Event");
+		event.initEvent("change", false, false);
+		element.dispatchEvent(event);
+	}
 }
 
 function addValue(id, value, isTop) {
