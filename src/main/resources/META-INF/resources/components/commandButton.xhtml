@@ -16,6 +16,8 @@
 		<composite:attribute name="iconClass" />
 		<composite:attribute name="iconStyle" />
 		<composite:attribute name="value" />
+		<composite:attribute name="valueClass" />
+		<composite:attribute name="valueStyle" />
 		<composite:attribute name="title" />
 		<composite:attribute name="valueLoading"
 			default="#{clevcoreMsg.loading}" />
@@ -66,8 +68,10 @@
 					style="#{cc.attrs.iconStyle}" value="#{cc.attrs.icon}"
 					type="#{cc.attrs.iconType}" rendered="#{cc.attrs.icon ne null}" />
 
-				<h:outputText id="value" styleClass="btn-text-value"
-					value="#{cc.attrs.value}" rendered="#{cc.attrs.value ne null}" />
+				<h:outputText id="value"
+					styleClass="btn-text-value #{cc.attrs.valueClass}"
+					style="#{cc.attrs.valueStyle}" value="#{cc.attrs.value}"
+					rendered="#{cc.attrs.value ne null}" />
 			</h:panelGroup>
 
 			<f:passThroughAttribute name="type" value="#{cc.type}" />
