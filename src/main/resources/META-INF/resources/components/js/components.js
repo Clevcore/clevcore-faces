@@ -669,7 +669,7 @@ var FloatIfNotVisible = function() {
 		init : function() {
 			var elementArray = getElementArray();
 			for (var i = 0; i < elementArray.length; i++) {
-				addStyleElement(elementArray[i], "z-index: " + (elementArray.length - i) + ";");
+				addStyleElement(elementArray[i], "z-index: " + (elementArray.length - i + 1) + ";");
 				if (hasClassElement(elementArray[i], "js-float-top-if-not-visible")
 						|| hasClassElement(elementArray[i], "js-float-bottom-if-not-visible")) {
 					addStyleElement(elementArray[i], "height: " + getHeightElement(elementArray[i]) + "px;");
