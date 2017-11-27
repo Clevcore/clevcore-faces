@@ -1574,36 +1574,49 @@ var SelectManyCheckbox = {
 /* sessionTimeout */
 var SessionTimeout = {
 	id : undefined,
+
 	maxInactiveInterval : undefined,
-	keepActive : undefined,
+
+	autorestart : undefined,
+	repetitions : undefined,
+
+	countRepetitions : undefined,
 
 	timeout1 : undefined,
 	timeout2 : undefined,
 
-	init : function(id, maxInactiveInterval, keepActive) {
+	init : function(id, maxInactiveInterval, autorestart, repetitions) {
 		document.addEventListener("DOMContentLoaded", function() {
 			SessionTimeout.id = id;
+
 			SessionTimeout.maxInactiveInterval = maxInactiveInterval;
-			SessionTimeout.keepActive = keepActive;
+
+			SessionTimeout.autorestart = autorestart;
+			SessionTimeout.repetitions = repetitions;
+
+			SessionTimeout.countRepetitions = 0;
 
 			SessionTimeout.start();
 		});
 	},
 
 	start : function() {
-		if (SessionTimeout.keepActive) {
-			SessionTimeout.timeout1 = setTimeout(function() {
+		SessionTimeout.timeout1 = setTimeout(function() {
+			SessionTimeout.countRepetitions++;
+			if (SessionTimeout.countRepetitions < SessionTimeout.repetitions) {
 				SessionTimeout.onKeepActive();
-			}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
-		} else {
-			SessionTimeout.timeout1 = setTimeout(function() {
+			} else {
 				Popup.show(SessionTimeout.id + ":sessionAboutTimeout");
-			}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
 
-			SessionTimeout.timeout2 = setTimeout(function() {
-				Popup.show(SessionTimeout.id + ":sessionTimeout");
-			}, SessionTimeout.maxInactiveInterval * 1000);
-		}
+				SessionTimeout.timeout2 = setTimeout(function() {
+					Popup.show(SessionTimeout.id + ":sessionTimeout");
+					if (SessionTimeout.autorestart) {
+						window.addEventListener("mousemove", SessionTimeout.onRestart);
+						window.addEventListener("focus", SessionTimeout.onRestart);
+					}
+				}, 60000);
+			}
+		}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
 	},
 
 	stop : function() {
@@ -1618,7 +1631,14 @@ var SessionTimeout = {
 
 	onKeepActive : function() {
 		getElement(SessionTimeout.id + ":form:keepActive:id").click();
+	},
+
+	onRestart : function() {
+		window.removeEventListener("mousemove", SessionTimeout.onRestart);
+		window.removeEventListener("focus", SessionTimeout.onRestart);
+		getElement(SessionTimeout.id + ":sessionTimeout:form:panel:foot:button:id").click();
 	}
+
 };
 
 /* wait */
