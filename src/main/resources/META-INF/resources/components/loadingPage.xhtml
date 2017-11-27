@@ -12,7 +12,7 @@
 
 	<composite:implementation>
 		<h:panelGroup layout="block"
-			styleClass="aLeft #{cc.attrs.position == 'bottom' ? 'aBottom' : 'aTop'} pFixed w100 zNormal">
+			styleClass="loadingPage-box #{cc.attrs.position == 'bottom' ? 'aBottom' : 'aTop'}">
 			<h:panelGroup layout="block" styleClass="loadingPage">
 				<f:passThroughAttribute name="id" value="loadingPage" />
 				<h:panelGroup layout="block" styleClass="loadingPage-bar" />

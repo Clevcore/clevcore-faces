@@ -931,6 +931,14 @@ button.tertiary-outline .wait-path
 
 
 /* loadingPage */
+.loadingPage-box {
+	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100%;
+	z-index: 3;
+}
+
 .loadingPage {
 	position: relative;
     background-color: #7fa7c9;
