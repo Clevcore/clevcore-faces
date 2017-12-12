@@ -57,7 +57,8 @@ var Ajax = {
 				}
 			}
 
-			SessionTimeout.reset();
+			SessionTimeout.stop();
+
 			break;
 		case "complete":
 			if (getAttributeElement(data.source, "data-oncomplete") != null) {
@@ -72,6 +73,8 @@ var Ajax = {
 					Wait.enable();
 				}
 			}
+
+			SessionTimeout.start();
 
 			break;
 		case "success":
@@ -1581,6 +1584,7 @@ var SessionTimeout = {
 	repetitions : undefined,
 
 	countRepetitions : undefined,
+	tmpCountRepetitions : undefined,
 
 	timeout1 : undefined,
 	timeout2 : undefined,
@@ -1594,17 +1598,17 @@ var SessionTimeout = {
 			SessionTimeout.autorestart = autorestart;
 			SessionTimeout.repetitions = repetitions;
 
-			SessionTimeout.countRepetitions = 0;
-
 			SessionTimeout.start();
 		});
 	},
 
 	start : function() {
+		SessionTimeout.countRepetitions = 0;
+
 		SessionTimeout.timeout1 = setTimeout(function() {
 			SessionTimeout.countRepetitions++;
 			if (SessionTimeout.countRepetitions < SessionTimeout.repetitions) {
-				SessionTimeout.onKeepActive();
+				SessionTimeout.keep.init();
 			} else {
 				Popup.show(SessionTimeout.id + ":sessionAboutTimeout");
 
@@ -1614,9 +1618,9 @@ var SessionTimeout = {
 						window.addEventListener("mousemove", SessionTimeout.onRestart);
 						window.addEventListener("focus", SessionTimeout.onRestart);
 					}
-				}, 60000);
+				}, 55000);
 			}
-		}, (SessionTimeout.maxInactiveInterval - 60) * 1000);
+		}, (SessionTimeout.maxInactiveInterval - 55) * 1000);
 	},
 
 	stop : function() {
@@ -1624,13 +1628,18 @@ var SessionTimeout = {
 		clearTimeout(SessionTimeout.timeout2);
 	},
 
-	reset : function() {
-		SessionTimeout.stop();
-		SessionTimeout.start();
-	},
+	keep : {
+		init : function() {
+			getElement(SessionTimeout.id + ":form:keep:id").click();
+		},
 
-	onKeepActive : function() {
-		getElement(SessionTimeout.id + ":form:keepActive:id").click();
+		start : function() {
+			SessionTimeout.tmpCountRepetitions = SessionTimeout.countRepetitions;
+		},
+
+		stop : function() {
+			SessionTimeout.countRepetitions = SessionTimeout.tmpCountRepetitions;
+		}
 	},
 
 	onRestart : function() {

@@ -13,7 +13,9 @@
 
 	<composite:implementation>
 		<h:form id="form" styleClass="dNone">
-			<cc:commandButton id="keepActive" render="@this" />
+			<cc:commandButton id="keep" render="@this"
+				onbegin="SessionTimeout.keep.start();"
+				onsuccess="SessionTimeout.keep.stop();" />
 		</h:form>
 
 		<cc:popup id="sessionAboutTimeout" closeable="false">
