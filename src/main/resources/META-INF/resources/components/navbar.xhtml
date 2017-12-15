@@ -14,6 +14,8 @@
 		<composite:attribute name="shadow" default="true"
 			type="java.lang.Boolean" />
 		<composite:attribute name="onclick" />
+		<composite:attribute name="showSide" default="true"
+			type="java.lang.Boolean" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -23,7 +25,8 @@
 				style="#{cc.attrs.style}" data-autoHide="#{cc.attrs.autoHide}">
 
 				<cc:icon styleClass="iconSide" value="#{clevcoreIcon.menu}"
-					type="md" onclick="Navbar.side.show();" />
+					type="md" onclick="Navbar.side.show();"
+					rendered="#{cc.attrs.showSide}" />
 
 				<h:outputLink styleClass="logo" value="#{bbClevcore.path}"
 					rendered="#{cc.attrs.onclick == ''}">
