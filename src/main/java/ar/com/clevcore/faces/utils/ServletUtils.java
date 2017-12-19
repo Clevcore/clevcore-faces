@@ -40,7 +40,7 @@ public final class ServletUtils {
     }
 
     public static String getDirectory() {
-        int beginIndex = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
+        int beginIndex = StringUtils.ordinalIndexOf(getUrlFull(), "/", FacesUtils.getRequestPath() == "" ? 3 : 4);
         int endIndex = getUrlFull().lastIndexOf("/");
 
         if (beginIndex != endIndex) {
@@ -97,7 +97,7 @@ public final class ServletUtils {
     }
 
     public static String getUrl() {
-        int index = StringUtils.ordinalIndexOf(getUrlFull(), "/", 4);
+        int index = StringUtils.ordinalIndexOf(getUrlFull(), "/", FacesUtils.getRequestPath() == "" ? 3 : 4);
 
         if (index != -1) {
             return getUrlFull().substring(0, index);

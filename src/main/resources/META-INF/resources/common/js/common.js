@@ -1002,7 +1002,7 @@ function jsonEmpty(object) {
 }
 
 function getDirectory() {
-	var beginIndex = getUrlFull().ordinalIndexOf("/", 4);
+	var beginIndex = getUrlFull().ordinalIndexOf("/", path === "" ? 3 : 4);
 	var endIndex = getUrlFull().lastIndexOf("/");
 
 	if (beginIndex !== endIndex) {
@@ -1051,7 +1051,7 @@ function getPath() {
 }
 
 function getPathFull() {
-	var index = getUrlFull().ordinalIndexOf("/", 4);
+	var index = getUrlFull().ordinalIndexOf("/", path === "" ? 3 : 4);
 
 	if (index !== -1) {
 		return getUrlFull().substring(index);
@@ -1061,7 +1061,7 @@ function getPathFull() {
 }
 
 function getUrl() {
-	var index = getUrlFull().ordinalIndexOf("/", 4);
+	var index = getUrlFull().ordinalIndexOf("/", path === "" ? 3 : 4);
 
 	if (index !== -1) {
 		return getUrlFull().substring(0, index);
