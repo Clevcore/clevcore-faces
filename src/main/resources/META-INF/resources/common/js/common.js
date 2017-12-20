@@ -965,14 +965,16 @@ function parameterToObject() {
 
 	var parameters = window.location.search.substring(1).split("&");
 	parameters.forEach(function(parameter) {
-		parameter = parameter.split("=");
+		if (parameter.indexOf("=") !== -1) {
+			parameter = parameter.split("=");
 
-		if (isNumeric(parameter[1])) {
-			result[parameter[0]] = parseFloat(decodeURIComponent(parameter[1]));
-		} else if (isBoolean(parameter[1])) {
-			result[parameter[0]] = parseBoolean(decodeURIComponent(parameter[1]));
-		} else {
-			result[parameter[0]] = decodeURIComponent(parameter[1]);
+			if (isNumeric(parameter[1])) {
+				result[parameter[0]] = parseFloat(decodeURIComponent(parameter[1]));
+			} else if (isBoolean(parameter[1])) {
+				result[parameter[0]] = parseBoolean(decodeURIComponent(parameter[1]));
+			} else {
+				result[parameter[0]] = decodeURIComponent(parameter[1]);
+			}
 		}
 	});
 
