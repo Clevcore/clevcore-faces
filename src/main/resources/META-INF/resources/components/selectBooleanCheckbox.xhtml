@@ -47,7 +47,9 @@
 					value="#{cc.attrs.value}" disabled="#{cc.attrs.disabled}"
 					immediate="#{cc.attrs.immediate}" converter="#{cc.attrs.converter}"
 					required="#{cc.attrs.required}"
-					requiredMessage="#{cc.attrs.requiredMessage}">
+					requiredMessage="#{cc.attrs.requiredMessage}"
+					onchange="#{cc.attrs.onchange}"
+					onclick="#{cc.attrs.onclick}">
 					<c:if test="#{cc.attrs.onbegin ne null}">
 						<f:passThroughAttribute name="data-onbegin"
 							value="#{cc.attrs.onbegin}" />
