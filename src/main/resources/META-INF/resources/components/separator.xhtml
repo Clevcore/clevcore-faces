@@ -18,7 +18,8 @@
 			rendered="#{bbClevcore.isComponent(bbClevcore.ITEMS, cc.parent)}"
 			value="&lt;li&gt;" escape="false" />
 
-		<h:panelGroup layout="block"
+		<h:panelGroup
+			layout="#{cc.attrs.orientation == 'horizontal' ? 'block' : ''}"
 			styleClass="separator-#{cc.attrs.orientation} #{cc.attrs.styleClass}"
 			style="#{cc.attrs.style}" rendered="#{cc.attrs.rendered}" />
 
